@@ -2,15 +2,89 @@ import { describe, it, expect } from '@ohos/hypium';
 import { BoardFactory, SeededRandom } from '../main/ets/game/core/BoardFactory';
 import { cloneBoard, swapPieces } from '../main/ets/game/core/BoardSnapshot';
 import { GameSession, UNLIMITED_TOOL_COUNT } from '../main/ets/game/core/GameSession';
+import { BoardMoveAnalyzer } from '../main/ets/game/core/BoardMoveAnalyzer';
 import { GravityResolver } from '../main/ets/game/core/GravityResolver';
 import { MatchResolver } from '../main/ets/game/core/MatchResolver';
 import { SpecialResolver } from '../main/ets/game/core/SpecialResolver';
 import { PieceType } from '../main/ets/game/core/Types';
+import { LEVEL_MAPS, LEVEL_MAP_RAWFILE_PATHS } from '../main/ets/game/levels/LevelMaps';
 import { LEVELS } from '../main/ets/game/levels/levels';
 import { BoardAnimationPlanner } from '../main/ets/game/render/BoardAnimationPlanner';
 import { BoardLayout } from '../main/ets/game/render/BoardLayout';
+import { CanvasRenderer, GameCanvasContext } from '../main/ets/game/render/CanvasRenderer';
 import { MemoryProgressRepository } from '../main/ets/game/storage/MemoryProgressRepository';
 import { ProgressService } from '../main/ets/game/storage/ProgressService';
+
+class CountingCanvasContext implements GameCanvasContext {
+  fillStyle: string = '';
+  strokeStyle: string = '';
+  lineWidth: number = 1;
+  font: string = '';
+  textAlign: string = '';
+  textBaseline: string = '';
+  globalAlpha: number = 1;
+  operations: number = 0;
+
+  clearRect(x: number, y: number, width: number, height: number): void {
+    this.operations++;
+  }
+
+  save(): void {
+    this.operations++;
+  }
+
+  restore(): void {
+    this.operations++;
+  }
+
+  fill(): void {
+    this.operations++;
+  }
+
+  stroke(): void {
+    this.operations++;
+  }
+
+  beginPath(): void {
+    this.operations++;
+  }
+
+  closePath(): void {
+    this.operations++;
+  }
+
+  arc(x: number, y: number, radius: number, startAngle: number, endAngle: number): void {
+    this.operations++;
+  }
+
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void {
+    this.operations++;
+  }
+
+  ellipse(
+    x: number,
+    y: number,
+    radiusX: number,
+    radiusY: number,
+    rotation: number,
+    startAngle: number,
+    endAngle: number
+  ): void {
+    this.operations++;
+  }
+
+  moveTo(x: number, y: number): void {
+    this.operations++;
+  }
+
+  lineTo(x: number, y: number): void {
+    this.operations++;
+  }
+
+  fillText(text: string, x: number, y: number): void {
+    this.operations++;
+  }
+}
 
 export default function gameCoreTest() {
   describe('GameCore', () => {
@@ -88,6 +162,89 @@ export default function gameCoreTest() {
       });
       expect(types.size).assertLarger(1);
       expect(types.size <= 4).assertTrue();
+    });
+
+    it('usesOneHundredJsonBackedLevelMaps', 0, () => {
+      expect(LEVEL_MAPS.length).assertEqual(100);
+      expect(LEVEL_MAP_RAWFILE_PATHS.length).assertEqual(100);
+      expect(LEVEL_MAP_RAWFILE_PATHS[0]).assertEqual('levels/level_001.json');
+      expect(LEVEL_MAP_RAWFILE_PATHS[99]).assertEqual('levels/level_100.json');
+    });
+
+    it('earlyLevelsUseVariedBoardSizesAndHoles', 0, () => {
+      const sizeKeys = new Set<string>();
+      let earlyHoleLevels = 0;
+      for (let index = 0; index < 20; index++) {
+        const level = LEVELS[index];
+        sizeKeys.add(`${level.board.rows}x${level.board.cols}`);
+        const holes = level.blockers?.filter(blocker => blocker.type === 'hole') ?? [];
+        if (holes.length > 0) {
+          earlyHoleLevels++;
+        }
+      }
+      expect(sizeKeys.size).assertLarger(2);
+      expect(earlyHoleLevels).assertLarger(4);
+    });
+
+    it('levelConfigsFollowJsonMapDimensions', 0, () => {
+      for (let index = 0; index < LEVELS.length; index++) {
+        expect(LEVELS[index].board.rows).assertEqual(LEVEL_MAPS[index].rows);
+        expect(LEVELS[index].board.cols).assertEqual(LEVEL_MAPS[index].cols);
+      }
+    });
+
+    it('levelsIncludeDecorativeMapShapes', 0, () => {
+      const shapes = new Set<string>();
+      LEVEL_MAPS.forEach(map => {
+        shapes.add(map.shape);
+      });
+      expect(shapes.has('heart')).assertTrue();
+      expect(shapes.has('butterfly')).assertTrue();
+      expect(shapes.has('spiral')).assertTrue();
+      expect(shapes.size).assertLarger(11);
+    });
+
+    it('interiorHolesAreUsedBeforeLevelTwenty', 0, () => {
+      let interiorHoleLevels = 0;
+      for (let index = 0; index < 20; index++) {
+        const map = LEVEL_MAPS[index];
+        const holes = map.blockers.filter(blocker => blocker.type === 'hole');
+        const hasInteriorHole = holes.some(hole => {
+          return hole.row > 0 && hole.row < map.rows - 1 && hole.col > 0 && hole.col < map.cols - 1;
+        });
+        if (hasInteriorHole) {
+          interiorHoleLevels++;
+        }
+      }
+      expect(interiorHoleLevels).assertLarger(7);
+    });
+
+    it('levelHolesStayUnderScaledLimit', 0, () => {
+      LEVEL_MAPS.forEach(map => {
+        const holes = map.blockers.filter(blocker => blocker.type === 'hole');
+        const limit = Math.floor(6 * map.rows * map.cols / 64);
+        expect(holes.length <= limit).assertTrue();
+      });
+    });
+
+    it('scoreGoalsAreModeratelyHarder', 0, () => {
+      LEVEL_MAPS.forEach(map => {
+        map.goals.forEach(goal => {
+          if (goal.type !== 'score') {
+            return;
+          }
+          let oldScore = 0;
+          if (map.id < 10) {
+            oldScore = 520 + map.id * 110;
+          } else if (map.id < 20) {
+            oldScore = 680 + map.id * 110;
+          } else {
+            oldScore = 2600 + map.id * 85;
+          }
+          expect(goal.count >= Math.round(oldScore * 1.5)).assertTrue();
+          expect(goal.count <= Math.round(oldScore * 2)).assertTrue();
+        });
+      });
     });
 
     it('holeTilesStayEmptyAfterGravity', 0, () => {
@@ -208,6 +365,172 @@ export default function gameCoreTest() {
       expect(MatchResolver.findMatches(session.state.board).length).assertEqual(0);
     });
 
+    it('nonRainbowSpecialSwapRequiresAMatch', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Special Rule Test',
+        moves: 5,
+        board: { rows: 4, cols: 4, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 5000 }]
+      }, 6201);
+      const types: PieceType[][] = [
+        ['red', 'blue', 'yellow', 'green'],
+        ['green', 'yellow', 'blue', 'red'],
+        ['blue', 'red', 'green', 'yellow'],
+        ['yellow', 'green', 'red', 'blue']
+      ];
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          session.state.board.tiles[row][col].piece!.type = types[row][col];
+          session.state.board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+      session.state.board.tiles[1][1].piece!.special = 'row_clear';
+
+      expect(session.trySwap({ row: 1, col: 1 }, { row: 1, col: 2 })).assertFalse();
+      expect(session.state.movesLeft).assertEqual(5);
+    });
+
+    it('nonRainbowSpecialNormalSwapIsNotAvailableMoveWithoutMatch', 0, () => {
+      const board = BoardFactory.create({ rows: 4, cols: 4, seed: 6204, pieceTypes: ['red', 'blue', 'yellow', 'green'] });
+      const types: PieceType[][] = [
+        ['red', 'blue', 'yellow', 'green'],
+        ['green', 'yellow', 'blue', 'red'],
+        ['blue', 'red', 'green', 'yellow'],
+        ['yellow', 'green', 'red', 'blue']
+      ];
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          board.tiles[row][col].piece!.type = types[row][col];
+          board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+      board.tiles[1][1].piece!.special = 'row_clear';
+
+      expect(BoardMoveAnalyzer.isValidMove(board, { row: 1, col: 1 }, { row: 1, col: 2 })).assertFalse();
+    });
+
+    it('functionalSpecialsCanSwapDirectly', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Functional Combo Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 5000 }]
+      }, 6205);
+      const types: PieceType[][] = [
+        ['red', 'blue', 'yellow', 'green', 'red'],
+        ['green', 'yellow', 'blue', 'red', 'green'],
+        ['blue', 'red', 'green', 'yellow', 'blue'],
+        ['yellow', 'green', 'red', 'blue', 'yellow'],
+        ['red', 'blue', 'yellow', 'green', 'red']
+      ];
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
+          session.state.board.tiles[row][col].piece!.type = types[row][col];
+          session.state.board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+      session.state.board.tiles[2][2].piece!.special = 'row_clear';
+      session.state.board.tiles[2][3].piece!.special = 'col_clear';
+
+      expect(session.trySwap({ row: 2, col: 2 }, { row: 2, col: 3 })).assertTrue();
+      expect(session.state.movesLeft).assertEqual(4);
+      expect(session.state.score).assertLarger(80);
+    });
+
+    it('bombBombSwapCreatesLargerExplosion', 0, () => {
+      const board = BoardFactory.create({ rows: 7, cols: 7, seed: 6206, pieceTypes: ['red', 'blue', 'yellow', 'green'] });
+      board.tiles[3][3].piece!.special = 'bomb';
+      board.tiles[3][4].piece!.special = 'bomb';
+
+      const positions = SpecialResolver.swapActivatedPositions(board, { row: 3, col: 3 }, { row: 3, col: 4 });
+      const keys = new Set<string>();
+      positions.forEach(position => {
+        keys.add(`${position.row}_${position.col}`);
+      });
+
+      expect(keys.has('1_1')).assertTrue();
+      expect(keys.has('5_6')).assertTrue();
+      expect(positions.length).assertLarger(24);
+    });
+
+    it('refillIdsStayUniqueAcrossMultipleMoves', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Unique Refill Id Test',
+        moves: 8,
+        board: { rows: 4, cols: 4, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 5000 }]
+      }, 6202);
+      const types: PieceType[][] = [
+        ['blue', 'green', 'yellow', 'red'],
+        ['red', 'blue', 'green', 'yellow'],
+        ['yellow', 'red', 'blue', 'green'],
+        ['green', 'yellow', 'red', 'blue']
+      ];
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          const piece = session.state.board.tiles[row][col].piece!;
+          piece.id = `fixed_${row}_${col}`;
+          piece.type = types[row][col];
+          piece.special = 'none';
+        }
+      }
+      session.state.board.tiles[0][0].piece!.id = 's_0_0_0_0';
+
+      expect(session.useHammerTool({ row: 1, col: 0 })).assertTrue();
+
+      const ids = new Set<string>();
+      let pieceCount = 0;
+      for (let row = 0; row < session.state.board.rows; row++) {
+        for (let col = 0; col < session.state.board.cols; col++) {
+          const piece = session.state.board.tiles[row][col].piece;
+          if (piece) {
+            pieceCount++;
+            ids.add(piece.id);
+          }
+        }
+      }
+      expect(ids.size).assertEqual(pieceCount);
+    });
+
+    it('rainbowLineSpecialSwapActivatesEveryTargetRow', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Rainbow Line Combo Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 5000 }]
+      }, 6203);
+      const types: PieceType[][] = [
+        ['yellow', 'red', 'blue', 'green', 'yellow'],
+        ['green', 'blue', 'yellow', 'green', 'blue'],
+        ['blue', 'yellow', 'red', 'green', 'blue'],
+        ['yellow', 'green', 'blue', 'yellow', 'green'],
+        ['green', 'blue', 'yellow', 'green', 'red']
+      ];
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
+          session.state.board.tiles[row][col].piece!.type = types[row][col];
+          session.state.board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+      session.state.board.tiles[0][0].piece!.special = 'rainbow';
+      session.state.board.tiles[0][1].piece!.special = 'row_clear';
+
+      const positions = SpecialResolver.swapActivatedPositions(session.state.board, { row: 0, col: 0 }, { row: 0, col: 1 });
+      const keys = new Set<string>();
+      positions.forEach(position => {
+        keys.add(`${position.row}_${position.col}`);
+      });
+
+      for (let col = 0; col < 5; col++) {
+        expect(keys.has(`2_${col}`)).assertTrue();
+        expect(keys.has(`4_${col}`)).assertTrue();
+      }
+    });
+
     it('brushToolChangesNormalPieceButRejectsSpecialPiece', 0, () => {
       const session = new GameSession({
         id: 1,
@@ -221,6 +544,21 @@ export default function gameCoreTest() {
       const oldType = session.state.board.tiles[0][0].piece!.type;
       expect(session.useBrushTool({ row: 0, col: 0 })).assertTrue();
       expect(session.state.board.tiles[0][0].piece!.type === oldType).assertFalse();
+    });
+
+    it('brushToolChangesNormalPieceToSelectedColor', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Brush Selected Color Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'] },
+        goals: [{ type: 'score', count: 1000 }]
+      }, 62);
+      session.state.board.tiles[0][0].piece!.type = 'red';
+      session.state.board.tiles[0][0].piece!.special = 'none';
+
+      expect(session.useBrushTool({ row: 0, col: 0 }, 'purple')).assertTrue();
+      expect(session.state.board.tiles[0][0].piece!.type).assertEqual('purple');
     });
 
     it('undoToolRestoresPreviousState', 0, () => {
@@ -456,6 +794,42 @@ export default function gameCoreTest() {
       expect(falling?.offsetY).assertEqual(-40);
       expect(spawned?.offsetY).assertEqual(-40);
       expect((spawned?.opacity ?? 1) < 1).assertTrue();
+    });
+
+    it('settlePlannerSkipsStillPieces', 0, () => {
+      const before = BoardFactory.create({ rows: 3, cols: 2, seed: 302, pieceTypes: ['red', 'blue', 'yellow'] });
+      const after = cloneBoard(before);
+      after.tiles[2][0].piece = after.tiles[1][0].piece;
+      after.tiles[1][0].piece = after.tiles[0][0].piece;
+      after.tiles[0][0].piece = {
+        id: 'spawned_piece_for_sparse_motion',
+        type: 'yellow',
+        special: 'none'
+      };
+
+      const effects = BoardAnimationPlanner.planFallEffects(before, after, 40);
+
+      expect(effects.length).assertEqual(3);
+      expect(Boolean(effects.find(effect => effect.row === 0 && effect.col === 1))).assertFalse();
+      expect(Boolean(effects.find(effect => effect.row === 1 && effect.col === 1))).assertFalse();
+      expect(Boolean(effects.find(effect => effect.row === 2 && effect.col === 1))).assertFalse();
+    });
+
+    it('animatedCanvasRenderingUsesLowerCostPiecePass', 0, () => {
+      const board = BoardFactory.create({ rows: 8, cols: 8, seed: 303, pieceTypes: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'] });
+      const renderer = new CanvasRenderer();
+      const staticContext = new CountingCanvasContext();
+      const animatedContext = new CountingCanvasContext();
+      renderer.draw(staticContext, board, { width: 360, height: 420 });
+      renderer.draw(animatedContext, board, {
+        width: 360,
+        height: 420,
+        animation: {
+          pieceEffects: [{ row: 0, col: 0, offsetX: 24, offsetY: 0, scale: 1.04, opacity: 1 }]
+        }
+      });
+
+      expect(animatedContext.operations < staticContext.operations).assertTrue();
     });
 
     it('recordsWinningProgressAndUnlocksNextLevel', 0, async () => {

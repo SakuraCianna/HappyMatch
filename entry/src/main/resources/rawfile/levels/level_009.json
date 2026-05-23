@@ -1,0 +1,69 @@
+{
+  "id": 9,
+  "title": "Level 9",
+  "rawfilePath": "levels/level_009.json",
+  "rows": 9,
+  "cols": 7,
+  "shape": "hourglass",
+  "availableCells": 58,
+  "moves": 32,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 2265
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 4,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "blue",
+      "special": "col_clear"
+    }
+  ]
+}

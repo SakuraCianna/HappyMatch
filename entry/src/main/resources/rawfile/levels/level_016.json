@@ -1,0 +1,74 @@
+{
+  "id": 16,
+  "title": "Level 16",
+  "rawfilePath": "levels/level_016.json",
+  "rows": 8,
+  "cols": 6,
+  "shape": "arrow",
+  "availableCells": 44,
+  "moves": 31,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 3660
+    },
+    {
+      "type": "collect_piece",
+      "target": "blue",
+      "count": 10
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 4,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "blue",
+      "special": "col_clear"
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "purple",
+      "special": "bomb"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": 8,
+  "title": "Level 8",
+  "rawfilePath": "levels/level_008.json",
+  "rows": 9,
+  "cols": 9,
+  "shape": "spiral",
+  "availableCells": 74,
+  "moves": 32,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 2100
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 2,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 3,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "blue",
+      "special": "col_clear"
+    }
+  ],
+  "tutorial": [
+    "Vertical and horizontal specials use different arrow marks."
+  ]
+}

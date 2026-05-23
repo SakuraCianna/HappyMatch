@@ -1,0 +1,123 @@
+{
+  "id": 33,
+  "title": "Level 33",
+  "rawfilePath": "levels/level_033.json",
+  "rows": 8,
+  "cols": 9,
+  "shape": "lantern",
+  "availableCells": 66,
+  "moves": 30,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "clear_ice",
+      "count": 6
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 3,
+      "col": 7,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 7,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 6,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 3,
+      "col": 5,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 5,
+      "col": 5,
+      "type": "blue",
+      "special": "col_clear"
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "purple",
+      "special": "bomb"
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "type": "purple",
+      "special": "rainbow"
+    }
+  ]
+}

@@ -19,7 +19,10 @@ export interface PieceRenderEffect {
 
 export interface BoardRenderState {
   pieceEffects?: PieceRenderEffect[];
+  fastMode?: boolean;
 }
+
+type PieceEffectLookup = (PieceRenderEffect | undefined)[];
 
 export interface GameCanvasContext {
   fillStyle: string;
@@ -55,21 +58,25 @@ export interface GameCanvasContext {
 interface PiecePalette {
   base: string;
   dark: string;
+  light: string;
+  sheen: string;
 }
 
 const PALETTE: Record<PieceType, PiecePalette> = {
-  red: { base: '#F27A91', dark: '#D95370' },
-  blue: { base: '#69B8EA', dark: '#3D91D4' },
-  yellow: { base: '#EFC957', dark: '#D8A73B' },
-  green: { base: '#76D37B', dark: '#4DB862' },
-  purple: { base: '#B487EF', dark: '#8663D8' },
-  orange: { base: '#F39967', dark: '#DF7048' }
+  red: { base: '#F27A91', dark: '#C84F68', light: '#FFA6B8', sheen: 'rgba(255, 232, 238, 0.42)' },
+  blue: { base: '#69B8EA', dark: '#327FC1', light: '#93D7F7', sheen: 'rgba(232, 249, 255, 0.42)' },
+  yellow: { base: '#EFC957', dark: '#C89326', light: '#FFE27A', sheen: 'rgba(255, 250, 219, 0.46)' },
+  green: { base: '#76D37B', dark: '#3FA856', light: '#9CEC9D', sheen: 'rgba(234, 255, 235, 0.42)' },
+  purple: { base: '#B487EF', dark: '#7952CC', light: '#CCA8FF', sheen: 'rgba(245, 235, 255, 0.42)' },
+  orange: { base: '#F39967', dark: '#D7633C', light: '#FFB487', sheen: 'rgba(255, 238, 226, 0.42)' }
 };
 
 export class CanvasRenderer {
   draw(ctx: GameCanvasContext, board: Board, options: RenderOptions): void {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
-    const effectMap = options.animation?.pieceEffects ? this.buildEffectMap(options.animation.pieceEffects) : undefined;
+    const effectLookup = options.animation?.pieceEffects ?
+      this.buildEffectLookup(options.animation.pieceEffects, board.cols) : undefined;
+    const fastMode = options.animation?.fastMode === true || options.animation?.pieceEffects !== undefined;
 
     ctx.clearRect(0, 0, options.width, options.height);
     this.drawBoardBackground(ctx, layout.offsetX, layout.offsetY, layout.boardWidth, layout.boardHeight);
@@ -77,17 +84,18 @@ export class CanvasRenderer {
     for (let row = 0; row < board.rows; row++) {
       for (let col = 0; col < board.cols; col++) {
         const tile = board.tiles[row][col];
-        const center = BoardLayout.centerOf(layout, { row, col });
+        const centerX = layout.offsetX + col * layout.tileSize + layout.tileSize / 2;
+        const centerY = layout.offsetY + row * layout.tileSize + layout.tileSize / 2;
         if (tile.blocker) {
-          this.drawBlocker(ctx, tile.blocker.type, center.x, center.y, layout.tileSize * 0.78, tile.blocker.hp);
+          this.drawBlocker(ctx, tile.blocker.type, centerX, centerY, layout.tileSize * 0.78, tile.blocker.hp);
         }
         if (tile.piece) {
-          const effect = effectMap?.get(this.cellKey(row, col));
+          const effect = effectLookup ? effectLookup[row * board.cols + col] : undefined;
           const offsetX = effect ? effect.offsetX : 0;
           const offsetY = effect ? effect.offsetY : 0;
           const scale = effect ? effect.scale : 1;
           const opacity = effect ? effect.opacity : 1;
-          this.drawPiece(ctx, tile.piece, center.x + offsetX, center.y + offsetY, layout.tileSize * 0.70 * scale, opacity);
+          this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity, fastMode);
         }
       }
     }
@@ -104,23 +112,30 @@ export class CanvasRenderer {
     ctx.restore();
   }
 
-  private drawPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number): void {
+  private drawPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number, fastMode: boolean): void {
     if (opacity <= 0.01 || size <= 1) {
       return;
     }
     const palette = PALETTE[piece.type];
     ctx.save();
     ctx.globalAlpha = opacity;
+    if (fastMode) {
+      this.drawFastPiece(ctx, piece, cx, cy, size, palette);
+      ctx.restore();
+      return;
+    }
     this.drawSpecialAura(ctx, piece, cx, cy, size);
     if (piece.special === 'rainbow') {
       this.drawRainbowPiece(ctx, cx, cy, size);
     } else {
+      this.drawPieceShape(ctx, piece.type, cx, cy + size * 0.05, size * 1.01, 'rgba(92, 58, 74, 0.16)', 'rgba(92, 58, 74, 0.00)');
       this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
+      this.drawPieceSurface(ctx, piece.type, cx, cy, size, palette);
     }
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.24)';
     ctx.beginPath();
-    ctx.arc(cx - size * 0.18, cy - size * 0.18, size * 0.08, 0, Math.PI * 2);
+    ctx.arc(cx - size * 0.19, cy - size * 0.20, size * 0.065, 0, Math.PI * 2);
     ctx.fill();
 
     if (piece.special === 'none') {
@@ -131,20 +146,41 @@ export class CanvasRenderer {
     ctx.restore();
   }
 
-  private buildEffectMap(effects: PieceRenderEffect[] | undefined): Map<string, PieceRenderEffect> {
-    const result = new Map<string, PieceRenderEffect>();
-    if (!effects) {
-      return result;
+  private drawFastPiece(
+    ctx: GameCanvasContext,
+    piece: Piece,
+    cx: number,
+    cy: number,
+    size: number,
+    palette: PiecePalette
+  ): void {
+    if (piece.special === 'rainbow') {
+      ctx.fillStyle = '#FBFBFF';
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = Math.max(2, size * 0.05);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.48, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    } else {
+      this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
+      ctx.fillStyle = palette.sheen;
+      ctx.beginPath();
+      ctx.arc(cx - size * 0.17, cy - size * 0.19, size * 0.08, 0, Math.PI * 2);
+      ctx.fill();
     }
-    for (let index = 0; index < effects.length; index++) {
-      const effect = effects[index];
-      result.set(this.cellKey(effect.row, effect.col), effect);
+    if (piece.special !== 'none') {
+      this.drawSpecialMark(ctx, piece, cx, cy, size);
     }
-    return result;
   }
 
-  private cellKey(row: number, col: number): string {
-    return `${row}_${col}`;
+  private buildEffectLookup(effects: PieceRenderEffect[], cols: number): PieceEffectLookup {
+    const result: PieceEffectLookup = [];
+    for (let index = 0; index < effects.length; index++) {
+      const effect = effects[index];
+      result[effect.row * cols + effect.col] = effect;
+    }
+    return result;
   }
 
   private drawPieceShape(
@@ -160,6 +196,58 @@ export class CanvasRenderer {
     ctx.strokeStyle = dark;
     ctx.lineWidth = Math.max(2, size * 0.07);
     ctx.beginPath();
+    this.piecePath(ctx, type, cx, cy, size);
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  private drawPieceSurface(
+    ctx: GameCanvasContext,
+    type: PieceType,
+    cx: number,
+    cy: number,
+    size: number,
+    palette: PiecePalette
+  ): void {
+    ctx.save();
+    ctx.fillStyle = palette.light;
+    ctx.beginPath();
+    this.piecePath(ctx, type, cx - size * 0.035, cy - size * 0.055, size * 0.70);
+    ctx.fill();
+
+    ctx.fillStyle = palette.sheen;
+    ctx.beginPath();
+    if (type === 'yellow') {
+      this.starPath(ctx, cx - size * 0.12, cy - size * 0.16, size * 0.16, size * 0.06, 5);
+    } else if (type === 'blue') {
+      ctx.moveTo(cx - size * 0.02, cy - size * 0.31);
+      ctx.lineTo(cx + size * 0.24, cy - size * 0.05);
+      ctx.lineTo(cx + size * 0.02, cy + size * 0.10);
+      ctx.lineTo(cx - size * 0.23, cy - size * 0.08);
+      ctx.closePath();
+    } else {
+      ctx.ellipse(cx - size * 0.13, cy - size * 0.18, size * 0.19, size * 0.10, -Math.PI / 7, 0, Math.PI * 2);
+    }
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.26)';
+    ctx.lineWidth = Math.max(1, size * 0.028);
+    ctx.beginPath();
+    if (type === 'blue') {
+      ctx.moveTo(cx, cy - size * 0.31);
+      ctx.lineTo(cx, cy + size * 0.31);
+      ctx.moveTo(cx - size * 0.31, cy);
+      ctx.lineTo(cx + size * 0.31, cy);
+    } else if (type === 'yellow') {
+      this.starPath(ctx, cx, cy, size * 0.31, size * 0.13, 5);
+    } else {
+      ctx.ellipse(cx + size * 0.05, cy + size * 0.02, size * 0.25, size * 0.35, Math.PI / 7, Math.PI * 0.18, Math.PI * 1.28);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  private piecePath(ctx: GameCanvasContext, type: PieceType, cx: number, cy: number, size: number): void {
     if (type === 'blue') {
       ctx.moveTo(cx, cy - size / 2);
       ctx.lineTo(cx + size / 2, cy);
@@ -177,8 +265,6 @@ export class CanvasRenderer {
     } else {
       ctx.arc(cx, cy, size / 2, 0, Math.PI * 2);
     }
-    ctx.fill();
-    ctx.stroke();
   }
 
   private drawPieceMark(ctx: GameCanvasContext, type: PieceType, cx: number, cy: number, size: number): void {

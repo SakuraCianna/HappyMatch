@@ -1,0 +1,255 @@
+{
+  "id": 87,
+  "title": "Level 87",
+  "rawfilePath": "levels/level_087.json",
+  "rows": 8,
+  "cols": 8,
+  "shape": "flower",
+  "availableCells": 58,
+  "moves": 25,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple",
+    "orange"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 14993
+    },
+    {
+      "type": "clear_ice",
+      "count": 9
+    },
+    {
+      "type": "break_chain",
+      "count": 8
+    }
+  ],
+  "blockers": [
+    {
+      "row": 0,
+      "col": 1,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 0,
+      "col": 3,
+      "type": "portal",
+      "hp": 1,
+      "portalId": "a_in",
+      "targetPortalId": "a_out"
+    },
+    {
+      "row": 0,
+      "col": 4,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 0,
+      "col": 7,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 7,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 2,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 6,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 6,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 1,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 2,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 5,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 6,
+      "col": 1,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 6,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 6,
+      "type": "portal",
+      "hp": 1,
+      "portalId": "a_out"
+    },
+    {
+      "row": 6,
+      "col": 7,
+      "type": "marshmallow",
+      "hp": 2
+    },
+    {
+      "row": 7,
+      "col": 0,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 3,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 6,
+      "type": "chain",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 2,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 5,
+      "col": 3,
+      "type": "blue",
+      "special": "col_clear"
+    },
+    {
+      "row": 3,
+      "col": 6,
+      "type": "purple",
+      "special": "bomb"
+    },
+    {
+      "row": 7,
+      "col": 4,
+      "type": "orange",
+      "special": "rainbow"
+    }
+  ]
+}

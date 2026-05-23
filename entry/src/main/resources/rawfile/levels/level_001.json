@@ -1,0 +1,27 @@
+{
+  "id": 1,
+  "title": "Level 1",
+  "rawfilePath": "levels/level_001.json",
+  "rows": 6,
+  "cols": 6,
+  "shape": "full",
+  "availableCells": 36,
+  "moves": 34,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 945
+    }
+  ],
+  "blockers": [],
+  "specialPieces": [],
+  "tutorial": [
+    "Swap adjacent pieces to make a line of three."
+  ]
+}

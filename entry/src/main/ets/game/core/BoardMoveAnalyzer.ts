@@ -1,5 +1,6 @@
 import { Board, Position } from './Types';
 import { BlockerResolver } from '../mechanics/BlockerResolver';
+import { SpecialResolver } from './SpecialResolver';
 
 export class BoardMoveAnalyzer {
   static hasAvailableMove(board: Board): boolean {
@@ -27,7 +28,7 @@ export class BoardMoveAnalyzer {
     if (!firstPiece || !secondPiece) {
       return false;
     }
-    if (firstPiece.special !== 'none' || secondPiece.special !== 'none') {
+    if (SpecialResolver.isDirectSpecialSwap(board, first, second)) {
       return true;
     }
     BoardMoveAnalyzer.swap(board, first, second);

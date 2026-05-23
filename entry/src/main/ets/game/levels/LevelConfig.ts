@@ -27,6 +27,9 @@ export interface LevelSpecialPieceConfig {
 export interface LevelConfig {
   id: number;
   title: string;
+  mapPath?: string;
+  shape?: string;
+  availableCells?: number;
   moves: number;
   board: {
     rows: number;

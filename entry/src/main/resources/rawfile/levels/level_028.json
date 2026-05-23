@@ -1,0 +1,105 @@
+{
+  "id": 28,
+  "title": "Level 28",
+  "rawfilePath": "levels/level_028.json",
+  "rows": 7,
+  "cols": 8,
+  "shape": "twin_islands",
+  "availableCells": 51,
+  "moves": 30,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "clear_ice",
+      "count": 5
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 6,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 6,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "type": "blue",
+      "special": "col_clear"
+    },
+    {
+      "row": 5,
+      "col": 5,
+      "type": "purple",
+      "special": "bomb"
+    }
+  ]
+}

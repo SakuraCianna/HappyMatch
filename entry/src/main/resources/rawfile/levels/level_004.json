@@ -1,0 +1,49 @@
+{
+  "id": 4,
+  "title": "Level 4",
+  "rawfilePath": "levels/level_004.json",
+  "rows": 6,
+  "cols": 8,
+  "shape": "side_notches",
+  "availableCells": 44,
+  "moves": 32,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 1440
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 0,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 7,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 0,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 7,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": []
+}

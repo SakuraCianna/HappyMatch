@@ -46,13 +46,17 @@ export class BoardAnimationPlanner {
           opacity = 0.38;
         }
 
-        motions.push({
-          row,
-          col,
-          offsetX: (startCol - col) * tileSize,
-          offsetY: (startRow - row) * tileSize,
-          opacity
-        });
+        const offsetX = (startCol - col) * tileSize;
+        const offsetY = (startRow - row) * tileSize;
+        if (offsetX !== 0 || offsetY !== 0 || opacity < 1) {
+          motions.push({
+            row,
+            col,
+            offsetX,
+            offsetY,
+            opacity
+          });
+        }
       }
     }
 

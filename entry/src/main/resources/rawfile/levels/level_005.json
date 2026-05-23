@@ -1,0 +1,72 @@
+{
+  "id": 5,
+  "title": "Level 5",
+  "rawfilePath": "levels/level_005.json",
+  "rows": 8,
+  "cols": 8,
+  "shape": "heart",
+  "availableCells": 58,
+  "moves": 32,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 1605
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 2,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 4,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    }
+  ],
+  "tutorial": [
+    "Special glowing pieces and shaped hollow cells begin here."
+  ]
+}

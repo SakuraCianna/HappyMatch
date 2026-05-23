@@ -1,0 +1,90 @@
+{
+  "id": 20,
+  "title": "Level 20",
+  "rawfilePath": "levels/level_020.json",
+  "rows": 9,
+  "cols": 7,
+  "shape": "side_notches",
+  "availableCells": 59,
+  "moves": 31,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "clear_ice",
+      "count": 3
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 0,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 0,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 5,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "blue",
+      "special": "col_clear"
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "type": "purple",
+      "special": "bomb"
+    }
+  ],
+  "tutorial": [
+    "Ice appears: clear nearby pieces to break it."
+  ]
+}

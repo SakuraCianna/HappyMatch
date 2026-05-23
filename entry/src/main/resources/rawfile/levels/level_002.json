@@ -1,0 +1,52 @@
+{
+  "id": 2,
+  "title": "Level 2",
+  "rawfilePath": "levels/level_002.json",
+  "rows": 7,
+  "cols": 7,
+  "shape": "center_diamond",
+  "availableCells": 45,
+  "moves": 32,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 1110
+    }
+  ],
+  "blockers": [
+    {
+      "row": 2,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [],
+  "tutorial": [
+    "Different board sizes begin here."
+  ]
+}

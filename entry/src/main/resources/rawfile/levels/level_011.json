@@ -1,0 +1,80 @@
+{
+  "id": 11,
+  "title": "Level 11",
+  "rawfilePath": "levels/level_011.json",
+  "rows": 9,
+  "cols": 8,
+  "shape": "keyhole",
+  "availableCells": 66,
+  "moves": 32,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple"
+  ],
+  "goals": [
+    {
+      "type": "score",
+      "count": 2835
+    },
+    {
+      "type": "collect_piece",
+      "target": "blue",
+      "count": 8
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 4,
+      "col": 4,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "blue",
+      "special": "col_clear"
+    }
+  ]
+}

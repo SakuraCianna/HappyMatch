@@ -1,0 +1,148 @@
+{
+  "id": 41,
+  "title": "Level 41",
+  "rawfilePath": "levels/level_041.json",
+  "rows": 7,
+  "cols": 9,
+  "shape": "hourglass",
+  "availableCells": 58,
+  "moves": 29,
+  "pieceTypes": [
+    "red",
+    "blue",
+    "yellow",
+    "green",
+    "purple",
+    "orange"
+  ],
+  "goals": [
+    {
+      "type": "break_chain",
+      "count": 3
+    }
+  ],
+  "blockers": [
+    {
+      "row": 1,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 2,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 8,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 4,
+      "col": 6,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 0,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 3,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 5,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 7,
+      "type": "hole",
+      "hp": 1
+    }
+  ],
+  "specialPieces": [
+    {
+      "row": 3,
+      "col": 5,
+      "type": "yellow",
+      "special": "row_clear"
+    },
+    {
+      "row": 6,
+      "col": 4,
+      "type": "blue",
+      "special": "col_clear"
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "type": "purple",
+      "special": "bomb"
+    },
+    {
+      "row": 3,
+      "col": 6,
+      "type": "orange",
+      "special": "rainbow"
+    }
+  ]
+}

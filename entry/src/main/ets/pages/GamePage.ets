@@ -5,7 +5,7 @@ import { cloneBoard, swapPieces } from '../game/core/BoardSnapshot';
 import { GameSession } from '../game/core/GameSession';
 import { MatchResolver } from '../game/core/MatchResolver';
 import { SpecialResolver } from '../game/core/SpecialResolver';
-import { Board, Position } from '../game/core/Types';
+import { Board, PieceType, Position, SpecialType } from '../game/core/Types';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
 import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
@@ -18,6 +18,8 @@ interface MovePreview {
   accepted: boolean;
   swappedBoard: Board;
   clearPositions: Position[];
+  conversionBoard?: Board;
+  convertedPositions?: Position[];
 }
 
 @Entry
@@ -29,6 +31,8 @@ struct GamePage {
   private inputMapper: BoardInputMapper = new BoardInputMapper();
   private session?: GameSession;
   private boardLayout?: BoardLayoutResult;
+  private cachedLayout?: BoardLayoutResult;
+  private cachedLayoutKey: string = '';
   private canvasWidth: number = 360;
   private canvasHeight: number = 420;
   private resultSaved: boolean = false;
@@ -46,6 +50,7 @@ struct GamePage {
   @State private brushToolCount: number = 0;
   @State private undoToolCount: number = 0;
   @State private busyTool: string = '';
+  @State private selectedBrushColor: PieceType = 'red';
   @State private showResult: boolean = false;
   @State private resultTitle: string = '';
   @State private resultStars: string = '';
@@ -166,6 +171,7 @@ struct GamePage {
         }
         .width('100%')
         .padding({ left: 18, right: 18, bottom: 8 })
+        .margin({ top: 26 })
 
         if (this.shouldShowGoalChip()) {
           Text(this.goalText)
@@ -176,7 +182,7 @@ struct GamePage {
             .borderRadius(16)
             .backgroundColor('rgba(255, 255, 255, 0.50)')
             .textAlign(TextAlign.Center)
-            .margin({ bottom: 6 })
+            .margin({ top: 8, bottom: 4 })
         }
 
         Canvas(this.context)
@@ -185,7 +191,7 @@ struct GamePage {
           .backgroundColor('rgba(255, 243, 199, 0.78)')
           .borderRadius(22)
           .shadow({ radius: 24, color: 'rgba(92, 58, 74, 0.18)', offsetX: 0, offsetY: 8 })
-          .margin({ top: 54 })
+          .margin({ top: 24 })
           .onReady(() => {
             this.canvasReady = true;
             this.draw();
@@ -193,6 +199,34 @@ struct GamePage {
           .onTouch((event: TouchEvent) => {
             this.handleTouch(event);
           })
+
+        if (this.activeTool === 'brush') {
+          Row() {
+            if (this.canUseBrushColor('red')) {
+              this.BrushColorButton('red')
+            }
+            if (this.canUseBrushColor('blue')) {
+              this.BrushColorButton('blue')
+            }
+            if (this.canUseBrushColor('yellow')) {
+              this.BrushColorButton('yellow')
+            }
+            if (this.canUseBrushColor('green')) {
+              this.BrushColorButton('green')
+            }
+            if (this.canUseBrushColor('purple')) {
+              this.BrushColorButton('purple')
+            }
+            if (this.canUseBrushColor('orange')) {
+              this.BrushColorButton('orange')
+            }
+          }
+          .width('82%')
+          .height(38)
+          .justifyContent(FlexAlign.SpaceBetween)
+          .alignItems(VerticalAlign.Center)
+          .margin({ top: 8 })
+        }
 
         Row() {
           Stack() {
@@ -263,7 +297,7 @@ struct GamePage {
           .width(62)
           .height(62)
           .borderRadius(31)
-          .backgroundColor(this.activeTool === 'brush' || this.busyTool === 'brush' ? '#B9F3C0' : 'rgba(185, 243, 192, 0.78)')
+          .backgroundColor(this.activeTool === 'brush' || this.busyTool === 'brush' ? this.brushColorValue(this.selectedBrushColor) : 'rgba(185, 243, 192, 0.78)')
           .border({ width: 2, color: this.activeTool === 'brush' || this.busyTool === 'brush' ? '#4DB862' : 'rgba(255, 255, 255, 0.82)' })
           .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
           .opacity(this.hasToolCount(this.brushToolCount) || this.busyTool === 'brush' ? 1 : 0.42)
@@ -359,6 +393,37 @@ struct GamePage {
     .alignContent(Alignment.Center)
   }
 
+  @Builder
+  BrushColorButton(type: PieceType) {
+    Stack() {
+      if (this.selectedBrushColor === type) {
+        Row()
+          .width(12)
+          .height(12)
+          .borderRadius(6)
+          .backgroundColor('#FFFFFF')
+          .border({ width: 1, color: 'rgba(92, 58, 74, 0.30)' })
+      }
+    }
+    .width(34)
+    .height(34)
+    .borderRadius(17)
+    .backgroundColor(this.brushColorValue(type))
+    .border({
+      width: this.selectedBrushColor === type ? 3 : 1,
+      color: this.selectedBrushColor === type ? '#FFFFFF' : 'rgba(255, 255, 255, 0.76)'
+    })
+    .shadow({
+      radius: this.selectedBrushColor === type ? 10 : 5,
+      color: 'rgba(92, 58, 74, 0.13)',
+      offsetX: 0,
+      offsetY: 3
+    })
+    .onClick(() => {
+      this.selectedBrushColor = type;
+    })
+  }
+
   private startLevel(levelId: number): void {
     const safeLevelId = Math.max(1, Math.min(100, levelId));
     const level = LEVELS[safeLevelId - 1];
@@ -366,7 +431,10 @@ struct GamePage {
     this.isAnimating = false;
     this.activeTool = '';
     this.busyTool = '';
+    this.cachedLayout = undefined;
+    this.cachedLayoutKey = '';
     this.levelId = level.id;
+    this.selectedBrushColor = level.board.pieceTypes[0];
     this.session = new GameSession(level, 20260523 + level.id);
     this.movesLeft = this.session.state.movesLeft;
     this.score = this.session.state.score;
@@ -431,13 +499,14 @@ struct GamePage {
       };
     }
 
-    const firstPiece = beforeBoard.tiles[first.row][first.col].piece;
-    const secondPiece = beforeBoard.tiles[second.row][second.col].piece;
-    if (firstPiece && secondPiece && (firstPiece.special !== 'none' || secondPiece.special !== 'none')) {
+    if (SpecialResolver.isDirectSpecialSwap(beforeBoard, first, second)) {
+      const conversion = SpecialResolver.rainbowFunctionalConversion(swappedBoard, first, second);
       return {
         accepted: true,
         swappedBoard,
-        clearPositions: this.uniquePositions(SpecialResolver.swapActivatedPositions(swappedBoard, first, second))
+        clearPositions: this.uniquePositions(SpecialResolver.swapActivatedPositions(swappedBoard, first, second)),
+        conversionBoard: conversion ? this.createConvertedBoard(swappedBoard, conversion.positions, conversion.special) : undefined,
+        convertedPositions: conversion ? conversion.positions : undefined
       };
     }
 
@@ -508,7 +577,8 @@ struct GamePage {
       this.isAnimating = false;
       return;
     }
-    const clearedBoard = this.createClearedBoard(preview.swappedBoard, preview.clearPositions);
+    const clearSourceBoard = preview.conversionBoard ?? preview.swappedBoard;
+    const clearedBoard = this.createClearedBoard(clearSourceBoard, preview.clearPositions);
     const accepted = this.session.trySwap(first, second);
     if (!accepted) {
       this.playRejectedMove(preview.swappedBoard, first, second);
@@ -516,16 +586,37 @@ struct GamePage {
     }
     const afterBoard = cloneBoard(this.session.state.board);
     if (preview.clearPositions.length > 0) {
-      this.animateClear(preview.swappedBoard, preview.clearPositions, () => {
-        this.animateSettle(clearedBoard, afterBoard, () => {
-          this.finishAnimatedMove();
+      if (preview.conversionBoard && preview.convertedPositions) {
+        this.animateConversion(preview.swappedBoard, preview.conversionBoard, preview.convertedPositions, () => {
+          this.animateClear(preview.conversionBoard!, preview.clearPositions, () => {
+            this.animateSettle(clearedBoard, afterBoard, () => {
+              this.finishAnimatedMove();
+            });
+          });
         });
-      });
+      } else {
+        this.animateClear(preview.swappedBoard, preview.clearPositions, () => {
+          this.animateSettle(clearedBoard, afterBoard, () => {
+            this.finishAnimatedMove();
+          });
+        });
+      }
     } else {
       this.animateSettle(clearedBoard, afterBoard, () => {
         this.finishAnimatedMove();
       });
     }
+  }
+
+  private createConvertedBoard(board: Board, positions: Position[], special: SpecialType): Board {
+    const result = cloneBoard(board);
+    positions.forEach(position => {
+      const piece = result.tiles[position.row][position.col].piece;
+      if (piece && piece.special !== 'rainbow') {
+        piece.special = special;
+      }
+    });
+    return result;
   }
 
   private createClearedBoard(board: Board, positions: Position[]): Board {
@@ -656,7 +747,9 @@ struct GamePage {
       return this.hasToolCount(this.hammerToolCount);
     }
     if (tool === 'brush') {
-      return this.hasToolCount(this.brushToolCount) && tile.piece.special === 'none';
+      return this.hasToolCount(this.brushToolCount) &&
+        tile.piece.special === 'none' &&
+        tile.piece.type !== this.selectedBrushColor;
     }
     return false;
   }
@@ -670,7 +763,7 @@ struct GamePage {
     if (tool === 'hammer') {
       used = this.session.useHammerTool(position);
     } else if (tool === 'brush') {
-      used = this.session.useBrushTool(position);
+      used = this.session.useBrushTool(position, this.selectedBrushColor);
     }
     if (!used) {
       this.finishToolAnimation();
@@ -719,6 +812,30 @@ struct GamePage {
     return `x${count}`;
   }
 
+  private brushColorValue(type: PieceType): string {
+    if (type === 'red') {
+      return '#F27A91';
+    }
+    if (type === 'blue') {
+      return '#69B8EA';
+    }
+    if (type === 'yellow') {
+      return '#EFC957';
+    }
+    if (type === 'green') {
+      return '#76D37B';
+    }
+    if (type === 'purple') {
+      return '#B487EF';
+    }
+    return '#F39967';
+  }
+
+  private canUseBrushColor(type: PieceType): boolean {
+    const level = LEVELS[this.levelId - 1];
+    return level.board.pieceTypes.indexOf(type) >= 0;
+  }
+
   private animateSwap(
     board: Board,
     first: Position,
@@ -730,7 +847,7 @@ struct GamePage {
   ): void {
     const deltaCol = second.col - first.col;
     const deltaRow = second.row - first.row;
-    const layout = BoardLayout.compute(board, this.canvasWidth, this.canvasHeight);
+    const layout = this.layoutForBoard(board);
     const moveX = deltaCol * layout.tileSize;
     const moveY = deltaRow * layout.tileSize;
     this.runAnimation(durationMs, (progress: number) => {
@@ -763,6 +880,25 @@ struct GamePage {
     }, done);
   }
 
+  private animateConversion(fromBoard: Board, toBoard: Board, positions: Position[], done: () => void): void {
+    this.runAnimation(170, (progress: number) => {
+      const eased = this.easeInOut(progress);
+      const pulse = progress < 0.5 ? eased : 1 - eased;
+      const effects: PieceRenderEffect[] = [];
+      positions.forEach(position => {
+        effects.push({
+          row: position.row,
+          col: position.col,
+          offsetX: 0,
+          offsetY: 0,
+          scale: 1 + pulse * 0.20,
+          opacity: 1
+        });
+      });
+      this.drawBoardSnapshot(progress < 0.18 ? fromBoard : toBoard, { pieceEffects: effects });
+    }, done);
+  }
+
   private animateToolPulse(board: Board, position: Position, done: () => void): void {
     this.runAnimation(88, (progress: number) => {
       const eased = this.easeInOut(progress);
@@ -783,7 +919,7 @@ struct GamePage {
   }
 
   private animateSettle(fromBoard: Board, toBoard: Board, done: () => void): void {
-    const layout = BoardLayout.compute(toBoard, this.canvasWidth, this.canvasHeight);
+    const layout = this.layoutForBoard(toBoard);
     const motions = BoardAnimationPlanner.planFallEffects(fromBoard, toBoard, layout.tileSize);
     this.runAnimation(190, (progress: number) => {
       const eased = this.easeOut(progress);
@@ -799,13 +935,11 @@ struct GamePage {
       if (token !== this.animationToken) {
         return;
       }
-      const frameStartedAt = Date.now();
       const elapsed = Date.now() - startedAt;
       const rawProgress = Math.min(1, elapsed / durationMs);
       frame(rawProgress);
       if (rawProgress < 1) {
-        const frameCost = Date.now() - frameStartedAt;
-        setTimeout(tick, Math.max(8, 16 - frameCost));
+        setTimeout(tick, 16);
         return;
       }
       done();
@@ -817,7 +951,7 @@ struct GamePage {
     if (!this.canvasReady) {
       return;
     }
-    const layout = BoardLayout.compute(board, this.canvasWidth, this.canvasHeight);
+    const layout = this.layoutForBoard(board);
     this.boardLayout = layout;
     this.renderer.draw(this.context as GameCanvasContext, board, {
       width: this.canvasWidth,
@@ -825,6 +959,15 @@ struct GamePage {
       layout,
       animation
     });
+  }
+
+  private layoutForBoard(board: Board): BoardLayoutResult {
+    const key = `${board.rows}x${board.cols}_${this.canvasWidth}x${this.canvasHeight}`;
+    if (!this.cachedLayout || this.cachedLayoutKey !== key) {
+      this.cachedLayout = BoardLayout.compute(board, this.canvasWidth, this.canvasHeight);
+      this.cachedLayoutKey = key;
+    }
+    return this.cachedLayout;
   }
 
   private easeOut(progress: number): number {

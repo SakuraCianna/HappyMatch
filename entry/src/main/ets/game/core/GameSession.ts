@@ -42,6 +42,7 @@ export class GameSession {
   private random: SeededRandom;
   private pieceTypes: PieceType[];
   private history: GameHistoryEntry[] = [];
+  private refillSequence: number = 0;
   state: GameState;
 
   constructor(level: LevelConfig, seed: number) {
@@ -109,7 +110,7 @@ export class GameSession {
     }
 
     this.saveHistory();
-    if (firstPiece.special !== 'none' || secondPiece.special !== 'none') {
+    if (SpecialResolver.isDirectSpecialSwap(this.state.board, first, second)) {
       this.swap(first, second);
       const specialPositions = SpecialResolver.swapActivatedPositions(this.state.board, first, second);
       this.state.movesLeft--;
@@ -166,7 +167,7 @@ export class GameSession {
     return true;
   }
 
-  useBrushTool(position: Position): boolean {
+  useBrushTool(position: Position, targetType?: PieceType): boolean {
     if (this.state.status !== 'playing' || !this.hasTool(this.state.tools.brush)) {
       return false;
     }
@@ -174,9 +175,12 @@ export class GameSession {
     if (!tile.piece || tile.piece.special !== 'none' || tile.blocker?.type === 'hole' || tile.blocker?.type === 'marshmallow') {
       return false;
     }
+    const nextType = targetType ?? this.nextPieceType(tile.piece.type);
+    if (this.pieceTypes.indexOf(nextType) < 0 || tile.piece.type === nextType) {
+      return false;
+    }
     this.saveHistory();
-    const currentIndex = this.pieceTypes.indexOf(tile.piece.type);
-    tile.piece.type = this.pieceTypes[(currentIndex + 1) % this.pieceTypes.length];
+    tile.piece.type = nextType;
     this.state.tools.brush = this.consumeTool(this.state.tools.brush);
     this.resolveBoard(position);
     this.updateStatus();
@@ -247,7 +251,8 @@ export class GameSession {
     const blockerResult = BlockerResolver.damageAdjacent(this.state.board, positions);
     this.updateBlockerGoals(blockerResult);
     GravityResolver.clearPositions(this.state.board, positions);
-    GravityResolver.collapseAndRefill(this.state.board, this.pieceTypes, this.random, `s_${loopIndex}`);
+    const refillId = this.refillSequence++;
+    GravityResolver.collapseAndRefill(this.state.board, this.pieceTypes, this.random, `s_${refillId}_${loopIndex}`);
   }
 
   private updateCollectGoals(positions: Position[]): void {
@@ -343,6 +348,14 @@ export class GameSession {
       return count;
     }
     return Math.max(0, count - 1);
+  }
+
+  private nextPieceType(type: PieceType): PieceType {
+    const currentIndex = this.pieceTypes.indexOf(type);
+    if (currentIndex < 0) {
+      return this.pieceTypes[0];
+    }
+    return this.pieceTypes[(currentIndex + 1) % this.pieceTypes.length];
   }
 
   private areAdjacent(first: Position, second: Position): boolean {

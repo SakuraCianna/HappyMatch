@@ -6,6 +6,12 @@ export interface SpecialCreation {
   special: SpecialType;
 }
 
+export interface RainbowFunctionalConversion {
+  targetType: PieceType;
+  special: SpecialType;
+  positions: Position[];
+}
+
 export class SpecialResolver {
   static chooseCreation(groups: MatchGroup[], preferred?: Position): SpecialCreation | undefined {
     return this.chooseCreations(groups, preferred)[0];
@@ -67,26 +73,6 @@ export class SpecialResolver {
       return [position];
     }
 
-    if (piece.special === 'row_clear') {
-      return Array.from({ length: board.cols }, (_, col) => ({ row: position.row, col }));
-    }
-
-    if (piece.special === 'col_clear') {
-      return Array.from({ length: board.rows }, (_, row) => ({ row, col: position.col }));
-    }
-
-    if (piece.special === 'bomb') {
-      const result: Position[] = [];
-      for (let row = position.row - 1; row <= position.row + 1; row++) {
-        for (let col = position.col - 1; col <= position.col + 1; col++) {
-          if (row >= 0 && row < board.rows && col >= 0 && col < board.cols) {
-            result.push({ row, col });
-          }
-        }
-      }
-      return result;
-    }
-
     const targetType = target ? board.tiles[target.row][target.col].piece?.type : piece.type;
     if (piece.special === 'rainbow' && targetType) {
       const result: Position[] = [];
@@ -100,7 +86,7 @@ export class SpecialResolver {
       return result;
     }
 
-    return [position];
+    return this.positionsForSpecial(board, position, piece.special);
   }
 
   static expandedClearPositions(board: Board, positions: Position[]): Position[] {
@@ -124,6 +110,11 @@ export class SpecialResolver {
       return [];
     }
 
+    const conversion = this.rainbowFunctionalConversion(board, first, second);
+    if (conversion) {
+      return this.positionsForConvertedSpecials(board, conversion.positions, conversion.special);
+    }
+
     if (firstPiece.special === 'rainbow' && secondPiece.special !== 'rainbow') {
       return this.rainbowTargetPositions(board, secondPiece.type);
     }
@@ -134,25 +125,113 @@ export class SpecialResolver {
       return this.allPositions(board);
     }
 
-    if (firstPiece.special === 'bomb' && secondPiece.special === 'bomb') {
-      return this.uniquePositions([...this.squareAround(board, first, 2), ...this.squareAround(board, second, 2)]);
+    if (this.isFunctionalSpecial(firstPiece.special) && this.isFunctionalSpecial(secondPiece.special)) {
+      return this.functionalComboPositions(board, first, firstPiece.special, second, secondPiece.special);
     }
 
-    if (firstPiece.special === 'bomb' && this.isLineSpecial(secondPiece.special)) {
-      return this.wideLinePositions(board, second, secondPiece.special);
+    return [];
+  }
+
+  static isDirectSpecialSwap(board: Board, first: Position, second: Position): boolean {
+    const firstPiece = board.tiles[first.row][first.col].piece;
+    const secondPiece = board.tiles[second.row][second.col].piece;
+    if (!firstPiece || !secondPiece) {
+      return false;
     }
-    if (secondPiece.special === 'bomb' && this.isLineSpecial(firstPiece.special)) {
-      return this.wideLinePositions(board, first, firstPiece.special);
+    if (firstPiece.special === 'rainbow' || secondPiece.special === 'rainbow') {
+      return true;
+    }
+    return this.isFunctionalSpecial(firstPiece.special) && this.isFunctionalSpecial(secondPiece.special);
+  }
+
+  static rainbowFunctionalConversion(
+    board: Board,
+    first: Position,
+    second: Position
+  ): RainbowFunctionalConversion | undefined {
+    const firstPiece = board.tiles[first.row][first.col].piece;
+    const secondPiece = board.tiles[second.row][second.col].piece;
+    if (!firstPiece || !secondPiece) {
+      return undefined;
+    }
+
+    if (firstPiece.special === 'rainbow' && this.isFunctionalSpecial(secondPiece.special)) {
+      return {
+        targetType: secondPiece.type,
+        special: secondPiece.special,
+        positions: this.rainbowTargetPositions(board, secondPiece.type)
+      };
+    }
+
+    if (secondPiece.special === 'rainbow' && this.isFunctionalSpecial(firstPiece.special)) {
+      return {
+        targetType: firstPiece.type,
+        special: firstPiece.special,
+        positions: this.rainbowTargetPositions(board, firstPiece.type)
+      };
+    }
+
+    return undefined;
+  }
+
+  private static isFunctionalSpecial(special: SpecialType): boolean {
+    return special === 'row_clear' || special === 'col_clear' || special === 'bomb';
+  }
+
+  private static positionsForConvertedSpecials(board: Board, positions: Position[], special: SpecialType): Position[] {
+    let result: Position[] = [];
+    positions.forEach(position => {
+      result = this.uniquePositions([...result, ...this.positionsForSpecial(board, position, special)]);
+    });
+    return result;
+  }
+
+  private static functionalComboPositions(
+    board: Board,
+    first: Position,
+    firstSpecial: SpecialType,
+    second: Position,
+    secondSpecial: SpecialType
+  ): Position[] {
+    if (firstSpecial === 'bomb' && secondSpecial === 'bomb') {
+      return this.uniquePositions([
+        ...this.bombRadiusPositions(board, first, 2),
+        ...this.bombRadiusPositions(board, second, 2)
+      ]);
+    }
+
+    if (firstSpecial === 'bomb') {
+      return this.uniquePositions([
+        ...this.positionsForSpecial(board, second, secondSpecial),
+        ...this.wideLinePositions(board, second, secondSpecial),
+        ...this.positionsForSpecial(board, first, firstSpecial)
+      ]);
+    }
+    if (secondSpecial === 'bomb') {
+      return this.uniquePositions([
+        ...this.positionsForSpecial(board, first, firstSpecial),
+        ...this.wideLinePositions(board, first, firstSpecial),
+        ...this.positionsForSpecial(board, second, secondSpecial)
+      ]);
     }
 
     return this.uniquePositions([
-      ...this.activatedPositions(board, first, second),
-      ...this.activatedPositions(board, second, first)
+      ...this.positionsForSpecial(board, first, firstSpecial),
+      ...this.positionsForSpecial(board, second, secondSpecial)
     ]);
   }
 
-  private static isLineSpecial(special: SpecialType): boolean {
-    return special === 'row_clear' || special === 'col_clear';
+  private static positionsForSpecial(board: Board, position: Position, special: SpecialType): Position[] {
+    if (special === 'row_clear') {
+      return Array.from({ length: board.cols }, (_, col) => ({ row: position.row, col }));
+    }
+    if (special === 'col_clear') {
+      return Array.from({ length: board.rows }, (_, row) => ({ row, col: position.col }));
+    }
+    if (special === 'bomb') {
+      return this.bombRadiusPositions(board, position, 1);
+    }
+    return [position];
   }
 
   private static wideLinePositions(board: Board, position: Position, special: SpecialType): Position[] {
@@ -175,9 +254,20 @@ export class SpecialResolver {
           }
         }
       }
-      return result;
     }
-    return [position];
+    return result;
+  }
+
+  private static bombRadiusPositions(board: Board, position: Position, radius: number): Position[] {
+    const result: Position[] = [];
+    for (let row = position.row - radius; row <= position.row + radius; row++) {
+      for (let col = position.col - radius; col <= position.col + radius; col++) {
+        if (row >= 0 && row < board.rows && col >= 0 && col < board.cols) {
+          result.push({ row, col });
+        }
+      }
+    }
+    return result;
   }
 
   private static rainbowTargetPositions(board: Board, type: PieceType): Position[] {
@@ -197,18 +287,6 @@ export class SpecialResolver {
     for (let row = 0; row < board.rows; row++) {
       for (let col = 0; col < board.cols; col++) {
         result.push({ row, col });
-      }
-    }
-    return result;
-  }
-
-  private static squareAround(board: Board, center: Position, radius: number): Position[] {
-    const result: Position[] = [];
-    for (let row = center.row - radius; row <= center.row + radius; row++) {
-      for (let col = center.col - radius; col <= center.col + radius; col++) {
-        if (row >= 0 && row < board.rows && col >= 0 && col < board.cols) {
-          result.push({ row, col });
-        }
       }
     }
     return result;
