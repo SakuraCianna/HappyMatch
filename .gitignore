@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+oh_modules/
+
+# Local SDK and IDE settings
+local.properties
+.idea/
+.deveco/
+.preview/
+.appanalyzer/
+.clangd
+.clang-format
+.clang-tidy
+
+# Build and generated outputs
+build/
+**/build/
+.hvigor/
+**/.hvigor/
+.cxx/
+**/.cxx/
+**/.test/
+coverage/
+
+# Local brainstorm/mockup workspace
+.superpowers/
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "HappyMatch entry module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "HappyMatch main ability"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "开心消消乐"
+    }
+  ]
+}
