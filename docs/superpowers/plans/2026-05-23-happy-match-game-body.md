@@ -20,16 +20,32 @@
 - Create `entry/src/main/ets/game/core/BoardFactory.ts`: deterministic board creation.
 - Create `entry/src/main/ets/game/core/MatchResolver.ts`: match detection and special-piece creation.
 - Create `entry/src/main/ets/game/core/GravityResolver.ts`: falling and refill logic.
+- Create `entry/src/main/ets/game/core/SpecialResolver.ts`: special-piece creation and activation.
 - Create `entry/src/main/ets/game/core/GameSession.ts`: player moves, score, goals, win/lose state.
 - Create `entry/src/main/ets/game/mechanics/BlockerResolver.ts`: ice, chain, marshmallow, portal behavior.
+- Create `entry/src/main/ets/game/mechanics/PortalResolver.ts`: portal entry and exit movement.
 - Create `entry/src/main/ets/game/levels/LevelConfig.ts`: level config types.
 - Create `entry/src/main/ets/game/levels/levels.ts`: 100 level configs.
+- Create `entry/src/main/ets/game/render/BoardLayout.ts`: board-to-canvas coordinate mapping.
 - Create `entry/src/main/ets/game/render/CanvasRenderer.ts`: board drawing and soft jelly shapes.
 - Create `entry/src/main/ets/game/render/AnimationQueue.ts`: swap, clear, fall, pulse animation records.
+- Create `entry/src/main/ets/game/input/BoardInputMapper.ts`: tap and drag translation into board positions.
 - Create `entry/src/main/ets/game/storage/ProgressRepository.ts`: local progress interface.
 - Create `entry/src/main/ets/game/storage/RdbProgressRepository.ts`: relationalStore implementation.
 - Create `entry/src/main/ets/game/storage/MemoryProgressRepository.ts`: fallback for emulator/debug.
 - Create `entry/src/test/GameCore.test.ets`: core rule tests.
+
+---
+
+## Refinement Decisions
+
+- Build the rules first and keep the first playable board independent of generated images.
+- Use soft procedural Canvas pieces at first: different silhouettes plus translucent marks. Generated PNG assets replace them only after the board loop is stable.
+- Read `levelId` from router params in `GamePage`. If no param is present, default to level 1.
+- Store all board geometry in `BoardLayout`; both the renderer and input mapper use the same layout values so taps line up with drawn tiles.
+- Count mechanism goals inside `BlockerResolver` results rather than by scanning the board after the fact.
+- Keep portal behavior deterministic: portals only affect falling/refill paths, not manual swaps.
+- Keep local progress behind `ProgressRepository`; pages should not call RDB APIs directly.
 
 ---
 
@@ -579,6 +595,156 @@ import { GameSession } from '../main/ets/game/core/GameSession';
 
 ---
 
+## Task 3A: Special Piece Creation And Activation
+
+**Files:**
+- Create: `entry/src/main/ets/game/core/SpecialResolver.ts`
+- Modify: `entry/src/main/ets/game/core/GameSession.ts`
+- Modify: `entry/src/test/GameCore.test.ets`
+
+- [ ] **Step 1: Add special resolver**
+
+Create `entry/src/main/ets/game/core/SpecialResolver.ts`:
+
+```ts
+import { Board, Position, SpecialType } from './Types';
+import { MatchGroup } from './MatchResolver';
+
+export interface SpecialCreation {
+  position: Position;
+  special: SpecialType;
+}
+
+export class SpecialResolver {
+  static chooseCreation(groups: MatchGroup[], preferred?: Position): SpecialCreation | undefined {
+    const allPositions = groups.flatMap(group => group.positions);
+    if (allPositions.length < 4) {
+      return undefined;
+    }
+
+    const creationPosition = preferred && allPositions.some(pos => pos.row === preferred.row && pos.col === preferred.col)
+      ? preferred
+      : allPositions[0];
+
+    if (allPositions.length >= 5) {
+      return { position: creationPosition, special: 'rainbow' };
+    }
+
+    const hasRow = groups.some(group => group.direction === 'row' && group.positions.length >= 3);
+    const hasCol = groups.some(group => group.direction === 'col' && group.positions.length >= 3);
+    if (hasRow && hasCol) {
+      return { position: creationPosition, special: 'bomb' };
+    }
+
+    const longest = groups.reduce((best, group) => group.positions.length > best.positions.length ? group : best, groups[0]);
+    return {
+      position: creationPosition,
+      special: longest.direction === 'row' ? 'row_clear' : 'col_clear'
+    };
+  }
+
+  static activatedPositions(board: Board, position: Position, target?: Position): Position[] {
+    const piece = board.tiles[position.row][position.col].piece;
+    if (!piece || piece.special === 'none') {
+      return [position];
+    }
+
+    if (piece.special === 'row_clear') {
+      return Array.from({ length: board.cols }, (_, col) => ({ row: position.row, col }));
+    }
+
+    if (piece.special === 'col_clear') {
+      return Array.from({ length: board.rows }, (_, row) => ({ row, col: position.col }));
+    }
+
+    if (piece.special === 'bomb') {
+      const result: Position[] = [];
+      for (let row = position.row - 1; row <= position.row + 1; row++) {
+        for (let col = position.col - 1; col <= position.col + 1; col++) {
+          if (row >= 0 && row < board.rows && col >= 0 && col < board.cols) {
+            result.push({ row, col });
+          }
+        }
+      }
+      return result;
+    }
+
+    const targetType = target ? board.tiles[target.row][target.col].piece?.type : undefined;
+    if (piece.special === 'rainbow' && targetType) {
+      const result: Position[] = [];
+      for (let row = 0; row < board.rows; row++) {
+        for (let col = 0; col < board.cols; col++) {
+          if (board.tiles[row][col].piece?.type === targetType) {
+            result.push({ row, col });
+          }
+        }
+      }
+      return result;
+    }
+
+    return [position];
+  }
+}
+```
+
+- [ ] **Step 2: Apply special creation in GameSession**
+
+In `GameSession.resolveBoard`, after computing `matches`, call `SpecialResolver.chooseCreation(matches)` before clearing positions. Keep the chosen position out of the clear list and change that piece to the chosen special type:
+
+```ts
+const creation = SpecialResolver.chooseCreation(matches);
+let positions = MatchResolver.uniqueMatchedPositions(matches);
+if (creation) {
+  positions = positions.filter(position => position.row !== creation.position.row || position.col !== creation.position.col);
+  const piece = this.state.board.tiles[creation.position.row][creation.position.col].piece;
+  if (piece) {
+    piece.special = creation.special;
+  }
+}
+```
+
+Add import:
+
+```ts
+import { SpecialResolver } from './SpecialResolver';
+```
+
+- [ ] **Step 3: Add special resolver test**
+
+Append inside `entry/src/test/GameCore.test.ets`:
+
+```ts
+it('createsRainbowForFiveMatch', 0, () => {
+  const board = BoardFactory.create({ rows: 5, cols: 5, seed: 21 });
+  for (let col = 0; col < 5; col++) {
+    board.tiles[0][col].piece!.type = 'red';
+  }
+  const matches = MatchResolver.findMatches(board);
+  const creation = SpecialResolver.chooseCreation(matches, { row: 0, col: 2 });
+  expect(creation?.special).assertEqual('rainbow');
+  expect(creation?.position.col).assertEqual(2);
+});
+```
+
+Add import:
+
+```ts
+import { SpecialResolver } from '../main/ets/game/core/SpecialResolver';
+```
+
+- [ ] **Step 4: Verification**
+
+Run:
+
+```powershell
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+Select-String -Path 'entry\src\main\ets\game\core\SpecialResolver.ts' -Pattern 'row_clear|col_clear|bomb|rainbow'
+```
+
+Expected: all four special names are present.
+
+---
+
 ## Task 4: Level Configs And 100-Level Progression
 
 **Files:**
@@ -864,6 +1030,130 @@ Expected: soft red palette and semi-transparent highlight are found.
 
 ---
 
+## Task 5A: Board Layout And Input Mapping
+
+**Files:**
+- Create: `entry/src/main/ets/game/render/BoardLayout.ts`
+- Create: `entry/src/main/ets/game/input/BoardInputMapper.ts`
+- Modify: `entry/src/main/ets/game/render/CanvasRenderer.ts`
+
+- [ ] **Step 1: Add shared board layout**
+
+Create `entry/src/main/ets/game/render/BoardLayout.ts`:
+
+```ts
+import { Board, Position } from '../core/Types';
+
+export interface BoardLayoutResult {
+  tileSize: number;
+  boardWidth: number;
+  boardHeight: number;
+  offsetX: number;
+  offsetY: number;
+}
+
+export class BoardLayout {
+  static compute(board: Board, width: number, height: number): BoardLayoutResult {
+    const tileSize = Math.floor(Math.min(width / board.cols, height / board.rows));
+    const boardWidth = tileSize * board.cols;
+    const boardHeight = tileSize * board.rows;
+    return {
+      tileSize,
+      boardWidth,
+      boardHeight,
+      offsetX: Math.floor((width - boardWidth) / 2),
+      offsetY: Math.floor((height - boardHeight) / 2)
+    };
+  }
+
+  static centerOf(layout: BoardLayoutResult, position: Position): { x: number; y: number } {
+    return {
+      x: layout.offsetX + position.col * layout.tileSize + layout.tileSize / 2,
+      y: layout.offsetY + position.row * layout.tileSize + layout.tileSize / 2
+    };
+  }
+
+  static hitTest(board: Board, layout: BoardLayoutResult, x: number, y: number): Position | undefined {
+    const col = Math.floor((x - layout.offsetX) / layout.tileSize);
+    const row = Math.floor((y - layout.offsetY) / layout.tileSize);
+    if (row < 0 || row >= board.rows || col < 0 || col >= board.cols) {
+      return undefined;
+    }
+    return { row, col };
+  }
+}
+```
+
+- [ ] **Step 2: Add input mapper**
+
+Create `entry/src/main/ets/game/input/BoardInputMapper.ts`:
+
+```ts
+import { Board, Position } from '../core/Types';
+import { BoardLayout, BoardLayoutResult } from '../render/BoardLayout';
+
+export interface DragSelection {
+  from: Position;
+  to: Position;
+}
+
+export class BoardInputMapper {
+  private start?: Position;
+
+  begin(board: Board, layout: BoardLayoutResult, x: number, y: number): void {
+    this.start = BoardLayout.hitTest(board, layout, x, y);
+  }
+
+  end(board: Board, layout: BoardLayoutResult, x: number, y: number): DragSelection | undefined {
+    if (!this.start) {
+      return undefined;
+    }
+    const end = BoardLayout.hitTest(board, layout, x, y);
+    const start = this.start;
+    this.start = undefined;
+    if (!end || Math.abs(start.row - end.row) + Math.abs(start.col - end.col) !== 1) {
+      return undefined;
+    }
+    return { from: start, to: end };
+  }
+}
+```
+
+- [ ] **Step 3: Use shared layout in renderer**
+
+Replace the local tile-size math in `CanvasRenderer.draw` with:
+
+```ts
+const layout = BoardLayout.compute(board, options.width, options.height);
+this.drawBoardBackground(ctx, layout.offsetX, layout.offsetY, layout.boardWidth, layout.boardHeight);
+```
+
+For each piece, compute the center with:
+
+```ts
+const center = BoardLayout.centerOf(layout, { row, col });
+this.drawPiece(ctx, piece, center.x, center.y, layout.tileSize * 0.72);
+```
+
+Add import:
+
+```ts
+import { BoardLayout } from './BoardLayout';
+```
+
+- [ ] **Step 4: Verification**
+
+Run:
+
+```powershell
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+Select-String -Path 'entry\src\main\ets\game\render\CanvasRenderer.ts','entry\src\main\ets\game\input\BoardInputMapper.ts' -Pattern 'BoardLayout'
+```
+
+Expected: renderer and input mapper both reference `BoardLayout`.
+
+---
+
 ## Task 6: Game Page Integration
 
 **Files:**
@@ -947,6 +1237,65 @@ struct GamePage {
 }
 ```
 
+- [ ] **Step 1A: Refine GamePage before compiling**
+
+Adjust the `GamePage` skeleton before implementation:
+
+```ts
+import { router } from '@kit.ArkUI';
+import { BoardInputMapper } from '../game/input/BoardInputMapper';
+import { BoardLayout, BoardLayoutResult } from '../game/render/BoardLayout';
+```
+
+Add these fields:
+
+```ts
+private inputMapper: BoardInputMapper = new BoardInputMapper();
+private canvasWidth: number = 0;
+private canvasHeight: number = 0;
+private boardLayout?: BoardLayoutResult;
+```
+
+In `aboutToAppear`, read the level parameter:
+
+```ts
+const params = router.getParams() as Record<string, number>;
+const nextLevelId = params && params.levelId ? Number(params.levelId) : 1;
+this.startLevel(nextLevelId);
+```
+
+When drawing, use the measured canvas size instead of fixed `360 x 520`:
+
+```ts
+this.boardLayout = BoardLayout.compute(this.session.state.board, this.canvasWidth, this.canvasHeight);
+this.renderer.draw(this.context, this.session.state.board, {
+  width: this.canvasWidth,
+  height: this.canvasHeight
+});
+```
+
+On Canvas touch, map drag start and end into a swap:
+
+```ts
+.onTouch((event: TouchEvent) => {
+  if (!this.session || !this.boardLayout || event.touches.length === 0) {
+    return;
+  }
+  const touch = event.touches[0];
+  if (event.type === TouchType.Down) {
+    this.inputMapper.begin(this.session.state.board, this.boardLayout, touch.x, touch.y);
+  }
+  if (event.type === TouchType.Up) {
+    const selection = this.inputMapper.end(this.session.state.board, this.boardLayout, touch.x, touch.y);
+    if (selection && this.session.trySwap(selection.from, selection.to)) {
+      this.movesLeft = this.session.state.movesLeft;
+      this.score = this.session.state.score;
+      this.draw();
+    }
+  }
+})
+```
+
 - [ ] **Step 2: Register page**
 
 Update `entry/src/main/resources/base/profile/main_pages.json`:
@@ -965,35 +1314,29 @@ Update `entry/src/main/resources/base/profile/main_pages.json`:
 Update `entry/src/main/ets/pages/Index.ets`:
 
 ```ts
+import { router } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct Index {
   build() {
-    NavDestination() {
-      Column() {
-        Text('开心消消乐')
-          .fontSize(30)
-          .fontWeight(FontWeight.Bold)
-          .margin({ bottom: 24 })
-        Button('开始游戏')
-          .onClick(() => {
-            router.pushUrl({ url: 'pages/GamePage' });
-          })
-      }
-      .width('100%')
-      .height('100%')
-      .justifyContent(FlexAlign.Center)
-      .alignItems(HorizontalAlign.Center)
-      .backgroundColor('#FFF8E4')
+    Column() {
+      Text('开心消消乐')
+        .fontSize(30)
+        .fontWeight(FontWeight.Bold)
+        .margin({ bottom: 24 })
+      Button('开始游戏')
+        .onClick(() => {
+          router.pushUrl({ url: 'pages/GamePage', params: { levelId: 1 } });
+        })
     }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+    .alignItems(HorizontalAlign.Center)
+    .backgroundColor('#FFF8E4')
   }
 }
-```
-
-Add import at the top if required by DevEco:
-
-```ts
-import { router } from '@kit.ArkUI';
 ```
 
 - [ ] **Step 4: Verify page registration**
@@ -1222,8 +1565,19 @@ Create `entry/src/main/ets/game/mechanics/BlockerResolver.ts`:
 ```ts
 import { Board, Position } from '../core/Types';
 
+export interface BlockerDamageResult {
+  clearIce: number;
+  breakChain: number;
+  clearMarshmallow: number;
+}
+
 export class BlockerResolver {
-  static damageAdjacent(board: Board, cleared: Position[]): void {
+  static damageAdjacent(board: Board, cleared: Position[]): BlockerDamageResult {
+    const result: BlockerDamageResult = {
+      clearIce: 0,
+      breakChain: 0,
+      clearMarshmallow: 0
+    };
     const directions = [
       { row: -1, col: 0 },
       { row: 1, col: 0 },
@@ -1241,11 +1595,28 @@ export class BlockerResolver {
         if (blocker && blocker.type !== 'portal') {
           blocker.hp--;
           if (blocker.hp <= 0) {
+            if (blocker.type === 'ice') {
+              result.clearIce++;
+            }
+            if (blocker.type === 'chain') {
+              result.breakChain++;
+            }
+            if (blocker.type === 'marshmallow') {
+              result.clearMarshmallow++;
+            }
             board.tiles[row][col].blocker = undefined;
           }
         }
       });
     });
+    return result;
+  }
+
+  static canSwap(board: Board, first: Position, second: Position): boolean {
+    const firstBlocker = board.tiles[first.row][first.col].blocker;
+    const secondBlocker = board.tiles[second.row][second.col].blocker;
+    return firstBlocker?.type !== 'chain' && secondBlocker?.type !== 'chain' &&
+      firstBlocker?.type !== 'marshmallow' && secondBlocker?.type !== 'marshmallow';
   }
 }
 ```
@@ -1255,7 +1626,8 @@ export class BlockerResolver {
 In `GameSession.resolveBoard`, after `const positions = ...`, call:
 
 ```ts
-BlockerResolver.damageAdjacent(this.state.board, positions);
+const blockerResult = BlockerResolver.damageAdjacent(this.state.board, positions);
+this.updateBlockerGoals(blockerResult);
 ```
 
 Add import:
@@ -1263,6 +1635,153 @@ Add import:
 ```ts
 import { BlockerResolver } from '../mechanics/BlockerResolver';
 ```
+
+Before swapping in `GameSession.trySwap`, reject blocked tiles:
+
+```ts
+if (!BlockerResolver.canSwap(this.state.board, first, second)) {
+  return false;
+}
+```
+
+Add the goal update method:
+
+```ts
+private updateBlockerGoals(result: BlockerDamageResult): void {
+  this.state.goals.forEach(goal => {
+    if (goal.type === 'clear_ice') {
+      goal.count -= result.clearIce;
+    }
+    if (goal.type === 'break_chain') {
+      goal.count -= result.breakChain;
+    }
+    if (goal.type === 'clear_marshmallow') {
+      goal.count -= result.clearMarshmallow;
+    }
+  });
+}
+```
+
+Add import:
+
+```ts
+import { BlockerDamageResult } from '../mechanics/BlockerResolver';
+```
+
+- [ ] **Step 3: Add blocker tests**
+
+Append inside `entry/src/test/GameCore.test.ets`:
+
+```ts
+it('chainBlocksSwap', 0, () => {
+  const session = new GameSession({
+    id: 40,
+    title: 'Chain Test',
+    moves: 5,
+    board: { rows: 8, cols: 8, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+    goals: [{ type: 'break_chain', count: 1 }],
+    blockers: [{ row: 0, col: 0, type: 'chain', hp: 1 }]
+  }, 40);
+  const accepted = session.trySwap({ row: 0, col: 0 }, { row: 0, col: 1 });
+  expect(accepted).assertFalse();
+});
+```
+
+- [ ] **Step 4: Verification**
+
+Run:
+
+```powershell
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+Select-String -Path 'entry\src\main\ets\game\mechanics\BlockerResolver.ts' -Pattern 'clearIce|breakChain|clearMarshmallow|canSwap'
+```
+
+Expected: all result counters and `canSwap` are present.
+
+---
+
+## Task 9A: Portal Movement
+
+**Files:**
+- Create: `entry/src/main/ets/game/mechanics/PortalResolver.ts`
+- Modify: `entry/src/main/ets/game/core/GravityResolver.ts`
+
+- [ ] **Step 1: Add portal resolver**
+
+Create `entry/src/main/ets/game/mechanics/PortalResolver.ts`:
+
+```ts
+import { Board, Position } from '../core/Types';
+
+export interface PortalMove {
+  from: Position;
+  to: Position;
+}
+
+export class PortalResolver {
+  static apply(board: Board): PortalMove[] {
+    const moves: PortalMove[] = [];
+    for (let row = 0; row < board.rows; row++) {
+      for (let col = 0; col < board.cols; col++) {
+        const tile = board.tiles[row][col];
+        const blocker = tile.blocker;
+        if (!tile.piece || blocker?.type !== 'portal' || !blocker.targetPortalId) {
+          continue;
+        }
+        const target = PortalResolver.findTarget(board, blocker.targetPortalId);
+        if (!target) {
+          continue;
+        }
+        const targetTile = board.tiles[target.row][target.col];
+        if (targetTile.piece) {
+          continue;
+        }
+        targetTile.piece = tile.piece;
+        tile.piece = undefined;
+        moves.push({ from: { row, col }, to: target });
+      }
+    }
+    return moves;
+  }
+
+  private static findTarget(board: Board, portalId: string): Position | undefined {
+    for (let row = 0; row < board.rows; row++) {
+      for (let col = 0; col < board.cols; col++) {
+        if (board.tiles[row][col].blocker?.portalId === portalId) {
+          return { row, col };
+        }
+      }
+    }
+    return undefined;
+  }
+}
+```
+
+- [ ] **Step 2: Invoke portal movement after refill**
+
+In `GravityResolver.collapseAndRefill`, after each column has been refilled, call portal movement once:
+
+```ts
+const portalMoves = PortalResolver.apply(board);
+moved += portalMoves.length;
+```
+
+Add import:
+
+```ts
+import { PortalResolver } from '../mechanics/PortalResolver';
+```
+
+- [ ] **Step 3: Verification**
+
+Run:
+
+```powershell
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+Select-String -Path 'entry\src\main\ets\game\mechanics\PortalResolver.ts' -Pattern 'targetPortalId|PortalMove'
+```
+
+Expected: portal target handling and move type are present.
 
 ---
 
@@ -1310,9 +1829,9 @@ In `CanvasRenderer`, keep the shape drawing fallback. Add image lookup only afte
 
 ## Self-Review
 
-- Spec coverage: This plan covers the game body, 100 level entries, Canvas board, soft-highlight piece style, local progress, and four blocker mechanisms. Friend and leaderboard work is intentionally excluded.
+- Spec coverage: This plan covers the game body, 100 level entries, Canvas board, board input mapping, special pieces, soft-highlight piece style, local progress, and four blocker mechanisms. Friend and leaderboard work is intentionally excluded.
 - Placeholder scan: The plan contains no unresolved placeholder tasks.
-- Type consistency: `PieceType`, `SpecialType`, `BlockerType`, `LevelConfig`, `GameSession`, `CanvasRenderer`, and progress types are introduced before later tasks use them.
+- Type consistency: `PieceType`, `SpecialType`, `BlockerType`, `LevelConfig`, `GameSession`, `BoardLayout`, `BoardInputMapper`, `CanvasRenderer`, and progress types are introduced before later tasks use them.
 
 ## Execution Notes
 
