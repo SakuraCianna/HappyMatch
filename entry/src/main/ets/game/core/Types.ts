@@ -1,6 +1,6 @@
 export type PieceType = 'red' | 'blue' | 'yellow' | 'green' | 'purple' | 'orange';
 export type SpecialType = 'none' | 'row_clear' | 'col_clear' | 'bomb' | 'rainbow';
-export type BlockerType = 'ice' | 'chain' | 'marshmallow' | 'portal';
+export type BlockerType = 'ice' | 'chain' | 'marshmallow' | 'portal' | 'hole';
 export type GameStatus = 'playing' | 'won' | 'lost';
 
 export interface Piece {

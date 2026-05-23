@@ -1,0 +1,66 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="540" y1="0" x2="540" y2="1920" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A9DDFF"/>
+      <stop offset="0.46" stop-color="#FFF0BE"/>
+      <stop offset="1" stop-color="#FFD7C9"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(540 725) rotate(90) scale(500 620)">
+      <stop stop-color="#FFFDF4" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#FFFDF4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="island" x1="540" y1="1110" x2="540" y2="1340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF3B8"/>
+      <stop offset="1" stop-color="#E8B778"/>
+    </linearGradient>
+    <filter id="softShadow" x="-80" y="-80" width="1240" height="2080" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="34" flood-color="#B56D70" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky)"/>
+  <ellipse cx="540" cy="725" rx="620" ry="500" fill="url(#centerGlow)"/>
+
+  <g opacity="0.8">
+    <ellipse cx="195" cy="308" rx="150" ry="58" fill="white" fill-opacity="0.62"/>
+    <ellipse cx="300" cy="272" rx="110" ry="90" fill="white" fill-opacity="0.58"/>
+    <ellipse cx="435" cy="318" rx="175" ry="70" fill="white" fill-opacity="0.55"/>
+    <ellipse cx="800" cy="205" rx="135" ry="52" fill="white" fill-opacity="0.48"/>
+    <ellipse cx="890" cy="178" rx="92" ry="76" fill="white" fill-opacity="0.45"/>
+    <ellipse cx="975" cy="222" rx="130" ry="58" fill="white" fill-opacity="0.42"/>
+    <ellipse cx="70" cy="865" rx="205" ry="78" fill="white" fill-opacity="0.42"/>
+    <ellipse cx="220" cy="825" rx="125" ry="95" fill="white" fill-opacity="0.4"/>
+    <ellipse cx="770" cy="1060" rx="160" ry="62" fill="white" fill-opacity="0.38"/>
+    <ellipse cx="900" cy="1034" rx="108" ry="84" fill="white" fill-opacity="0.34"/>
+    <ellipse cx="275" cy="1545" rx="230" ry="80" fill="white" fill-opacity="0.43"/>
+    <ellipse cx="440" cy="1505" rx="135" ry="92" fill="white" fill-opacity="0.4"/>
+  </g>
+
+  <g opacity="0.72">
+    <circle cx="164" cy="540" r="30" fill="#F27A91" fill-opacity="0.38"/>
+    <circle cx="903" cy="510" r="44" fill="#69B8EA" fill-opacity="0.32"/>
+    <circle cx="146" cy="1290" r="38" fill="#76D37B" fill-opacity="0.3"/>
+    <circle cx="895" cy="1335" r="34" fill="#B487EF" fill-opacity="0.32"/>
+    <circle cx="680" cy="410" r="22" fill="#EFC957" fill-opacity="0.36"/>
+    <circle cx="275" cy="975" r="24" fill="#F39967" fill-opacity="0.32"/>
+    <circle cx="965" cy="850" r="20" fill="#F27A91" fill-opacity="0.25"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <ellipse cx="540" cy="1215" rx="430" ry="138" fill="url(#island)"/>
+    <ellipse cx="540" cy="1168" rx="360" ry="92" fill="#FFF6C7"/>
+    <path d="M260 1202C365 1105 558 1320 805 1192" stroke="white" stroke-opacity="0.72" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="315" cy="1076" r="44" fill="#F27A91"/>
+    <circle cx="315" cy="1076" r="13" fill="white" fill-opacity="0.38"/>
+    <rect x="438" y="1092" width="78" height="78" rx="18" transform="rotate(45 477 1131)" fill="#69B8EA"/>
+    <circle cx="485" cy="1118" r="12" fill="white" fill-opacity="0.42"/>
+    <path d="M646 1042L666 1090L718 1094L678 1128L690 1178L646 1151L602 1178L614 1128L574 1094L626 1090L646 1042Z" fill="#EFC957"/>
+    <ellipse cx="420" cy="1282" rx="54" ry="42" transform="rotate(-28 420 1282)" fill="#76D37B"/>
+    <ellipse cx="425" cy="1266" rx="13" ry="10" transform="rotate(-28 425 1266)" fill="white" fill-opacity="0.36"/>
+    <ellipse cx="770" cy="1245" rx="46" ry="58" transform="rotate(18 770 1245)" fill="#B487EF"/>
+    <ellipse cx="760" cy="1226" rx="12" ry="15" transform="rotate(18 760 1226)" fill="white" fill-opacity="0.36"/>
+  </g>
+
+  <ellipse cx="90" cy="1575" rx="330" ry="92" fill="#FFE9A6" fill-opacity="0.48"/>
+  <ellipse cx="990" cy="1518" rx="300" ry="84" fill="#FFE9A6" fill-opacity="0.42"/>
+  <rect width="1080" height="1920" fill="#FFF8E4" fill-opacity="0.16"/>
+</svg>

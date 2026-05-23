@@ -45,12 +45,14 @@ export class BlockerResolver {
     return firstBlocker?.type !== 'chain' &&
       secondBlocker?.type !== 'chain' &&
       firstBlocker?.type !== 'marshmallow' &&
-      secondBlocker?.type !== 'marshmallow';
+      secondBlocker?.type !== 'marshmallow' &&
+      firstBlocker?.type !== 'hole' &&
+      secondBlocker?.type !== 'hole';
   }
 
   private static damageTile(board: Board, row: number, col: number, result: BlockerDamageResult): void {
     const blocker = board.tiles[row][col].blocker;
-    if (!blocker || blocker.type === 'portal') {
+    if (!blocker || blocker.type === 'portal' || blocker.type === 'hole') {
       return;
     }
     blocker.hp--;

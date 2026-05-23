@@ -21,6 +21,7 @@ export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, 'HappyMatch', '%{public}s', 'Ability onWindowStageCreate');
+    this.configureImmersiveWindow(windowStage);
 
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
@@ -44,5 +45,20 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
     // Ability has back to background
     hilog.info(DOMAIN, 'HappyMatch', '%{public}s', 'Ability onBackground');
+  }
+
+  private async configureImmersiveWindow(windowStage: window.WindowStage): Promise<void> {
+    try {
+      const mainWindow = await windowStage.getMainWindow();
+      await mainWindow.setWindowLayoutFullScreen(true);
+      await mainWindow.setWindowSystemBarProperties({
+        statusBarColor: '#00000000',
+        navigationBarColor: '#00000000',
+        statusBarContentColor: '#1B1B1F',
+        navigationBarContentColor: '#1B1B1F'
+      });
+    } catch (err) {
+      hilog.warn(DOMAIN, 'HappyMatch', 'Failed to configure immersive window. Cause: %{public}s', JSON.stringify(err));
+    }
   }
 }

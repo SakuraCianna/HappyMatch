@@ -1,4 +1,4 @@
-import { BlockerType, PieceType } from '../core/Types';
+import { BlockerType, PieceType, SpecialType } from '../core/Types';
 
 export type GoalType = 'score' | 'clear_ice' | 'break_chain' | 'clear_marshmallow' | 'collect_piece';
 
@@ -17,6 +17,13 @@ export interface LevelBlockerConfig {
   targetPortalId?: string;
 }
 
+export interface LevelSpecialPieceConfig {
+  row: number;
+  col: number;
+  type: PieceType;
+  special: SpecialType;
+}
+
 export interface LevelConfig {
   id: number;
   title: string;
@@ -28,5 +35,6 @@ export interface LevelConfig {
   };
   goals: LevelGoal[];
   blockers?: LevelBlockerConfig[];
+  specialPieces?: LevelSpecialPieceConfig[];
   tutorial?: string[];
 }

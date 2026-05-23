@@ -19,37 +19,53 @@ export class GravityResolver {
     let spawned = 0;
 
     for (let col = 0; col < board.cols; col++) {
-      const pieces: Piece[] = [];
-      for (let row = board.rows - 1; row >= 0; row--) {
-        const tile = board.tiles[row][col];
-        if (tile.piece && tile.blocker?.type !== 'marshmallow') {
-          pieces.push(tile.piece);
-        }
-      }
-
-      for (let row = board.rows - 1; row >= 0; row--) {
-        const tile = board.tiles[row][col];
-        if (tile.blocker?.type === 'marshmallow') {
+      let row = board.rows - 1;
+      while (row >= 0) {
+        if (GravityResolver.isGravityBarrier(board, row, col)) {
+          row--;
           continue;
         }
-        const nextPiece = pieces.shift();
-        if (nextPiece) {
-          if (tile.piece?.id !== nextPiece.id) {
-            moved++;
-          }
-          tile.piece = nextPiece;
-        } else {
-          tile.piece = {
-            id: `${idPrefix}_${col}_${row}_${spawned}`,
-            type: random.pick(pieceTypes),
-            special: 'none'
-          };
-          spawned++;
+
+        const segmentRows: number[] = [];
+        while (row >= 0 && !GravityResolver.isGravityBarrier(board, row, col)) {
+          segmentRows.push(row);
+          row--;
         }
+
+        const pieces: Piece[] = [];
+        segmentRows.forEach(segmentRow => {
+          const tile = board.tiles[segmentRow][col];
+          if (tile.piece) {
+            pieces.push(tile.piece);
+          }
+        });
+
+        segmentRows.forEach(segmentRow => {
+          const tile = board.tiles[segmentRow][col];
+          const nextPiece = pieces.shift();
+          if (nextPiece) {
+            if (tile.piece?.id !== nextPiece.id) {
+              moved++;
+            }
+            tile.piece = nextPiece;
+          } else {
+            tile.piece = {
+              id: `${idPrefix}_${col}_${segmentRow}_${spawned}`,
+              type: random.pick(pieceTypes),
+              special: 'none'
+            };
+            spawned++;
+          }
+        });
       }
     }
 
     moved += PortalResolver.apply(board).length;
     return { moved, spawned };
+  }
+
+  private static isGravityBarrier(board: Board, row: number, col: number): boolean {
+    const blocker = board.tiles[row][col].blocker;
+    return blocker?.type === 'hole' || blocker?.type === 'marshmallow';
   }
 }

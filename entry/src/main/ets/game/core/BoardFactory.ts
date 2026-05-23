@@ -33,6 +33,7 @@ export class BoardFactory {
 
     for (let row = 0; row < options.rows; row++) {
       const line: Tile[] = [];
+      tiles.push(line);
       for (let col = 0; col < options.cols; col++) {
         const type = BoardFactory.pickWithoutImmediateMatch(row, col, tiles, pieceTypes, random);
         const piece: Piece = {
@@ -42,7 +43,6 @@ export class BoardFactory {
         };
         line.push({ row, col, piece });
       }
-      tiles.push(line);
     }
 
     return { rows: options.rows, cols: options.cols, tiles };
