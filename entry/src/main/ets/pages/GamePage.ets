@@ -166,29 +166,30 @@ struct GamePage {
             Row() {
               Stack() {
                 Row()
-                  .width(this.scoreTrackWidth + 8)
-                  .height(22)
-                  .borderRadius(11)
-                  .backgroundColor('rgba(255, 255, 255, 0.82)')
-                  .border({ width: 2, color: 'rgba(99, 181, 213, 0.56)' })
+                  .width(this.scoreTrackWidth + 12)
+                  .height(26)
+                  .borderRadius(13)
+                  .backgroundColor('rgba(255, 255, 255, 0.86)')
+                  .border({ width: 2, color: 'rgba(99, 181, 213, 0.58)' })
+                  .margin({ top: 14 })
                 Row()
                   .width(this.scorePipeFillWidth())
-                  .height(13)
-                  .borderRadius(7)
+                  .height(18)
+                  .borderRadius(9)
                   .backgroundColor('#64D3F1')
-                  .margin({ left: 4, top: 4 })
+                  .margin({ left: 5, top: 18 })
                 Row()
                   .width(Math.max(0, this.scorePipeFillWidth() - 8))
-                  .height(4)
-                  .borderRadius(3)
-                  .backgroundColor('rgba(255, 255, 255, 0.46)')
-                  .margin({ left: 8, top: 6 })
+                  .height(5)
+                  .borderRadius(4)
+                  .backgroundColor('rgba(255, 255, 255, 0.48)')
+                  .margin({ left: 9, top: 21 })
                 this.ScoreMarker(1)
                 this.ScoreMarker(2)
                 this.ScoreMarker(3)
               }
-              .width(this.scoreTrackWidth + 16)
-              .height(40)
+              .width(this.scoreTrackWidth + 20)
+              .height(46)
               .alignContent(Alignment.Start)
 
               Stack() {
@@ -203,10 +204,10 @@ struct GamePage {
               .borderRadius(11)
               .backgroundColor('#B9ECFF')
               .border({ width: 2, color: 'rgba(99, 181, 213, 0.52)' })
-              .margin({ bottom: 12 })
+              .margin({ top: 14 })
             }
             .width(226)
-            .height(40)
+            .height(46)
             .alignItems(VerticalAlign.Center)
           }
           .padding({ left: 14, right: 10, top: 8, bottom: 7 })
@@ -530,19 +531,24 @@ struct GamePage {
   @Builder
   ScoreMarker(stars: number) {
     Stack() {
-      Text(`${stars}`)
-        .fontSize(8)
-        .fontWeight(FontWeight.Bold)
+      Row()
+        .width(3)
+        .height(12)
+        .borderRadius(2)
+        .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(215, 163, 78, 0.40)')
+        .position({ x: 8, y: 15 })
+      Text('★')
+        .fontSize(10)
         .fontColor(this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : '#C78B36')
         .textAlign(TextAlign.Center)
     }
-    .width(15)
-    .height(15)
-    .borderRadius(8)
+    .width(19)
+    .height(30)
+    .borderRadius(10)
     .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 251, 228, 0.96)')
     .border({ width: 1, color: this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : 'rgba(215, 163, 78, 0.58)' })
     .shadow({ radius: 5, color: 'rgba(92, 58, 74, 0.10)', offsetX: 0, offsetY: 2 })
-    .position({ x: this.scoreMarkerLeft(stars), y: 24 })
+    .position({ x: this.scoreMarkerLeft(stars), y: 0 })
   }
 
   private startLevel(levelId: number): void {
@@ -817,19 +823,89 @@ struct GamePage {
       this.finishBonusAnimation(expectedSession);
       return;
     }
-    this.animateConversion(beforeBoard, bonus.convertedBoard, bonus.convertedPositions, () => {
+    this.animateBonusConversionSequence(expectedSession, beforeBoard, bonus.convertedBoard, bonus.convertedPositions, () => {
       if (this.session !== expectedSession) {
         return;
       }
-      this.animateClear(bonus.convertedBoard, bonus.clearPositions, () => {
-        if (this.session !== expectedSession) {
+      this.comboText = '奖励果冻集体触发';
+      this.drawBoardSnapshot(bonus.convertedBoard);
+      const token = this.animationToken;
+      setTimeout(() => {
+        if (token !== this.animationToken || this.session !== expectedSession) {
           return;
         }
-        this.animateSettle(clearedBoard, afterBoard, () => {
-          this.finishBonusAnimation(expectedSession);
-        });
-      });
+        this.animateClear(bonus.convertedBoard, bonus.clearPositions, () => {
+          if (this.session !== expectedSession) {
+            return;
+          }
+          this.animateSettle(clearedBoard, afterBoard, () => {
+            this.finishBonusAnimation(expectedSession);
+          }, 360);
+        }, 420);
+      }, 360);
     });
+  }
+
+  private animateBonusConversionSequence(
+    expectedSession: GameSession,
+    baseBoard: Board,
+    convertedBoard: Board,
+    positions: Position[],
+    done: () => void,
+    index: number = 0
+  ): void {
+    if (this.session !== expectedSession) {
+      return;
+    }
+    if (index >= positions.length) {
+      this.comboText = `奖励转换完成 x${positions.length}`;
+      this.drawBoardSnapshot(convertedBoard);
+      const token = this.animationToken;
+      setTimeout(() => {
+        if (token === this.animationToken && this.session === expectedSession) {
+          done();
+        }
+      }, 320);
+      return;
+    }
+    this.comboText = `奖励转换 ${index + 1}/${positions.length}`;
+    const fromBoard = this.createPartialBonusBoard(baseBoard, convertedBoard, positions, index);
+    const toBoard = this.createPartialBonusBoard(baseBoard, convertedBoard, positions, index + 1);
+    this.animateConversion(fromBoard, toBoard, [positions[index]], () => {
+      if (this.session !== expectedSession) {
+        return;
+      }
+      const token = this.animationToken;
+      setTimeout(() => {
+        if (token === this.animationToken && this.session === expectedSession) {
+          this.animateBonusConversionSequence(expectedSession, baseBoard, convertedBoard, positions, done, index + 1);
+        }
+      }, 55);
+    }, this.bonusConversionDuration(positions.length), 0.48);
+  }
+
+  private createPartialBonusBoard(baseBoard: Board, convertedBoard: Board, positions: Position[], count: number): Board {
+    const result = cloneBoard(baseBoard);
+    const safeCount = Math.max(0, Math.min(count, positions.length));
+    for (let index = 0; index < safeCount; index++) {
+      const position = positions[index];
+      const resultPiece = result.tiles[position.row][position.col].piece;
+      const convertedPiece = convertedBoard.tiles[position.row][position.col].piece;
+      if (resultPiece && convertedPiece) {
+        resultPiece.special = convertedPiece.special;
+      }
+    }
+    return result;
+  }
+
+  private bonusConversionDuration(count: number): number {
+    if (count >= 24) {
+      return 145;
+    }
+    if (count >= 14) {
+      return 170;
+    }
+    return 220;
   }
 
   private finishBonusAnimation(expectedSession: GameSession): void {
@@ -1076,8 +1152,8 @@ struct GamePage {
     }, done);
   }
 
-  private animateClear(board: Board, positions: Position[], done: () => void): void {
-    this.runAnimation(110, (progress: number) => {
+  private animateClear(board: Board, positions: Position[], done: () => void, durationMs: number = 110): void {
+    this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects: PieceRenderEffect[] = [];
       positions.forEach(position => {
@@ -1094,8 +1170,15 @@ struct GamePage {
     }, done);
   }
 
-  private animateConversion(fromBoard: Board, toBoard: Board, positions: Position[], done: () => void): void {
-    this.runAnimation(170, (progress: number) => {
+  private animateConversion(
+    fromBoard: Board,
+    toBoard: Board,
+    positions: Position[],
+    done: () => void,
+    durationMs: number = 170,
+    switchAt: number = 0.18
+  ): void {
+    this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeInOut(progress);
       const pulse = progress < 0.5 ? eased : 1 - eased;
       const effects: PieceRenderEffect[] = [];
@@ -1109,7 +1192,7 @@ struct GamePage {
           opacity: 1
         });
       });
-      this.drawBoardSnapshot(progress < 0.18 ? fromBoard : toBoard, { pieceEffects: effects, fastStaticMode: true });
+      this.drawBoardSnapshot(progress < switchAt ? fromBoard : toBoard, { pieceEffects: effects, fastStaticMode: true });
     }, done);
   }
 
@@ -1133,10 +1216,10 @@ struct GamePage {
     }, done);
   }
 
-  private animateSettle(fromBoard: Board, toBoard: Board, done: () => void): void {
+  private animateSettle(fromBoard: Board, toBoard: Board, done: () => void, durationMs: number = 190): void {
     const layout = this.layoutForBoard(toBoard);
     const motions = BoardAnimationPlanner.planFallEffects(fromBoard, toBoard, layout.tileSize);
-    this.runAnimation(190, (progress: number) => {
+    this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
       this.drawBoardSnapshot(toBoard, { pieceEffects: effects, fastMode: true });
@@ -1244,7 +1327,7 @@ struct GamePage {
 
   private scoreMarkerLeft(stars: number): number {
     const ratio = Math.min(1, this.scoreMilestoneValue(stars) / this.scorePipeTargetValue());
-    return Math.max(2, Math.min(this.scoreTrackWidth - 4, 4 + this.scoreTrackWidth * ratio - 8));
+    return Math.max(0, Math.min(this.scoreTrackWidth - 2, 5 + this.scoreTrackWidth * ratio - 10));
   }
 
   private hasScoreGoal(): boolean {
