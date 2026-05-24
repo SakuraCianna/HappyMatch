@@ -468,22 +468,40 @@ export class CanvasRenderer {
       return;
     }
     ctx.save();
-    if (piece.special === 'bomb') {
-      ctx.strokeStyle = 'rgba(255, 224, 70, 0.95)';
-    } else if (piece.special === 'rainbow') {
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.98)';
-    } else {
-      ctx.strokeStyle = 'rgba(77, 220, 255, 0.96)';
-    }
-    ctx.lineWidth = Math.max(5, size * 0.15);
+    const innerAura = this.specialAuraColor(piece.special, true);
+    const outerAura = this.specialAuraColor(piece.special, false);
+    ctx.strokeStyle = outerAura;
+    ctx.lineWidth = Math.max(6, size * 0.16);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.72, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.strokeStyle = innerAura;
+    ctx.lineWidth = Math.max(4, size * 0.12);
     ctx.beginPath();
     ctx.arc(cx, cy, size * 0.58, 0, Math.PI * 2);
     ctx.stroke();
-    ctx.lineWidth = Math.max(2, size * 0.060);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
+    ctx.lineWidth = Math.max(2, size * 0.052);
     ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.70, 0, Math.PI * 2);
+    ctx.arc(cx, cy, size * 0.45, 0, Math.PI * 2);
     ctx.stroke();
     ctx.restore();
+  }
+
+  private specialAuraColor(special: string, inner: boolean): string {
+    if (special === 'row_clear') {
+      return inner ? 'rgba(255, 103, 152, 0.96)' : 'rgba(255, 214, 96, 0.76)';
+    }
+    if (special === 'col_clear') {
+      return inner ? 'rgba(179, 94, 255, 0.96)' : 'rgba(255, 206, 103, 0.76)';
+    }
+    if (special === 'bomb') {
+      return inner ? 'rgba(255, 137, 64, 0.97)' : 'rgba(255, 220, 80, 0.82)';
+    }
+    if (special === 'rainbow') {
+      return inner ? 'rgba(255, 112, 205, 0.94)' : 'rgba(255, 226, 94, 0.82)';
+    }
+    return inner ? 'rgba(255, 132, 176, 0.94)' : 'rgba(255, 218, 100, 0.76)';
   }
 
   private drawRainbowPiece(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
