@@ -6,6 +6,7 @@ export interface RenderOptions {
   height: number;
   layout?: BoardLayoutResult;
   animation?: BoardRenderState;
+  theme?: BoardRenderTheme;
 }
 
 export interface PieceRenderEffect {
@@ -23,7 +24,23 @@ export interface BoardRenderState {
   fastStaticMode?: boolean;
 }
 
+export interface BoardRenderTheme {
+  fill: string;
+  innerFill: string;
+  stroke: string;
+  motif: string;
+  pattern: string;
+}
+
 type PieceEffectLookup = (PieceRenderEffect | undefined)[];
+
+const DEFAULT_BOARD_THEME: BoardRenderTheme = {
+  fill: 'rgba(255, 255, 255, 0.62)',
+  innerFill: 'rgba(255, 246, 212, 0.38)',
+  stroke: 'rgba(255, 210, 128, 0.70)',
+  motif: 'rgba(242, 122, 145, 0.12)',
+  pattern: 'candy'
+};
 
 export interface GameCanvasContext {
   fillStyle: string;
@@ -81,7 +98,7 @@ export class CanvasRenderer {
     const fastStaticMode = options.animation?.fastStaticMode === true;
 
     ctx.clearRect(0, 0, options.width, options.height);
-    this.drawBoardBackground(ctx, layout.offsetX, layout.offsetY, layout.boardWidth, layout.boardHeight);
+    this.drawBoardBackground(ctx, layout.offsetX, layout.offsetY, layout.boardWidth, layout.boardHeight, options.theme ?? DEFAULT_BOARD_THEME);
 
     for (let row = 0; row < board.rows; row++) {
       for (let col = 0; col < board.cols; col++) {
@@ -104,15 +121,100 @@ export class CanvasRenderer {
     }
   }
 
-  private drawBoardBackground(ctx: GameCanvasContext, x: number, y: number, width: number, height: number): void {
+  private drawBoardBackground(
+    ctx: GameCanvasContext,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    theme: BoardRenderTheme
+  ): void {
     ctx.save();
     this.roundRect(ctx, x, y, width, height, 22);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.62)';
+    ctx.fillStyle = theme.fill;
     ctx.fill();
-    ctx.strokeStyle = 'rgba(255, 210, 128, 0.70)';
+    this.drawBoardPattern(ctx, x, y, width, height, theme);
+    ctx.strokeStyle = theme.stroke;
     ctx.lineWidth = 3;
     ctx.stroke();
     ctx.restore();
+  }
+
+  private drawBoardPattern(
+    ctx: GameCanvasContext,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    theme: BoardRenderTheme
+  ): void {
+    ctx.save();
+    ctx.fillStyle = theme.innerFill;
+    this.roundRect(ctx, x + 8, y + 8, width - 16, height - 16, 18);
+    ctx.fill();
+
+    ctx.strokeStyle = theme.motif;
+    ctx.fillStyle = theme.motif;
+    ctx.lineWidth = 2;
+    if (theme.pattern === 'frost') {
+      for (let index = -2; index < 7; index++) {
+        ctx.beginPath();
+        ctx.moveTo(x + index * width * 0.18, y + height);
+        ctx.lineTo(x + width * 0.34 + index * width * 0.18, y);
+        ctx.stroke();
+      }
+      this.drawSmallSpark(ctx, x + width * 0.78, y + height * 0.18, width * 0.036);
+      this.drawSmallSpark(ctx, x + width * 0.20, y + height * 0.74, width * 0.030);
+    } else if (theme.pattern === 'factory') {
+      for (let index = 0; index < 5; index++) {
+        const stripeX = x + width * (0.12 + index * 0.20);
+        this.roundRect(ctx, stripeX, y + height * 0.08, width * 0.055, height * 0.84, 8);
+        ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(x + width * 0.80, y + height * 0.22, width * 0.055, 0, Math.PI * 2);
+      ctx.arc(x + width * 0.20, y + height * 0.78, width * 0.050, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (theme.pattern === 'portal') {
+      for (let index = 0; index < 3; index++) {
+        ctx.beginPath();
+        ctx.arc(x + width * (0.24 + index * 0.26), y + height * (index % 2 === 0 ? 0.28 : 0.72), width * 0.070, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x + width * (0.24 + index * 0.26), y + height * (index % 2 === 0 ? 0.28 : 0.72), width * 0.034, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (theme.pattern === 'rainbow') {
+      for (let index = 0; index < 6; index++) {
+        ctx.beginPath();
+        ctx.moveTo(x + width * 0.12, y + height * (0.16 + index * 0.12));
+        ctx.lineTo(x + width * 0.88, y + height * (0.10 + index * 0.12));
+        ctx.stroke();
+      }
+      this.drawSmallSpark(ctx, x + width * 0.78, y + height * 0.22, width * 0.040);
+      this.drawSmallSpark(ctx, x + width * 0.26, y + height * 0.68, width * 0.032);
+    } else {
+      ctx.beginPath();
+      ctx.arc(x + width * 0.20, y + height * 0.22, width * 0.065, 0, Math.PI * 2);
+      ctx.arc(x + width * 0.78, y + height * 0.28, width * 0.048, 0, Math.PI * 2);
+      ctx.arc(x + width * 0.36, y + height * 0.78, width * 0.050, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  private drawSmallSpark(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - size);
+    ctx.lineTo(cx + size * 0.22, cy - size * 0.22);
+    ctx.lineTo(cx + size, cy);
+    ctx.lineTo(cx + size * 0.22, cy + size * 0.22);
+    ctx.lineTo(cx, cy + size);
+    ctx.lineTo(cx - size * 0.22, cy + size * 0.22);
+    ctx.lineTo(cx - size, cy);
+    ctx.lineTo(cx - size * 0.22, cy - size * 0.22);
+    ctx.closePath();
+    ctx.fill();
   }
 
   private drawPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number, fastMode: boolean): void {

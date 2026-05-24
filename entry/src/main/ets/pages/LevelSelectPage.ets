@@ -3,6 +3,8 @@ import { common } from '@kit.AbilityKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { LEVEL_CHAPTERS, LevelChapter, getLevelChapter } from '../game/levels/LevelChapters';
 import { LevelConfig } from '../game/levels/LevelConfig';
+import { getWorldThemeById, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
+import { isLevelPlayable, isWorldEntryLevel } from '../game/levels/LevelUnlocks';
 import { LEVELS } from '../game/levels/levels';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { LevelProgress } from '../game/storage/ProgressRepository';
@@ -25,10 +27,7 @@ struct LevelSelectPage {
 
   build() {
     Stack() {
-      Image($r('app.media.game_background'))
-        .width('100%')
-        .height('100%')
-        .objectFit(ImageFit.Cover)
+      this.WorldBackdrop()
 
       Column() {
         Row() {
@@ -77,6 +76,46 @@ struct LevelSelectPage {
   }
 
   @Builder
+  WorldBackdrop() {
+    Stack() {
+      Column() {
+        Row()
+          .layoutWeight(1)
+          .backgroundColor(getWorldThemeById(2).backgroundTop)
+        Row()
+          .layoutWeight(1)
+          .backgroundColor(getWorldThemeById(1).backgroundMiddle)
+        Row()
+          .layoutWeight(1)
+          .backgroundColor(getWorldThemeById(5).backgroundBottom)
+      }
+      .width('100%')
+      .height('100%')
+
+      Row()
+        .width(240)
+        .height(72)
+        .borderRadius(36)
+        .backgroundColor('rgba(255, 255, 255, 0.36)')
+        .position({ x: '-14%', y: '12%' })
+      Row()
+        .width(180)
+        .height(58)
+        .borderRadius(29)
+        .backgroundColor('rgba(255, 255, 255, 0.34)')
+        .position({ x: '58%', y: '7%' })
+      Row()
+        .width(280)
+        .height(88)
+        .borderRadius(44)
+        .backgroundColor('rgba(255, 255, 255, 0.26)')
+        .position({ x: '10%', y: '82%' })
+    }
+    .width('100%')
+    .height('100%')
+  }
+
+  @Builder
   ChapterSection(chapter: LevelChapter) {
     Column() {
       Row() {
@@ -118,9 +157,9 @@ struct LevelSelectPage {
     .width('100%')
     .padding({ left: 14, right: 14, top: 15, bottom: 18 })
     .borderRadius(22)
-    .backgroundColor(chapter.softAccent)
-    .border({ width: 1, color: 'rgba(255, 255, 255, 0.62)' })
-    .shadow({ radius: 14, color: 'rgba(92, 58, 74, 0.11)', offsetX: 0, offsetY: 6 })
+    .backgroundColor(this.themeForChapter(chapter).panelFill)
+    .border({ width: 1, color: this.themeForChapter(chapter).panelBorder })
+    .shadow({ radius: 14, color: this.themeForChapter(chapter).shadow, offsetX: 0, offsetY: 6 })
     .margin({ top: 12 })
   }
 
@@ -131,16 +170,16 @@ struct LevelSelectPage {
         Text(`${level.id}`)
           .fontSize(level.id < 100 ? 16 : 14)
           .fontWeight(FontWeight.Bold)
-          .fontColor(level.id <= this.unlockedLevel ? '#FFFFFF' : '#A6998C')
+          .fontColor(this.isPlayableLevel(level.id) ? '#FFFFFF' : '#A6998C')
       }
       .width(this.nodeSize(level.id))
       .height(this.nodeSize(level.id))
       .borderRadius(this.nodeSize(level.id) / 2)
-      .backgroundColor(level.id <= this.unlockedLevel ? this.colorForLevel(level.id) : 'rgba(228, 216, 200, 0.78)')
+      .backgroundColor(this.isPlayableLevel(level.id) ? this.colorForLevel(level.id) : 'rgba(228, 216, 200, 0.78)')
       .border({ width: this.isMilestone(level.id) ? 3 : 1, color: this.isMilestone(level.id) ? '#FFF6D6' : 'rgba(255, 255, 255, 0.72)' })
-      .shadow({ radius: level.id <= this.unlockedLevel ? 10 : 4, color: 'rgba(92, 58, 74, 0.14)', offsetX: 0, offsetY: 5 })
+      .shadow({ radius: this.isPlayableLevel(level.id) ? 10 : 4, color: 'rgba(92, 58, 74, 0.14)', offsetX: 0, offsetY: 5 })
       .onClick(() => {
-        if (level.id <= this.unlockedLevel) {
+        if (this.isPlayableLevel(level.id)) {
           feedbackService.play('tap');
           router.pushUrl({ url: 'pages/GamePage', params: { levelId: level.id } });
         } else {
@@ -150,7 +189,7 @@ struct LevelSelectPage {
 
       Text(this.starsForLevel(level.id))
         .fontSize(10)
-        .fontColor(level.id <= this.unlockedLevel ? '#8A6250' : '#AFA28F')
+        .fontColor(this.isPlayableLevel(level.id) ? '#8A6250' : '#AFA28F')
         .maxLines(1)
         .margin({ top: 3 })
     }
@@ -166,7 +205,11 @@ struct LevelSelectPage {
   }
 
   private isMilestone(levelId: number): boolean {
-    return levelId === 1 || levelId === 5 || levelId % 20 === 0;
+    return isWorldEntryLevel(levelId) || levelId === 5 || levelId % 20 === 0;
+  }
+
+  private isPlayableLevel(levelId: number): boolean {
+    return isLevelPlayable(levelId, this.unlockedLevel);
   }
 
   private levelsInChapter(chapter: LevelChapter): LevelConfig[] {
@@ -175,6 +218,10 @@ struct LevelSelectPage {
 
   private colorForLevel(levelId: number): string {
     return getLevelChapter(levelId).accent;
+  }
+
+  private themeForChapter(chapter: LevelChapter): LevelWorldTheme {
+    return getWorldThemeById(chapter.id);
   }
 
   private currentChapterText(): string {
@@ -198,7 +245,7 @@ struct LevelSelectPage {
   private starsForLevel(levelId: number): string {
     const progress = this.progressItems.find(item => item.levelId === levelId);
     if (!progress || progress.stars <= 0) {
-      return levelId <= this.unlockedLevel ? '未通关' : '锁定';
+      return this.isPlayableLevel(levelId) ? '未通关' : '锁定';
     }
     if (progress.stars === 1) {
       return '★☆☆';

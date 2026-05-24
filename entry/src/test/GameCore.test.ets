@@ -10,6 +10,8 @@ import { PieceType } from '../main/ets/game/core/Types';
 import { EconomyService } from '../main/ets/game/economy/EconomyService';
 import { deriveAchievements } from '../main/ets/game/achievements/AchievementService';
 import { chapterProgressText, getLevelChapter } from '../main/ets/game/levels/LevelChapters';
+import { getLevelWorldTheme } from '../main/ets/game/levels/LevelWorldThemes';
+import { isLevelPlayable, isWorldEntryLevel } from '../main/ets/game/levels/LevelUnlocks';
 import { LEVEL_MAPS, LEVEL_MAP_RAWFILE_PATHS } from '../main/ets/game/levels/LevelMaps';
 import { LEVELS } from '../main/ets/game/levels/levels';
 import { BoardAnimationPlanner } from '../main/ets/game/render/BoardAnimationPlanner';
@@ -239,6 +241,28 @@ export default function gameCoreTest() {
       expect(getLevelChapter(61).name).assertEqual('云洞传送站');
       expect(getLevelChapter(100).name).assertEqual('彩虹终章');
       expect(chapterProgressText(45)).assertEqual('糖果工厂 5/20');
+    });
+
+    it('worldEntryLevelsStayPlayableForDemo', 0, () => {
+      const entryLevels: number[] = [1, 21, 41, 61, 81];
+      entryLevels.forEach(levelId => {
+        expect(isWorldEntryLevel(levelId)).assertTrue();
+        expect(isLevelPlayable(levelId, 1)).assertTrue();
+      });
+      expect(isLevelPlayable(22, 1)).assertFalse();
+      expect(isLevelPlayable(82, 60)).assertFalse();
+    });
+
+    it('fiveWorldsUseDistinctVisualThemes', 0, () => {
+      const patternKeys = new Set<string>();
+      const boardFills = new Set<string>();
+      [1, 21, 41, 61, 81].forEach(levelId => {
+        const theme = getLevelWorldTheme(levelId);
+        patternKeys.add(theme.board.pattern);
+        boardFills.add(theme.board.fill);
+      });
+      expect(patternKeys.size).assertEqual(5);
+      expect(boardFills.size).assertEqual(5);
     });
 
     it('earlyLevelsUseVariedBoardSizesAndHoles', 0, () => {

@@ -9,6 +9,7 @@ import { Board, PieceType, Position, SpecialType } from '../game/core/Types';
 import { economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { chapterProgressText, getLevelChapter } from '../game/levels/LevelChapters';
+import { getLevelWorldTheme, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
 import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
@@ -85,17 +86,14 @@ struct GamePage {
 
   build() {
     Stack() {
-      Image($r('app.media.game_background'))
-        .width('100%')
-        .height('100%')
-        .objectFit(ImageFit.Cover)
+      this.WorldBackdrop()
 
       Column() {
         Row() {
           Button('返回')
             .height(34)
             .borderRadius(17)
-            .backgroundColor('rgba(255, 255, 255, 0.72)')
+            .backgroundColor(this.worldTheme().buttonTint)
             .fontColor('#5C3A4A')
             .onClick(() => {
               router.back();
@@ -109,7 +107,7 @@ struct GamePage {
           Button('重玩')
             .height(34)
             .borderRadius(17)
-            .backgroundColor('rgba(255, 255, 255, 0.72)')
+            .backgroundColor(this.worldTheme().buttonTint)
             .fontColor('#5C3A4A')
             .onClick(() => {
               this.startLevel(this.levelId);
@@ -124,14 +122,14 @@ struct GamePage {
             .fontColor(this.chapterAccent)
             .padding({ left: 12, right: 12, top: 4, bottom: 4 })
             .borderRadius(12)
-            .backgroundColor('rgba(255, 255, 255, 0.58)')
+            .backgroundColor(this.worldTheme().buttonTint)
           Blank()
           Text(`金币 ${this.coinBalance}`)
             .fontSize(12)
             .fontColor('#7B5A4D')
             .padding({ left: 12, right: 12, top: 4, bottom: 4 })
             .borderRadius(12)
-            .backgroundColor('rgba(255, 255, 255, 0.58)')
+            .backgroundColor(this.worldTheme().buttonTint)
         }
         .width('100%')
         .padding({ left: 20, right: 20 })
@@ -153,9 +151,9 @@ struct GamePage {
           .width(70)
           .height(58)
           .borderRadius(29)
-          .backgroundColor('rgba(255, 255, 255, 0.76)')
-          .border({ width: 2, color: 'rgba(255, 213, 129, 0.78)' })
-          .shadow({ radius: 14, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
+          .backgroundColor(this.worldTheme().panelFill)
+          .border({ width: 2, color: this.worldTheme().scoreMarkerFill })
+          .shadow({ radius: 14, color: this.worldTheme().shadow, offsetX: 0, offsetY: 5 })
 
           Blank()
 
@@ -185,7 +183,7 @@ struct GamePage {
                   .width(this.scorePipeFillWidth())
                   .height(18)
                   .borderRadius(9)
-                  .backgroundColor('#64D3F1')
+                  .backgroundColor(this.worldTheme().scoreFill)
                   .margin({ left: 5, top: 18 })
                 Row()
                   .width(Math.max(0, this.scorePipeFillWidth() - 8))
@@ -221,9 +219,9 @@ struct GamePage {
           }
           .padding({ left: 14, right: 10, top: 8, bottom: 7 })
           .borderRadius(20)
-          .backgroundColor('rgba(255, 255, 255, 0.62)')
-          .border({ width: 1, color: 'rgba(255, 255, 255, 0.62)' })
-          .shadow({ radius: 14, color: 'rgba(92, 58, 74, 0.11)', offsetX: 0, offsetY: 6 })
+          .backgroundColor(this.worldTheme().panelFill)
+          .border({ width: 1, color: this.worldTheme().panelBorder })
+          .shadow({ radius: 14, color: this.worldTheme().shadow, offsetX: 0, offsetY: 6 })
         }
         .width('100%')
         .padding({ left: 18, right: 18, bottom: 8 })
@@ -234,9 +232,9 @@ struct GamePage {
         Canvas(this.context)
           .width(this.canvasWidth)
           .height(this.canvasHeight)
-          .backgroundColor('rgba(255, 243, 199, 0.78)')
+          .backgroundColor(this.worldTheme().board.fill)
           .borderRadius(22)
-          .shadow({ radius: 24, color: 'rgba(92, 58, 74, 0.18)', offsetX: 0, offsetY: 8 })
+          .shadow({ radius: 24, color: this.worldTheme().shadow, offsetX: 0, offsetY: 8 })
           .margin({ top: 10 })
           .onReady(() => {
             this.canvasReady = true;
@@ -381,13 +379,16 @@ struct GamePage {
         .height(64)
         .margin({ top: 2 })
         .alignItems(VerticalAlign.Center)
+        .padding({ left: 8, right: 8 })
+        .borderRadius(32)
+        .backgroundColor(this.worldTheme().shelfFill)
 
       }
       .width('100%')
       .height('100%')
       .alignItems(HorizontalAlign.Center)
       .padding({ top: 48, bottom: 18 })
-      .backgroundColor('rgba(255, 248, 228, 0.26)')
+      .backgroundColor('rgba(255, 248, 228, 0.10)')
 
       if (this.showResult) {
         Column() {
@@ -449,6 +450,64 @@ struct GamePage {
     .width('100%')
     .height('100%')
     .alignContent(Alignment.Center)
+  }
+
+  @Builder
+  WorldBackdrop() {
+    Stack() {
+      Column() {
+        Row()
+          .layoutWeight(1)
+          .backgroundColor(this.worldTheme().backgroundTop)
+        Row()
+          .layoutWeight(1)
+          .backgroundColor(this.worldTheme().backgroundMiddle)
+        Row()
+          .layoutWeight(1)
+          .backgroundColor(this.worldTheme().backgroundBottom)
+      }
+      .width('100%')
+      .height('100%')
+
+      Row()
+        .width(220)
+        .height(66)
+        .borderRadius(33)
+        .backgroundColor(this.worldTheme().cloud)
+        .position({ x: '-12%', y: '13%' })
+      Row()
+        .width(190)
+        .height(54)
+        .borderRadius(27)
+        .backgroundColor(this.worldTheme().cloud)
+        .position({ x: '58%', y: '9%' })
+      Row()
+        .width(250)
+        .height(82)
+        .borderRadius(41)
+        .backgroundColor(this.worldTheme().cloud)
+        .position({ x: '8%', y: '73%' })
+      Row()
+        .width(34)
+        .height(34)
+        .borderRadius(17)
+        .backgroundColor(this.worldTheme().orb)
+        .position({ x: '7%', y: '29%' })
+      Row()
+        .width(48)
+        .height(48)
+        .borderRadius(24)
+        .backgroundColor(this.worldTheme().orb)
+        .position({ x: '84%', y: '22%' })
+      Row()
+        .width(28)
+        .height(28)
+        .borderRadius(14)
+        .backgroundColor(this.worldTheme().orb)
+        .position({ x: '63%', y: '14%' })
+    }
+    .width('100%')
+    .height('100%')
   }
 
   @Builder
@@ -548,7 +607,7 @@ struct GamePage {
         .width(3)
         .height(12)
         .borderRadius(2)
-        .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(215, 163, 78, 0.40)')
+        .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? this.worldTheme().scoreMarkerFill : 'rgba(215, 163, 78, 0.40)')
         .position({ x: 8, y: 15 })
       Text('★')
         .fontSize(10)
@@ -558,7 +617,7 @@ struct GamePage {
     .width(19)
     .height(30)
     .borderRadius(10)
-    .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 251, 228, 0.96)')
+    .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? this.worldTheme().scoreMarkerFill : 'rgba(255, 251, 228, 0.96)')
     .border({ width: 1, color: this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : 'rgba(215, 163, 78, 0.58)' })
     .shadow({ radius: 5, color: 'rgba(92, 58, 74, 0.10)', offsetX: 0, offsetY: 2 })
     .position({ x: this.scoreMarkerLeft(stars), y: 0 })
@@ -1337,8 +1396,13 @@ struct GamePage {
       width: this.canvasWidth,
       height: this.canvasHeight,
       layout,
-      animation
+      animation,
+      theme: this.worldTheme().board
     });
+  }
+
+  private worldTheme(): LevelWorldTheme {
+    return getLevelWorldTheme(this.levelId);
   }
 
   private layoutForBoard(board: Board): BoardLayoutResult {
