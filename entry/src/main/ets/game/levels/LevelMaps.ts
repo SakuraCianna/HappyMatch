@@ -12101,9 +12101,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -12376,9 +12376,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -12648,9 +12648,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -12908,9 +12908,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -13168,9 +13168,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -13428,9 +13428,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -13700,9 +13700,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -13978,9 +13978,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -14250,9 +14250,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -14528,9 +14528,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -14782,9 +14782,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -15042,9 +15042,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -15314,9 +15314,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -15589,9 +15589,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -15876,9 +15876,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -16157,9 +16157,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 3
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -16444,9 +16444,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 3
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -16725,9 +16725,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 3
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -17012,9 +17012,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 3
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -17299,9 +17299,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "rainbow",
-        "count": 3
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [
@@ -17574,9 +17574,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "count": 8
       },
       {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 3
+        "type": "special_combo_goal",
+        "comboType": "rainbow_functional",
+        "count": 1
       }
     ],
     "blockers": [

@@ -371,10 +371,14 @@ export default function gameCoreTest() {
       const specialComboMissionLevels = LEVELS.slice(60).filter(level => {
         return level.goals.some(goal => goal.type === 'special_combo_goal');
       });
+      const rainbowComboMissionLevels = LEVELS.slice(80).filter(level => {
+        return level.goals.some(goal => goal.type === 'special_combo_goal' && goal.comboType === 'rainbow_functional');
+      });
 
       expect(earlyMissionLevels.length).assertLarger(6);
       expect(comboMissionLevels.length).assertLarger(5);
       expect(specialComboMissionLevels.length).assertLarger(5);
+      expect(rainbowComboMissionLevels.length).assertLarger(8);
     });
 
     it('holeTilesStayEmptyAfterGravity', 0, () => {
