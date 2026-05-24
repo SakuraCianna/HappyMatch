@@ -37,6 +37,7 @@ struct GamePage {
   private cachedLayoutKey: string = '';
   private canvasWidth: number = 360;
   private canvasHeight: number = 420;
+  private scoreTrackWidth: number = 178;
   private resultSaved: boolean = false;
   private isAnimating: boolean = false;
   private isBonusResolving: boolean = false;
@@ -160,72 +161,64 @@ struct GamePage {
                 .fontWeight(FontWeight.Medium)
                 .fontColor('#5C3A4A')
             }
-            .width(198)
+            .width(226)
 
             Row() {
               Stack() {
                 Row()
-                  .width(168)
-                  .height(22)
-                  .borderRadius(11)
-                  .backgroundColor('rgba(255, 255, 255, 0.72)')
-                  .border({ width: 2, color: 'rgba(99, 181, 213, 0.50)' })
+                  .width(this.scoreTrackWidth + 8)
+                  .height(24)
+                  .borderRadius(12)
+                  .backgroundColor('rgba(255, 255, 255, 0.82)')
+                  .border({ width: 2, color: 'rgba(99, 181, 213, 0.56)' })
                 Row()
                   .width(this.scorePipeFillWidth())
-                  .height(14)
-                  .borderRadius(7)
-                  .backgroundColor('#78D7F3')
+                  .height(16)
+                  .borderRadius(8)
+                  .backgroundColor('#64D3F1')
                   .margin({ left: 4 })
+                Row()
+                  .width(Math.max(0, this.scorePipeFillWidth() - 8))
+                  .height(5)
+                  .borderRadius(3)
+                  .backgroundColor('rgba(255, 255, 255, 0.52)')
+                  .margin({ left: 8, top: 5 })
                 this.ScoreMarker(1)
                 this.ScoreMarker(2)
                 this.ScoreMarker(3)
               }
-              .width(172)
-              .height(26)
+              .width(this.scoreTrackWidth + 16)
+              .height(30)
               .alignContent(Alignment.Start)
 
-              Row()
-                .width(20)
-                .height(18)
-                .borderRadius(9)
-                .backgroundColor('#B9ECFF')
-                .border({ width: 2, color: 'rgba(99, 181, 213, 0.50)' })
+              Stack() {
+                Row()
+                  .width(10)
+                  .height(10)
+                  .borderRadius(5)
+                  .backgroundColor('rgba(255, 255, 255, 0.60)')
+              }
+              .width(24)
+              .height(24)
+              .borderRadius(12)
+              .backgroundColor('#B9ECFF')
+              .border({ width: 2, color: 'rgba(99, 181, 213, 0.52)' })
             }
-            .width(198)
-            .height(28)
+            .width(226)
+            .height(32)
             .alignItems(VerticalAlign.Center)
           }
-          .padding({ left: 12, right: 10, top: 8, bottom: 8 })
-          .borderRadius(18)
-          .backgroundColor('rgba(255, 255, 255, 0.52)')
-          .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.10)', offsetX: 0, offsetY: 5 })
+          .padding({ left: 14, right: 10, top: 9, bottom: 9 })
+          .borderRadius(20)
+          .backgroundColor('rgba(255, 255, 255, 0.62)')
+          .border({ width: 1, color: 'rgba(255, 255, 255, 0.62)' })
+          .shadow({ radius: 14, color: 'rgba(92, 58, 74, 0.11)', offsetX: 0, offsetY: 6 })
         }
         .width('100%')
         .padding({ left: 18, right: 18, bottom: 8 })
         .margin({ top: 26 })
 
-        if (this.shouldShowGoalChip()) {
-          Text(this.goalText)
-            .fontSize(13)
-            .fontColor('#7B5A4D')
-            .width('90%')
-            .padding({ left: 14, right: 14, top: 7, bottom: 7 })
-            .borderRadius(16)
-            .backgroundColor('rgba(255, 255, 255, 0.50)')
-            .textAlign(TextAlign.Center)
-            .margin({ top: 8, bottom: 4 })
-        }
-
-        if (this.comboText.length > 0) {
-          Text(this.comboText)
-            .fontSize(14)
-            .fontWeight(FontWeight.Bold)
-            .fontColor('#5C3A4A')
-            .padding({ left: 14, right: 14, top: 5, bottom: 5 })
-            .borderRadius(14)
-            .backgroundColor('rgba(255, 241, 166, 0.72)')
-            .margin({ top: 4 })
-        }
+        this.MessageSlot()
 
         Canvas(this.context)
           .width(this.canvasWidth)
@@ -233,7 +226,7 @@ struct GamePage {
           .backgroundColor('rgba(255, 243, 199, 0.78)')
           .borderRadius(22)
           .shadow({ radius: 24, color: 'rgba(92, 58, 74, 0.18)', offsetX: 0, offsetY: 8 })
-          .margin({ top: 24 })
+          .margin({ top: 16 })
           .onReady(() => {
             this.canvasReady = true;
             this.draw();
@@ -242,33 +235,7 @@ struct GamePage {
             this.handleTouch(event);
           })
 
-        if (this.activeTool === 'brush') {
-          Row() {
-            if (this.canUseBrushColor('red')) {
-              this.BrushColorButton('red')
-            }
-            if (this.canUseBrushColor('blue')) {
-              this.BrushColorButton('blue')
-            }
-            if (this.canUseBrushColor('yellow')) {
-              this.BrushColorButton('yellow')
-            }
-            if (this.canUseBrushColor('green')) {
-              this.BrushColorButton('green')
-            }
-            if (this.canUseBrushColor('purple')) {
-              this.BrushColorButton('purple')
-            }
-            if (this.canUseBrushColor('orange')) {
-              this.BrushColorButton('orange')
-            }
-          }
-          .width('82%')
-          .height(38)
-          .justifyContent(FlexAlign.SpaceBetween)
-          .alignItems(VerticalAlign.Center)
-          .margin({ top: 8 })
-        }
+        this.BrushPaletteSlot()
 
         Row() {
           Stack() {
@@ -470,6 +437,65 @@ struct GamePage {
   }
 
   @Builder
+  MessageSlot() {
+    Stack() {
+      if (this.messageChipText().length > 0) {
+        Text(this.messageChipText())
+          .fontSize(this.comboText.length > 0 ? 14 : 13)
+          .fontWeight(this.comboText.length > 0 ? FontWeight.Bold : FontWeight.Medium)
+          .fontColor('#5C3A4A')
+          .maxLines(1)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+          .padding({ left: 16, right: 16, top: 6, bottom: 6 })
+          .borderRadius(16)
+          .backgroundColor(this.comboText.length > 0 ? 'rgba(255, 241, 166, 0.78)' : 'rgba(255, 255, 255, 0.54)')
+          .border({ width: 1, color: this.comboText.length > 0 ? 'rgba(242, 184, 75, 0.32)' : 'rgba(255, 255, 255, 0.52)' })
+          .shadow({ radius: 8, color: 'rgba(92, 58, 74, 0.08)', offsetX: 0, offsetY: 3 })
+      }
+    }
+    .width('92%')
+    .height(38)
+    .alignContent(Alignment.Center)
+    .margin({ top: 8 })
+  }
+
+  @Builder
+  BrushPaletteSlot() {
+    Stack() {
+      if (this.activeTool === 'brush') {
+        Row() {
+          if (this.canUseBrushColor('red')) {
+            this.BrushColorButton('red')
+          }
+          if (this.canUseBrushColor('blue')) {
+            this.BrushColorButton('blue')
+          }
+          if (this.canUseBrushColor('yellow')) {
+            this.BrushColorButton('yellow')
+          }
+          if (this.canUseBrushColor('green')) {
+            this.BrushColorButton('green')
+          }
+          if (this.canUseBrushColor('purple')) {
+            this.BrushColorButton('purple')
+          }
+          if (this.canUseBrushColor('orange')) {
+            this.BrushColorButton('orange')
+          }
+        }
+        .width('82%')
+        .height(38)
+        .justifyContent(FlexAlign.SpaceBetween)
+        .alignItems(VerticalAlign.Center)
+      }
+    }
+    .width('100%')
+    .height(44)
+    .alignContent(Alignment.Center)
+    .margin({ top: 8 })
+  }
+
+  @Builder
   BrushColorButton(type: PieceType) {
     Stack() {
       if (this.selectedBrushColor === type) {
@@ -502,16 +528,19 @@ struct GamePage {
 
   @Builder
   ScoreMarker(stars: number) {
-    Text('★')
-      .fontSize(8)
-      .fontColor(this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : '#D7A34E')
-      .textAlign(TextAlign.Center)
-      .width(14)
-      .height(14)
-      .borderRadius(7)
-      .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 255, 255, 0.86)')
-      .border({ width: 1, color: 'rgba(215, 163, 78, 0.70)' })
-      .margin({ left: this.scoreMarkerLeft(stars), top: 6 })
+    Stack() {
+      Text('★')
+        .fontSize(9)
+        .fontColor(this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : '#D7A34E')
+        .textAlign(TextAlign.Center)
+    }
+    .width(16)
+    .height(16)
+    .borderRadius(8)
+    .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 255, 255, 0.92)')
+    .border({ width: 1, color: this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : 'rgba(215, 163, 78, 0.72)' })
+    .shadow({ radius: 5, color: 'rgba(92, 58, 74, 0.10)', offsetX: 0, offsetY: 2 })
+    .position({ x: this.scoreMarkerLeft(stars), y: 4 })
   }
 
   private startLevel(levelId: number): void {
@@ -1177,12 +1206,11 @@ struct GamePage {
   }
 
   private scorePipeFillWidth(): number {
-    const trackWidth = 160;
     const ratio = Math.min(1, this.score / this.scorePipeTargetValue());
     if (this.score <= 0) {
       return 0;
     }
-    return Math.max(10, trackWidth * ratio);
+    return Math.max(10, this.scoreTrackWidth * ratio);
   }
 
   private scoreGoalValue(): number {
@@ -1213,9 +1241,8 @@ struct GamePage {
   }
 
   private scoreMarkerLeft(stars: number): number {
-    const trackWidth = 160;
     const ratio = Math.min(1, this.scoreMilestoneValue(stars) / this.scorePipeTargetValue());
-    return Math.max(0, Math.min(158, 4 + trackWidth * ratio - 7));
+    return Math.max(2, Math.min(this.scoreTrackWidth - 4, 4 + this.scoreTrackWidth * ratio - 8));
   }
 
   private hasScoreGoal(): boolean {
@@ -1235,6 +1262,16 @@ struct GamePage {
       return false;
     }
     return !this.hasScoreGoal() || this.session.state.goals.length > 1;
+  }
+
+  private messageChipText(): string {
+    if (this.comboText.length > 0) {
+      return this.comboText;
+    }
+    if (this.shouldShowGoalChip()) {
+      return this.goalText;
+    }
+    return '';
   }
 
   private async finishLevel(): Promise<void> {
