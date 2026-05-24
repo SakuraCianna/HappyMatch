@@ -7,14 +7,17 @@ import { MatchResolver } from '../game/core/MatchResolver';
 import { SpecialResolver } from '../game/core/SpecialResolver';
 import { Board, PieceType, Position, SpecialType } from '../game/core/Types';
 import { economyService } from '../game/economy/EconomyService';
+import { feedbackService } from '../game/feedback/FeedbackService';
 import { chapterProgressText, getLevelChapter } from '../game/levels/LevelChapters';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
 import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
 import { BoardLayout, BoardLayoutResult } from '../game/render/BoardLayout';
 import { BoardRenderState, CanvasRenderer, GameCanvasContext, PieceRenderEffect } from '../game/render/CanvasRenderer';
+import { gameSettingsService } from '../game/settings/GameSettings';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { progressService } from '../game/storage/ProgressService';
+import { TutorialStep, tutorialStepsForLevel } from '../game/tutorial/TutorialGuide';
 
 interface MovePreview {
   accepted: boolean;
@@ -66,9 +69,15 @@ struct GamePage {
   @State private resultMessage: string = '';
   @State private resultWon: boolean = false;
   @State private showContinueOffer: boolean = false;
+  @State private showTutorial: boolean = false;
+  @State private tutorialIndex: number = 0;
+  @State private tutorialSteps: TutorialStep[] = [];
 
   aboutToAppear(): void {
-    bootstrapProgress(getContext(this) as common.Context);
+    const context = getContext(this) as common.Context;
+    bootstrapProgress(context);
+    feedbackService.init(context);
+    gameSettingsService.init(context);
     const params = router.getParams() as Record<string, number>;
     const nextLevelId = params && params.levelId ? Number(params.levelId) : 1;
     this.startLevel(nextLevelId);
@@ -432,6 +441,10 @@ struct GamePage {
         .backgroundColor('#FFFDF4')
         .shadow({ radius: 30, color: 'rgba(92, 58, 74, 0.22)', offsetX: 0, offsetY: 10 })
       }
+
+      if (this.showTutorial && !this.showResult) {
+        this.TutorialOverlay()
+      }
     }
     .width('100%')
     .height('100%')
@@ -551,6 +564,39 @@ struct GamePage {
     .position({ x: this.scoreMarkerLeft(stars), y: 0 })
   }
 
+  @Builder
+  TutorialOverlay() {
+    Column() {
+      Text(this.currentTutorialTitle())
+        .fontSize(22)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#5C3A4A')
+      Text(this.currentTutorialMessage())
+        .fontSize(14)
+        .fontColor('#7B5A4D')
+        .lineHeight(22)
+        .textAlign(TextAlign.Center)
+        .margin({ top: 10, bottom: 18 })
+      Row() {
+        Button(this.tutorialIndex >= this.tutorialSteps.length - 1 ? '开始闯关' : '下一条')
+          .height(40)
+          .borderRadius(20)
+          .fontColor('#FFFFFF')
+          .backgroundColor('#F27A91')
+          .onClick(() => {
+            feedbackService.play('tap');
+            this.advanceTutorial();
+          })
+      }
+      .justifyContent(FlexAlign.Center)
+    }
+    .width('84%')
+    .padding(22)
+    .borderRadius(24)
+    .backgroundColor('rgba(255, 253, 244, 0.94)')
+    .shadow({ radius: 28, color: 'rgba(92, 58, 74, 0.20)', offsetX: 0, offsetY: 10 })
+  }
+
   private startLevel(levelId: number): void {
     const safeLevelId = Math.max(1, Math.min(100, levelId));
     const level = LEVELS[safeLevelId - 1];
@@ -580,12 +626,37 @@ struct GamePage {
     this.resultStars = '';
     this.resultMessage = '';
     this.goalText = this.describeGoals();
+    this.tutorialSteps = tutorialStepsForLevel(level.id);
+    this.tutorialIndex = 0;
+    this.showTutorial = this.tutorialSteps.length > 0;
     this.syncToolCounts();
     this.draw();
   }
 
+  private currentTutorialTitle(): string {
+    if (this.tutorialSteps.length === 0) {
+      return '';
+    }
+    return this.tutorialSteps[Math.min(this.tutorialIndex, this.tutorialSteps.length - 1)].title;
+  }
+
+  private currentTutorialMessage(): string {
+    if (this.tutorialSteps.length === 0) {
+      return '';
+    }
+    return this.tutorialSteps[Math.min(this.tutorialIndex, this.tutorialSteps.length - 1)].message;
+  }
+
+  private advanceTutorial(): void {
+    if (this.tutorialIndex >= this.tutorialSteps.length - 1) {
+      this.showTutorial = false;
+      return;
+    }
+    this.tutorialIndex++;
+  }
+
   private handleTouch(event: TouchEvent): void {
-    if (!this.session || !this.boardLayout || event.touches.length === 0 || this.showResult || this.isAnimating) {
+    if (!this.session || !this.boardLayout || event.touches.length === 0 || this.showResult || this.showTutorial || this.isAnimating) {
       return;
     }
     const touch = event.touches[0];
@@ -706,6 +777,7 @@ struct GamePage {
   ): void {
     const expectedSession = this.session;
     this.isAnimating = true;
+    feedbackService.play('swap');
     this.animateSwap(beforeBoard, first, second, 0, 1, 82, () => {
       const token = this.animationToken;
       setTimeout(() => {
@@ -731,6 +803,7 @@ struct GamePage {
     }
     const afterBoard = cloneBoard(this.session.state.board);
     if (preview.clearPositions.length > 0) {
+      feedbackService.play(preview.conversionBoard ? 'special' : 'match');
       if (preview.conversionBoard && preview.convertedPositions) {
         this.animateConversion(preview.swappedBoard, preview.conversionBoard, preview.convertedPositions, () => {
           this.animateClear(preview.conversionBoard!, preview.clearPositions, () => {
@@ -787,6 +860,7 @@ struct GamePage {
 
   private playRejectedMove(board: Board, first: Position, second: Position): void {
     this.isAnimating = true;
+    feedbackService.play('error');
     this.animateSwap(board, first, second, 0, 0.35, 70, () => {
       this.animateSwap(board, first, second, 0.35, 0, 90, () => {
         this.isAnimating = false;
@@ -818,6 +892,7 @@ struct GamePage {
     this.isBonusResolving = true;
     this.isAnimating = true;
     this.busyTool = 'bonus';
+    feedbackService.play('special');
     this.comboText = `剩余 ${bonus.convertedPositions.length} 步奖励`;
     if (bonus.convertedPositions.length === 0 || bonus.clearPositions.length === 0) {
       this.finishBonusAnimation(expectedSession);
@@ -927,6 +1002,7 @@ struct GamePage {
     this.activeTool = '';
     this.busyTool = 'shuffle';
     this.isAnimating = true;
+    feedbackService.play('tool');
     setTimeout(() => {
       if (token !== this.animationToken || !this.session) {
         return;
@@ -947,6 +1023,7 @@ struct GamePage {
       return;
     }
     this.busyTool = 'undo';
+    feedbackService.play('tool');
     if (this.session.useUndoTool()) {
       this.activeTool = '';
       this.showResult = false;
@@ -964,6 +1041,7 @@ struct GamePage {
     }
     this.activeTool = '';
     this.busyTool = 'addMoves';
+    feedbackService.play('tool');
     if (this.session.useAddMovesTool(3)) {
       this.statusText = '已增加 3 步';
       this.syncState();
@@ -982,6 +1060,7 @@ struct GamePage {
     if (tool === 'brush' && !this.hasToolCount(this.brushToolCount)) {
       return;
     }
+    feedbackService.play('tap');
     this.activeTool = this.activeTool === tool ? '' : tool;
   }
 
@@ -998,6 +1077,7 @@ struct GamePage {
     this.activeTool = '';
     this.busyTool = tool;
     this.isAnimating = true;
+    feedbackService.play(tool === 'hammer' ? 'match' : 'tool');
     if (tool === 'hammer') {
       const clearPositions = SpecialResolver.expandedClearPositions(beforeBoard, [position]);
       this.animateClear(beforeBoard, clearPositions, () => {
@@ -1056,6 +1136,7 @@ struct GamePage {
       this.finishToolAnimation();
       return;
     }
+    feedbackService.play(tool === 'hammer' ? 'match' : 'tool');
     const afterBoard = cloneBoard(this.session.state.board);
     if (tool === 'hammer') {
       const clearedBoard = this.createClearedBoard(beforeBoard, clearPositions);
@@ -1229,12 +1310,13 @@ struct GamePage {
   private runAnimation(durationMs: number, frame: (progress: number) => void, done: () => void): void {
     const token = ++this.animationToken;
     const startedAt = Date.now();
+    const duration = gameSettingsService.getState().reducedMotion ? Math.max(48, Math.floor(durationMs * 0.64)) : durationMs;
     const tick = (): void => {
       if (token !== this.animationToken) {
         return;
       }
       const elapsed = Date.now() - startedAt;
-      const rawProgress = Math.min(1, elapsed / durationMs);
+      const rawProgress = Math.min(1, elapsed / duration);
       frame(rawProgress);
       if (rawProgress < 1) {
         setTimeout(tick, 16);
@@ -1387,6 +1469,7 @@ struct GamePage {
     if (this.session !== finishedSession || this.levelId !== finishedLevelId) {
       return;
     }
+    feedbackService.play(won ? 'win' : 'lose');
     this.resultTitle = won ? '通关成功' : '挑战失败';
     this.resultStars = won ? this.formatStars(progress.stars) : '☆☆☆';
     this.resultMessage = won
@@ -1402,6 +1485,7 @@ struct GamePage {
       return;
     }
     const product = economyService.getProduct('extra_moves');
+    feedbackService.play('tap');
     if (!economyService.purchase('extra_moves')) {
       this.coinBalance = economyService.getWallet().coins;
       this.resultMessage = `金币不足，还需要 ${product.price} 金币`;

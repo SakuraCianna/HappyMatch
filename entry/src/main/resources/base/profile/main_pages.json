@@ -3,6 +3,8 @@
     "pages/Index",
     "pages/HomePage",
     "pages/LevelSelectPage",
-    "pages/GamePage"
+    "pages/GamePage",
+    "pages/SettingsPage",
+    "pages/AchievementsPage"
   ]
 }

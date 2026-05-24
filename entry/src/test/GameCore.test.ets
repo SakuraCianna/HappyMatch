@@ -8,15 +8,18 @@ import { MatchResolver } from '../main/ets/game/core/MatchResolver';
 import { SpecialResolver } from '../main/ets/game/core/SpecialResolver';
 import { PieceType } from '../main/ets/game/core/Types';
 import { EconomyService } from '../main/ets/game/economy/EconomyService';
+import { deriveAchievements } from '../main/ets/game/achievements/AchievementService';
 import { chapterProgressText, getLevelChapter } from '../main/ets/game/levels/LevelChapters';
 import { LEVEL_MAPS, LEVEL_MAP_RAWFILE_PATHS } from '../main/ets/game/levels/LevelMaps';
 import { LEVELS } from '../main/ets/game/levels/levels';
 import { BoardAnimationPlanner } from '../main/ets/game/render/BoardAnimationPlanner';
 import { BoardLayout } from '../main/ets/game/render/BoardLayout';
 import { CanvasRenderer, GameCanvasContext } from '../main/ets/game/render/CanvasRenderer';
+import { GameSettingsService } from '../main/ets/game/settings/GameSettings';
 import { PortalResolver } from '../main/ets/game/mechanics/PortalResolver';
 import { MemoryProgressRepository } from '../main/ets/game/storage/MemoryProgressRepository';
 import { ProgressService } from '../main/ets/game/storage/ProgressService';
+import { hasTutorial, tutorialStepsForLevel } from '../main/ets/game/tutorial/TutorialGuide';
 
 class CountingCanvasContext implements GameCanvasContext {
   fillStyle: string = '';
@@ -169,6 +172,47 @@ export default function gameCoreTest() {
         }
       }
       expect(specialCount).assertLarger(0);
+    });
+
+    it('tutorialGuideCoversFirstFiveLevelsOnly', 0, () => {
+      for (let levelId = 1; levelId <= 5; levelId++) {
+        expect(hasTutorial(levelId)).assertTrue();
+        expect(tutorialStepsForLevel(levelId).length).assertLarger(0);
+      }
+      expect(hasTutorial(6)).assertFalse();
+      expect(tutorialStepsForLevel(6).length).assertEqual(0);
+    });
+
+    it('settingsServiceTogglesFeedbackFlags', 0, () => {
+      const service = new GameSettingsService();
+      service.setSoundEnabled(false);
+      service.setVibrationEnabled(false);
+      service.setReducedMotion(true);
+      expect(service.getState().soundEnabled).assertFalse();
+      expect(service.getState().vibrationEnabled).assertFalse();
+      expect(service.getState().reducedMotion).assertTrue();
+      service.resetForTest();
+      expect(service.getState().soundEnabled).assertTrue();
+      expect(service.getState().vibrationEnabled).assertTrue();
+      expect(service.getState().reducedMotion).assertFalse();
+    });
+
+    it('achievementServiceDerivesProgressMilestones', 0, () => {
+      const progress: LevelProgress[] = [];
+      for (let levelId = 1; levelId <= 20; levelId++) {
+        progress.push({
+          levelId,
+          cleared: true,
+          stars: levelId <= 10 ? 3 : 1,
+          bestScore: 1000 + levelId,
+          updatedAt: levelId
+        });
+      }
+      const summary = deriveAchievements(progress, { coins: 900, purchases: 0 });
+      expect(summary.unlockedCount).assertLarger(3);
+      expect(summary.items.find(item => item.id === 'chapter_one_clear')?.unlocked).assertTrue();
+      expect(summary.items.find(item => item.id === 'ten_three_stars')?.unlocked).assertTrue();
+      expect(summary.items.find(item => item.id === 'coin_saver')?.unlocked).assertTrue();
     });
 
     it('laterLevelsMixTwoToFourSpecialTypes', 0, () => {
