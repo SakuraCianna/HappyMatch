@@ -18,198 +18,73 @@
   "goals": [
     {
       "type": "score",
-      "count": 8295
+      "count": 5810
     },
     {
       "type": "clear_marshmallow",
       "count": 4
-    },
-    {
-      "type": "special_combo_goal",
-      "comboType": "functional_combo",
-      "count": 1
     }
   ],
   "blockers": [
     {
       "row": 0,
-      "col": 0,
-      "type": "marshmallow",
-      "hp": 1
-    },
-    {
-      "row": 0,
-      "col": 2,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 0,
       "col": 3,
       "type": "marshmallow",
       "hp": 1
     },
     {
-      "row": 0,
-      "col": 5,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 1,
-      "col": 2,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 1,
-      "col": 5,
-      "type": "chain",
+      "row": 2,
+      "col": 3,
+      "type": "hole",
       "hp": 1
     },
     {
       "row": 2,
+      "col": 5,
+      "type": "marshmallow",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "type": "chain",
+      "hp": 1
+    },
+    {
+      "row": 4,
       "col": 1,
       "type": "chain",
       "hp": 1
     },
     {
-      "row": 2,
-      "col": 2,
+      "row": 4,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
       "type": "marshmallow",
       "hp": 1
     },
     {
-      "row": 2,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 2,
-      "col": 5,
+      "row": 5,
+      "col": 0,
       "type": "marshmallow",
       "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 1,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 3,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 3,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 0,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 2,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 0,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 5,
-      "col": 3,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
     }
   ],
   "specialPieces": [
     {
       "row": 5,
-      "col": 2,
-      "type": "yellow",
-      "special": "row_clear"
-    },
-    {
-      "row": 4,
-      "col": 1,
-      "type": "blue",
-      "special": "col_clear"
-    },
-    {
-      "row": 3,
-      "col": 2,
-      "type": "purple",
-      "special": "bomb"
-    },
-    {
-      "row": 1,
       "col": 4,
-      "type": "orange",
-      "special": "rainbow"
-    },
-    {
-      "row": 1,
-      "col": 0,
-      "type": "red",
-      "special": "col_clear"
-    },
-    {
-      "row": 1,
-      "col": 1,
       "type": "blue",
       "special": "col_clear"
     }

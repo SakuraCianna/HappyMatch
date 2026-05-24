@@ -17,7 +17,7 @@
   "goals": [
     {
       "type": "score",
-      "count": 5575
+      "count": 4130
     },
     {
       "type": "clear_ice",
@@ -101,18 +101,6 @@
     {
       "row": 5,
       "col": 5,
-      "type": "blue",
-      "special": "col_clear"
-    },
-    {
-      "row": 3,
-      "col": 3,
-      "type": "purple",
-      "special": "bomb"
-    },
-    {
-      "row": 4,
-      "col": 6,
       "type": "purple",
       "special": "rainbow"
     }

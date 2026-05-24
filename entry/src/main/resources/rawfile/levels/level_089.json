@@ -18,15 +18,16 @@
   "goals": [
     {
       "type": "score",
-      "count": 10165
+      "count": 6710
     },
     {
       "type": "clear_ice",
-      "count": 9
+      "count": 3
     },
     {
-      "type": "break_chain",
-      "count": 8
+      "type": "collect_special",
+      "targetSpecial": "rainbow",
+      "count": 1
     },
     {
       "type": "special_combo_goal",
@@ -35,42 +36,6 @@
     }
   ],
   "blockers": [
-    {
-      "row": 0,
-      "col": 0,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 0,
-      "col": 1,
-      "type": "marshmallow",
-      "hp": 2
-    },
-    {
-      "row": 0,
-      "col": 2,
-      "type": "marshmallow",
-      "hp": 2
-    },
-    {
-      "row": 0,
-      "col": 4,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 0,
-      "col": 5,
-      "type": "marshmallow",
-      "hp": 2
-    },
-    {
-      "row": 1,
-      "col": 0,
-      "type": "chain",
-      "hp": 1
-    },
     {
       "row": 1,
       "col": 1,
@@ -86,51 +51,9 @@
       "targetPortalId": "a_out"
     },
     {
-      "row": 1,
-      "col": 3,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 1,
-      "col": 4,
-      "type": "marshmallow",
-      "hp": 2
-    },
-    {
-      "row": 2,
-      "col": 0,
-      "type": "marshmallow",
-      "hp": 2
-    },
-    {
       "row": 2,
       "col": 2,
       "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 3,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 3,
-      "col": 0,
-      "type": "marshmallow",
-      "hp": 2
-    },
-    {
-      "row": 3,
-      "col": 2,
-      "type": "chain",
       "hp": 1
     },
     {
@@ -143,55 +66,19 @@
       "row": 3,
       "col": 4,
       "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 3,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 1,
-      "type": "chain",
       "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 2,
-      "type": "ice",
-      "hp": 2
     },
     {
       "row": 4,
       "col": 3,
       "type": "ice",
-      "hp": 2
+      "hp": 1
     },
     {
       "row": 4,
       "col": 4,
       "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 1,
-      "type": "chain",
       "hp": 1
-    },
-    {
-      "row": 5,
-      "col": 2,
-      "type": "marshmallow",
-      "hp": 2
     },
     {
       "row": 5,
@@ -199,56 +86,14 @@
       "type": "portal",
       "hp": 1,
       "portalId": "a_out"
-    },
-    {
-      "row": 5,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
     }
   ],
   "specialPieces": [
     {
-      "row": 2,
-      "col": 5,
-      "type": "yellow",
-      "special": "row_clear"
-    },
-    {
-      "row": 4,
-      "col": 0,
-      "type": "blue",
-      "special": "col_clear"
-    },
-    {
-      "row": 1,
-      "col": 5,
-      "type": "purple",
-      "special": "bomb"
-    },
-    {
-      "row": 3,
-      "col": 1,
+      "row": 5,
+      "col": 4,
       "type": "orange",
       "special": "rainbow"
-    },
-    {
-      "row": 3,
-      "col": 4,
-      "type": "red",
-      "special": "rainbow"
-    },
-    {
-      "row": 3,
-      "col": 5,
-      "type": "blue",
-      "special": "bomb"
     }
   ]
 }

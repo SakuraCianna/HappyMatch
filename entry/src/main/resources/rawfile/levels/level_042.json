@@ -18,16 +18,11 @@
   "goals": [
     {
       "type": "score",
-      "count": 6170
+      "count": 4320
     },
     {
       "type": "break_chain",
       "count": 3
-    },
-    {
-      "type": "collect_special",
-      "targetSpecial": "row_clear",
-      "count": 1
     }
   ],
   "blockers": [
@@ -39,63 +34,39 @@
     },
     {
       "row": 2,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 2,
       "col": 5,
       "type": "hole",
       "hp": 1
     },
     {
       "row": 3,
-      "col": 3,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 3,
       "col": 4,
-      "type": "ice",
-      "hp": 2
+      "type": "chain",
+      "hp": 1
     },
     {
       "row": 3,
       "col": 5,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
       "type": "chain",
       "hp": 1
     },
     {
       "row": 4,
-      "col": 2,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
       "col": 5,
       "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 6,
-      "type": "ice",
-      "hp": 2
+      "hp": 1
     },
     {
       "row": 5,
@@ -106,18 +77,6 @@
     {
       "row": 5,
       "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 5,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 6,
       "type": "chain",
       "hp": 1
     },
@@ -130,28 +89,10 @@
   ],
   "specialPieces": [
     {
-      "row": 2,
-      "col": 3,
+      "row": 4,
+      "col": 2,
       "type": "yellow",
       "special": "row_clear"
-    },
-    {
-      "row": 3,
-      "col": 6,
-      "type": "blue",
-      "special": "col_clear"
-    },
-    {
-      "row": 7,
-      "col": 4,
-      "type": "purple",
-      "special": "bomb"
-    },
-    {
-      "row": 5,
-      "col": 2,
-      "type": "orange",
-      "special": "rainbow"
     }
   ]
 }

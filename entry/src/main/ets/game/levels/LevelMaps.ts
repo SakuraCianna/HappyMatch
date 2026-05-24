@@ -139,7 +139,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 630
+        "count": 520
       }
     ],
     "blockers": [],
@@ -166,7 +166,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 740
+        "count": 610
       }
     ],
     "blockers": [
@@ -218,7 +218,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 850
+        "count": 700
       }
     ],
     "blockers": [
@@ -267,7 +267,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 960
+        "count": 790
       }
     ],
     "blockers": [
@@ -317,7 +317,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1070
+        "count": 880
       },
       {
         "type": "collect_special",
@@ -394,17 +394,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1180
+        "count": 970
       },
       {
         "type": "collect_special",
         "targetSpecial": "row_clear",
         "count": 1
-      },
-      {
-        "type": "collect_piece",
-        "target": "yellow",
-        "count": 12
       }
     ],
     "blockers": [
@@ -479,17 +474,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1290
+        "count": 1060
       },
       {
         "type": "collect_special",
         "targetSpecial": "row_clear",
         "count": 1
-      },
-      {
-        "type": "collect_piece",
-        "target": "green",
-        "count": 12
       }
     ],
     "blockers": [
@@ -558,7 +548,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1400
+        "count": 1150
       },
       {
         "type": "collect_special",
@@ -652,7 +642,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1510
+        "count": 1240
       },
       {
         "type": "collect_special",
@@ -731,17 +721,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1780
+        "count": 1460
       },
       {
         "type": "collect_piece",
         "target": "red",
         "count": 8
-      },
-      {
-        "type": "collect_piece",
-        "target": "blue",
-        "count": 15
       }
     ],
     "blockers": [
@@ -816,17 +801,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1890
+        "count": 1550
       },
       {
         "type": "collect_piece",
         "target": "blue",
         "count": 8
-      },
-      {
-        "type": "collect_piece",
-        "target": "yellow",
-        "count": 15
       }
     ],
     "blockers": [
@@ -901,17 +881,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2000
+        "count": 1640
       },
       {
         "type": "collect_piece",
         "target": "yellow",
         "count": 9
-      },
-      {
-        "type": "collect_piece",
-        "target": "green",
-        "count": 16
       }
     ],
     "blockers": [
@@ -968,17 +943,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2110
+        "count": 1730
       },
       {
         "type": "collect_piece",
         "target": "green",
         "count": 9
-      },
-      {
-        "type": "collect_piece",
-        "target": "purple",
-        "count": 17
       }
     ],
     "blockers": [
@@ -1053,17 +1023,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2220
+        "count": 1820
       },
       {
         "type": "collect_piece",
         "target": "purple",
         "count": 9
-      },
-      {
-        "type": "collect_piece",
-        "target": "red",
-        "count": 17
       }
     ],
     "blockers": [
@@ -1138,7 +1103,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2330
+        "count": 1910
       },
       {
         "type": "collect_piece",
@@ -1229,7 +1194,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2440
+        "count": 2000
       },
       {
         "type": "collect_piece",
@@ -1308,7 +1273,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2550
+        "count": 2090
       },
       {
         "type": "collect_piece",
@@ -1399,7 +1364,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2660
+        "count": 2180
       },
       {
         "type": "collect_piece",
@@ -1484,7 +1449,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2770
+        "count": 2270
       },
       {
         "type": "collect_piece",
@@ -1563,16 +1528,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4300
+        "count": 3180
       },
       {
         "type": "clear_ice",
         "count": 3
-      },
-      {
-        "type": "collect_piece",
-        "target": "blue",
-        "count": 22
       }
     ],
     "blockers": [
@@ -1628,12 +1588,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
         "col": 5,
         "type": "purple",
         "special": "bomb"
@@ -1662,16 +1616,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4385
+        "count": 3240
       },
       {
         "type": "clear_ice",
         "count": 3
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -1740,12 +1689,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 4,
         "type": "purple",
         "special": "bomb"
       }
@@ -1770,16 +1713,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4470
+        "count": 3310
       },
       {
         "type": "clear_ice",
         "count": 3
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -1854,12 +1792,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "purple",
         "special": "bomb"
       }
@@ -1884,16 +1816,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4555
+        "count": 3370
       },
       {
         "type": "clear_ice",
         "count": 3
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -1962,12 +1889,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "purple",
         "special": "bomb"
       }
@@ -1992,16 +1913,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4640
+        "count": 3430
       },
       {
         "type": "clear_ice",
-        "count": 4
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
+        "count": 3
       }
     ],
     "blockers": [
@@ -2021,12 +1937,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 2,
         "col": 5,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
         "hp": 1
       },
       {
@@ -2074,20 +1984,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 6,
+        "row": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
+        "row": 4,
+        "col": 6,
         "type": "purple",
         "special": "bomb"
       }
@@ -2112,16 +2016,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4725
+        "count": 3500
       },
       {
         "type": "clear_ice",
         "count": 4
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -2196,12 +2095,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
         "type": "purple",
         "special": "bomb"
       }
@@ -2226,16 +2119,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4810
+        "count": 3560
       },
       {
         "type": "clear_ice",
         "count": 4
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -2298,12 +2186,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 6,
         "type": "purple",
         "special": "bomb"
       }
@@ -2328,16 +2210,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4895
+        "count": 3620
       },
       {
         "type": "clear_ice",
         "count": 4
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -2400,12 +2277,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
         "type": "purple",
         "special": "bomb"
       }
@@ -2430,16 +2301,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4980
+        "count": 3690
       },
       {
         "type": "clear_ice",
-        "count": 5
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
+        "count": 4
       }
     ],
     "blockers": [
@@ -2450,12 +2316,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 3,
         "type": "hole",
@@ -2492,8 +2352,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
+        "row": 5,
+        "col": 3,
         "type": "ice",
         "hp": 1
       },
@@ -2514,12 +2374,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "purple",
         "special": "bomb"
       }
@@ -2544,16 +2398,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5065
+        "count": 3750
       },
       {
         "type": "clear_ice",
-        "count": 5
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
+        "count": 4
       }
     ],
     "blockers": [
@@ -2606,12 +2455,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
@@ -2626,20 +2469,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 4,
+        "row": 4,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 4,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 5,
+        "row": 6,
+        "col": 4,
         "type": "purple",
         "special": "bomb"
       }
@@ -2664,7 +2501,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5150
+        "count": 3810
       },
       {
         "type": "clear_ice",
@@ -2748,18 +2585,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 3,
         "type": "purple",
         "special": "rainbow"
       }
@@ -2784,16 +2609,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5235
+        "count": 3870
       },
       {
         "type": "clear_ice",
         "count": 5
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 2,
-        "count": 1
       }
     ],
     "blockers": [
@@ -2874,18 +2694,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 3,
         "type": "purple",
         "special": "rainbow"
       }
@@ -2910,16 +2718,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5320
+        "count": 3940
       },
       {
         "type": "clear_ice",
-        "count": 6
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 5
       }
     ],
     "blockers": [
@@ -2940,12 +2743,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -3004,19 +2801,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
+        "row": 3,
         "col": 3,
         "type": "purple",
         "special": "rainbow"
@@ -3042,16 +2827,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5405
+        "count": 4000
       },
       {
         "type": "clear_ice",
-        "count": 6
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 5
       }
     ],
     "blockers": [
@@ -3078,12 +2858,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 7,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -3136,20 +2910,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 5,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 4,
+        "row": 4,
+        "col": 2,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3174,16 +2936,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5490
+        "count": 4060
       },
       {
         "type": "clear_ice",
-        "count": 6
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 5
       }
     ],
     "blockers": [
@@ -3202,12 +2959,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "ice",
         "hp": 2
       },
@@ -3244,25 +2995,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 5,
+        "row": 3,
         "col": 5,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 3,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
         "row": 5,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "purple",
         "special": "rainbow"
@@ -3288,7 +3027,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5575
+        "count": 4130
       },
       {
         "type": "clear_ice",
@@ -3372,18 +3111,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 6,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3408,16 +3135,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5660
+        "count": 4190
       },
       {
         "type": "clear_ice",
-        "count": 7
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 6
       }
     ],
     "blockers": [
@@ -3477,12 +3199,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
         "col": 7,
         "type": "hole",
         "hp": 1
@@ -3496,20 +3212,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 4,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 3,
+        "row": 6,
+        "col": 4,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3534,16 +3238,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5745
+        "count": 4250
       },
       {
         "type": "clear_ice",
-        "count": 7
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 6
       }
     ],
     "blockers": [
@@ -3609,12 +3308,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "hole",
         "hp": 1
@@ -3629,25 +3322,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 5,
-        "col": 5,
+        "col": 3,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 3,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
         "row": 5,
-        "col": 6,
+        "col": 5,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3672,16 +3353,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5830
+        "count": 4310
       },
       {
         "type": "clear_ice",
-        "count": 7
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 6
       }
     ],
     "blockers": [
@@ -3752,12 +3428,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 7,
         "col": 3,
         "type": "hole",
@@ -3780,18 +3450,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3816,16 +3474,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5915
+        "count": 4380
       },
       {
         "type": "clear_ice",
-        "count": 7
-      },
-      {
-        "type": "combo_goal",
-        "comboLength": 3,
-        "count": 1
+        "count": 6
       }
     ],
     "blockers": [
@@ -3858,12 +3511,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 1,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -3918,18 +3565,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 3,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3955,7 +3590,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6000
+        "count": 4200
       },
       {
         "type": "break_chain",
@@ -3982,12 +3617,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "hole",
         "hp": 1
@@ -3996,25 +3625,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -4025,14 +3648,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -4042,19 +3659,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "chain",
         "hp": 1
       },
@@ -4062,12 +3667,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 6,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -4079,28 +3678,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
+        "row": 5,
         "col": 5,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ],
     "tutorial": [
@@ -4127,16 +3708,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6085
+        "count": 4260
       },
       {
         "type": "break_chain",
         "count": 3
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 1
       }
     ],
     "blockers": [
@@ -4148,20 +3724,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 8,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -4184,27 +3748,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -4215,20 +3761,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -4239,28 +3779,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 5,
+        "row": 4,
+        "col": 3,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -4284,16 +3806,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6170
+        "count": 4320
       },
       {
         "type": "break_chain",
         "count": 3
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "row_clear",
-        "count": 1
       }
     ],
     "blockers": [
@@ -4305,63 +3822,39 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -4372,18 +3865,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -4396,28 +3877,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 3,
+        "row": 4,
+        "col": 2,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -4441,16 +3904,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6255
+        "count": 4380
       },
       {
         "type": "break_chain",
         "count": 3
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "col_clear",
-        "count": 1
       }
     ],
     "blockers": [
@@ -4474,21 +3932,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -4504,18 +3950,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
         "type": "hole",
         "hp": 1
@@ -4524,25 +3958,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
@@ -4559,28 +3981,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 5,
+        "row": 4,
         "col": 3,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -4604,16 +4008,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6340
+        "count": 4440
       },
       {
         "type": "break_chain",
         "count": 3
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 1
       }
     ],
     "blockers": [
@@ -4631,27 +4030,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -4674,12 +4061,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
         "type": "chain",
         "hp": 1
       },
@@ -4687,35 +4068,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 3,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
-        "row": 6,
+        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
         "type": "chain",
         "hp": 1
       },
@@ -4728,28 +4085,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 2,
+        "row": 6,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -4773,7 +4112,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6425
+        "count": 4500
       },
       {
         "type": "break_chain",
@@ -4812,21 +4151,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 0,
+        "col": 3,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -4836,57 +4163,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
         "col": 7,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 7,
@@ -4903,28 +4200,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 6,
+        "row": 5,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -4948,25 +4227,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6510
+        "count": 4560
       },
       {
         "type": "break_chain",
         "count": 4
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "col_clear",
-        "count": 1
       }
     ],
     "blockers": [
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
       {
         "row": 2,
         "col": 4,
@@ -4975,26 +4243,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -5012,82 +4268,40 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 6,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 2,
+        "row": 6,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -5111,28 +4325,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6595
+        "count": 4620
       },
       {
         "type": "break_chain",
         "count": 4
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 0,
         "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 7,
         "type": "chain",
         "hp": 1
       },
@@ -5149,12 +4352,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 2,
         "type": "hole",
@@ -5162,15 +4359,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 3,
@@ -5181,88 +4372,46 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 1,
         "type": "chain",
         "hp": 1
       },
       {
+        "row": 4,
+        "col": 3,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 6,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
+        "row": 5,
         "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -5286,16 +4435,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6680
+        "count": 4680
       },
       {
         "type": "break_chain",
         "count": 4
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "row_clear",
-        "count": 1
       }
     ],
     "blockers": [
@@ -5313,18 +4457,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "hole",
         "hp": 1
@@ -5333,23 +4465,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -5357,13 +4477,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 2,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -5374,58 +4494,28 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
         "col": 5,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 7,
+        "row": 3,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -5449,16 +4539,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6765
+        "count": 4740
       },
       {
         "type": "break_chain",
         "count": 4
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "col_clear",
-        "count": 1
       }
     ],
     "blockers": [
@@ -5482,45 +4567,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 7,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -5539,24 +4606,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 1,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 6,
@@ -5580,27 +4629,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 3,
-        "col": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -5624,7 +4655,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6850
+        "count": 4800
       },
       {
         "type": "break_chain",
@@ -5644,36 +4675,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 3,
         "type": "hole",
@@ -5682,18 +4689,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -5706,32 +4707,26 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 6,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -5743,39 +4738,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 5,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 5,
-        "col": 6,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "col": 3,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -5799,16 +4776,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6935
+        "count": 4850
       },
       {
         "type": "break_chain",
         "count": 5
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "row_clear",
-        "count": 1
       }
     ],
     "blockers": [
@@ -5831,28 +4803,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 3,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -5864,7 +4818,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -5876,13 +4830,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -5894,25 +4842,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
         "col": 3,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 6,
@@ -5923,28 +4859,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 6,
+        "row": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -5968,16 +4886,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7020
+        "count": 4910
       },
       {
         "type": "break_chain",
         "count": 5
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "col_clear",
-        "count": 2
       }
     ],
     "blockers": [
@@ -5994,22 +4907,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
-        "col": 3,
+        "col": 4,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -6020,36 +4921,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 2,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 4,
+        "col": 3,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
         "type": "chain",
         "hp": 1
       },
@@ -6061,19 +4950,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "chain",
         "hp": 1
       },
@@ -6086,34 +4963,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 6,
         "col": 4,
-        "type": "chain",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 5,
+        "row": 4,
+        "col": 6,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -6137,25 +4996,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7105
+        "count": 4970
       },
       {
         "type": "break_chain",
         "count": 5
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
       {
         "row": 1,
         "col": 2,
@@ -6188,21 +5036,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -6221,12 +5057,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -6237,26 +5067,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 7,
@@ -6273,28 +5091,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 3,
+        "row": 4,
+        "col": 6,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -6318,16 +5118,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7190
+        "count": 5030
       },
       {
         "type": "break_chain",
         "count": 5
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "row_clear",
-        "count": 2
       }
     ],
     "blockers": [
@@ -6345,51 +5140,39 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
-        "type": "chain",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
         "col": 2,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 4,
+        "col": 3,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -6398,38 +5181,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
+        "row": 5,
+        "col": 3,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -6442,8 +5201,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 6,
         "col": 4,
-        "type": "chain",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 7,
@@ -6460,28 +5219,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 6,
+        "row": 5,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -6505,7 +5246,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7275
+        "count": 5090
       },
       {
         "type": "break_chain",
@@ -6514,11 +5255,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "collect_special",
         "targetSpecial": "row_clear",
-        "count": 2
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "col_clear",
         "count": 2
       }
     ],
@@ -6543,15 +5279,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 1,
+        "col": 4,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 2,
@@ -6561,21 +5291,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 4,
@@ -6586,8 +5304,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -6604,8 +5322,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -6615,27 +5333,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 6,
@@ -6652,28 +5352,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
+        "row": 5,
         "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -6697,16 +5379,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7360
+        "count": 5150
       },
       {
         "type": "break_chain",
         "count": 6
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
       }
     ],
     "blockers": [
@@ -6736,21 +5413,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
-        "type": "chain",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
@@ -6761,8 +5432,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -6773,18 +5444,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
         "type": "chain",
         "hp": 1
       },
@@ -6797,24 +5462,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 3,
-        "type": "chain",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -6829,12 +5482,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 6,
@@ -6845,28 +5492,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 3,
+        "row": 5,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -6890,16 +5519,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7445
+        "count": 5210
       },
       {
         "type": "break_chain",
         "count": 6
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "row_clear",
-        "count": 2
       }
     ],
     "blockers": [
@@ -6953,12 +5577,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
         "type": "ice",
         "hp": 2
@@ -6971,27 +5589,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
         "col": 2,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -7004,44 +5610,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
+        "row": 4,
         "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -7065,16 +5641,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7530
+        "count": 5270
       },
       {
         "type": "break_chain",
         "count": 6
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "col_clear",
-        "count": 2
       }
     ],
     "blockers": [
@@ -7087,8 +5658,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 2,
@@ -7099,8 +5670,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
@@ -7113,12 +5684,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 4,
@@ -7129,8 +5694,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -7141,32 +5706,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 6,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -7177,12 +5730,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -7195,14 +5742,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 6,
         "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       }
     ],
     "specialPieces": [
@@ -7211,24 +5752,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -7252,16 +5775,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7615
+        "count": 5330
       },
       {
         "type": "break_chain",
         "count": 6
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "bomb",
-        "count": 2
       }
     ],
     "blockers": [
@@ -7281,12 +5799,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 1,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -7315,19 +5827,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "ice",
         "hp": 2
       },
@@ -7340,8 +5840,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 2,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -7362,48 +5862,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "ice",
         "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 3,
+        "row": 3,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
       }
     ]
   },
@@ -7427,7 +5897,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7700
+        "count": 5390
       },
       {
         "type": "clear_marshmallow",
@@ -7437,22 +5907,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "rainbow",
         "count": 2
-      },
-      {
-        "type": "collect_special",
-        "targetSpecial": "row_clear",
-        "count": 2
       }
     ],
     "blockers": [
       {
         "row": 1,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 3,
         "type": "hole",
         "hp": 1
@@ -7460,152 +5919,56 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 1,
         "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 0,
         "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 1,
         "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 7,
+        "row": 3,
         "col": 4,
         "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 5,
+        "type": "marshmallow",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 3,
+        "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 1,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
         "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 1,
         "type": "orange",
         "special": "rainbow"
       }
@@ -7634,25 +5997,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7785
+        "count": 5450
       },
       {
         "type": "clear_marshmallow",
         "count": 3
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
-      {
-        "row": 1,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
       {
         "row": 1,
         "col": 1,
@@ -7661,20 +6013,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 4,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -7697,24 +6037,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 5,
         "type": "hole",
         "hp": 1
@@ -7726,46 +6048,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
-        "col": 1,
+        "col": 5,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -7780,20 +6066,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 7,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 6,
+        "col": 7,
         "type": "chain",
         "hp": 1
       }
@@ -7801,37 +6075,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 4,
-        "col": 6,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -7857,16 +6101,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7870
+        "count": 5510
       },
       {
         "type": "clear_marshmallow",
         "count": 3
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
@@ -7877,36 +6116,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 2,
-        "col": 0,
+        "col": 3,
         "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 3,
         "type": "hole",
@@ -7919,52 +6134,22 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -7976,79 +6161,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 2,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 6,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
+        "type": "marshmallow",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
         "row": 5,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 2,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -8074,28 +6199,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7955
+        "count": 5570
       },
       {
         "type": "clear_marshmallow",
         "count": 3
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 0,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 3,
+        "col": 1,
         "type": "chain",
         "hp": 1
       },
@@ -8113,26 +6227,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -8149,39 +6245,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -8196,84 +6262,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 6,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 6,
         "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 6,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
         "row": 3,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 1,
         "col": 4,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
         "type": "blue",
-        "special": "bomb"
+        "special": "col_clear"
       }
     ]
   },
@@ -8297,16 +6303,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8040
+        "count": 5630
       },
       {
         "type": "clear_marshmallow",
         "count": 3
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
@@ -8324,26 +6325,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 2,
-        "type": "chain",
+        "type": "marshmallow",
         "hp": 1
       },
       {
@@ -8353,56 +6342,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
+        "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -8416,36 +6363,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 0,
-        "type": "marshmallow",
         "hp": 1
       },
       {
@@ -8457,38 +6374,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 6,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 1,
+        "row": 3,
         "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
         "type": "blue",
         "special": "col_clear"
       }
@@ -8514,7 +6401,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8125
+        "count": 5690
       },
       {
         "type": "clear_marshmallow",
@@ -8524,17 +6411,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "col_clear",
         "count": 2
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 1,
-        "col": 2,
+        "col": 0,
         "type": "chain",
         "hp": 1
       },
@@ -8546,20 +6428,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 6,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 8,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -8570,21 +6440,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 1,
+        "col": 2,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -8606,30 +6464,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 6,
         "type": "hole",
         "hp": 1
@@ -8638,30 +6472,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 7,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -8674,61 +6484,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 6,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 8,
-        "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
+        "row": 4,
         "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
         "type": "blue",
         "special": "col_clear"
       }
@@ -8754,16 +6516,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8210
+        "count": 5750
       },
       {
         "type": "clear_marshmallow",
         "count": 4
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
@@ -8781,56 +6538,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 2,
+        "col": 5,
         "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -8841,31 +6556,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "marshmallow",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
         "type": "chain",
         "hp": 1
       },
@@ -8877,25 +6574,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
@@ -8903,12 +6582,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 6,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -8921,51 +6594,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 7,
         "col": 5,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 8,
-        "col": 5,
-        "type": "marshmallow",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
+        "row": 4,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -8989,198 +6626,73 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8295
+        "count": 5810
       },
       {
         "type": "clear_marshmallow",
         "count": 4
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 0,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
         "col": 3,
         "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 0,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "chain",
+        "row": 2,
+        "col": 3,
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 2,
+        "col": 5,
+        "type": "marshmallow",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 1,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 2,
+        "row": 4,
+        "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
         "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "row": 5,
+        "col": 0,
         "type": "marshmallow",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
         "row": 5,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 1,
         "col": 4,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 1,
-        "col": 1,
         "type": "blue",
         "special": "col_clear"
       }
@@ -9206,31 +6718,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8380
+        "count": 5870
       },
       {
         "type": "clear_marshmallow",
         "count": 4
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 1
-      },
       {
         "row": 1,
         "col": 0,
@@ -9247,18 +6742,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 1,
         "col": 6,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -9269,51 +6752,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "marshmallow",
+        "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
+        "row": 4,
+        "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 2,
+        "col": 5,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -9323,87 +6776,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 3,
-        "type": "chain",
+        "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
         "col": 6,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 6,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
         "row": 4,
-        "col": 1,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
       }
@@ -9429,35 +6822,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8465
+        "count": 5930
       },
       {
         "type": "clear_marshmallow",
         "count": 4
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 1,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 2,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -9473,40 +6849,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 1,
-        "type": "marshmallow",
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "marshmallow",
+        "hp": 1
       },
       {
         "row": 3,
@@ -9522,125 +6874,47 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
+        "col": 3,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 6,
+        "type": "marshmallow",
+        "hp": 1
+      },
+      {
+        "row": 7,
         "col": 2,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 7,
         "col": 5,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 7,
-        "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -9664,7 +6938,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8550
+        "count": 5640
       },
       {
         "type": "clear_marshmallow",
@@ -9674,20 +6948,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "rainbow",
         "count": 2
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 1
-      },
       {
         "row": 0,
         "col": 5,
@@ -9702,12 +6965,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 7,
         "type": "hole",
         "hp": 1
@@ -9715,7 +6972,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 4,
-        "type": "chain",
+        "type": "marshmallow",
         "hp": 1
       },
       {
@@ -9732,45 +6989,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -9781,49 +7008,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
+        "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 6,
         "col": 2,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -9840,59 +7037,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
         "col": 7,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 8,
-        "col": 7,
-        "type": "marshmallow",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
         "row": 4,
-        "col": 7,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "col": 3,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
       }
     ]
   },
@@ -9916,41 +7071,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8635
+        "count": 5700
       },
       {
         "type": "clear_marshmallow",
         "count": 5
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 0,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 0,
         "col": 5,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -9960,28 +7092,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 7,
+        "row": 2,
+        "col": 1,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 2,
@@ -10002,58 +7116,28 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
+        "row": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
+        "type": "marshmallow",
+        "hp": 1
       },
       {
         "row": 5,
@@ -10062,20 +7146,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 6,
-        "col": 1,
+        "col": 2,
         "type": "chain",
         "hp": 1
       },
@@ -10089,49 +7161,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 7,
         "col": 1,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 7,
-        "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
+        "row": 4,
         "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 2,
         "type": "blue",
         "special": "col_clear"
       }
@@ -10157,26 +7193,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8720
+        "count": 5760
       },
       {
         "type": "clear_marshmallow",
         "count": 5
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 1,
         "type": "hole",
@@ -10190,87 +7215,39 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 3,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 3,
         "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -10280,44 +7257,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
+        "col": 4,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
         "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 6,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -10328,15 +7281,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 7,
-        "col": 1,
+        "col": 4,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 7,
@@ -10347,40 +7294,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 4,
-        "col": 7,
+        "col": 5,
         "type": "blue",
         "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 7,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -10404,32 +7321,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8805
+        "count": 5810
       },
       {
         "type": "clear_marshmallow",
         "count": 5
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 1,
         "col": 1,
         "type": "hole",
@@ -10443,50 +7343,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 3,
         "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 3,
         "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
@@ -10497,45 +7367,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 2,
-        "type": "marshmallow",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -10546,7 +7386,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
@@ -10556,20 +7396,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 7,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 3,
+        "col": 1,
         "type": "chain",
         "hp": 1
       },
@@ -10582,38 +7410,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
+        "row": 4,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -10639,16 +7437,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8890
+        "count": 5870
       },
       {
         "type": "clear_marshmallow",
         "count": 5
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
@@ -10660,38 +7453,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 2,
         "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
@@ -10702,45 +7471,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 2,
+        "col": 3,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
         "col": 2,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -10751,32 +7502,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -10785,70 +7518,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 6,
         "col": 4,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
+        "row": 3,
         "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 1,
-        "col": 1,
         "type": "blue",
         "special": "col_clear"
       }
@@ -10874,7 +7553,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 8975
+        "count": 5920
       },
       {
         "type": "clear_marshmallow",
@@ -10884,21 +7563,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "col_clear",
         "count": 2
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 0,
         "type": "marshmallow",
@@ -10911,28 +7579,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 2,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -10943,8 +7593,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 2,
-        "type": "chain",
-        "hp": 1
+        "type": "marshmallow",
+        "hp": 2
       },
       {
         "row": 3,
@@ -10954,51 +7604,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 6,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 5,
@@ -11009,32 +7623,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 6,
-        "col": 0,
+        "col": 1,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 7,
@@ -11046,57 +7642,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 7,
         "col": 3,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 8,
-        "col": 2,
+        "col": 0,
         "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
+        "row": 4,
         "col": 4,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
         "type": "blue",
         "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -11120,27 +7680,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9060
+        "count": 5980
       },
       {
         "type": "clear_marshmallow",
         "count": 6
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
         "row": 1,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
         "col": 3,
         "type": "marshmallow",
         "hp": 2
@@ -11159,51 +7708,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 3,
         "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 3,
@@ -11213,15 +7732,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 1,
+        "col": 2,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -11242,40 +7755,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
-        "col": 2,
+        "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -11285,20 +7774,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -11310,38 +7787,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
+        "row": 3,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
       }
@@ -11367,28 +7814,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9145
+        "count": 6040
       },
       {
         "type": "clear_marshmallow",
         "count": 6
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 6,
+        "row": 1,
+        "col": 0,
         "type": "chain",
         "hp": 1
       },
@@ -11424,99 +7860,39 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 8,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 2,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
+        "row": 3,
         "col": 5,
-        "type": "ice",
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 8,
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 4,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
+        "col": 1,
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 5,
@@ -11535,60 +7911,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 7,
-        "col": 2,
+        "col": 3,
         "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 4,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -11614,16 +7948,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9230
+        "count": 6090
       },
       {
         "type": "clear_marshmallow",
         "count": 6
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
@@ -11635,45 +7964,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 0,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
         "col": 3,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 2,
         "col": 2,
-        "type": "chain",
-        "hp": 1
+        "type": "marshmallow",
+        "hp": 2
       },
       {
         "row": 2,
@@ -11690,37 +7989,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 3,
+        "col": 4,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 3,
         "col": 5,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
@@ -11731,95 +8012,35 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 1,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 0,
+        "row": 5,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -11843,16 +8064,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9315
+        "count": 6150
       },
       {
         "type": "clear_marshmallow",
         "count": 6
-      },
-      {
-        "type": "special_combo_goal",
-        "comboType": "functional_combo",
-        "count": 1
       }
     ],
     "blockers": [
@@ -11870,21 +8086,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 2,
+        "col": 6,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -11894,65 +8098,29 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "marshmallow",
         "hp": 2
       },
       {
         "row": 3,
+        "col": 2,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 1,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 4,
         "type": "hole",
@@ -11963,12 +8131,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -11979,13 +8141,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
+        "type": "marshmallow",
         "hp": 2
       },
       {
@@ -11995,76 +8151,28 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
+        "row": 6,
+        "col": 0,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
+        "col": 3,
+        "type": "chain",
+        "hp": 1
       },
       {
-        "row": 6,
-        "col": 6,
+        "row": 7,
+        "col": 2,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
         "row": 4,
-        "col": 1,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
       }
@@ -12090,209 +8198,78 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9400
+        "count": 6200
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
-        "comboType": "functional_combo",
+        "comboType": "rainbow_functional",
         "count": 1
       }
     ],
     "blockers": [
       {
         "row": 1,
-        "col": 1,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 5,
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 6,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 7,
@@ -12305,40 +8282,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 7,
-        "col": 4,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 2,
+        "row": 4,
+        "col": 3,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
       }
     ],
     "tutorial": [
@@ -12365,15 +8312,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9485
+        "count": 6260
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -12383,34 +8331,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 1,
@@ -12421,54 +8345,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 7,
         "type": "hole",
@@ -12476,33 +8358,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -12518,21 +8376,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -12543,77 +8389,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 8,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
+        "row": 4,
         "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 5,
-        "col": 2,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -12637,15 +8423,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9570
+        "count": 6320
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -12662,34 +8449,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "portalId": "a_out"
       },
       {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 2,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -12706,70 +8469,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 5,
@@ -12779,101 +8482,23 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
         "col": 3,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 1,
-        "col": 4,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
-        "col": 2,
+        "row": 4,
+        "col": 3,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 1,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -12897,15 +8522,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9655
+        "count": 6370
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -12916,47 +8542,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 0,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
         "col": 7,
         "type": "portal",
         "hp": 1,
         "portalId": "a_in",
         "targetPortalId": "a_out"
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -12972,64 +8562,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "portalId": "a_out"
       },
       {
-        "row": 2,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 3,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -13041,99 +8583,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 7,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
         "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 1,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 3,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -13157,15 +8621,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9740
+        "count": 6430
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -13175,33 +8640,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 0,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -13209,24 +8650,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 3,
@@ -13238,81 +8661,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 6,
@@ -13322,27 +8679,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 7,
@@ -13350,50 +8689,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
+        "row": 4,
         "col": 5,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -13417,15 +8720,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9825
+        "count": 6480
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -13435,33 +8739,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 2,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -13479,52 +8759,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 3,
@@ -13534,21 +8778,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -13557,34 +8789,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -13592,80 +8800,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
         "row": 4,
-        "col": 7,
+        "col": 3,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -13689,15 +8831,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9910
+        "count": 6540
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 2
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -13707,21 +8850,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 1,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -13732,50 +8863,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -13788,21 +8877,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -13811,58 +8894,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 6,
         "col": 2,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 7,
@@ -13872,21 +8907,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
         "col": 7,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 8,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 8,
@@ -13894,56 +8917,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 8,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 8,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
         "row": 5,
-        "col": 6,
+        "col": 4,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -13967,15 +8948,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 9995
+        "count": 6600
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -13986,12 +8968,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 0,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
         "col": 3,
         "type": "portal",
         "hp": 1,
@@ -13999,46 +8975,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 0,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -14047,34 +8987,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -14084,38 +9000,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 1,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -14128,19 +9020,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
@@ -14154,68 +9034,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 6,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 4,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 7,
-        "col": 4,
+        "row": 4,
+        "col": 5,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -14239,15 +9065,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10080
+        "count": 6650
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -14256,18 +9083,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 1,
         "col": 1,
@@ -14278,18 +9093,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 1,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -14307,69 +9110,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 5,
@@ -14381,33 +9136,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
@@ -14417,83 +9154,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 1,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
+        "col": 5,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -14517,15 +9188,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10165
+        "count": 6710
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -14534,42 +9206,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
       {
         "row": 1,
         "col": 1,
@@ -14585,51 +9221,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 2,
         "col": 2,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -14642,55 +9236,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 1,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 5,
@@ -14698,56 +9256,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 1,
+        "row": 5,
+        "col": 4,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -14771,15 +9287,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10250
+        "count": 6770
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -14788,24 +9305,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 1,
         "col": 4,
@@ -14821,76 +9320,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -14902,36 +9341,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -14939,12 +9354,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -14952,62 +9361,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 6,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 5,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 3,
-        "col": 1,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 6,
+        "col": 5,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -15031,15 +9392,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10335
+        "count": 6820
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -15049,40 +9411,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 3,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -15106,45 +9438,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 3,
         "type": "ice",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 4,
@@ -15156,55 +9458,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
+        "hp": 1
       },
       {
         "row": 6,
@@ -15215,71 +9475,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 4,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 5,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
         "col": 3,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -15303,15 +9509,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10420
+        "count": 6880
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -15322,78 +9529,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 0,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 2,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 0,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
         "col": 5,
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
       },
       {
-        "row": 0,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -15406,12 +9550,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 3,
         "type": "hole",
         "hp": 1
@@ -15429,30 +9567,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 4,
         "type": "ice",
@@ -15465,96 +9579,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 7,
-        "type": "marshmallow",
         "hp": 2
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 0,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 7,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 1,
-        "col": 5,
+        "col": 3,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -15578,15 +9614,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10505
+        "count": 6930
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 3
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -15596,25 +9633,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 8,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
         "row": 1,
         "col": 1,
         "type": "hole",
@@ -15622,26 +9640,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 7,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 8,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -15652,21 +9652,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 3,
@@ -15677,41 +9665,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 4,
         "type": "ice",
@@ -15721,18 +9679,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "marshmallow",
         "hp": 2
       },
       {
@@ -15745,103 +9691,23 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 5,
         "col": 7,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 1,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 7,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 8,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 4,
-        "col": 6,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 6,
         "col": 3,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -15865,15 +9731,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10590
+        "count": 6990
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       },
       {
         "type": "special_combo_goal",
@@ -15883,112 +9750,33 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 0,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
-        "col": 1,
+        "col": 4,
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
+        "row": 2,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
       },
       {
-        "row": 1,
-        "col": 4,
+        "row": 3,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 6,
         "type": "portal",
         "hp": 1,
         "portalId": "a_in",
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 1,
         "type": "hole",
@@ -16025,104 +9813,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 6,
-        "col": 6,
+        "row": 3,
+        "col": 4,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -16146,54 +9848,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10675
+        "count": 7050
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       },
       {
         "type": "special_combo_goal",
         "comboType": "rainbow_functional",
-        "count": 1
+        "count": 2
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 1,
         "col": 7,
@@ -16203,45 +9875,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 3,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 3,
         "col": 2,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -16253,26 +9895,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 5,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 3,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "chain",
         "hp": 1
       },
       {
@@ -16300,40 +9922,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 6,
@@ -16345,71 +9937,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 4,
         "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 5,
-        "type": "marshmallow",
         "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 7,
-        "col": 4,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
         "row": 3,
         "col": 3,
-        "type": "red",
+        "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -16433,20 +9971,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10760
+        "count": 7100
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       },
       {
         "type": "special_combo_goal",
         "comboType": "rainbow_functional",
-        "count": 1
+        "count": 2
       }
     ],
     "blockers": [
@@ -16458,36 +9997,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "portalId": "a_out"
       },
       {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
         "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 2,
@@ -16510,54 +10023,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 3,
         "type": "ice",
@@ -16574,24 +10045,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 5,
@@ -16604,93 +10057,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 6,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 6,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 3,
-        "col": 7,
+        "row": 5,
+        "col": 5,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -16714,42 +10088,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10845
+        "count": 7160
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       },
       {
         "type": "special_combo_goal",
         "comboType": "rainbow_functional",
-        "count": 1
+        "count": 2
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 4,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 0,
         "col": 7,
@@ -16758,18 +10114,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "portalId": "a_out"
       },
       {
-        "row": 0,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 1,
         "col": 4,
         "type": "hole",
@@ -16777,39 +10121,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 3,
@@ -16819,21 +10133,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 7,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -16860,60 +10162,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 8,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 8,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 6,
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 7,
@@ -16922,62 +10180,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1,
         "portalId": "a_in",
         "targetPortalId": "a_out"
-      },
-      {
-        "row": 7,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "col": 3,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -17001,29 +10211,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 10930
+        "count": 7210
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       },
       {
         "type": "special_combo_goal",
         "comboType": "rainbow_functional",
-        "count": 1
+        "count": 2
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 1,
         "col": 0,
@@ -17033,39 +10238,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 5,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 3,
@@ -17088,18 +10263,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 2,
         "type": "hole",
@@ -17118,18 +10281,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 1,
         "type": "hole",
@@ -17137,33 +10288,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 5,
@@ -17172,99 +10299,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 8,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 6,
         "col": 6,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 0,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 7,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 3,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 2,
-        "col": 3,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 4,
-        "col": 7,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 2,
         "col": 5,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   },
@@ -17288,55 +10334,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 11015
+        "count": 7270
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       },
       {
         "type": "special_combo_goal",
         "comboType": "rainbow_functional",
-        "count": 1
+        "count": 2
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 3,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 1,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 1,
         "col": 6,
@@ -17346,32 +10361,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 3,
         "type": "ice",
         "hp": 2
       },
@@ -17380,24 +10371,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -17434,12 +10407,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 5,
@@ -17447,99 +10414,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 6,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 7,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 7,
-        "col": 6,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_out"
-      },
-      {
-        "row": 7,
-        "col": 7,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 8,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 8,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 8,
-        "col": 6,
-        "type": "chain",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 2,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
         "row": 6,
-        "col": 5,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "purple",
-        "special": "bomb"
-      },
-      {
-        "row": 4,
-        "col": 7,
+        "col": 4,
         "type": "orange",
         "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "blue",
-        "special": "bomb"
       }
     ]
   },
@@ -17563,47 +10445,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 11100
+        "count": 7330
       },
       {
         "type": "clear_ice",
-        "count": 9
+        "count": 4
       },
       {
-        "type": "break_chain",
-        "count": 8
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       },
       {
         "type": "special_combo_goal",
         "comboType": "rainbow_functional",
-        "count": 1
+        "count": 2
       }
     ],
     "blockers": [
-      {
-        "row": 0,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 2,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 0,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
-        "col": 5,
-        "type": "marshmallow",
-        "hp": 2
-      },
       {
         "row": 1,
         "col": 0,
@@ -17612,118 +10471,32 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 1,
-        "type": "marshmallow",
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "ice",
         "hp": 2
       },
       {
-        "row": 1,
-        "col": 2,
+        "row": 3,
+        "col": 5,
         "type": "portal",
         "hp": 1,
-        "portalId": "b_out"
+        "portalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 3,
+        "row": 4,
+        "col": 1,
         "type": "portal",
         "hp": 1,
         "portalId": "a_in",
         "targetPortalId": "a_out"
       },
       {
-        "row": 1,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 1,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 1,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 0,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 0,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "b_in",
-        "targetPortalId": "b_out"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 3,
         "type": "ice",
@@ -17743,72 +10516,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 1,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "a_out"
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "ice",
         "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 1,
-        "type": "yellow",
-        "special": "row_clear"
-      },
-      {
-        "row": 2,
+        "row": 4,
         "col": 2,
-        "type": "blue",
-        "special": "col_clear"
-      },
-      {
-        "row": 5,
-        "col": 0,
         "type": "purple",
         "special": "bomb"
-      },
-      {
-        "row": 0,
-        "col": 3,
-        "type": "orange",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 2,
-        "type": "red",
-        "special": "rainbow"
-      },
-      {
-        "row": 1,
-        "col": 3,
-        "type": "blue",
-        "special": "row_clear"
       }
     ]
   }

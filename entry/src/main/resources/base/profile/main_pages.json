@@ -4,6 +4,7 @@
     "pages/LevelSelectPage",
     "pages/GamePage",
     "pages/SettingsPage",
-    "pages/AchievementsPage"
+    "pages/AchievementsPage",
+    "pages/GuidePage"
   ]
 }

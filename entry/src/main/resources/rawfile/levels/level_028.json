@@ -17,16 +17,11 @@
   "goals": [
     {
       "type": "score",
-      "count": 4980
+      "count": 3690
     },
     {
       "type": "clear_ice",
-      "count": 5
-    },
-    {
-      "type": "combo_goal",
-      "comboLength": 2,
-      "count": 1
+      "count": 4
     }
   ],
   "blockers": [
@@ -37,12 +32,6 @@
       "hp": 1
     },
     {
-      "row": 2,
-      "col": 4,
-      "type": "ice",
-      "hp": 1
-    },
-    {
       "row": 3,
       "col": 3,
       "type": "hole",
@@ -79,8 +68,8 @@
       "hp": 1
     },
     {
-      "row": 4,
-      "col": 6,
+      "row": 5,
+      "col": 3,
       "type": "ice",
       "hp": 1
     },
@@ -101,12 +90,6 @@
     {
       "row": 4,
       "col": 2,
-      "type": "blue",
-      "special": "col_clear"
-    },
-    {
-      "row": 5,
-      "col": 5,
       "type": "purple",
       "special": "bomb"
     }

@@ -359,19 +359,44 @@ export default function gameCoreTest() {
       });
     });
 
-    it('scoreGoalsUseOriginalBaselineAndExistOnEveryLevel', 0, () => {
+    it('scoreGoalsUseTunedBaselineAndExistOnEveryLevel', 0, () => {
       LEVEL_MAPS.forEach(map => {
         const scoreGoal = map.goals.find(goal => goal.type === 'score');
         expect(Boolean(scoreGoal)).assertTrue();
-        let expectedScore = 0;
+        let baseScore = 0;
         if (map.id < 10) {
-          expectedScore = 520 + map.id * 110;
+          baseScore = 520 + map.id * 110;
         } else if (map.id < 20) {
-          expectedScore = 680 + map.id * 110;
+          baseScore = 680 + map.id * 110;
         } else {
-          expectedScore = 2600 + map.id * 85;
+          baseScore = 2600 + map.id * 85;
         }
+        let scale = 0.82;
+        if (baseScore >= 8500) {
+          scale = 0.66;
+        } else if (baseScore >= 6000) {
+          scale = 0.70;
+        } else if (baseScore >= 3600) {
+          scale = 0.74;
+        }
+        const expectedScore = Math.max(450, Math.round(baseScore * scale / 10) * 10);
         expect(scoreGoal?.count).assertEqual(expectedScore);
+      });
+    });
+
+    it('levelsLimitVisibleMechanicTexturesToThreeTypes', 0, () => {
+      LEVEL_MAPS.forEach(map => {
+        const blockerTypes = new Set<string>();
+        const specialTypes = new Set<string>();
+        map.blockers.forEach(blocker => {
+          if (blocker.type !== 'hole') {
+            blockerTypes.add(blocker.type);
+          }
+        });
+        map.specialPieces.forEach(piece => {
+          specialTypes.add(piece.special);
+        });
+        expect(blockerTypes.size + specialTypes.size <= 3).assertTrue();
       });
     });
 

@@ -17,16 +17,11 @@
   "goals": [
     {
       "type": "score",
-      "count": 4300
+      "count": 3180
     },
     {
       "type": "clear_ice",
       "count": 3
-    },
-    {
-      "type": "collect_piece",
-      "target": "blue",
-      "count": 22
     }
   ],
   "blockers": [
@@ -82,12 +77,6 @@
     },
     {
       "row": 4,
-      "col": 5,
-      "type": "blue",
-      "special": "col_clear"
-    },
-    {
-      "row": 3,
       "col": 5,
       "type": "purple",
       "special": "bomb"

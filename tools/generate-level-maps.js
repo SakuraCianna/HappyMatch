@@ -277,17 +277,20 @@ function buildBlockers(id, rows, cols, holes) {
     });
   }
 
-  if (id >= 20) {
-    addTyped('ice', id >= 32 ? 2 : 1, Math.min(9, 3 + Math.floor((id - 20) / 4)), true);
+  if (id >= 20 && id < 40) {
+    addTyped('ice', id >= 32 ? 2 : 1, Math.min(7, 3 + Math.floor((id - 20) / 5)), true);
   }
-  if (id >= 40) {
-    addTyped('chain', 1, Math.min(8, 3 + Math.floor((id - 40) / 5)), id % 2 === 0);
+  if (id >= 40 && id < 60) {
+    addTyped('chain', 1, Math.min(7, 3 + Math.floor((id - 40) / 5)), id % 2 === 0);
+    addTyped('ice', id >= 52 ? 2 : 1, Math.min(4, 2 + Math.floor((id - 40) / 8)), true);
   }
-  if (id >= 60) {
+  if (id >= 60 && id < 80) {
     addTyped('marshmallow', id >= 72 ? 2 : 1, Math.min(7, 3 + Math.floor((id - 60) / 5)), false);
+    addTyped('chain', 1, Math.min(4, 2 + Math.floor((id - 60) / 8)), id % 2 === 0);
   }
   if (id >= 80) {
-    const portalCells = pickCells(cells, id >= 92 ? 4 : 2, used, id + 80, false);
+    addTyped('ice', id >= 92 ? 2 : 1, Math.min(5, 2 + Math.floor((id - 80) / 7)), true);
+    const portalCells = pickCells(cells, 2, used, id + 80, false);
     if (portalCells.length >= 2) {
       blockers.push({
         row: portalCells[0].row,
@@ -305,29 +308,20 @@ function buildBlockers(id, rows, cols, holes) {
         portalId: 'a_out'
       });
     }
-    if (portalCells.length >= 4) {
-      blockers.push({
-        row: portalCells[2].row,
-        col: portalCells[2].col,
-        type: 'portal',
-        hp: 1,
-        portalId: 'b_in',
-        targetPortalId: 'b_out'
-      });
-      blockers.push({
-        row: portalCells[3].row,
-        col: portalCells[3].col,
-        type: 'portal',
-        hp: 1,
-        portalId: 'b_out'
-      });
-    }
   }
   return blockers.sort((first, second) => first.row - second.row || first.col - second.col || first.type.localeCompare(second.type));
 }
 
 function moderateScoreGoal(baseScore) {
-  return baseScore;
+  let scale = 0.82;
+  if (baseScore >= 8500) {
+    scale = 0.66;
+  } else if (baseScore >= 6000) {
+    scale = 0.70;
+  } else if (baseScore >= 3600) {
+    scale = 0.74;
+  }
+  return Math.max(450, Math.round(baseScore * scale / 10) * 10);
 }
 
 function buildGoals(id, blockers, pieces) {
@@ -384,8 +378,61 @@ function buildGoals(id, blockers, pieces) {
   return [
     { type: 'score', count: moderateScoreGoal(2600 + id * 85) },
     { type: 'clear_ice', count: Math.max(1, blockers.filter(blocker => blocker.type === 'ice').length) },
-    { type: 'break_chain', count: Math.max(1, blockers.filter(blocker => blocker.type === 'chain').length) },
-    { type: 'collect_special', targetSpecial: id % 2 === 0 ? 'bomb' : 'rainbow', count: id >= 95 ? 3 : 2 }
+    { type: 'collect_special', targetSpecial: id % 2 === 0 ? 'bomb' : 'rainbow', count: id >= 95 ? 2 : 1 },
+    { type: 'special_combo_goal', comboType: 'rainbow_functional', count: id >= 95 ? 2 : 1 }
+  ];
+}
+
+function specialPresetsForLevel(id, pieces) {
+  if (id < 5) {
+    return [];
+  }
+  if (id < 8) {
+    return [{ type: 'yellow', special: 'row_clear' }];
+  }
+  if (id < 15) {
+    return [
+      { type: 'yellow', special: 'row_clear' },
+      { type: 'blue', special: 'col_clear' }
+    ];
+  }
+  if (id < 20) {
+    return [
+      { type: 'yellow', special: 'row_clear' },
+      { type: 'blue', special: 'col_clear' },
+      { type: pieces.includes('purple') ? 'purple' : 'green', special: 'bomb' }
+    ];
+  }
+  if (id < 30) {
+    return [
+      { type: 'yellow', special: 'row_clear' },
+      { type: pieces.includes('purple') ? 'purple' : 'green', special: 'bomb' }
+    ];
+  }
+  if (id < 40) {
+    return [
+      { type: 'yellow', special: 'row_clear' },
+      { type: pieces.includes('orange') ? 'orange' : 'purple', special: 'rainbow' }
+    ];
+  }
+  if (id < 60) {
+    return [
+      id % 10 === 0 ?
+        { type: pieces.includes('purple') ? 'purple' : 'green', special: 'bomb' } :
+        { type: 'yellow', special: 'row_clear' }
+    ];
+  }
+  if (id < 80) {
+    return [
+      id % 10 === 0 ?
+        { type: pieces.includes('orange') ? 'orange' : 'purple', special: 'rainbow' } :
+        { type: 'blue', special: 'col_clear' }
+    ];
+  }
+  return [
+    id % 2 === 0 ?
+      { type: pieces.includes('purple') ? 'purple' : 'green', special: 'bomb' } :
+      { type: pieces.includes('orange') ? 'orange' : 'purple', special: 'rainbow' }
   ];
 }
 
@@ -394,19 +441,7 @@ function buildSpecialPieces(id, rows, cols, holes, blockers, pieces) {
   const cells = availableCells(rows, cols, holes);
   const used = new Set(blocked);
   const specs = [];
-  const presets = [];
-  if (id >= 5) {
-    presets.push({ type: 'yellow', special: 'row_clear' });
-  }
-  if (id >= 8) {
-    presets.push({ type: 'blue', special: 'col_clear' });
-  }
-  if (id >= 15) {
-    presets.push({ type: pieces.includes('purple') ? 'purple' : 'green', special: 'bomb' });
-  }
-  if (id >= 30) {
-    presets.push({ type: pieces.includes('orange') ? 'orange' : 'purple', special: 'rainbow' });
-  }
+  const presets = specialPresetsForLevel(id, pieces);
   const positions = pickCells(cells, presets.length, used, id + 120, true);
   presets.forEach((preset, index) => {
     const position = positions[index];

@@ -75,13 +75,71 @@ const TUTORIALS: TutorialStep[][] = [
   ]
 ];
 
+interface LevelTutorial {
+  levelId: number;
+  steps: TutorialStep[];
+}
+
+const MECHANIC_TUTORIALS: LevelTutorial[] = [
+  {
+    levelId: 20,
+    steps: [
+      {
+        title: '冰层出现',
+        message: '蓝色冰晶覆盖在格子上，优先在附近消除来破冰。功能果冻现在使用暖色光圈，和冰层区分开。',
+        focus: 'blocker'
+      }
+    ]
+  },
+  {
+    levelId: 40,
+    steps: [
+      {
+        title: '锁链出现',
+        message: '带锁扣和金属链节的格子是锁链。消除锁住的果冻，或用功能果冻打到它，就能破除锁链。',
+        focus: 'blocker'
+      }
+    ]
+  },
+  {
+    levelId: 60,
+    steps: [
+      {
+        title: '棉花糖出现',
+        message: '粉色糖霜格会挡住果冻下落路线，需要在旁边消除来逐步清掉。',
+        focus: 'blocker'
+      }
+    ]
+  },
+  {
+    levelId: 80,
+    steps: [
+      {
+        title: '传送门出现',
+        message: '紫蓝旋涡会改变果冻下落路径。先看入口和出口，再规划连锁。',
+        focus: 'blocker'
+      }
+    ]
+  }
+];
+
+function extraTutorialForLevel(levelId: number): TutorialStep[] {
+  for (let index = 0; index < MECHANIC_TUTORIALS.length; index++) {
+    const tutorial = MECHANIC_TUTORIALS[index];
+    if (tutorial.levelId === levelId) {
+      return tutorial.steps.map(step => ({ ...step }));
+    }
+  }
+  return [];
+}
+
 export function hasTutorial(levelId: number): boolean {
-  return levelId >= 1 && levelId <= TUTORIALS.length;
+  return (levelId >= 1 && levelId <= TUTORIALS.length) || extraTutorialForLevel(levelId).length > 0;
 }
 
 export function tutorialStepsForLevel(levelId: number): TutorialStep[] {
-  if (!hasTutorial(levelId)) {
-    return [];
+  if (levelId >= 1 && levelId <= TUTORIALS.length) {
+    return TUTORIALS[levelId - 1].map(step => ({ ...step }));
   }
-  return TUTORIALS[levelId - 1].map(step => ({ ...step }));
+  return extraTutorialForLevel(levelId);
 }

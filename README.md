@@ -14,6 +14,7 @@ HappyMatch 是一个基于 HarmonyOS 6.0.2 SDK 开发的三消闯关游戏项目
 - 支持无可行移动时自动洗盘，避免棋盘死局。
 - 支持一星、二星、三星结算，以及三星后的剩余步数奖励动画。
 - 支持本地进度、金币、成就、设置、音效和震动反馈。
+- 支持机制图鉴和首次机制提示，降低新机制理解成本。
 
 ## 技术栈
 
@@ -34,6 +35,7 @@ LevelSelectPage.ets   选关页
 GamePage.ets          游戏主界面
 AchievementsPage.ets  成就馆
 SettingsPage.ets      设置页
+GuidePage.ets         机制图鉴
 ```
 
 路由配置位于：
@@ -144,9 +146,11 @@ E:\CodeHome\Experiment\HappyMatch
 ```powershell
 node tools/generate-level-maps.js
 node tools/sync-level-maps.js
+node tools/analyze-level-difficulty.js
 ```
 
 生成后的关卡 JSON 会进入 `entry/src/main/resources/rawfile/levels`，并同步到 ArkTS 侧的关卡映射文件。
+难度分析脚本会检查关卡目标分、机制密度和后期难度，当前每关可见机制纹理控制在 3 类以内。
 
 ## 测试
 

@@ -17,17 +17,12 @@
   "goals": [
     {
       "type": "score",
-      "count": 1780
+      "count": 1460
     },
     {
       "type": "collect_piece",
       "target": "red",
       "count": 8
-    },
-    {
-      "type": "collect_piece",
-      "target": "blue",
-      "count": 15
     }
   ],
   "blockers": [

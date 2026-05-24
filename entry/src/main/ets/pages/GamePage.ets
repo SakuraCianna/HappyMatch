@@ -18,6 +18,7 @@ import { gameSettingsService } from '../game/settings/GameSettings';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { progressService } from '../game/storage/ProgressService';
 import { TutorialStep, tutorialStepsForLevel } from '../game/tutorial/TutorialGuide';
+import { brushColorValue, describeGoals, formatStars } from '../game/ui/GameTextFormatter';
 
 interface MovePreview {
   accepted: boolean;
@@ -314,7 +315,7 @@ struct GamePage {
           .width(56)
           .height(56)
           .borderRadius(28)
-          .backgroundColor(this.activeTool === 'brush' || this.busyTool === 'brush' ? this.brushColorValue(this.selectedBrushColor) : 'rgba(185, 243, 192, 0.78)')
+          .backgroundColor(this.activeTool === 'brush' || this.busyTool === 'brush' ? brushColorValue(this.selectedBrushColor) : 'rgba(185, 243, 192, 0.78)')
           .border({ width: 2, color: this.activeTool === 'brush' || this.busyTool === 'brush' ? '#4DB862' : 'rgba(255, 255, 255, 0.82)' })
           .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
           .opacity(this.hasToolCount(this.brushToolCount) || this.busyTool === 'brush' ? 1 : 0.42)
@@ -583,7 +584,7 @@ struct GamePage {
     .width(34)
     .height(34)
     .borderRadius(17)
-    .backgroundColor(this.brushColorValue(type))
+    .backgroundColor(brushColorValue(type))
     .border({
       width: this.selectedBrushColor === type ? 3 : 1,
       color: this.selectedBrushColor === type ? '#FFFFFF' : 'rgba(255, 255, 255, 0.76)'
@@ -683,7 +684,7 @@ struct GamePage {
     this.resultTitle = '';
     this.resultStars = '';
     this.resultMessage = '';
-    this.goalText = this.describeGoals();
+    this.goalText = describeGoals(this.session.state.goals);
     this.tutorialSteps = tutorialStepsForLevel(level.id);
     this.tutorialIndex = 0;
     this.showTutorial = this.tutorialSteps.length > 0;
@@ -809,7 +810,7 @@ struct GamePage {
     }
     this.movesLeft = this.session.state.movesLeft;
     this.score = this.session.state.score;
-    this.goalText = this.describeGoals();
+    this.goalText = describeGoals(this.session.state.goals);
     this.coinBalance = economyService.getWallet().coins;
     this.comboText = this.session.state.lastCascadeCount >= 2 ? `连击 x${this.session.state.lastCascadeCount}` : '';
     this.syncToolCounts();
@@ -1240,25 +1241,6 @@ struct GamePage {
     return `x${count}`;
   }
 
-  private brushColorValue(type: PieceType): string {
-    if (type === 'red') {
-      return '#F27A91';
-    }
-    if (type === 'blue') {
-      return '#69B8EA';
-    }
-    if (type === 'yellow') {
-      return '#EFC957';
-    }
-    if (type === 'green') {
-      return '#76D37B';
-    }
-    if (type === 'purple') {
-      return '#B487EF';
-    }
-    return '#F39967';
-  }
-
   private canUseBrushColor(type: PieceType): boolean {
     const level = LEVELS[this.levelId - 1];
     return level.board.pieceTypes.indexOf(type) >= 0;
@@ -1534,7 +1516,7 @@ struct GamePage {
     }
     feedbackService.play(won ? 'win' : 'lose');
     this.resultTitle = won ? '通关成功' : '挑战失败';
-    this.resultStars = won ? this.formatStars(progress.stars) : '☆☆☆';
+    this.resultStars = won ? formatStars(progress.stars) : '☆☆☆';
     this.resultMessage = won
       ? `得分 ${finalScore}，剩余 ${finalMovesLeft} 步`
       : showContinueOffer
@@ -1576,79 +1558,7 @@ struct GamePage {
     this.drawBoardSnapshot(this.session.state.board);
   }
 
-  private describeGoals(): string {
-    if (!this.session) {
-      return '';
-    }
-    return this.session.state.goals.map(goal => {
-      if (goal.type === 'score') {
-        return `目标分 ${goal.count}`;
-      }
-      if (goal.type === 'clear_ice') {
-        return `清除冰层 ${Math.max(0, goal.count)}`;
-      }
-      if (goal.type === 'break_chain') {
-        return `破除锁链 ${Math.max(0, goal.count)}`;
-      }
-      if (goal.type === 'clear_marshmallow') {
-        return `清除棉花糖 ${Math.max(0, goal.count)}`;
-      }
-      if (goal.type === 'collect_special') {
-        return `触发${this.specialGoalName(goal.targetSpecial)} ${Math.max(0, goal.count)}`;
-      }
-      if (goal.type === 'combo_goal') {
-        return `连击 x${Math.max(2, goal.comboLength ?? 2)} ${Math.max(0, goal.count)} 次`;
-      }
-      if (goal.type === 'special_combo_goal') {
-        return `触发${this.specialComboGoalName(goal.comboType)} ${Math.max(0, goal.count)} 次`;
-      }
-      return `收集 ${goal.target} ${Math.max(0, goal.count)}`;
-    }).join(' / ');
-  }
-
-  private specialGoalName(special?: SpecialType): string {
-    if (special === 'row_clear') {
-      return '左右消除果冻';
-    }
-    if (special === 'col_clear') {
-      return '上下消除果冻';
-    }
-    if (special === 'bomb') {
-      return '爆炸果冻';
-    }
-    if (special === 'rainbow') {
-      return '彩虹果冻';
-    }
-    return '特殊果冻';
-  }
-
-  private specialComboGoalName(comboType?: string): string {
-    if (comboType === 'rainbow_functional') {
-      return '彩虹+功能组合';
-    }
-    if (comboType === 'rainbow_color') {
-      return '彩虹组合';
-    }
-    if (comboType === 'bomb_bomb') {
-      return '双爆炸组合';
-    }
-    if (comboType === 'functional_combo') {
-      return '功能果冻组合';
-    }
-    return '特殊组合';
-  }
-
   private appContext(): common.Context {
     return this.getUIContext().getHostContext() as common.Context;
-  }
-
-  private formatStars(stars: number): string {
-    if (stars <= 1) {
-      return '★☆☆';
-    }
-    if (stars === 2) {
-      return '★★☆';
-    }
-    return '★★★';
   }
 }

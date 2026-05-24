@@ -98,7 +98,15 @@ export class CanvasRenderer {
     const fastStaticMode = options.animation?.fastStaticMode === true;
 
     ctx.clearRect(0, 0, options.width, options.height);
-    this.drawBoardBackground(ctx, layout.offsetX, layout.offsetY, layout.boardWidth, layout.boardHeight, options.theme ?? DEFAULT_BOARD_THEME);
+    this.drawBoardBackground(
+      ctx,
+      layout.offsetX,
+      layout.offsetY,
+      layout.boardWidth,
+      layout.boardHeight,
+      options.theme ?? DEFAULT_BOARD_THEME,
+      fastMode || fastStaticMode
+    );
 
     for (let row = 0; row < board.rows; row++) {
       for (let col = 0; col < board.cols; col++) {
@@ -130,13 +138,16 @@ export class CanvasRenderer {
     y: number,
     width: number,
     height: number,
-    theme: BoardRenderTheme
+    theme: BoardRenderTheme,
+    simplified: boolean
   ): void {
     ctx.save();
     this.roundRect(ctx, x, y, width, height, 22);
     ctx.fillStyle = theme.fill;
     ctx.fill();
-    this.drawBoardPattern(ctx, x, y, width, height, theme);
+    if (!simplified) {
+      this.drawBoardPattern(ctx, x, y, width, height, theme);
+    }
     ctx.strokeStyle = theme.stroke;
     ctx.lineWidth = 3;
     ctx.stroke();

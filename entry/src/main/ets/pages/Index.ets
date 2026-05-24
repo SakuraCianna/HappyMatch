@@ -52,6 +52,16 @@ struct Index {
               feedbackService.play('tap');
               this.getUIContext().getRouter().pushUrl({ url: 'pages/AchievementsPage' });
             })
+          Button('图鉴')
+            .height(34)
+            .borderRadius(17)
+            .fontColor('#5C3A4A')
+            .backgroundColor('rgba(255, 255, 255, 0.70)')
+            .margin({ left: 8 })
+            .onClick(() => {
+              feedbackService.play('tap');
+              this.getUIContext().getRouter().pushUrl({ url: 'pages/GuidePage' });
+            })
           Blank()
           Button('设置')
             .height(34)
