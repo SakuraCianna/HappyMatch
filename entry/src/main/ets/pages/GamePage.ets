@@ -39,6 +39,7 @@ struct GamePage {
   private canvasHeight: number = 420;
   private resultSaved: boolean = false;
   private isAnimating: boolean = false;
+  private isBonusResolving: boolean = false;
   private animationToken: number = 0;
   @State private canvasReady: boolean = false;
   @State private levelId: number = 1;
@@ -175,6 +176,9 @@ struct GamePage {
                   .borderRadius(7)
                   .backgroundColor('#78D7F3')
                   .margin({ left: 4 })
+                this.ScoreMarker(1)
+                this.ScoreMarker(2)
+                this.ScoreMarker(3)
               }
               .width(172)
               .height(26)
@@ -496,11 +500,26 @@ struct GamePage {
     })
   }
 
+  @Builder
+  ScoreMarker(stars: number) {
+    Text('★')
+      .fontSize(8)
+      .fontColor(this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : '#D7A34E')
+      .textAlign(TextAlign.Center)
+      .width(14)
+      .height(14)
+      .borderRadius(7)
+      .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 255, 255, 0.86)')
+      .border({ width: 1, color: 'rgba(215, 163, 78, 0.70)' })
+      .margin({ left: this.scoreMarkerLeft(stars), top: 6 })
+  }
+
   private startLevel(levelId: number): void {
     const safeLevelId = Math.max(1, Math.min(100, levelId));
     const level = LEVELS[safeLevelId - 1];
     this.animationToken++;
     this.isAnimating = false;
+    this.isBonusResolving = false;
     this.activeTool = '';
     this.busyTool = '';
     this.cachedLayout = undefined;
@@ -628,7 +647,10 @@ struct GamePage {
     this.coinBalance = economyService.getWallet().coins;
     this.comboText = this.session.state.lastCascadeCount >= 2 ? `连击 x${this.session.state.lastCascadeCount}` : '';
     this.syncToolCounts();
-    if (this.session.state.status === 'won') {
+    if (this.session.state.status === 'playing' && this.session.shouldAwardRemainingMovesBonus() && !this.isBonusResolving) {
+      this.statusText = '奖励结算';
+      this.playRemainingMoveBonus();
+    } else if (this.session.state.status === 'won') {
       this.statusText = '胜利';
       this.finishLevel();
     } else if (this.session.state.status === 'lost') {
@@ -737,6 +759,54 @@ struct GamePage {
   }
 
   private finishAnimatedMove(): void {
+    this.isAnimating = false;
+    this.syncState();
+    this.draw();
+  }
+
+  private playRemainingMoveBonus(): void {
+    if (!this.session) {
+      return;
+    }
+    const expectedSession = this.session;
+    const beforeBoard = cloneBoard(expectedSession.state.board);
+    const bonus = expectedSession.awardRemainingMovesAsSpecials();
+    if (!bonus) {
+      this.syncState();
+      this.draw();
+      return;
+    }
+    const afterBoard = cloneBoard(expectedSession.state.board);
+    const clearedBoard = this.createClearedBoard(bonus.convertedBoard, bonus.clearPositions);
+    this.isBonusResolving = true;
+    this.isAnimating = true;
+    this.busyTool = 'bonus';
+    this.comboText = `剩余 ${bonus.convertedPositions.length} 步奖励`;
+    if (bonus.convertedPositions.length === 0 || bonus.clearPositions.length === 0) {
+      this.finishBonusAnimation(expectedSession);
+      return;
+    }
+    this.animateConversion(beforeBoard, bonus.convertedBoard, bonus.convertedPositions, () => {
+      if (this.session !== expectedSession) {
+        return;
+      }
+      this.animateClear(bonus.convertedBoard, bonus.clearPositions, () => {
+        if (this.session !== expectedSession) {
+          return;
+        }
+        this.animateSettle(clearedBoard, afterBoard, () => {
+          this.finishBonusAnimation(expectedSession);
+        });
+      });
+    });
+  }
+
+  private finishBonusAnimation(expectedSession: GameSession): void {
+    if (this.session !== expectedSession) {
+      return;
+    }
+    this.isBonusResolving = false;
+    this.busyTool = '';
     this.isAnimating = false;
     this.syncState();
     this.draw();
@@ -1101,14 +1171,14 @@ struct GamePage {
 
   private scorePipeLabel(): string {
     if (this.hasScoreGoal()) {
-      return `${this.score}/${this.scoreGoalValue()}`;
+      return `${this.score}/${this.scorePipeTargetValue()}`;
     }
     return `${this.score}`;
   }
 
   private scorePipeFillWidth(): number {
     const trackWidth = 160;
-    const ratio = Math.min(1, this.score / this.scoreGoalValue());
+    const ratio = Math.min(1, this.score / this.scorePipeTargetValue());
     if (this.score <= 0) {
       return 0;
     }
@@ -1116,16 +1186,36 @@ struct GamePage {
   }
 
   private scoreGoalValue(): number {
+    if (this.session) {
+      return this.session.scoreGoalValue();
+    }
+    return Math.max(1, this.score);
+  }
+
+  private scorePipeTargetValue(): number {
+    if (this.session) {
+      return this.session.threeStarScoreValue();
+    }
+    return Math.max(1, this.score);
+  }
+
+  private scoreMilestoneValue(stars: number): number {
     if (!this.session) {
       return Math.max(1, this.score);
     }
-    for (let index = 0; index < this.session.state.goals.length; index++) {
-      const goal = this.session.state.goals[index];
-      if (goal.type === 'score') {
-        return Math.max(1, goal.count);
-      }
+    if (stars <= 1) {
+      return this.session.scoreGoalValue();
     }
-    return Math.max(1000, this.score + 600);
+    if (stars === 2) {
+      return this.session.twoStarScoreValue();
+    }
+    return this.session.threeStarScoreValue();
+  }
+
+  private scoreMarkerLeft(stars: number): number {
+    const trackWidth = 160;
+    const ratio = Math.min(1, this.scoreMilestoneValue(stars) / this.scorePipeTargetValue());
+    return Math.max(0, Math.min(158, 4 + trackWidth * ratio - 7));
   }
 
   private hasScoreGoal(): boolean {

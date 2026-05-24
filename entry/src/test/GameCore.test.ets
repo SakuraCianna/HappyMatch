@@ -414,6 +414,48 @@ export default function gameCoreTest() {
       expect(session.state.movesLeft).assertEqual(5);
     });
 
+    it('continuesPlayingAfterBaseScoreWhenMovesRemain', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Base Score Continue Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 10 }]
+      }, 6011);
+
+      expect(session.useHammerTool({ row: 0, col: 0 })).assertTrue();
+
+      expect(session.state.score >= 10).assertTrue();
+      expect(session.state.movesLeft).assertLarger(0);
+      expect(session.state.status).assertEqual('playing');
+    });
+
+    it('remainingMoveBonusConvertsMovesIntoFunctionalSpecialsBeforeWinning', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Remaining Move Bonus Test',
+        moves: 4,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 10 }]
+      }, 6012);
+      session.state.score = 15;
+
+      expect(session.shouldAwardRemainingMovesBonus()).assertTrue();
+      const movesBeforeBonus = session.state.movesLeft;
+      const bonus = session.awardRemainingMovesAsSpecials();
+
+      expect(Boolean(bonus)).assertTrue();
+      expect(bonus!.convertedPositions.length).assertEqual(movesBeforeBonus);
+      bonus!.convertedPositions.forEach(position => {
+        const piece = bonus!.convertedBoard.tiles[position.row][position.col].piece;
+        expect(Boolean(piece)).assertTrue();
+        expect(piece!.special === 'row_clear' || piece!.special === 'col_clear' || piece!.special === 'bomb').assertTrue();
+      });
+      expect(session.state.movesLeft).assertEqual(0);
+      expect(session.state.status).assertEqual('won');
+      expect(session.state.score).assertLarger(15);
+    });
+
     it('economyPurchaseCanReviveALostLevelWithExtraMoves', 0, () => {
       const economy = new EconomyService();
       economy.resetForTest(150);

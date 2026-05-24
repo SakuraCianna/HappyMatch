@@ -1,4 +1,4 @@
-import { Board, GameStatus, PieceType, Position, samePosition } from './Types';
+import { Board, GameStatus, PieceType, Position, SpecialType, samePosition } from './Types';
 import { cloneBoard } from './BoardSnapshot';
 import { BoardFactory, SeededRandom } from './BoardFactory';
 import { BoardMoveAnalyzer } from './BoardMoveAnalyzer';
@@ -39,6 +39,12 @@ interface GameHistoryEntry {
   tools: ToolState;
   reshuffles: number;
   lastCascadeCount: number;
+}
+
+export interface RemainingMoveBonus {
+  convertedBoard: Board;
+  convertedPositions: Position[];
+  clearPositions: Position[];
 }
 
 export class GameSession {
@@ -235,6 +241,39 @@ export class GameSession {
     return true;
   }
 
+  shouldAwardRemainingMovesBonus(): boolean {
+    return this.state.status === 'playing' &&
+      this.state.movesLeft > 0 &&
+      this.hasCompletedBaseGoals() &&
+      this.state.score >= this.threeStarScoreValue();
+  }
+
+  awardRemainingMovesAsSpecials(): RemainingMoveBonus | undefined {
+    if (!this.shouldAwardRemainingMovesBonus()) {
+      return undefined;
+    }
+    const convertedPositions = this.pickRemainingMoveBonusPositions(this.state.movesLeft);
+    convertedPositions.forEach((position, index) => {
+      const piece = this.state.board.tiles[position.row][position.col].piece;
+      if (piece) {
+        piece.special = this.bonusSpecialForIndex(index);
+      }
+    });
+    const convertedBoard = cloneBoard(this.state.board);
+    const clearPositions = this.uniquePositions(SpecialResolver.expandedClearPositions(this.state.board, convertedPositions));
+    this.state.movesLeft = 0;
+    if (clearPositions.length > 0) {
+      this.resolveClearPositions(clearPositions);
+      this.resolveBoard();
+    }
+    this.state.status = this.hasCompletedBaseGoals() ? 'won' : 'lost';
+    return {
+      convertedBoard,
+      convertedPositions,
+      clearPositions
+    };
+  }
+
   reviveWithMoves(extraMoves: number): boolean {
     if (this.state.status !== 'lost' || extraMoves <= 0) {
       return false;
@@ -244,6 +283,31 @@ export class GameSession {
     this.state.lastCascadeCount = 0;
     this.ensurePlayableBoard();
     return true;
+  }
+
+  scoreGoalValue(): number {
+    const scoreGoal = this.scoreGoal();
+    if (!scoreGoal) {
+      return Math.max(1, this.state.score);
+    }
+    return Math.max(1, scoreGoal.count);
+  }
+
+  twoStarScoreValue(): number {
+    return Math.ceil(this.scoreGoalValue() * 1.2);
+  }
+
+  threeStarScoreValue(): number {
+    return Math.ceil(this.scoreGoalValue() * 1.5);
+  }
+
+  hasCompletedBaseGoals(): boolean {
+    return this.state.goals.every(goal => {
+      if (goal.type === 'score') {
+        return this.state.score >= goal.count;
+      }
+      return goal.count <= 0;
+    });
   }
 
   hasAvailableMove(): boolean {
@@ -335,19 +399,11 @@ export class GameSession {
   }
 
   private updateStatus(): void {
-    const goalsDone = this.state.goals.every(goal => {
-      if (goal.type === 'score') {
-        return this.state.score >= goal.count;
-      }
-      return goal.count <= 0;
-    });
-    if (goalsDone) {
-      this.state.status = 'won';
+    if (this.state.movesLeft <= 0) {
+      this.state.status = this.hasCompletedBaseGoals() ? 'won' : 'lost';
       return;
     }
-    if (this.state.movesLeft <= 0) {
-      this.state.status = 'lost';
-    }
+    this.state.status = 'playing';
   }
 
   private ensurePlayableBoard(): void {
@@ -405,6 +461,50 @@ export class GameSession {
       return count;
     }
     return Math.max(0, count - 1);
+  }
+
+  private scoreGoal(): LevelGoal | undefined {
+    for (let index = 0; index < this.state.goals.length; index++) {
+      const goal = this.state.goals[index];
+      if (goal.type === 'score') {
+        return goal;
+      }
+    }
+    return undefined;
+  }
+
+  private pickRemainingMoveBonusPositions(count: number): Position[] {
+    const candidates: Position[] = [];
+    for (let row = 0; row < this.state.board.rows; row++) {
+      for (let col = 0; col < this.state.board.cols; col++) {
+        const tile = this.state.board.tiles[row][col];
+        if (tile.piece &&
+          tile.piece.special === 'none' &&
+          tile.blocker?.type !== 'hole' &&
+          tile.blocker?.type !== 'marshmallow' &&
+          tile.blocker?.type !== 'chain') {
+          candidates.push({ row, col });
+        }
+      }
+    }
+    const result: Position[] = [];
+    while (result.length < count && candidates.length > 0) {
+      const index = Math.floor(this.random.next() * candidates.length);
+      result.push(candidates[index]);
+      candidates.splice(index, 1);
+    }
+    return result;
+  }
+
+  private bonusSpecialForIndex(index: number): SpecialType {
+    const cycle = index % 3;
+    if (cycle === 0) {
+      return 'row_clear';
+    }
+    if (cycle === 1) {
+      return 'col_clear';
+    }
+    return 'bomb';
   }
 
   private nextPieceType(type: PieceType): PieceType {
