@@ -20,6 +20,14 @@ interface CueAsset {
   vibrationMs: number;
 }
 
+interface ActiveAudioResource {
+  context: common.Context;
+  path: string;
+  rawFdOpened: boolean;
+  closed: boolean;
+  player?: media.AVPlayer;
+}
+
 const CUE_ASSETS: Record<FeedbackCue, CueAsset> = {
   tap: { path: 'sfx/ui_tap.ogg', volume: 0.32, vibrationMs: 5 },
   swap: { path: 'sfx/ui_tap.ogg', volume: 0.28, vibrationMs: 6 },
@@ -73,9 +81,17 @@ export class FeedbackService {
     if (!context) {
       return;
     }
+    const active: ActiveAudioResource = {
+      context,
+      path,
+      rawFdOpened: false,
+      closed: false
+    };
     try {
       const descriptor = await context.resourceManager.getRawFd(path);
+      active.rawFdOpened = true;
       const player = await media.createAVPlayer();
+      active.player = player;
       player.fdSrc = {
         fd: descriptor.fd,
         offset: descriptor.offset,
@@ -85,23 +101,32 @@ export class FeedbackService {
       player.setVolume(volume);
       await player.play();
       setTimeout(() => {
-        this.releasePlayer(player, context, path);
+        this.releaseAudioResource(active);
       }, 1200);
     } catch (_error) {
       // Audio feedback should never block or crash the game loop.
+      this.releaseAudioResource(active);
     }
   }
 
-  private async releasePlayer(player: media.AVPlayer, context: common.Context, path: string): Promise<void> {
-    try {
-      await player.release();
-    } catch (_error) {
-      // Best effort cleanup.
+  private async releaseAudioResource(active: ActiveAudioResource): Promise<void> {
+    if (active.closed) {
+      return;
     }
-    try {
-      await context.resourceManager.closeRawFd(path);
-    } catch (_error) {
-      // Best effort cleanup.
+    active.closed = true;
+    if (active.player) {
+      try {
+        await active.player.release();
+      } catch (_error) {
+        // Best effort cleanup.
+      }
+    }
+    if (active.rawFdOpened) {
+      try {
+        await active.context.resourceManager.closeRawFd(active.path);
+      } catch (_error) {
+        // Best effort cleanup.
+      }
     }
   }
 

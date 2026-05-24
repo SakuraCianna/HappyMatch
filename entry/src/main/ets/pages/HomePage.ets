@@ -11,11 +11,16 @@ import { progressService } from '../game/storage/ProgressService';
 struct HomePage {
   @State private continueLevel: number = 1;
   @State private coins: number = 0;
+  @State private homeMotion: boolean = false;
 
   aboutToAppear(): void {
     const context = getContext(this) as common.Context;
     feedbackService.init(context);
     gameSettingsService.init(context);
+    this.homeMotion = false;
+    setTimeout(() => {
+      this.homeMotion = true;
+    }, 80);
     this.refreshProgress();
   }
 
@@ -30,12 +35,12 @@ struct HomePage {
         .height('100%')
         .objectFit(ImageFit.Cover)
 
-      this.DecorationJelly('#F27A91', 54, 54, 34, '72%')
-      this.DecorationJelly('#69B8EA', 46, 46, '39%', '61%')
-      this.DecorationJelly('#EFC957', 64, 64, '58%', '60%')
-      this.DecorationJelly('#76D37B', 52, 52, '31%', '68%')
-      this.DecorationJelly('#B487EF', 56, 56, '70%', '69%')
-      this.DecorationJelly('#F39967', 30, 30, '78%', '52%')
+      this.DecorationJelly('#F27A91', 54, 54, 34, '71%', 8, -10, 2600, -7)
+      this.DecorationJelly('#69B8EA', 46, 46, '40%', '60%', -7, 8, 3100, 8)
+      this.DecorationJelly('#EFC957', 64, 64, '58%', '60%', 10, -6, 3400, -5)
+      this.DecorationJelly('#76D37B', 52, 52, '31%', '68%', -6, -8, 2900, 6)
+      this.DecorationJelly('#B487EF', 56, 56, '70%', '69%', 7, 9, 3300, -8)
+      this.DecorationJelly('#F39967', 30, 30, '78%', '52%', -5, 6, 2500, 10)
 
       Column() {
         Row() {
@@ -113,6 +118,8 @@ struct HomePage {
         .width('100%')
         .alignItems(HorizontalAlign.Center)
         .margin({ bottom: 120 })
+        .translate({ y: this.homeMotion ? -4 : 4 })
+        .animation({ duration: 3300, curve: Curve.EaseInOut, iterations: -1, playMode: PlayMode.Alternate })
 
         Blank()
       }
@@ -124,7 +131,17 @@ struct HomePage {
   }
 
   @Builder
-  DecorationJelly(color: string, width: number, height: number, x: string | number, y: string | number) {
+  DecorationJelly(
+    color: string,
+    width: number,
+    height: number,
+    x: string | number,
+    y: string | number,
+    driftX: number,
+    driftY: number,
+    duration: number,
+    rotateAngle: number
+  ) {
     Stack() {
       Row()
         .width(Math.max(10, width * 0.30))
@@ -140,6 +157,10 @@ struct HomePage {
     .opacity(0.82)
     .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.16)', offsetX: 0, offsetY: 6 })
     .position({ x, y })
+    .translate({ x: this.homeMotion ? driftX : -driftX, y: this.homeMotion ? driftY : -driftY })
+    .scale({ x: this.homeMotion ? 1.05 : 0.96, y: this.homeMotion ? 0.97 : 1.04 })
+    .rotate({ angle: this.homeMotion ? rotateAngle : -rotateAngle })
+    .animation({ duration, curve: Curve.EaseInOut, iterations: -1, playMode: PlayMode.Alternate })
   }
 
   private async refreshProgress(): Promise<void> {
