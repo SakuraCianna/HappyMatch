@@ -63,7 +63,7 @@ export class FeedbackService {
     if (!asset) {
       return;
     }
-    this.vibrate(asset.vibrationMs);
+    this.playVibration(asset.vibrationMs);
     const settings = gameSettingsService.getState();
     if (!settings.soundEnabled) {
       return;
@@ -130,7 +130,7 @@ export class FeedbackService {
     }
   }
 
-  private vibrate(durationMs: number): void {
+  private playVibration(durationMs: number): void {
     const settings = gameSettingsService.getState();
     if (!settings.vibrationEnabled || durationMs <= 0) {
       return;
