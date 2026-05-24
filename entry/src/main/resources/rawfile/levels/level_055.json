@@ -28,6 +28,11 @@
       "type": "collect_special",
       "targetSpecial": "row_clear",
       "count": 2
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "col_clear",
+      "count": 2
     }
   ],
   "blockers": [

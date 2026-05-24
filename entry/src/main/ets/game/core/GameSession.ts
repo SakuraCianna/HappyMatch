@@ -7,7 +7,7 @@ import { GravityResolver } from './GravityResolver';
 import { MatchResolver } from './MatchResolver';
 import { SpecialResolver } from './SpecialResolver';
 import { BlockerDamageResult, BlockerResolver } from '../mechanics/BlockerResolver';
-import { LevelConfig, LevelGoal } from '../levels/LevelConfig';
+import { LevelConfig, LevelGoal, SpecialComboGoalType } from '../levels/LevelConfig';
 
 export const UNLIMITED_TOOL_COUNT = -1;
 
@@ -124,11 +124,13 @@ export class GameSession {
     this.state.lastCascadeCount = 0;
     if (SpecialResolver.isDirectSpecialSwap(this.state.board, first, second)) {
       this.swap(first, second);
+      this.updateSpecialComboGoals(this.specialComboTypeForSwap(first, second));
       this.applyRainbowFunctionalConversion(first, second);
       const specialPositions = SpecialResolver.swapActivatedPositions(this.state.board, first, second);
       this.state.movesLeft--;
       this.resolveClearPositions(this.uniquePositions(specialPositions));
       this.resolveBoard();
+      this.updateComboGoals();
       this.updateStatus();
       this.ensurePlayableBoard();
       return true;
@@ -144,6 +146,7 @@ export class GameSession {
 
     this.state.movesLeft--;
     this.resolveBoard(second);
+    this.updateComboGoals();
     this.updateStatus();
     this.ensurePlayableBoard();
     return true;
@@ -176,6 +179,7 @@ export class GameSession {
     this.state.lastCascadeCount = 0;
     this.resolveClearPositions(SpecialResolver.expandedClearPositions(this.state.board, [position]));
     this.resolveBoard();
+    this.updateComboGoals();
     this.state.tools.hammer = this.consumeTool(this.state.tools.hammer);
     this.updateStatus();
     this.ensurePlayableBoard();
@@ -199,6 +203,7 @@ export class GameSession {
     tile.piece.type = nextType;
     this.state.tools.brush = this.consumeTool(this.state.tools.brush);
     this.resolveBoard(position);
+    this.updateComboGoals();
     this.updateStatus();
     this.ensurePlayableBoard();
     return true;
@@ -382,6 +387,60 @@ export class GameSession {
         piece.special = conversion.special;
       }
     });
+  }
+
+  private updateComboGoals(): void {
+    if (this.state.lastCascadeCount < 2) {
+      return;
+    }
+    this.state.goals.forEach(goal => {
+      const requiredComboLength = Math.max(2, goal.comboLength ?? 2);
+      if (goal.type === 'combo_goal' && goal.count > 0 && this.state.lastCascadeCount >= requiredComboLength) {
+        goal.count--;
+      }
+    });
+  }
+
+  private updateSpecialComboGoals(comboType?: SpecialComboGoalType): void {
+    if (!comboType) {
+      return;
+    }
+    this.state.goals.forEach(goal => {
+      if (goal.type === 'special_combo_goal' &&
+        goal.count > 0 &&
+        (!goal.comboType || goal.comboType === comboType)) {
+        goal.count--;
+      }
+    });
+  }
+
+  private specialComboTypeForSwap(first: Position, second: Position): SpecialComboGoalType | undefined {
+    const firstPiece = this.state.board.tiles[first.row][first.col].piece;
+    const secondPiece = this.state.board.tiles[second.row][second.col].piece;
+    if (!firstPiece || !secondPiece) {
+      return undefined;
+    }
+    if (firstPiece.special === 'rainbow' && secondPiece.special === 'rainbow') {
+      return 'rainbow_color';
+    }
+    if ((firstPiece.special === 'rainbow' && this.isFunctionalSpecial(secondPiece.special)) ||
+      (secondPiece.special === 'rainbow' && this.isFunctionalSpecial(firstPiece.special))) {
+      return 'rainbow_functional';
+    }
+    if (firstPiece.special === 'rainbow' || secondPiece.special === 'rainbow') {
+      return 'rainbow_color';
+    }
+    if (firstPiece.special === 'bomb' && secondPiece.special === 'bomb') {
+      return 'bomb_bomb';
+    }
+    if (this.isFunctionalSpecial(firstPiece.special) && this.isFunctionalSpecial(secondPiece.special)) {
+      return 'functional_combo';
+    }
+    return undefined;
+  }
+
+  private isFunctionalSpecial(special: SpecialType): boolean {
+    return special === 'row_clear' || special === 'col_clear' || special === 'bomb';
   }
 
   private updateBlockerGoals(result: BlockerDamageResult): void {

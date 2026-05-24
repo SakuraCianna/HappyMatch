@@ -23,6 +23,11 @@
     {
       "type": "break_chain",
       "count": 3
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "bomb",
+      "count": 1
     }
   ],
   "blockers": [

@@ -23,6 +23,11 @@
     {
       "type": "clear_marshmallow",
       "count": 6
+    },
+    {
+      "type": "special_combo_goal",
+      "comboType": "functional_combo",
+      "count": 1
     }
   ],
   "blockers": [
@@ -225,6 +230,18 @@
       "col": 2,
       "type": "orange",
       "special": "rainbow"
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "type": "red",
+      "special": "row_clear"
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "type": "blue",
+      "special": "col_clear"
     }
   ]
 }

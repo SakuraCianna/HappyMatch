@@ -255,6 +255,18 @@
       "col": 2,
       "type": "orange",
       "special": "rainbow"
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "type": "red",
+      "special": "rainbow"
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "type": "blue",
+      "special": "bomb"
     }
   ]
 }

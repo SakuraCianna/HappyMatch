@@ -23,6 +23,11 @@
       "type": "collect_special",
       "targetSpecial": "row_clear",
       "count": 1
+    },
+    {
+      "type": "collect_piece",
+      "target": "green",
+      "count": 12
     }
   ],
   "blockers": [

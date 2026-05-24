@@ -258,6 +258,18 @@
       "col": 1,
       "type": "orange",
       "special": "rainbow"
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "type": "red",
+      "special": "rainbow"
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "type": "blue",
+      "special": "row_clear"
     }
   ]
 }

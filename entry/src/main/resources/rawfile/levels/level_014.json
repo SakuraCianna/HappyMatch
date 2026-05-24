@@ -23,6 +23,11 @@
       "type": "collect_piece",
       "target": "purple",
       "count": 9
+    },
+    {
+      "type": "collect_piece",
+      "target": "red",
+      "count": 17
     }
   ],
   "blockers": [

@@ -361,6 +361,22 @@ export default function gameCoreTest() {
       });
     });
 
+    it('levelMissionsAddCollectionComboAndSpecialComboVariants', 0, () => {
+      const earlyMissionLevels = LEVELS.slice(5, 20).filter(level => {
+        return level.goals.some(goal => goal.type === 'collect_piece');
+      });
+      const comboMissionLevels = LEVELS.slice(20, 60).filter(level => {
+        return level.goals.some(goal => goal.type === 'combo_goal');
+      });
+      const specialComboMissionLevels = LEVELS.slice(60).filter(level => {
+        return level.goals.some(goal => goal.type === 'special_combo_goal');
+      });
+
+      expect(earlyMissionLevels.length).assertLarger(6);
+      expect(comboMissionLevels.length).assertLarger(5);
+      expect(specialComboMissionLevels.length).assertLarger(5);
+    });
+
     it('holeTilesStayEmptyAfterGravity', 0, () => {
       const board = BoardFactory.create({ rows: 5, cols: 5, seed: 777, pieceTypes: ['red', 'blue', 'yellow', 'green'] });
       board.tiles[2][2].blocker = { type: 'hole', hp: 1 };
@@ -771,6 +787,68 @@ export default function gameCoreTest() {
       expect(session.trySwap({ row: 0, col: 0 }, { row: 0, col: 1 })).assertTrue();
       const specialGoal = session.state.goals.find(goal => goal.type === 'collect_special');
       expect((specialGoal?.count ?? 99) <= 0).assertTrue();
+    });
+
+    it('rainbowFunctionalSwapCountsSpecialComboGoals', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Rainbow Combo Goal Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [
+          { type: 'score', count: 5000 },
+          { type: 'special_combo_goal', comboType: 'rainbow_functional', count: 1 }
+        ]
+      }, 6302);
+      const types: PieceType[][] = [
+        ['yellow', 'red', 'blue', 'green', 'yellow'],
+        ['green', 'blue', 'yellow', 'green', 'blue'],
+        ['blue', 'yellow', 'red', 'green', 'blue'],
+        ['yellow', 'green', 'blue', 'yellow', 'green'],
+        ['green', 'blue', 'yellow', 'green', 'red']
+      ];
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
+          session.state.board.tiles[row][col].piece!.type = types[row][col];
+          session.state.board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+      session.state.board.tiles[0][0].piece!.special = 'rainbow';
+      session.state.board.tiles[0][1].piece!.special = 'row_clear';
+
+      expect(session.trySwap({ row: 0, col: 0 }, { row: 0, col: 1 })).assertTrue();
+      const comboGoal = session.state.goals.find(goal => goal.type === 'special_combo_goal');
+      expect(comboGoal?.count).assertEqual(0);
+    });
+
+    it('comboGoalCompletesWhenActionCreatesCascade', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Cascade Goal Test',
+        moves: 5,
+        board: { rows: 4, cols: 3, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [
+          { type: 'score', count: 5000 },
+          { type: 'combo_goal', comboLength: 2, count: 1 }
+        ]
+      }, 6303);
+      const types: PieceType[][] = [
+        ['blue', 'green', 'yellow'],
+        ['yellow', 'red', 'green'],
+        ['red', 'blue', 'red'],
+        ['green', 'yellow', 'blue']
+      ];
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 3; col++) {
+          session.state.board.tiles[row][col].piece!.type = types[row][col];
+          session.state.board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+
+      expect(session.useHammerTool({ row: 2, col: 1 })).assertTrue();
+      const comboGoal = session.state.goals.find(goal => goal.type === 'combo_goal');
+      expect(session.state.lastCascadeCount).assertLarger(1);
+      expect(comboGoal?.count).assertEqual(0);
     });
 
     it('brushToolChangesNormalPieceButRejectsSpecialPiece', 0, () => {

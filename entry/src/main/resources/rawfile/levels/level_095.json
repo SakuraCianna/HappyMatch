@@ -270,6 +270,18 @@
       "col": 5,
       "type": "orange",
       "special": "rainbow"
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "red",
+      "special": "rainbow"
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "blue",
+      "special": "bomb"
     }
   ]
 }

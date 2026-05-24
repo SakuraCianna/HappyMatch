@@ -400,6 +400,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "row_clear",
         "count": 1
+      },
+      {
+        "type": "collect_piece",
+        "target": "yellow",
+        "count": 12
       }
     ],
     "blockers": [
@@ -480,6 +485,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "row_clear",
         "count": 1
+      },
+      {
+        "type": "collect_piece",
+        "target": "green",
+        "count": 12
       }
     ],
     "blockers": [
@@ -727,6 +737,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "red",
         "count": 8
+      },
+      {
+        "type": "collect_piece",
+        "target": "blue",
+        "count": 15
       }
     ],
     "blockers": [
@@ -807,6 +822,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "blue",
         "count": 8
+      },
+      {
+        "type": "collect_piece",
+        "target": "yellow",
+        "count": 15
       }
     ],
     "blockers": [
@@ -887,6 +907,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "yellow",
         "count": 9
+      },
+      {
+        "type": "collect_piece",
+        "target": "green",
+        "count": 16
       }
     ],
     "blockers": [
@@ -949,6 +974,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "green",
         "count": 9
+      },
+      {
+        "type": "collect_piece",
+        "target": "purple",
+        "count": 17
       }
     ],
     "blockers": [
@@ -1029,6 +1059,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "purple",
         "count": 9
+      },
+      {
+        "type": "collect_piece",
+        "target": "red",
+        "count": 17
       }
     ],
     "blockers": [
@@ -1533,6 +1568,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 3
+      },
+      {
+        "type": "collect_piece",
+        "target": "blue",
+        "count": 22
       }
     ],
     "blockers": [
@@ -1627,6 +1667,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 3
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -1730,6 +1775,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 3
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -1839,6 +1889,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 3
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -1942,6 +1997,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 4
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2057,6 +2117,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 4
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2166,6 +2231,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 4
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2263,6 +2333,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 4
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2360,6 +2435,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 5
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2469,6 +2549,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 5
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2704,6 +2789,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 5
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 2,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2825,6 +2915,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 6
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -2952,6 +3047,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 6
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -3079,6 +3179,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 6
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -3308,6 +3413,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 7
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -3429,6 +3539,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 7
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -3562,6 +3677,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 7
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -3701,6 +3821,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 7
+      },
+      {
+        "type": "combo_goal",
+        "comboLength": 3,
+        "count": 1
       }
     ],
     "blockers": [
@@ -4007,6 +4132,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 3
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -4159,6 +4289,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 3
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -4311,6 +4446,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 3
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -4469,6 +4609,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 3
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -4808,6 +4953,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 4
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -4966,6 +5116,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 4
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -5136,6 +5291,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 4
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -5294,6 +5454,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 4
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -5639,6 +5804,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -5803,6 +5973,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -5967,6 +6142,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6143,6 +6323,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6330,6 +6515,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "row_clear",
         "count": 2
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6512,6 +6702,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6700,6 +6895,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6870,6 +7070,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -7052,6 +7257,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -7226,6 +7436,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "collect_special",
         "targetSpecial": "rainbow",
+        "count": 2
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
         "count": 2
       }
     ],
@@ -7424,6 +7639,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 3
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -7602,6 +7822,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -7630,6 +7862,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 3
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -7802,6 +8039,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 6,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -7830,6 +8079,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 3
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -8008,6 +8262,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -8036,6 +8302,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 3
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -8208,6 +8479,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -8241,6 +8524,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "col_clear",
         "count": 2
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -8431,6 +8719,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -8459,6 +8759,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 4
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -8649,6 +8954,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -8677,6 +8994,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 4
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -8849,6 +9171,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -8877,6 +9211,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 4
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -9055,6 +9394,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -9083,6 +9434,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 4
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -9273,6 +9629,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -9306,6 +9674,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "rainbow",
         "count": 2
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -9508,6 +9881,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -9536,6 +9921,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 5
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -9732,6 +10122,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -9760,6 +10162,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 5
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -9962,6 +10369,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -9990,6 +10409,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 5
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -10180,6 +10604,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -10208,6 +10644,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 5
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -10398,6 +10839,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -10431,6 +10884,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_special",
         "targetSpecial": "col_clear",
         "count": 2
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -10627,6 +11085,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 6,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -10655,6 +11125,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 6
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -10857,6 +11332,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -10885,6 +11372,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 6
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -11087,6 +11579,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -11115,6 +11619,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 6
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -11299,6 +11808,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 0,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -11327,6 +11848,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 6
+      },
+      {
+        "type": "special_combo_goal",
+        "comboType": "functional_combo",
+        "count": 1
       }
     ],
     "blockers": [
@@ -11529,6 +12055,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 6,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "col_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ]
   },
@@ -11789,6 +12327,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 0,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "row_clear"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "col_clear"
       }
     ],
     "tutorial": [
@@ -12052,6 +12602,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -12300,6 +12862,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -12548,6 +13122,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 1,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -12796,6 +13382,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -13056,6 +13654,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 7,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -13322,6 +13932,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 7,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -13582,6 +14204,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -13848,6 +14482,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -14090,6 +14736,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 1,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -14338,6 +14996,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -14598,6 +15268,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 6,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -14861,6 +15543,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 1,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -15136,6 +15830,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -15405,6 +16111,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 2,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -15680,6 +16398,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -15949,6 +16679,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 1,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -16224,6 +16966,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -16499,6 +17253,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   },
@@ -16762,6 +17528,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 7,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 2,
+        "col": 2,
+        "type": "blue",
+        "special": "bomb"
       }
     ]
   },
@@ -17019,6 +17797,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "orange",
         "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 2,
+        "type": "red",
+        "special": "rainbow"
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "type": "blue",
+        "special": "row_clear"
       }
     ]
   }

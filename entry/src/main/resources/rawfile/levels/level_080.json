@@ -255,6 +255,18 @@
       "col": 0,
       "type": "orange",
       "special": "rainbow"
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "type": "red",
+      "special": "row_clear"
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "type": "blue",
+      "special": "col_clear"
     }
   ],
   "tutorial": [

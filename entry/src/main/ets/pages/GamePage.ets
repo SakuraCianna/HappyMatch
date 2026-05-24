@@ -1533,6 +1533,12 @@ struct GamePage {
       if (goal.type === 'collect_special') {
         return `触发${this.specialGoalName(goal.targetSpecial)} ${Math.max(0, goal.count)}`;
       }
+      if (goal.type === 'combo_goal') {
+        return `连击 x${Math.max(2, goal.comboLength ?? 2)} ${Math.max(0, goal.count)} 次`;
+      }
+      if (goal.type === 'special_combo_goal') {
+        return `触发${this.specialComboGoalName(goal.comboType)} ${Math.max(0, goal.count)} 次`;
+      }
       return `收集 ${goal.target} ${Math.max(0, goal.count)}`;
     }).join(' / ');
   }
@@ -1551,6 +1557,22 @@ struct GamePage {
       return '彩虹果冻';
     }
     return '特殊果冻';
+  }
+
+  private specialComboGoalName(comboType?: string): string {
+    if (comboType === 'rainbow_functional') {
+      return '彩虹+功能组合';
+    }
+    if (comboType === 'rainbow_color') {
+      return '彩虹组合';
+    }
+    if (comboType === 'bomb_bomb') {
+      return '双爆炸组合';
+    }
+    if (comboType === 'functional_combo') {
+      return '功能果冻组合';
+    }
+    return '特殊组合';
   }
 
   private formatStars(stars: number): string {

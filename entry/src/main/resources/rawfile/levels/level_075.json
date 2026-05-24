@@ -28,6 +28,11 @@
       "type": "collect_special",
       "targetSpecial": "col_clear",
       "count": 2
+    },
+    {
+      "type": "special_combo_goal",
+      "comboType": "functional_combo",
+      "count": 1
     }
   ],
   "blockers": [
@@ -224,6 +229,18 @@
       "col": 6,
       "type": "orange",
       "special": "rainbow"
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "type": "red",
+      "special": "col_clear"
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "type": "blue",
+      "special": "bomb"
     }
   ]
 }
