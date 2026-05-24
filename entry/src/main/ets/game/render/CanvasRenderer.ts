@@ -333,7 +333,12 @@ export class CanvasRenderer {
     }
     ctx.fill();
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.26)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.48)';
+    ctx.beginPath();
+    ctx.ellipse(cx - size * 0.20, cy - size * 0.24, size * 0.07, size * 0.035, -Math.PI / 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.34)';
     ctx.lineWidth = Math.max(1, size * 0.028);
     ctx.beginPath();
     if (type === 'blue') {
@@ -421,7 +426,8 @@ export class CanvasRenderer {
     }
     ctx.save();
     if (piece.special === 'row_clear') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(35, 188, 232, 0.88)', 'rgba(255, 255, 255, 0.94)');
+      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(35, 188, 232, 0.90)', 'rgba(255, 255, 255, 0.96)');
+      this.drawBeamBadge(ctx, cx, cy, size, true);
       ctx.strokeStyle = 'rgba(18, 84, 122, 0.92)';
       ctx.lineWidth = Math.max(5, size * 0.14);
       ctx.beginPath();
@@ -432,8 +438,10 @@ export class CanvasRenderer {
       ctx.beginPath();
       this.rowArrowPath(ctx, cx, cy, size);
       ctx.stroke();
+      this.drawArrowHeadDots(ctx, cx, cy, size, true);
     } else if (piece.special === 'col_clear') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(116, 92, 242, 0.88)', 'rgba(255, 255, 255, 0.94)');
+      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(116, 92, 242, 0.90)', 'rgba(255, 255, 255, 0.96)');
+      this.drawBeamBadge(ctx, cx, cy, size, false);
       ctx.strokeStyle = 'rgba(50, 39, 142, 0.92)';
       ctx.lineWidth = Math.max(5, size * 0.14);
       ctx.beginPath();
@@ -444,28 +452,13 @@ export class CanvasRenderer {
       ctx.beginPath();
       this.colArrowPath(ctx, cx, cy, size);
       ctx.stroke();
+      this.drawArrowHeadDots(ctx, cx, cy, size, false);
     } else if (piece.special === 'bomb') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(255, 199, 66, 0.92)', 'rgba(255, 255, 255, 0.94)');
-      ctx.strokeStyle = 'rgba(137, 82, 20, 0.92)';
-      ctx.lineWidth = Math.max(4, size * 0.10);
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.32, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.strokeStyle = '#FFF5AA';
-      ctx.lineWidth = Math.max(2, size * 0.055);
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.32, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.fillStyle = '#FFF8C8';
-      ctx.beginPath();
-      this.starPath(ctx, cx, cy, size * 0.18, size * 0.07, 5);
-      ctx.fill();
+      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(255, 199, 66, 0.94)', 'rgba(255, 255, 255, 0.96)');
+      this.drawBombGlyph(ctx, cx, cy, size);
     } else if (piece.special === 'rainbow') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(255, 255, 255, 0.92)', 'rgba(124, 107, 255, 0.88)');
-      ctx.fillStyle = '#FFFFFF';
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.13, 0, Math.PI * 2);
-      ctx.fill();
+      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(255, 255, 255, 0.94)', 'rgba(124, 107, 255, 0.92)');
+      this.drawRainbowCore(ctx, cx, cy, size);
     }
     ctx.restore();
   }
@@ -496,25 +489,22 @@ export class CanvasRenderer {
   private drawRainbowPiece(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
     const colors: string[] = ['#F27A91', '#F39967', '#EFC957', '#76D37B', '#69B8EA', '#B487EF'];
     ctx.save();
-    ctx.fillStyle = '#FBFBFF';
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.lineWidth = Math.max(2, size * 0.06);
+    ctx.fillStyle = '#F9F7FF';
+    ctx.strokeStyle = 'rgba(83, 67, 172, 0.72)';
+    ctx.lineWidth = Math.max(3, size * 0.075);
     ctx.beginPath();
     ctx.arc(cx, cy, size * 0.50, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
     for (let index = 0; index < colors.length; index++) {
       ctx.strokeStyle = colors[index];
-      ctx.lineWidth = Math.max(3, size * 0.10);
+      ctx.lineWidth = Math.max(4, size * 0.105);
       ctx.beginPath();
       const start = -Math.PI / 2 + index * Math.PI / 3;
       ctx.arc(cx, cy, size * 0.32, start, start + Math.PI / 3);
       ctx.stroke();
     }
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.82)';
-    ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.18, 0, Math.PI * 2);
-    ctx.fill();
+    this.drawRainbowCore(ctx, cx, cy, size * 1.04);
     ctx.restore();
   }
 
@@ -527,14 +517,7 @@ export class CanvasRenderer {
       ctx.strokeStyle = hp > 1 ? 'rgba(20, 123, 184, 0.98)' : 'rgba(42, 160, 214, 0.98)';
       ctx.lineWidth = Math.max(4, size * 0.080);
       ctx.stroke();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
-      ctx.lineWidth = Math.max(1, size * 0.030);
-      ctx.beginPath();
-      ctx.moveTo(cx - size * 0.36, cy - size * 0.34);
-      ctx.lineTo(cx + size * 0.36, cy + size * 0.34);
-      ctx.moveTo(cx + size * 0.32, cy - size * 0.38);
-      ctx.lineTo(cx - size * 0.30, cy + size * 0.34);
-      ctx.stroke();
+      this.drawIceSymbol(ctx, cx, cy, size, hp);
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.86)';
       ctx.lineWidth = Math.max(2, size * 0.045);
       ctx.beginPath();
@@ -603,6 +586,7 @@ export class CanvasRenderer {
       ctx.arc(cx + size * 0.22, cy + size * 0.20, size * 0.055, 0, Math.PI * 2);
       ctx.arc(cx - size * 0.20, cy - size * 0.18, size * 0.040, 0, Math.PI * 2);
       ctx.fill();
+      this.drawMarshmallowSwirl(ctx, cx, cy, size);
     } else if (type === 'portal') {
       ctx.fillStyle = 'rgba(124, 107, 255, 0.26)';
       ctx.beginPath();
@@ -622,12 +606,22 @@ export class CanvasRenderer {
       ctx.beginPath();
       ctx.arc(cx + size * 0.16, cy - size * 0.18, size * 0.055, 0, Math.PI * 2);
       ctx.fill();
+      this.drawPortalGlyph(ctx, cx, cy, size);
     } else if (type === 'hole') {
-      ctx.fillStyle = 'rgba(92, 58, 74, 0.24)';
+      ctx.fillStyle = 'rgba(71, 55, 64, 0.30)';
       this.roundRect(ctx, cx - size / 2, cy - size / 2, size, size, 14);
       ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.62)';
-      ctx.lineWidth = Math.max(2, size * 0.05);
+      ctx.fillStyle = 'rgba(38, 33, 38, 0.36)';
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.30, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.70)';
+      ctx.lineWidth = Math.max(2, size * 0.055);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255, 226, 175, 0.78)';
+      ctx.lineWidth = Math.max(1, size * 0.032);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.36, Math.PI * 0.16, Math.PI * 1.84);
       ctx.stroke();
     }
     ctx.restore();
@@ -653,6 +647,130 @@ export class CanvasRenderer {
     ctx.arc(cx, cy, size * 0.35, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
+  }
+
+  private drawBeamBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
+    if (horizontal) {
+      this.roundRect(ctx, cx - size * 0.38, cy - size * 0.11, size * 0.76, size * 0.22, 8);
+    } else {
+      this.roundRect(ctx, cx - size * 0.11, cy - size * 0.38, size * 0.22, size * 0.76, 8);
+    }
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.68)';
+    ctx.lineWidth = Math.max(1, size * 0.032);
+    ctx.stroke();
+  }
+
+  private drawArrowHeadDots(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+    ctx.beginPath();
+    if (horizontal) {
+      ctx.arc(cx - size * 0.43, cy, size * 0.045, 0, Math.PI * 2);
+      ctx.arc(cx + size * 0.43, cy, size * 0.045, 0, Math.PI * 2);
+    } else {
+      ctx.arc(cx, cy - size * 0.43, size * 0.045, 0, Math.PI * 2);
+      ctx.arc(cx, cy + size * 0.43, size * 0.045, 0, Math.PI * 2);
+    }
+    ctx.fill();
+  }
+
+  private drawBombGlyph(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.fillStyle = 'rgba(117, 70, 24, 0.94)';
+    ctx.beginPath();
+    ctx.arc(cx - size * 0.02, cy + size * 0.03, size * 0.20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#FFF4A6';
+    ctx.lineWidth = Math.max(2, size * 0.050);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(117, 70, 24, 0.92)';
+    ctx.lineWidth = Math.max(2, size * 0.055);
+    ctx.beginPath();
+    ctx.moveTo(cx + size * 0.10, cy - size * 0.11);
+    ctx.lineTo(cx + size * 0.24, cy - size * 0.24);
+    ctx.stroke();
+    ctx.fillStyle = '#FFF8C8';
+    ctx.beginPath();
+    this.starPath(ctx, cx + size * 0.30, cy - size * 0.30, size * 0.13, size * 0.05, 5);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+    ctx.beginPath();
+    ctx.arc(cx - size * 0.09, cy - size * 0.04, size * 0.050, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  private drawRainbowCore(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    const colors: string[] = ['#F27A91', '#F39967', '#EFC957', '#76D37B', '#69B8EA', '#B487EF'];
+    for (let index = 0; index < colors.length; index++) {
+      ctx.strokeStyle = colors[index];
+      ctx.lineWidth = Math.max(2, size * 0.038);
+      ctx.beginPath();
+      ctx.arc(cx, cy + size * 0.02, size * (0.08 + index * 0.030), Math.PI * 1.04, Math.PI * 1.96);
+      ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+    ctx.beginPath();
+    ctx.arc(cx, cy + size * 0.11, size * 0.10, 0, Math.PI * 2);
+    ctx.fill();
+    this.drawSmallSpark(ctx, cx + size * 0.18, cy - size * 0.18, size * 0.070);
+  }
+
+  private drawIceSymbol(ctx: GameCanvasContext, cx: number, cy: number, size: number, hp: number): void {
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.94)';
+    ctx.lineWidth = Math.max(1, size * 0.030);
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.36, cy - size * 0.34);
+    ctx.lineTo(cx + size * 0.36, cy + size * 0.34);
+    ctx.moveTo(cx + size * 0.32, cy - size * 0.38);
+    ctx.lineTo(cx - size * 0.30, cy + size * 0.34);
+    ctx.stroke();
+    ctx.strokeStyle = hp > 1 ? 'rgba(15, 118, 180, 0.78)' : 'rgba(28, 160, 210, 0.72)';
+    ctx.lineWidth = Math.max(2, size * 0.045);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - size * 0.30);
+    ctx.lineTo(cx, cy + size * 0.30);
+    ctx.moveTo(cx - size * 0.26, cy - size * 0.15);
+    ctx.lineTo(cx + size * 0.26, cy + size * 0.15);
+    ctx.moveTo(cx + size * 0.26, cy - size * 0.15);
+    ctx.lineTo(cx - size * 0.26, cy + size * 0.15);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.90)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.045, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  private drawMarshmallowSwirl(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.strokeStyle = 'rgba(169, 65, 114, 0.54)';
+    ctx.lineWidth = Math.max(2, size * 0.045);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.24, Math.PI * 0.16, Math.PI * 1.72);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
+    ctx.lineWidth = Math.max(1, size * 0.030);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.16, Math.PI * 0.26, Math.PI * 1.60);
+    ctx.stroke();
+  }
+
+  private drawPortalGlyph(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.84)';
+    ctx.lineWidth = Math.max(2, size * 0.052);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.19, Math.PI * 0.10, Math.PI * 1.70);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(57, 217, 255, 0.92)';
+    ctx.lineWidth = Math.max(1, size * 0.034);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.33, Math.PI * 1.12, Math.PI * 2.62);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+    ctx.beginPath();
+    ctx.moveTo(cx + size * 0.26, cy - size * 0.02);
+    ctx.lineTo(cx + size * 0.12, cy - size * 0.10);
+    ctx.lineTo(cx + size * 0.17, cy + size * 0.06);
+    ctx.closePath();
+    ctx.fill();
   }
 
   private drawChainLinks(ctx: GameCanvasContext, cx: number, cy: number, size: number, slope: number): void {
