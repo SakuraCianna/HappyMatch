@@ -36,7 +36,7 @@ struct GamePage {
   private cachedLayout?: BoardLayoutResult;
   private cachedLayoutKey: string = '';
   private canvasWidth: number = 360;
-  private canvasHeight: number = 420;
+  private canvasHeight: number = 388;
   private scoreTrackWidth: number = 178;
   private resultSaved: boolean = false;
   private isAnimating: boolean = false;
@@ -167,48 +167,49 @@ struct GamePage {
               Stack() {
                 Row()
                   .width(this.scoreTrackWidth + 8)
-                  .height(24)
-                  .borderRadius(12)
+                  .height(22)
+                  .borderRadius(11)
                   .backgroundColor('rgba(255, 255, 255, 0.82)')
                   .border({ width: 2, color: 'rgba(99, 181, 213, 0.56)' })
                 Row()
                   .width(this.scorePipeFillWidth())
-                  .height(16)
-                  .borderRadius(8)
+                  .height(13)
+                  .borderRadius(7)
                   .backgroundColor('#64D3F1')
-                  .margin({ left: 4 })
+                  .margin({ left: 4, top: 4 })
                 Row()
                   .width(Math.max(0, this.scorePipeFillWidth() - 8))
-                  .height(5)
+                  .height(4)
                   .borderRadius(3)
-                  .backgroundColor('rgba(255, 255, 255, 0.52)')
-                  .margin({ left: 8, top: 5 })
+                  .backgroundColor('rgba(255, 255, 255, 0.46)')
+                  .margin({ left: 8, top: 6 })
                 this.ScoreMarker(1)
                 this.ScoreMarker(2)
                 this.ScoreMarker(3)
               }
               .width(this.scoreTrackWidth + 16)
-              .height(30)
+              .height(40)
               .alignContent(Alignment.Start)
 
               Stack() {
                 Row()
-                  .width(10)
-                  .height(10)
+                  .width(9)
+                  .height(9)
                   .borderRadius(5)
                   .backgroundColor('rgba(255, 255, 255, 0.60)')
               }
-              .width(24)
-              .height(24)
-              .borderRadius(12)
+              .width(22)
+              .height(22)
+              .borderRadius(11)
               .backgroundColor('#B9ECFF')
               .border({ width: 2, color: 'rgba(99, 181, 213, 0.52)' })
+              .margin({ bottom: 12 })
             }
             .width(226)
-            .height(32)
+            .height(40)
             .alignItems(VerticalAlign.Center)
           }
-          .padding({ left: 14, right: 10, top: 9, bottom: 9 })
+          .padding({ left: 14, right: 10, top: 8, bottom: 7 })
           .borderRadius(20)
           .backgroundColor('rgba(255, 255, 255, 0.62)')
           .border({ width: 1, color: 'rgba(255, 255, 255, 0.62)' })
@@ -216,7 +217,7 @@ struct GamePage {
         }
         .width('100%')
         .padding({ left: 18, right: 18, bottom: 8 })
-        .margin({ top: 26 })
+        .margin({ top: 18 })
 
         this.MessageSlot()
 
@@ -226,7 +227,7 @@ struct GamePage {
           .backgroundColor('rgba(255, 243, 199, 0.78)')
           .borderRadius(22)
           .shadow({ radius: 24, color: 'rgba(92, 58, 74, 0.18)', offsetX: 0, offsetY: 8 })
-          .margin({ top: 16 })
+          .margin({ top: 10 })
           .onReady(() => {
             this.canvasReady = true;
             this.draw();
@@ -367,15 +368,15 @@ struct GamePage {
           })
         }
         .width('92%')
-        .height(76)
-        .margin({ top: 10 })
+        .height(64)
+        .margin({ top: 2 })
         .alignItems(VerticalAlign.Center)
 
       }
       .width('100%')
       .height('100%')
       .alignItems(HorizontalAlign.Center)
-      .padding({ top: 52, bottom: 24 })
+      .padding({ top: 48, bottom: 18 })
       .backgroundColor('rgba(255, 248, 228, 0.26)')
 
       if (this.showResult) {
@@ -454,9 +455,9 @@ struct GamePage {
       }
     }
     .width('92%')
-    .height(38)
+    .height(32)
     .alignContent(Alignment.Center)
-    .margin({ top: 8 })
+    .margin({ top: 6 })
   }
 
   @Builder
@@ -490,9 +491,9 @@ struct GamePage {
       }
     }
     .width('100%')
-    .height(44)
+    .height(this.activeTool === 'brush' ? 40 : 0)
     .alignContent(Alignment.Center)
-    .margin({ top: 8 })
+    .margin({ top: this.activeTool === 'brush' ? 6 : 0 })
   }
 
   @Builder
@@ -529,18 +530,19 @@ struct GamePage {
   @Builder
   ScoreMarker(stars: number) {
     Stack() {
-      Text('★')
-        .fontSize(9)
-        .fontColor(this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : '#D7A34E')
+      Text(`${stars}`)
+        .fontSize(8)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : '#C78B36')
         .textAlign(TextAlign.Center)
     }
-    .width(16)
-    .height(16)
+    .width(15)
+    .height(15)
     .borderRadius(8)
-    .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 255, 255, 0.92)')
-    .border({ width: 1, color: this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : 'rgba(215, 163, 78, 0.72)' })
+    .backgroundColor(this.score >= this.scoreMilestoneValue(stars) ? '#F2B84B' : 'rgba(255, 251, 228, 0.96)')
+    .border({ width: 1, color: this.score >= this.scoreMilestoneValue(stars) ? '#FFFFFF' : 'rgba(215, 163, 78, 0.58)' })
     .shadow({ radius: 5, color: 'rgba(92, 58, 74, 0.10)', offsetX: 0, offsetY: 2 })
-    .position({ x: this.scoreMarkerLeft(stars), y: 4 })
+    .position({ x: this.scoreMarkerLeft(stars), y: 24 })
   }
 
   private startLevel(levelId: number): void {
