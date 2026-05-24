@@ -1,4 +1,3 @@
-import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { AchievementItem, deriveAchievements } from '../game/achievements/AchievementService';
 import { economyService } from '../game/economy/EconomyService';
@@ -14,7 +13,7 @@ struct AchievementsPage {
   @State private totalCount: number = 0;
 
   aboutToAppear(): void {
-    feedbackService.init(getContext(this) as common.Context);
+    feedbackService.init(this.appContext());
     this.refreshAchievements();
   }
 
@@ -50,7 +49,7 @@ struct AchievementsPage {
             .backgroundColor('rgba(255, 255, 255, 0.72)')
             .onClick(() => {
               feedbackService.play('tap');
-              router.back();
+              this.getUIContext().getRouter().back();
             })
         }
         .width('100%')
@@ -163,11 +162,15 @@ struct AchievementsPage {
   }
 
   private async refreshAchievements(): Promise<void> {
-    await bootstrapProgress(getContext(this) as common.Context);
+    await bootstrapProgress(this.appContext());
     const summary = deriveAchievements(await progressService.getAll(), economyService.getWallet());
     this.achievements = summary.items;
     this.unlockedCount = summary.unlockedCount;
     this.totalCount = summary.totalCount;
+  }
+
+  private appContext(): common.Context {
+    return this.getUIContext().getHostContext() as common.Context;
   }
 
   private progressPercentText(item: AchievementItem): string {

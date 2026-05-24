@@ -1,4 +1,3 @@
-import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
@@ -14,7 +13,7 @@ struct Index {
   @State private homeMotion: boolean = false;
 
   aboutToAppear(): void {
-    const context = getContext(this) as common.Context;
+    const context = this.appContext();
     feedbackService.init(context);
     gameSettingsService.init(context);
     this.homeMotion = false;
@@ -51,7 +50,7 @@ struct Index {
             .backgroundColor('rgba(255, 255, 255, 0.70)')
             .onClick(() => {
               feedbackService.play('tap');
-              router.pushUrl({ url: 'pages/AchievementsPage' });
+              this.getUIContext().getRouter().pushUrl({ url: 'pages/AchievementsPage' });
             })
           Blank()
           Button('设置')
@@ -61,7 +60,7 @@ struct Index {
             .backgroundColor('rgba(255, 255, 255, 0.70)')
             .onClick(() => {
               feedbackService.play('tap');
-              router.pushUrl({ url: 'pages/SettingsPage' });
+              this.getUIContext().getRouter().pushUrl({ url: 'pages/SettingsPage' });
             })
         }
         .width('100%')
@@ -98,7 +97,7 @@ struct Index {
             .shadow({ radius: 18, color: 'rgba(242, 122, 145, 0.32)', offsetX: 0, offsetY: 8 })
             .onClick(() => {
               feedbackService.play('tap');
-              router.pushUrl({ url: 'pages/LevelSelectPage' });
+              this.getUIContext().getRouter().pushUrl({ url: 'pages/LevelSelectPage' });
             })
           Button(`继续第 ${this.continueLevel} 关`)
             .width(230)
@@ -112,7 +111,7 @@ struct Index {
             .margin({ top: 16 })
             .onClick(() => {
               feedbackService.play('tap');
-              router.pushUrl({ url: 'pages/GamePage', params: { levelId: this.continueLevel } });
+              this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: this.continueLevel } });
             })
         }
         .width('100%')
@@ -164,8 +163,12 @@ struct Index {
   }
 
   private async refreshProgress(): Promise<void> {
-    await bootstrapProgress(getContext(this) as common.Context);
+    await bootstrapProgress(this.appContext());
     this.continueLevel = await progressService.getUnlockedLevel();
     this.coins = economyService.getWallet().coins;
+  }
+
+  private appContext(): common.Context {
+    return this.getUIContext().getHostContext() as common.Context;
   }
 }

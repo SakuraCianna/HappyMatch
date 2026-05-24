@@ -1,4 +1,3 @@
-import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { gameSettingsService } from '../game/settings/GameSettings';
@@ -11,7 +10,7 @@ struct SettingsPage {
   @State private reducedMotion: boolean = false;
 
   aboutToAppear(): void {
-    const context = getContext(this) as common.Context;
+    const context = this.appContext();
     feedbackService.init(context);
     this.loadSettings(context);
   }
@@ -37,7 +36,7 @@ struct SettingsPage {
             .backgroundColor('rgba(255, 255, 255, 0.72)')
             .onClick(() => {
               feedbackService.play('tap');
-              router.back();
+              this.getUIContext().getRouter().back();
             })
         }
         .width('100%')
@@ -117,5 +116,9 @@ struct SettingsPage {
     this.soundEnabled = state.soundEnabled;
     this.vibrationEnabled = state.vibrationEnabled;
     this.reducedMotion = state.reducedMotion;
+  }
+
+  private appContext(): common.Context {
+    return this.getUIContext().getHostContext() as common.Context;
   }
 }

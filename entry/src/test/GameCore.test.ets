@@ -21,6 +21,7 @@ import { GameSettingsService } from '../main/ets/game/settings/GameSettings';
 import { PortalResolver } from '../main/ets/game/mechanics/PortalResolver';
 import { MemoryProgressRepository } from '../main/ets/game/storage/MemoryProgressRepository';
 import { ProgressService } from '../main/ets/game/storage/ProgressService';
+import { LevelProgress } from '../main/ets/game/storage/ProgressRepository';
 import { hasTutorial, tutorialStepsForLevel } from '../main/ets/game/tutorial/TutorialGuide';
 
 class CountingCanvasContext implements GameCanvasContext {

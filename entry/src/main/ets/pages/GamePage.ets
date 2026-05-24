@@ -1,4 +1,3 @@
-import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { BoardInputMapper } from '../game/input/BoardInputMapper';
 import { cloneBoard, swapPieces } from '../game/core/BoardSnapshot';
@@ -75,11 +74,11 @@ struct GamePage {
   @State private tutorialSteps: TutorialStep[] = [];
 
   aboutToAppear(): void {
-    const context = getContext(this) as common.Context;
+    const context = this.appContext();
     bootstrapProgress(context);
     feedbackService.init(context);
     gameSettingsService.init(context);
-    const params = router.getParams() as Record<string, number>;
+    const params = this.getUIContext().getRouter().getParams() as Record<string, number>;
     const nextLevelId = params && params.levelId ? Number(params.levelId) : 1;
     this.startLevel(nextLevelId);
   }
@@ -96,7 +95,7 @@ struct GamePage {
             .backgroundColor(this.worldTheme().buttonTint)
             .fontColor('#5C3A4A')
             .onClick(() => {
-              router.back();
+              this.getUIContext().getRouter().back();
             })
           Blank()
           Text(`第 ${this.levelId} 关`)
@@ -415,7 +414,7 @@ struct GamePage {
               .height(40)
               .margin({ left: 10 })
               .onClick(() => {
-                router.replaceUrl({ url: 'pages/LevelSelectPage' });
+                this.getUIContext().getRouter().replaceUrl({ url: 'pages/LevelSelectPage' });
               })
             if (!this.resultWon && this.showContinueOffer) {
               Button('加 5 步')
@@ -1637,6 +1636,10 @@ struct GamePage {
       return '功能果冻组合';
     }
     return '特殊组合';
+  }
+
+  private appContext(): common.Context {
+    return this.getUIContext().getHostContext() as common.Context;
   }
 
   private formatStars(stars: number): string {

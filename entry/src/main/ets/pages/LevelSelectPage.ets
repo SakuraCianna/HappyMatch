@@ -1,4 +1,3 @@
-import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { LEVEL_CHAPTERS, LevelChapter, getLevelChapter } from '../game/levels/LevelChapters';
@@ -17,7 +16,7 @@ struct LevelSelectPage {
   @State private progressItems: LevelProgress[] = [];
 
   aboutToAppear(): void {
-    feedbackService.init(getContext(this) as common.Context);
+    feedbackService.init(this.appContext());
     this.refreshProgress();
   }
 
@@ -50,7 +49,7 @@ struct LevelSelectPage {
             .backgroundColor('rgba(255, 255, 255, 0.72)')
             .onClick(() => {
               feedbackService.play('tap');
-              router.back();
+              this.getUIContext().getRouter().back();
             })
         }
         .width('100%')
@@ -181,7 +180,7 @@ struct LevelSelectPage {
       .onClick(() => {
         if (this.isPlayableLevel(level.id)) {
           feedbackService.play('tap');
-          router.pushUrl({ url: 'pages/GamePage', params: { levelId: level.id } });
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: level.id } });
         } else {
           feedbackService.play('error');
         }
@@ -237,9 +236,13 @@ struct LevelSelectPage {
   }
 
   private async refreshProgress(): Promise<void> {
-    await bootstrapProgress(getContext(this) as common.Context);
+    await bootstrapProgress(this.appContext());
     this.unlockedLevel = await progressService.getUnlockedLevel();
     this.progressItems = await progressService.getAll();
+  }
+
+  private appContext(): common.Context {
+    return this.getUIContext().getHostContext() as common.Context;
   }
 
   private starsForLevel(levelId: number): string {

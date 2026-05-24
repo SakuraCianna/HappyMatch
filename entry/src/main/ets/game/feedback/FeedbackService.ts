@@ -136,7 +136,14 @@ export class FeedbackService {
       return;
     }
     try {
-      vibrator.vibrate(durationMs);
+      vibrator.startVibration({
+        type: 'time',
+        duration: durationMs
+      }, {
+        usage: 'touch'
+      }).catch((_error: Error) => {
+        // Vibration may be unavailable on some emulators.
+      });
     } catch (_error) {
       // Vibration may be unavailable on some emulators.
     }
