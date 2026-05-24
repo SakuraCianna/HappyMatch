@@ -105,7 +105,7 @@ export class CanvasRenderer {
         const tile = board.tiles[row][col];
         const centerX = layout.offsetX + col * layout.tileSize + layout.tileSize / 2;
         const centerY = layout.offsetY + row * layout.tileSize + layout.tileSize / 2;
-        if (tile.blocker) {
+        if (tile.blocker && this.shouldDrawBlockerUnderPiece(tile.blocker.type)) {
           this.drawBlocker(ctx, tile.blocker.type, centerX, centerY, layout.tileSize * 0.78, tile.blocker.hp);
         }
         if (tile.piece) {
@@ -116,6 +116,9 @@ export class CanvasRenderer {
           const opacity = effect ? effect.opacity : 1;
           const pieceFastMode = fastMode || (fastStaticMode && !effect);
           this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity, pieceFastMode);
+        }
+        if (tile.blocker && !this.shouldDrawBlockerUnderPiece(tile.blocker.type)) {
+          this.drawBlocker(ctx, tile.blocker.type, centerX, centerY, layout.tileSize * 0.86, tile.blocker.hp);
         }
       }
     }
@@ -515,9 +518,24 @@ export class CanvasRenderer {
   private drawBlocker(ctx: GameCanvasContext, type: string, cx: number, cy: number, size: number, hp: number): void {
     ctx.save();
     if (type === 'ice') {
-      ctx.fillStyle = hp > 1 ? 'rgba(173, 230, 255, 0.72)' : 'rgba(210, 245, 255, 0.60)';
-      this.roundRect(ctx, cx - size / 2, cy - size / 2, size, size, 12);
+      ctx.fillStyle = hp > 1 ? 'rgba(142, 222, 255, 0.42)' : 'rgba(201, 244, 255, 0.36)';
+      this.roundRect(ctx, cx - size / 2, cy - size / 2, size, size, 14);
       ctx.fill();
+      ctx.strokeStyle = hp > 1 ? 'rgba(62, 172, 218, 0.88)' : 'rgba(108, 203, 236, 0.82)';
+      ctx.lineWidth = Math.max(2, size * 0.055);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.72)';
+      ctx.lineWidth = Math.max(1, size * 0.035);
+      ctx.beginPath();
+      ctx.moveTo(cx - size * 0.34, cy - size * 0.10);
+      ctx.lineTo(cx - size * 0.08, cy - size * 0.02);
+      ctx.lineTo(cx + size * 0.08, cy - size * 0.30);
+      ctx.moveTo(cx - size * 0.10, cy + size * 0.30);
+      ctx.lineTo(cx + size * 0.06, cy + size * 0.05);
+      ctx.lineTo(cx + size * 0.34, cy + size * 0.16);
+      ctx.stroke();
+      this.drawSmallSpark(ctx, cx - size * 0.25, cy - size * 0.27, size * 0.10);
+      this.drawSmallSpark(ctx, cx + size * 0.26, cy + size * 0.25, size * 0.08);
     } else if (type === 'chain') {
       ctx.strokeStyle = '#8C6A3D';
       ctx.lineWidth = Math.max(4, size * 0.12);
@@ -549,6 +567,10 @@ export class CanvasRenderer {
       ctx.stroke();
     }
     ctx.restore();
+  }
+
+  private shouldDrawBlockerUnderPiece(type: string): boolean {
+    return type === 'hole' || type === 'marshmallow';
   }
 
   private roundRect(ctx: GameCanvasContext, x: number, y: number, width: number, height: number, radius: number): void {
