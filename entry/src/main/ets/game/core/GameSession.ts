@@ -26,6 +26,7 @@ export interface ToolState {
   shuffle: number;
   hammer: number;
   brush: number;
+  addMoves: number;
   undo: number;
 }
 
@@ -90,6 +91,7 @@ export class GameSession {
         shuffle: UNLIMITED_TOOL_COUNT,
         hammer: UNLIMITED_TOOL_COUNT,
         brush: UNLIMITED_TOOL_COUNT,
+        addMoves: UNLIMITED_TOOL_COUNT,
         undo: UNLIMITED_TOOL_COUNT
       },
       reshuffles: 0,
@@ -116,6 +118,7 @@ export class GameSession {
     this.state.lastCascadeCount = 0;
     if (SpecialResolver.isDirectSpecialSwap(this.state.board, first, second)) {
       this.swap(first, second);
+      this.applyRainbowFunctionalConversion(first, second);
       const specialPositions = SpecialResolver.swapActivatedPositions(this.state.board, first, second);
       this.state.movesLeft--;
       this.resolveClearPositions(this.uniquePositions(specialPositions));
@@ -213,10 +216,22 @@ export class GameSession {
       shuffle: snapshot.tools.shuffle,
       hammer: snapshot.tools.hammer,
       brush: snapshot.tools.brush,
+      addMoves: snapshot.tools.addMoves,
       undo: this.consumeTool(currentUndoCount)
     };
     this.state.reshuffles = snapshot.reshuffles;
     this.state.lastCascadeCount = snapshot.lastCascadeCount;
+    return true;
+  }
+
+  useAddMovesTool(extraMoves: number = 3): boolean {
+    if (this.state.status !== 'playing' || !this.hasTool(this.state.tools.addMoves) || extraMoves <= 0) {
+      return false;
+    }
+    this.saveHistory();
+    this.state.lastCascadeCount = 0;
+    this.state.movesLeft += extraMoves;
+    this.state.tools.addMoves = this.consumeTool(this.state.tools.addMoves);
     return true;
   }
 
@@ -292,6 +307,19 @@ export class GameSession {
     });
   }
 
+  private applyRainbowFunctionalConversion(first: Position, second: Position): void {
+    const conversion = SpecialResolver.rainbowFunctionalConversion(this.state.board, first, second);
+    if (!conversion) {
+      return;
+    }
+    conversion.positions.forEach(position => {
+      const piece = this.state.board.tiles[position.row][position.col].piece;
+      if (piece && piece.special !== 'rainbow') {
+        piece.special = conversion.special;
+      }
+    });
+  }
+
   private updateBlockerGoals(result: BlockerDamageResult): void {
     this.state.goals.forEach(goal => {
       if (goal.type === 'clear_ice') {
@@ -327,7 +355,12 @@ export class GameSession {
       return;
     }
     let guard = 0;
-    while (!BoardMoveAnalyzer.hasAvailableMove(this.state.board) && guard < 5) {
+    while (guard < 5) {
+      const hasInitialMatches = MatchResolver.findMatches(this.state.board).length > 0;
+      const hasAvailableMove = BoardMoveAnalyzer.hasAvailableMove(this.state.board);
+      if (!hasInitialMatches && hasAvailableMove) {
+        return;
+      }
       if (!this.shuffleBoard()) {
         return;
       }

@@ -327,7 +327,7 @@ function buildBlockers(id, rows, cols, holes) {
 }
 
 function moderateScoreGoal(baseScore) {
-  return Math.round(baseScore * 1.5);
+  return baseScore;
 }
 
 function buildGoals(id, blockers, pieces) {
@@ -352,21 +352,30 @@ function buildGoals(id, blockers, pieces) {
     return goals;
   }
   if (id < 40) {
-    const goals = [{ type: 'clear_ice', count: blockers.filter(blocker => blocker.type === 'ice').length }];
+    const goals = [
+      { type: 'score', count: moderateScoreGoal(2600 + id * 85) },
+      { type: 'clear_ice', count: blockers.filter(blocker => blocker.type === 'ice').length }
+    ];
     if (id >= 30 && id % 5 === 0) {
       goals.push({ type: 'collect_special', targetSpecial: 'rainbow', count: 1 });
     }
     return goals;
   }
   if (id < 60) {
-    const goals = [{ type: 'break_chain', count: blockers.filter(blocker => blocker.type === 'chain').length }];
+    const goals = [
+      { type: 'score', count: moderateScoreGoal(2600 + id * 85) },
+      { type: 'break_chain', count: blockers.filter(blocker => blocker.type === 'chain').length }
+    ];
     if (id % 5 === 0) {
       goals.push({ type: 'collect_special', targetSpecial: id % 10 === 0 ? 'bomb' : 'row_clear', count: 2 });
     }
     return goals;
   }
   if (id < 80) {
-    const goals = [{ type: 'clear_marshmallow', count: blockers.filter(blocker => blocker.type === 'marshmallow').length }];
+    const goals = [
+      { type: 'score', count: moderateScoreGoal(2600 + id * 85) },
+      { type: 'clear_marshmallow', count: blockers.filter(blocker => blocker.type === 'marshmallow').length }
+    ];
     if (id % 5 === 0) {
       goals.push({ type: 'collect_special', targetSpecial: id % 10 === 0 ? 'rainbow' : 'col_clear', count: 2 });
     }

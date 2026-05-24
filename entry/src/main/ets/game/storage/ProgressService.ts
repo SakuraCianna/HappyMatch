@@ -6,6 +6,7 @@ export interface LevelResult {
   won: boolean;
   score: number;
   movesLeft: number;
+  targetScore: number;
 }
 
 export class ProgressService {
@@ -26,7 +27,7 @@ export class ProgressService {
 
   async recordResult(result: LevelResult): Promise<LevelProgress> {
     const existing = (await this.repository.getAll()).find(item => item.levelId === result.levelId);
-    const nextStars = this.calculateStars(result.won, result.movesLeft);
+    const nextStars = this.calculateStars(result.won, result.score, result.targetScore);
     const progress: LevelProgress = {
       levelId: result.levelId,
       cleared: Boolean(existing?.cleared || result.won),
@@ -38,14 +39,15 @@ export class ProgressService {
     return progress;
   }
 
-  calculateStars(won: boolean, movesLeft: number): number {
+  calculateStars(won: boolean, score: number, targetScore: number): number {
     if (!won) {
       return 0;
     }
-    if (movesLeft >= 10) {
+    const safeTarget = Math.max(1, targetScore);
+    if (score >= safeTarget * 1.5) {
       return 3;
     }
-    if (movesLeft >= 5) {
+    if (score >= safeTarget * 1.2) {
       return 2;
     }
     return 1;

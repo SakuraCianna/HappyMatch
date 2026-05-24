@@ -16,7 +16,7 @@ const PRODUCTS: Record<EconomyProductId, EconomyProduct> = {
   extra_moves: {
     id: 'extra_moves',
     title: '加 5 步',
-    price: 120,
+    price: 20,
     extraMoves: 5
   }
 };

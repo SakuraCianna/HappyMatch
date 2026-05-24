@@ -16,6 +16,10 @@
   ],
   "goals": [
     {
+      "type": "score",
+      "count": 5575
+    },
+    {
       "type": "clear_ice",
       "count": 6
     },

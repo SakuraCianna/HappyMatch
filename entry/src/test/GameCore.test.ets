@@ -241,9 +241,12 @@ export default function gameCoreTest() {
     it('allLevelsBootIntoStablePlayableBoards', 0, () => {
       LEVELS.forEach(level => {
         const session = new GameSession(level, 20260523 + level.id);
+        const initialMatches = MatchResolver.findMatches(session.state.board);
         expect(session.state.board.rows).assertEqual(level.board.rows);
         expect(session.state.board.cols).assertEqual(level.board.cols);
-        expect(MatchResolver.findMatches(session.state.board).length).assertEqual(0);
+        if (initialMatches.length > 0) {
+          throw new Error(`Level ${level.id} boots with ${initialMatches.length} initial matches.`);
+        }
         expect(session.hasAvailableMove()).assertTrue();
         level.blockers?.forEach(blocker => {
           if (blocker.type === 'hole' || blocker.type === 'marshmallow') {
@@ -287,23 +290,19 @@ export default function gameCoreTest() {
       });
     });
 
-    it('scoreGoalsAreModeratelyHarder', 0, () => {
+    it('scoreGoalsUseOriginalBaselineAndExistOnEveryLevel', 0, () => {
       LEVEL_MAPS.forEach(map => {
-        map.goals.forEach(goal => {
-          if (goal.type !== 'score') {
-            return;
-          }
-          let oldScore = 0;
-          if (map.id < 10) {
-            oldScore = 520 + map.id * 110;
-          } else if (map.id < 20) {
-            oldScore = 680 + map.id * 110;
-          } else {
-            oldScore = 2600 + map.id * 85;
-          }
-          expect(goal.count >= Math.round(oldScore * 1.5)).assertTrue();
-          expect(goal.count <= Math.round(oldScore * 2)).assertTrue();
-        });
+        const scoreGoal = map.goals.find(goal => goal.type === 'score');
+        expect(Boolean(scoreGoal)).assertTrue();
+        let expectedScore = 0;
+        if (map.id < 10) {
+          expectedScore = 520 + map.id * 110;
+        } else if (map.id < 20) {
+          expectedScore = 680 + map.id * 110;
+        } else {
+          expectedScore = 2600 + map.id * 85;
+        }
+        expect(scoreGoal?.count).assertEqual(expectedScore);
       });
     });
 
@@ -385,16 +384,34 @@ export default function gameCoreTest() {
       expect(session.state.tools.shuffle).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.hammer).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.brush).assertEqual(UNLIMITED_TOOL_COUNT);
+      expect(session.state.tools.addMoves).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.undo).assertEqual(UNLIMITED_TOOL_COUNT);
 
       expect(session.useHammerTool({ row: 1, col: 1 })).assertTrue();
       expect(session.useUndoTool()).assertTrue();
       expect(session.useShuffleTool()).assertTrue();
+      expect(session.useAddMovesTool(3)).assertTrue();
 
       expect(session.state.tools.shuffle).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.hammer).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.brush).assertEqual(UNLIMITED_TOOL_COUNT);
+      expect(session.state.tools.addMoves).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.undo).assertEqual(UNLIMITED_TOOL_COUNT);
+    });
+
+    it('addMovesToolAddsThreeMovesAndCanBeUndone', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Add Moves Tool Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 5000 }]
+      }, 6005);
+
+      expect(session.useAddMovesTool(3)).assertTrue();
+      expect(session.state.movesLeft).assertEqual(8);
+      expect(session.useUndoTool()).assertTrue();
+      expect(session.state.movesLeft).assertEqual(5);
     });
 
     it('economyPurchaseCanReviveALostLevelWithExtraMoves', 0, () => {
@@ -414,7 +431,7 @@ export default function gameCoreTest() {
       expect(economy.purchase('extra_moves')).assertTrue();
       expect(session.reviveWithMoves(product.extraMoves)).assertTrue();
 
-      expect(economy.getWallet().coins).assertEqual(30);
+      expect(economy.getWallet().coins).assertEqual(130);
       expect(session.state.status).assertEqual('playing');
       expect(session.state.movesLeft).assertEqual(5);
     });
@@ -636,6 +653,38 @@ export default function gameCoreTest() {
         expect(keys.has(`2_${col}`)).assertTrue();
         expect(keys.has(`4_${col}`)).assertTrue();
       }
+    });
+
+    it('rainbowFunctionalSwapCountsConvertedSpecialsForGoals', 0, () => {
+      const session = new GameSession({
+        id: 1,
+        title: 'Rainbow Converted Goal Test',
+        moves: 5,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [
+          { type: 'score', count: 5000 },
+          { type: 'collect_special', targetSpecial: 'row_clear', count: 3 }
+        ]
+      }, 6301);
+      const types: PieceType[][] = [
+        ['yellow', 'red', 'blue', 'green', 'yellow'],
+        ['green', 'blue', 'yellow', 'green', 'blue'],
+        ['blue', 'yellow', 'red', 'green', 'blue'],
+        ['yellow', 'green', 'blue', 'yellow', 'green'],
+        ['green', 'blue', 'yellow', 'green', 'red']
+      ];
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 5; col++) {
+          session.state.board.tiles[row][col].piece!.type = types[row][col];
+          session.state.board.tiles[row][col].piece!.special = 'none';
+        }
+      }
+      session.state.board.tiles[0][0].piece!.special = 'rainbow';
+      session.state.board.tiles[0][1].piece!.special = 'row_clear';
+
+      expect(session.trySwap({ row: 0, col: 0 }, { row: 0, col: 1 })).assertTrue();
+      const specialGoal = session.state.goals.find(goal => goal.type === 'collect_special');
+      expect((specialGoal?.count ?? 99) <= 0).assertTrue();
     });
 
     it('brushToolChangesNormalPieceButRejectsSpecialPiece', 0, () => {
@@ -961,7 +1010,7 @@ export default function gameCoreTest() {
 
     it('recordsWinningProgressAndUnlocksNextLevel', 0, async () => {
       const service = new ProgressService(new MemoryProgressRepository());
-      const saved = await service.recordResult({ levelId: 1, won: true, score: 1200, movesLeft: 8 });
+      const saved = await service.recordResult({ levelId: 1, won: true, score: 1200, movesLeft: 8, targetScore: 1000 });
       const unlocked = await service.getUnlockedLevel();
       expect(saved.cleared).assertTrue();
       expect(saved.stars).assertEqual(2);
@@ -970,15 +1019,23 @@ export default function gameCoreTest() {
 
     it('keepsBestStarsWhenReplayingLevel', 0, async () => {
       const service = new ProgressService(new MemoryProgressRepository());
-      await service.recordResult({ levelId: 1, won: true, score: 1000, movesLeft: 12 });
-      const replay = await service.recordResult({ levelId: 1, won: true, score: 900, movesLeft: 2 });
+      await service.recordResult({ levelId: 1, won: true, score: 1500, movesLeft: 1, targetScore: 1000 });
+      const replay = await service.recordResult({ levelId: 1, won: true, score: 1000, movesLeft: 12, targetScore: 1000 });
       expect(replay.stars).assertEqual(3);
-      expect(replay.bestScore).assertEqual(1000);
+      expect(replay.bestScore).assertEqual(1500);
+    });
+
+    it('calculatesStarsFromScoreMilestones', 0, () => {
+      const service = new ProgressService(new MemoryProgressRepository());
+      expect(service.calculateStars(true, 1000, 1000)).assertEqual(1);
+      expect(service.calculateStars(true, 1200, 1000)).assertEqual(2);
+      expect(service.calculateStars(true, 1500, 1000)).assertEqual(3);
+      expect(service.calculateStars(false, 2000, 1000)).assertEqual(0);
     });
 
     it('doesNotUnlockNextLevelAfterFailure', 0, async () => {
       const service = new ProgressService(new MemoryProgressRepository());
-      await service.recordResult({ levelId: 1, won: false, score: 300, movesLeft: 0 });
+      await service.recordResult({ levelId: 1, won: false, score: 300, movesLeft: 0, targetScore: 1000 });
       const unlocked = await service.getUnlockedLevel();
       expect(unlocked).assertEqual(1);
     });

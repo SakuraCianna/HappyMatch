@@ -17,6 +17,10 @@
   ],
   "goals": [
     {
+      "type": "score",
+      "count": 8890
+    },
+    {
       "type": "clear_marshmallow",
       "count": 5
     }

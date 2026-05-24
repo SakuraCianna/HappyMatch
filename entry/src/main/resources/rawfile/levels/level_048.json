@@ -17,6 +17,10 @@
   ],
   "goals": [
     {
+      "type": "score",
+      "count": 6680
+    },
+    {
       "type": "break_chain",
       "count": 4
     }

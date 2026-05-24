@@ -97,6 +97,10 @@ export class BoardShuffler {
         const right = board.tiles[row][col + 2];
         const below = board.tiles[row + 1][col + 1];
         if (!left.piece || !middle.piece || !right.piece || !below.piece ||
+          left.piece.special !== 'none' ||
+          middle.piece.special !== 'none' ||
+          right.piece.special !== 'none' ||
+          below.piece.special !== 'none' ||
           !BlockerResolver.canSwap(board, { row, col: col + 1 }, { row: row + 1, col: col + 1 })) {
           continue;
         }

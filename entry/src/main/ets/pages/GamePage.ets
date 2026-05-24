@@ -54,6 +54,7 @@ struct GamePage {
   @State private shuffleToolCount: number = 0;
   @State private hammerToolCount: number = 0;
   @State private brushToolCount: number = 0;
+  @State private addMovesToolCount: number = 0;
   @State private undoToolCount: number = 0;
   @State private busyTool: string = '';
   @State private selectedBrushColor: PieceType = 'red';
@@ -62,6 +63,7 @@ struct GamePage {
   @State private resultStars: string = '';
   @State private resultMessage: string = '';
   @State private resultWon: boolean = false;
+  @State private showContinueOffer: boolean = false;
 
   aboutToAppear(): void {
     bootstrapProgress(getContext(this) as common.Context);
@@ -278,9 +280,9 @@ struct GamePage {
             }
             .alignItems(HorizontalAlign.Center)
           }
-          .width(62)
-          .height(62)
-          .borderRadius(31)
+          .width(56)
+          .height(56)
+          .borderRadius(28)
           .backgroundColor(this.busyTool === 'shuffle' ? '#78D7F3' : 'rgba(120, 215, 243, 0.78)')
           .border({ width: 2, color: this.busyTool === 'shuffle' ? '#FFFFFF' : 'rgba(255, 255, 255, 0.82)' })
           .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
@@ -304,9 +306,9 @@ struct GamePage {
             }
             .alignItems(HorizontalAlign.Center)
           }
-          .width(62)
-          .height(62)
-          .borderRadius(31)
+          .width(56)
+          .height(56)
+          .borderRadius(28)
           .backgroundColor(this.activeTool === 'hammer' || this.busyTool === 'hammer' ? '#FFF1A6' : 'rgba(255, 241, 166, 0.78)')
           .border({ width: 2, color: this.activeTool === 'hammer' || this.busyTool === 'hammer' ? '#F2B84B' : 'rgba(255, 255, 255, 0.82)' })
           .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
@@ -330,15 +332,41 @@ struct GamePage {
             }
             .alignItems(HorizontalAlign.Center)
           }
-          .width(62)
-          .height(62)
-          .borderRadius(31)
+          .width(56)
+          .height(56)
+          .borderRadius(28)
           .backgroundColor(this.activeTool === 'brush' || this.busyTool === 'brush' ? this.brushColorValue(this.selectedBrushColor) : 'rgba(185, 243, 192, 0.78)')
           .border({ width: 2, color: this.activeTool === 'brush' || this.busyTool === 'brush' ? '#4DB862' : 'rgba(255, 255, 255, 0.82)' })
           .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
           .opacity(this.hasToolCount(this.brushToolCount) || this.busyTool === 'brush' ? 1 : 0.42)
           .onClick(() => {
             this.selectTargetTool('brush');
+          })
+
+          Blank()
+
+          Stack() {
+            Column() {
+              Text('+3步')
+                .fontSize(14)
+                .fontWeight(FontWeight.Bold)
+                .fontColor('#5C3A4A')
+              Text(this.toolCountLabel(this.addMovesToolCount))
+                .fontSize(11)
+                .fontColor('#8A6250')
+                .margin({ top: 1 })
+            }
+            .alignItems(HorizontalAlign.Center)
+          }
+          .width(56)
+          .height(56)
+          .borderRadius(28)
+          .backgroundColor(this.busyTool === 'addMoves' ? '#F7C36C' : 'rgba(255, 213, 129, 0.82)')
+          .border({ width: 2, color: this.busyTool === 'addMoves' ? '#FFFFFF' : 'rgba(255, 255, 255, 0.82)' })
+          .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
+          .opacity(this.hasToolCount(this.addMovesToolCount) || this.busyTool === 'addMoves' ? 1 : 0.42)
+          .onClick(() => {
+            this.runAddMovesTool();
           })
 
           Blank()
@@ -356,9 +384,9 @@ struct GamePage {
             }
             .alignItems(HorizontalAlign.Center)
           }
-          .width(62)
-          .height(62)
-          .borderRadius(31)
+          .width(56)
+          .height(56)
+          .borderRadius(28)
           .backgroundColor(this.busyTool === 'undo' ? '#C4A6F4' : 'rgba(196, 166, 244, 0.78)')
           .border({ width: 2, color: this.busyTool === 'undo' ? '#FFFFFF' : 'rgba(255, 255, 255, 0.82)' })
           .shadow({ radius: 12, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 5 })
@@ -406,7 +434,7 @@ struct GamePage {
               .onClick(() => {
                 router.replaceUrl({ url: 'pages/LevelSelectPage' });
               })
-            if (!this.resultWon) {
+            if (!this.resultWon && this.showContinueOffer) {
               Button('加 5 步')
                 .height(40)
                 .margin({ left: 10 })
@@ -491,6 +519,7 @@ struct GamePage {
     this.showResult = false;
     this.resultSaved = false;
     this.resultWon = false;
+    this.showContinueOffer = false;
     this.resultTitle = '';
     this.resultStars = '';
     this.resultMessage = '';
@@ -616,9 +645,14 @@ struct GamePage {
     first: Position,
     second: Position
   ): void {
+    const expectedSession = this.session;
     this.isAnimating = true;
     this.animateSwap(beforeBoard, first, second, 0, 1, 82, () => {
+      const token = this.animationToken;
       setTimeout(() => {
+        if (token !== this.animationToken || this.session !== expectedSession) {
+          return;
+        }
         this.commitAcceptedMove(preview, first, second);
       }, 0);
     });
@@ -731,7 +765,8 @@ struct GamePage {
   }
 
   private runUndoTool(): void {
-    if (!this.session || this.isAnimating || !this.hasToolCount(this.undoToolCount)) {
+    if (!this.session || this.showResult || this.isAnimating || this.session.state.status !== 'playing' ||
+      !this.hasToolCount(this.undoToolCount)) {
       return;
     }
     this.busyTool = 'undo';
@@ -740,6 +775,20 @@ struct GamePage {
       this.showResult = false;
       this.resultSaved = false;
       this.statusText = '已回退';
+      this.syncState();
+      this.draw();
+    }
+    this.busyTool = '';
+  }
+
+  private runAddMovesTool(): void {
+    if (!this.session || this.showResult || this.isAnimating || !this.hasToolCount(this.addMovesToolCount)) {
+      return;
+    }
+    this.activeTool = '';
+    this.busyTool = 'addMoves';
+    if (this.session.useAddMovesTool(3)) {
+      this.statusText = '已增加 3 步';
       this.syncState();
       this.draw();
     }
@@ -763,6 +812,7 @@ struct GamePage {
     if (!this.session) {
       return;
     }
+    const expectedSession = this.session;
     const tool = this.activeTool;
     if (!this.canApplyTargetTool(tool, position)) {
       return;
@@ -774,14 +824,22 @@ struct GamePage {
     if (tool === 'hammer') {
       const clearPositions = SpecialResolver.expandedClearPositions(beforeBoard, [position]);
       this.animateClear(beforeBoard, clearPositions, () => {
+        const token = this.animationToken;
         setTimeout(() => {
+          if (token !== this.animationToken || this.session !== expectedSession) {
+            return;
+          }
           this.commitTargetTool(tool, position, beforeBoard, clearPositions);
         }, 0);
       });
       return;
     }
     this.animateToolPulse(beforeBoard, position, () => {
+      const token = this.animationToken;
       setTimeout(() => {
+        if (token !== this.animationToken || this.session !== expectedSession) {
+          return;
+        }
         this.commitTargetTool(tool, position, beforeBoard, []);
       }, 0);
     });
@@ -844,12 +902,14 @@ struct GamePage {
       this.shuffleToolCount = 0;
       this.hammerToolCount = 0;
       this.brushToolCount = 0;
+      this.addMovesToolCount = 0;
       this.undoToolCount = 0;
       return;
     }
     this.shuffleToolCount = this.session.state.tools.shuffle;
     this.hammerToolCount = this.session.state.tools.hammer;
     this.brushToolCount = this.session.state.tools.brush;
+    this.addMovesToolCount = this.session.state.tools.addMoves;
     this.undoToolCount = this.session.state.tools.undo;
   }
 
@@ -1091,24 +1151,37 @@ struct GamePage {
     if (!this.session || this.resultSaved) {
       return;
     }
+    const finishedSession = this.session;
+    const finishedLevelId = this.levelId;
     this.resultSaved = true;
-    const won = this.session.state.status === 'won';
+    const won = finishedSession.state.status === 'won';
+    const finalScore = this.score;
+    const finalMovesLeft = this.movesLeft;
+    const targetScore = this.scoreGoalValue();
+    const showContinueOffer = !won && finalScore < targetScore;
     this.resultWon = won;
+    this.showContinueOffer = showContinueOffer;
     if (won) {
-      economyService.addCoins(60 + this.movesLeft * 2);
+      economyService.addCoins(60 + finalMovesLeft * 2);
       this.coinBalance = economyService.getWallet().coins;
     }
     const progress = await progressService.recordResult({
-      levelId: this.levelId,
+      levelId: finishedLevelId,
       won,
-      score: this.score,
-      movesLeft: this.movesLeft
+      score: finalScore,
+      movesLeft: finalMovesLeft,
+      targetScore
     });
+    if (this.session !== finishedSession || this.levelId !== finishedLevelId) {
+      return;
+    }
     this.resultTitle = won ? '通关成功' : '挑战失败';
     this.resultStars = won ? this.formatStars(progress.stars) : '☆☆☆';
     this.resultMessage = won
-      ? `得分 ${this.score}，剩余 ${this.movesLeft} 步`
-      : `得分 ${this.score}，再试一次就差不多了`;
+      ? `得分 ${finalScore}，剩余 ${finalMovesLeft} 步`
+      : showContinueOffer
+        ? `基础分未达标，是否花费 20 个游戏代币买一个“+5步”？`
+        : `得分 ${finalScore}，再试一次就差不多了`;
     this.showResult = true;
   }
 
@@ -1127,6 +1200,7 @@ struct GamePage {
       this.showResult = false;
       this.resultSaved = false;
       this.resultWon = false;
+      this.showContinueOffer = false;
       this.statusText = '进行中';
       this.syncState();
       this.draw();
