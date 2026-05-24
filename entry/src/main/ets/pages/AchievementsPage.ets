@@ -112,20 +112,7 @@ struct AchievementsPage {
       .width('100%')
       .alignItems(VerticalAlign.Center)
 
-      Stack() {
-        Row()
-          .height(8)
-          .width('100%')
-          .borderRadius(4)
-          .backgroundColor('rgba(99, 181, 213, 0.16)')
-        Row()
-          .height(8)
-          .width(`${Math.round(100 * item.progress / Math.max(1, item.target))}%`)
-          .borderRadius(4)
-          .backgroundColor(item.unlocked ? '#76D37B' : '#69B8EA')
-      }
-      .height(8)
-      .margin({ top: 12 })
+      this.AchievementProgressBar(item)
     }
     .width('100%')
     .padding(16)
@@ -135,11 +122,56 @@ struct AchievementsPage {
     .margin({ bottom: 12 })
   }
 
+  @Builder
+  AchievementProgressBar(item: AchievementItem) {
+    Stack() {
+      Row()
+        .height(10)
+        .width('100%')
+        .borderRadius(5)
+        .backgroundColor('rgba(99, 181, 213, 0.13)')
+        .border({ width: 1, color: 'rgba(255, 255, 255, 0.46)' })
+        .position({ x: 0, y: 0 })
+
+      if (item.progress > 0) {
+        Row() {
+          Blank()
+          Row()
+            .width(6)
+            .height(6)
+            .borderRadius(3)
+            .backgroundColor('rgba(255, 255, 255, 0.72)')
+            .margin({ right: 2 })
+        }
+        .height(10)
+        .width(this.progressPercentText(item))
+        .borderRadius(5)
+        .backgroundColor(item.unlocked ? '#76D37B' : '#69B8EA')
+        .shadow({
+          radius: item.unlocked ? 5 : 4,
+          color: item.unlocked ? 'rgba(118, 211, 123, 0.24)' : 'rgba(105, 184, 234, 0.24)',
+          offsetX: 0,
+          offsetY: 2
+        })
+        .position({ x: 0, y: 0 })
+      }
+    }
+    .width('100%')
+    .height(10)
+    .alignContent(Alignment.Start)
+    .margin({ top: 12 })
+  }
+
   private async refreshAchievements(): Promise<void> {
     await bootstrapProgress(getContext(this) as common.Context);
     const summary = deriveAchievements(await progressService.getAll(), economyService.getWallet());
     this.achievements = summary.items;
     this.unlockedCount = summary.unlockedCount;
     this.totalCount = summary.totalCount;
+  }
+
+  private progressPercentText(item: AchievementItem): string {
+    const ratio = Math.min(1, Math.max(0, item.progress / Math.max(1, item.target)));
+    return `${Math.round(ratio * 100)}%`;
   }
 }
