@@ -332,27 +332,51 @@ function moderateScoreGoal(baseScore) {
 
 function buildGoals(id, blockers, pieces) {
   if (id < 10) {
-    return [{ type: 'score', count: moderateScoreGoal(520 + id * 110) }];
+    const goals = [{ type: 'score', count: moderateScoreGoal(520 + id * 110) }];
+    if (id >= 5) {
+      goals.push({ type: 'collect_special', targetSpecial: 'row_clear', count: 1 });
+    }
+    if (id >= 8) {
+      goals.push({ type: 'collect_special', targetSpecial: 'col_clear', count: 1 });
+    }
+    return goals;
   }
   if (id < 20) {
-    return [
+    const goals = [
       { type: 'score', count: moderateScoreGoal(680 + id * 110) },
       { type: 'collect_piece', target: pieces[id % pieces.length], count: 5 + Math.floor(id / 3) }
     ];
+    if (id >= 15) {
+      goals.push({ type: 'collect_special', targetSpecial: 'bomb', count: 1 });
+    }
+    return goals;
   }
   if (id < 40) {
-    return [{ type: 'clear_ice', count: blockers.filter(blocker => blocker.type === 'ice').length }];
+    const goals = [{ type: 'clear_ice', count: blockers.filter(blocker => blocker.type === 'ice').length }];
+    if (id >= 30 && id % 5 === 0) {
+      goals.push({ type: 'collect_special', targetSpecial: 'rainbow', count: 1 });
+    }
+    return goals;
   }
   if (id < 60) {
-    return [{ type: 'break_chain', count: blockers.filter(blocker => blocker.type === 'chain').length }];
+    const goals = [{ type: 'break_chain', count: blockers.filter(blocker => blocker.type === 'chain').length }];
+    if (id % 5 === 0) {
+      goals.push({ type: 'collect_special', targetSpecial: id % 10 === 0 ? 'bomb' : 'row_clear', count: 2 });
+    }
+    return goals;
   }
   if (id < 80) {
-    return [{ type: 'clear_marshmallow', count: blockers.filter(blocker => blocker.type === 'marshmallow').length }];
+    const goals = [{ type: 'clear_marshmallow', count: blockers.filter(blocker => blocker.type === 'marshmallow').length }];
+    if (id % 5 === 0) {
+      goals.push({ type: 'collect_special', targetSpecial: id % 10 === 0 ? 'rainbow' : 'col_clear', count: 2 });
+    }
+    return goals;
   }
   return [
     { type: 'score', count: moderateScoreGoal(2600 + id * 85) },
     { type: 'clear_ice', count: Math.max(1, blockers.filter(blocker => blocker.type === 'ice').length) },
-    { type: 'break_chain', count: Math.max(1, blockers.filter(blocker => blocker.type === 'chain').length) }
+    { type: 'break_chain', count: Math.max(1, blockers.filter(blocker => blocker.type === 'chain').length) },
+    { type: 'collect_special', targetSpecial: id % 2 === 0 ? 'bomb' : 'rainbow', count: id >= 95 ? 3 : 2 }
   ];
 }
 

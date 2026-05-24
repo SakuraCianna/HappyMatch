@@ -18,6 +18,11 @@
     {
       "type": "clear_ice",
       "count": 6
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "rainbow",
+      "count": 1
     }
   ],
   "blockers": [

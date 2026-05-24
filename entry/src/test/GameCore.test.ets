@@ -7,11 +7,14 @@ import { GravityResolver } from '../main/ets/game/core/GravityResolver';
 import { MatchResolver } from '../main/ets/game/core/MatchResolver';
 import { SpecialResolver } from '../main/ets/game/core/SpecialResolver';
 import { PieceType } from '../main/ets/game/core/Types';
+import { EconomyService } from '../main/ets/game/economy/EconomyService';
+import { chapterProgressText, getLevelChapter } from '../main/ets/game/levels/LevelChapters';
 import { LEVEL_MAPS, LEVEL_MAP_RAWFILE_PATHS } from '../main/ets/game/levels/LevelMaps';
 import { LEVELS } from '../main/ets/game/levels/levels';
 import { BoardAnimationPlanner } from '../main/ets/game/render/BoardAnimationPlanner';
 import { BoardLayout } from '../main/ets/game/render/BoardLayout';
 import { CanvasRenderer, GameCanvasContext } from '../main/ets/game/render/CanvasRenderer';
+import { PortalResolver } from '../main/ets/game/mechanics/PortalResolver';
 import { MemoryProgressRepository } from '../main/ets/game/storage/MemoryProgressRepository';
 import { ProgressService } from '../main/ets/game/storage/ProgressService';
 
@@ -107,6 +110,13 @@ export default function gameCoreTest() {
       expect(foundMatch).assertFalse();
     });
 
+    it('createBoardsWithoutInitialMatchesAcrossManySeeds', 0, () => {
+      for (let seed = 1; seed <= 120; seed++) {
+        const board = BoardFactory.create({ rows: 9, cols: 9, seed, pieceTypes: ['red', 'blue', 'yellow'] });
+        expect(MatchResolver.findMatches(board).length).assertEqual(0);
+      }
+    });
+
     it('findHorizontalMatch', 0, () => {
       const board = BoardFactory.create({ rows: 3, cols: 3, seed: 7 });
       board.tiles[0][0].piece!.type = 'red';
@@ -140,8 +150,15 @@ export default function gameCoreTest() {
       expect(session.state.movesLeft).assertEqual(5);
     });
 
+    it('moveAnalyzerRejectsOutOfBoundsCoordinates', 0, () => {
+      const board = BoardFactory.create({ rows: 5, cols: 5, seed: 2026, pieceTypes: ['red', 'blue', 'yellow'] });
+      expect(BoardMoveAnalyzer.isValidMove(board, { row: -1, col: 0 }, { row: 0, col: 0 })).assertFalse();
+      expect(BoardMoveAnalyzer.isValidMove(board, { row: 0, col: 0 }, { row: 5, col: 0 })).assertFalse();
+    });
+
     it('levelFiveIntroducesPresetSpecialPieces', 0, () => {
       expect((LEVELS[4].specialPieces?.length ?? 0)).assertLarger(0);
+      expect(LEVELS[4].goals.some(goal => goal.type === 'collect_special' && goal.targetSpecial === 'row_clear')).assertTrue();
       const session = new GameSession(LEVELS[4], 20260528);
       let specialCount = 0;
       for (let row = 0; row < session.state.board.rows; row++) {
@@ -171,6 +188,15 @@ export default function gameCoreTest() {
       expect(LEVEL_MAP_RAWFILE_PATHS[99]).assertEqual('levels/level_100.json');
     });
 
+    it('mapsLevelsIntoFiveChapters', 0, () => {
+      expect(getLevelChapter(1).name).assertEqual('糖果天空岛');
+      expect(getLevelChapter(21).name).assertEqual('冰霜云层');
+      expect(getLevelChapter(41).name).assertEqual('糖果工厂');
+      expect(getLevelChapter(61).name).assertEqual('云洞传送站');
+      expect(getLevelChapter(100).name).assertEqual('彩虹终章');
+      expect(chapterProgressText(45)).assertEqual('糖果工厂 5/20');
+    });
+
     it('earlyLevelsUseVariedBoardSizesAndHoles', 0, () => {
       const sizeKeys = new Set<string>();
       let earlyHoleLevels = 0;
@@ -191,6 +217,40 @@ export default function gameCoreTest() {
         expect(LEVELS[index].board.rows).assertEqual(LEVEL_MAPS[index].rows);
         expect(LEVELS[index].board.cols).assertEqual(LEVEL_MAPS[index].cols);
       }
+    });
+
+    it('allLevelConfigsKeepBlockersAndSpecialsInsidePlayableCells', 0, () => {
+      LEVELS.forEach(level => {
+        const unavailableCells = new Set<string>();
+        level.blockers?.forEach(blocker => {
+          expect(blocker.row >= 0 && blocker.row < level.board.rows).assertTrue();
+          expect(blocker.col >= 0 && blocker.col < level.board.cols).assertTrue();
+          expect(blocker.hp >= 1).assertTrue();
+          if (blocker.type === 'hole' || blocker.type === 'marshmallow') {
+            unavailableCells.add(`${blocker.row}_${blocker.col}`);
+          }
+        });
+        level.specialPieces?.forEach(piece => {
+          expect(piece.row >= 0 && piece.row < level.board.rows).assertTrue();
+          expect(piece.col >= 0 && piece.col < level.board.cols).assertTrue();
+          expect(unavailableCells.has(`${piece.row}_${piece.col}`)).assertFalse();
+        });
+      });
+    });
+
+    it('allLevelsBootIntoStablePlayableBoards', 0, () => {
+      LEVELS.forEach(level => {
+        const session = new GameSession(level, 20260523 + level.id);
+        expect(session.state.board.rows).assertEqual(level.board.rows);
+        expect(session.state.board.cols).assertEqual(level.board.cols);
+        expect(MatchResolver.findMatches(session.state.board).length).assertEqual(0);
+        expect(session.hasAvailableMove()).assertTrue();
+        level.blockers?.forEach(blocker => {
+          if (blocker.type === 'hole' || blocker.type === 'marshmallow') {
+            expect(Boolean(session.state.board.tiles[blocker.row][blocker.col].piece)).assertFalse();
+          }
+        });
+      });
     });
 
     it('levelsIncludeDecorativeMapShapes', 0, () => {
@@ -247,12 +307,37 @@ export default function gameCoreTest() {
       });
     });
 
+    it('someLaterLevelsAskForSpecialCollectionGoals', 0, () => {
+      const specialGoalLevels = LEVELS.filter(level => {
+        return level.goals.some(goal => goal.type === 'collect_special');
+      });
+      expect(specialGoalLevels.length).assertLarger(5);
+      specialGoalLevels.forEach(level => {
+        const specials = level.specialPieces ?? [];
+        expect(specials.length).assertLarger(0);
+      });
+    });
+
     it('holeTilesStayEmptyAfterGravity', 0, () => {
       const board = BoardFactory.create({ rows: 5, cols: 5, seed: 777, pieceTypes: ['red', 'blue', 'yellow', 'green'] });
       board.tiles[2][2].blocker = { type: 'hole', hp: 1 };
       board.tiles[2][2].piece = undefined;
       GravityResolver.collapseAndRefill(board, ['red', 'blue', 'yellow', 'green'], new SeededRandom(7), 'hole_test');
       expect(Boolean(board.tiles[2][2].piece)).assertFalse();
+    });
+
+    it('portalResolverSwapsEntryAndExitPieces', 0, () => {
+      const board = BoardFactory.create({ rows: 3, cols: 3, seed: 778, pieceTypes: ['red', 'blue', 'yellow'] });
+      board.tiles[0][0].blocker = { type: 'portal', hp: 1, portalId: 'entry', targetPortalId: 'exit' };
+      board.tiles[2][2].blocker = { type: 'portal', hp: 1, portalId: 'exit' };
+      const entryId = board.tiles[0][0].piece!.id;
+      const exitId = board.tiles[2][2].piece!.id;
+
+      const moves = PortalResolver.apply(board);
+
+      expect(moves.length).assertEqual(1);
+      expect(board.tiles[0][0].piece!.id).assertEqual(exitId);
+      expect(board.tiles[2][2].piece!.id).assertEqual(entryId);
     });
 
     it('laterLevelsUseShapedBoards', 0, () => {
@@ -310,6 +395,28 @@ export default function gameCoreTest() {
       expect(session.state.tools.hammer).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.brush).assertEqual(UNLIMITED_TOOL_COUNT);
       expect(session.state.tools.undo).assertEqual(UNLIMITED_TOOL_COUNT);
+    });
+
+    it('economyPurchaseCanReviveALostLevelWithExtraMoves', 0, () => {
+      const economy = new EconomyService();
+      economy.resetForTest(150);
+      const product = economy.getProduct('extra_moves');
+      const session = new GameSession({
+        id: 1,
+        title: 'Revive Test',
+        moves: 1,
+        board: { rows: 5, cols: 5, pieceTypes: ['red', 'blue', 'yellow', 'green'] },
+        goals: [{ type: 'score', count: 9999 }]
+      }, 6004);
+      session.state.movesLeft = 0;
+      session.state.status = 'lost';
+
+      expect(economy.purchase('extra_moves')).assertTrue();
+      expect(session.reviveWithMoves(product.extraMoves)).assertTrue();
+
+      expect(economy.getWallet().coins).assertEqual(30);
+      expect(session.state.status).assertEqual('playing');
+      expect(session.state.movesLeft).assertEqual(5);
     });
 
     it('hammerToolResolvesMatchCreatedByFallingPieces', 0, () => {
@@ -815,21 +922,41 @@ export default function gameCoreTest() {
       expect(Boolean(effects.find(effect => effect.row === 2 && effect.col === 1))).assertFalse();
     });
 
-    it('animatedCanvasRenderingUsesLowerCostPiecePass', 0, () => {
+    it('animatedCanvasRenderingKeepsFullMaterialUnlessFastModeIsExplicit', 0, () => {
       const board = BoardFactory.create({ rows: 8, cols: 8, seed: 303, pieceTypes: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'] });
       const renderer = new CanvasRenderer();
       const staticContext = new CountingCanvasContext();
-      const animatedContext = new CountingCanvasContext();
+      const animatedFullContext = new CountingCanvasContext();
+      const animatedFastStaticContext = new CountingCanvasContext();
+      const animatedFastContext = new CountingCanvasContext();
       renderer.draw(staticContext, board, { width: 360, height: 420 });
-      renderer.draw(animatedContext, board, {
+      renderer.draw(animatedFullContext, board, {
         width: 360,
         height: 420,
         animation: {
           pieceEffects: [{ row: 0, col: 0, offsetX: 24, offsetY: 0, scale: 1.04, opacity: 1 }]
         }
       });
+      renderer.draw(animatedFastContext, board, {
+        width: 360,
+        height: 420,
+        animation: {
+          pieceEffects: [{ row: 0, col: 0, offsetX: 0, offsetY: 24, scale: 1, opacity: 1 }],
+          fastMode: true
+        }
+      });
+      renderer.draw(animatedFastStaticContext, board, {
+        width: 360,
+        height: 420,
+        animation: {
+          pieceEffects: [{ row: 0, col: 0, offsetX: 24, offsetY: 0, scale: 1.04, opacity: 1 }],
+          fastStaticMode: true
+        }
+      });
 
-      expect(animatedContext.operations < staticContext.operations).assertTrue();
+      expect(animatedFullContext.operations).assertEqual(staticContext.operations);
+      expect(animatedFastStaticContext.operations < staticContext.operations).assertTrue();
+      expect(animatedFastContext.operations < staticContext.operations).assertTrue();
     });
 
     it('recordsWinningProgressAndUnlocksNextLevel', 0, async () => {

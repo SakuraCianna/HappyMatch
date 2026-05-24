@@ -19,6 +19,7 @@ export interface GameState {
   status: GameStatus;
   tools: ToolState;
   reshuffles: number;
+  lastCascadeCount: number;
 }
 
 export interface ToolState {
@@ -36,6 +37,7 @@ interface GameHistoryEntry {
   status: GameStatus;
   tools: ToolState;
   reshuffles: number;
+  lastCascadeCount: number;
 }
 
 export class GameSession {
@@ -90,7 +92,8 @@ export class GameSession {
         brush: UNLIMITED_TOOL_COUNT,
         undo: UNLIMITED_TOOL_COUNT
       },
-      reshuffles: 0
+      reshuffles: 0,
+      lastCascadeCount: 0
     };
     this.ensurePlayableBoard();
   }
@@ -110,6 +113,7 @@ export class GameSession {
     }
 
     this.saveHistory();
+    this.state.lastCascadeCount = 0;
     if (SpecialResolver.isDirectSpecialSwap(this.state.board, first, second)) {
       this.swap(first, second);
       const specialPositions = SpecialResolver.swapActivatedPositions(this.state.board, first, second);
@@ -141,6 +145,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.state.lastCascadeCount = 0;
     const shuffled = this.shuffleBoard();
     if (!shuffled) {
       this.discardLastHistory();
@@ -159,6 +164,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.state.lastCascadeCount = 0;
     this.resolveClearPositions(SpecialResolver.expandedClearPositions(this.state.board, [position]));
     this.resolveBoard();
     this.state.tools.hammer = this.consumeTool(this.state.tools.hammer);
@@ -180,6 +186,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.state.lastCascadeCount = 0;
     tile.piece.type = nextType;
     this.state.tools.brush = this.consumeTool(this.state.tools.brush);
     this.resolveBoard(position);
@@ -209,6 +216,18 @@ export class GameSession {
       undo: this.consumeTool(currentUndoCount)
     };
     this.state.reshuffles = snapshot.reshuffles;
+    this.state.lastCascadeCount = snapshot.lastCascadeCount;
+    return true;
+  }
+
+  reviveWithMoves(extraMoves: number): boolean {
+    if (this.state.status !== 'lost' || extraMoves <= 0) {
+      return false;
+    }
+    this.state.movesLeft = extraMoves;
+    this.state.status = 'playing';
+    this.state.lastCascadeCount = 0;
+    this.ensurePlayableBoard();
     return true;
   }
 
@@ -246,6 +265,7 @@ export class GameSession {
     if (positions.length === 0) {
       return;
     }
+    this.state.lastCascadeCount++;
     this.state.score += positions.length * 10;
     this.updateCollectGoals(positions);
     const blockerResult = BlockerResolver.damageAdjacent(this.state.board, positions);
@@ -263,6 +283,9 @@ export class GameSession {
       }
       this.state.goals.forEach(goal => {
         if (goal.type === 'collect_piece' && goal.target === piece.type && goal.count > 0) {
+          goal.count--;
+        }
+        if (goal.type === 'collect_special' && goal.targetSpecial === piece.special && goal.count > 0) {
           goal.count--;
         }
       });
@@ -328,7 +351,8 @@ export class GameSession {
       goals: this.state.goals.map(goal => ({ ...goal })),
       status: this.state.status,
       tools: { ...this.state.tools },
-      reshuffles: this.state.reshuffles
+      reshuffles: this.state.reshuffles,
+      lastCascadeCount: this.state.lastCascadeCount
     });
     if (this.history.length > 6) {
       this.history.shift();

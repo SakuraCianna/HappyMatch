@@ -20,6 +20,7 @@ export interface PieceRenderEffect {
 export interface BoardRenderState {
   pieceEffects?: PieceRenderEffect[];
   fastMode?: boolean;
+  fastStaticMode?: boolean;
 }
 
 type PieceEffectLookup = (PieceRenderEffect | undefined)[];
@@ -76,7 +77,8 @@ export class CanvasRenderer {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
     const effectLookup = options.animation?.pieceEffects ?
       this.buildEffectLookup(options.animation.pieceEffects, board.cols) : undefined;
-    const fastMode = options.animation?.fastMode === true || options.animation?.pieceEffects !== undefined;
+    const fastMode = options.animation?.fastMode === true;
+    const fastStaticMode = options.animation?.fastStaticMode === true;
 
     ctx.clearRect(0, 0, options.width, options.height);
     this.drawBoardBackground(ctx, layout.offsetX, layout.offsetY, layout.boardWidth, layout.boardHeight);
@@ -95,7 +97,8 @@ export class CanvasRenderer {
           const offsetY = effect ? effect.offsetY : 0;
           const scale = effect ? effect.scale : 1;
           const opacity = effect ? effect.opacity : 1;
-          this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity, fastMode);
+          const pieceFastMode = fastMode || (fastStaticMode && !effect);
+          this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity, pieceFastMode);
         }
       }
     }
@@ -155,19 +158,13 @@ export class CanvasRenderer {
     palette: PiecePalette
   ): void {
     if (piece.special === 'rainbow') {
-      ctx.fillStyle = '#FBFBFF';
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = Math.max(2, size * 0.05);
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.48, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
+      this.drawRainbowPiece(ctx, cx, cy, size);
     } else {
       this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
-      ctx.fillStyle = palette.sheen;
-      ctx.beginPath();
-      ctx.arc(cx - size * 0.17, cy - size * 0.19, size * 0.08, 0, Math.PI * 2);
-      ctx.fill();
+      this.drawPieceSurface(ctx, piece.type, cx, cy, size, palette);
+    }
+    if (piece.special === 'none') {
+      this.drawPieceMark(ctx, piece.type, cx, cy, size);
     }
     if (piece.special !== 'none') {
       this.drawSpecialMark(ctx, piece, cx, cy, size);

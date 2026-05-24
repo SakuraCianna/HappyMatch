@@ -19,6 +19,11 @@
     {
       "type": "clear_marshmallow",
       "count": 4
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "col_clear",
+      "count": 2
     }
   ],
   "blockers": [

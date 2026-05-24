@@ -1,10 +1,11 @@
 import { BlockerType, PieceType, SpecialType } from '../core/Types';
 
-export type GoalType = 'score' | 'clear_ice' | 'break_chain' | 'clear_marshmallow' | 'collect_piece';
+export type GoalType = 'score' | 'clear_ice' | 'break_chain' | 'clear_marshmallow' | 'collect_piece' | 'collect_special';
 
 export interface LevelGoal {
   type: GoalType;
   target?: PieceType;
+  targetSpecial?: SpecialType;
   count: number;
 }
 

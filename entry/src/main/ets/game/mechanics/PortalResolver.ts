@@ -20,11 +20,9 @@ export class PortalResolver {
           continue;
         }
         const targetTile = board.tiles[target.row][target.col];
-        if (targetTile.piece) {
-          continue;
-        }
+        const targetPiece = targetTile.piece;
         targetTile.piece = tile.piece;
-        tile.piece = undefined;
+        tile.piece = targetPiece;
         moves.push({ from: { row, col }, to: target });
       }
     }

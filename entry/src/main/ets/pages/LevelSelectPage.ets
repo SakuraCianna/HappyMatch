@@ -1,5 +1,6 @@
 import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
+import { getLevelChapter } from '../game/levels/LevelChapters';
 import { LevelConfig } from '../game/levels/LevelConfig';
 import { LEVELS } from '../game/levels/levels';
 import { LevelProgress } from '../game/storage/ProgressRepository';
@@ -41,6 +42,16 @@ struct LevelSelectPage {
         }
         .width('100%')
         .padding({ left: 18, right: 18, top: 18, bottom: 8 })
+
+        Text(this.currentChapterText())
+          .fontSize(13)
+          .fontColor(this.colorForLevel(this.unlockedLevel))
+          .width('90%')
+          .padding({ left: 12, right: 12, top: 6, bottom: 6 })
+          .borderRadius(14)
+          .backgroundColor('rgba(255, 255, 255, 0.56)')
+          .textAlign(TextAlign.Center)
+          .margin({ bottom: 4 })
 
         Scroll() {
           Grid() {
@@ -88,19 +99,12 @@ struct LevelSelectPage {
   }
 
   private colorForLevel(levelId: number): string {
-    if (levelId <= 19) {
-      return '#F27A91';
-    }
-    if (levelId <= 39) {
-      return '#69B8EA';
-    }
-    if (levelId <= 59) {
-      return '#EFC957';
-    }
-    if (levelId <= 79) {
-      return '#76D37B';
-    }
-    return '#B487EF';
+    return getLevelChapter(levelId).accent;
+  }
+
+  private currentChapterText(): string {
+    const chapter = getLevelChapter(this.unlockedLevel);
+    return `${chapter.name} · ${chapter.subtitle}`;
   }
 
   private async refreshProgress(): Promise<void> {

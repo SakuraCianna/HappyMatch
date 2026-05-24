@@ -55,8 +55,9 @@ export class BoardFactory {
     pieceTypes: PieceType[],
     random: SeededRandom
   ): PieceType {
-    for (let attempts = 0; attempts < pieceTypes.length * 3; attempts++) {
-      const type = random.pick(pieceTypes);
+    const firstIndex = Math.floor(random.next() * pieceTypes.length);
+    for (let offset = 0; offset < pieceTypes.length; offset++) {
+      const type = pieceTypes[(firstIndex + offset) % pieceTypes.length];
       const horizontalMatch =
         col >= 2 &&
         tiles[row][col - 1].piece?.type === type &&
@@ -69,6 +70,6 @@ export class BoardFactory {
         return type;
       }
     }
-    return pieceTypes[0];
+    return pieceTypes[firstIndex];
   }
 }

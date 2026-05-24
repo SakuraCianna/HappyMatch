@@ -18,6 +18,16 @@
     {
       "type": "score",
       "count": 2265
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "row_clear",
+      "count": 1
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "col_clear",
+      "count": 1
     }
   ],
   "blockers": [

@@ -6,6 +6,8 @@ import { GameSession } from '../game/core/GameSession';
 import { MatchResolver } from '../game/core/MatchResolver';
 import { SpecialResolver } from '../game/core/SpecialResolver';
 import { Board, PieceType, Position, SpecialType } from '../game/core/Types';
+import { economyService } from '../game/economy/EconomyService';
+import { chapterProgressText, getLevelChapter } from '../game/levels/LevelChapters';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
 import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
@@ -42,6 +44,10 @@ struct GamePage {
   @State private levelId: number = 1;
   @State private movesLeft: number = 0;
   @State private score: number = 0;
+  @State private chapterText: string = '';
+  @State private chapterAccent: string = '#F27A91';
+  @State private coinBalance: number = 0;
+  @State private comboText: string = '';
   @State private statusText: string = '进行中';
   @State private goalText: string = '';
   @State private activeTool: string = '';
@@ -55,6 +61,7 @@ struct GamePage {
   @State private resultTitle: string = '';
   @State private resultStars: string = '';
   @State private resultMessage: string = '';
+  @State private resultWon: boolean = false;
 
   aboutToAppear(): void {
     bootstrapProgress(getContext(this) as common.Context);
@@ -97,6 +104,24 @@ struct GamePage {
         }
         .width('100%')
         .padding({ left: 12, right: 12, top: 12, bottom: 8 })
+
+        Row() {
+          Text(this.chapterText)
+            .fontSize(12)
+            .fontColor(this.chapterAccent)
+            .padding({ left: 12, right: 12, top: 4, bottom: 4 })
+            .borderRadius(12)
+            .backgroundColor('rgba(255, 255, 255, 0.58)')
+          Blank()
+          Text(`金币 ${this.coinBalance}`)
+            .fontSize(12)
+            .fontColor('#7B5A4D')
+            .padding({ left: 12, right: 12, top: 4, bottom: 4 })
+            .borderRadius(12)
+            .backgroundColor('rgba(255, 255, 255, 0.58)')
+        }
+        .width('100%')
+        .padding({ left: 20, right: 20 })
 
         Row() {
           Stack() {
@@ -183,6 +208,17 @@ struct GamePage {
             .backgroundColor('rgba(255, 255, 255, 0.50)')
             .textAlign(TextAlign.Center)
             .margin({ top: 8, bottom: 4 })
+        }
+
+        if (this.comboText.length > 0) {
+          Text(this.comboText)
+            .fontSize(14)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#5C3A4A')
+            .padding({ left: 14, right: 14, top: 5, bottom: 5 })
+            .borderRadius(14)
+            .backgroundColor('rgba(255, 241, 166, 0.72)')
+            .margin({ top: 4 })
         }
 
         Canvas(this.context)
@@ -370,7 +406,15 @@ struct GamePage {
               .onClick(() => {
                 router.replaceUrl({ url: 'pages/LevelSelectPage' });
               })
-            if (this.resultTitle === '通关成功') {
+            if (!this.resultWon) {
+              Button('加 5 步')
+                .height(40)
+                .margin({ left: 10 })
+                .onClick(() => {
+                  this.buyExtraMoves();
+                })
+            }
+            if (this.resultWon) {
               Button('下一关')
                 .height(40)
                 .margin({ left: 10 })
@@ -436,11 +480,17 @@ struct GamePage {
     this.levelId = level.id;
     this.selectedBrushColor = level.board.pieceTypes[0];
     this.session = new GameSession(level, 20260523 + level.id);
+    const chapter = getLevelChapter(level.id);
+    this.chapterText = chapterProgressText(level.id);
+    this.chapterAccent = chapter.accent;
+    this.coinBalance = economyService.getWallet().coins;
     this.movesLeft = this.session.state.movesLeft;
     this.score = this.session.state.score;
+    this.comboText = '';
     this.statusText = '进行中';
     this.showResult = false;
     this.resultSaved = false;
+    this.resultWon = false;
     this.resultTitle = '';
     this.resultStars = '';
     this.resultMessage = '';
@@ -546,6 +596,8 @@ struct GamePage {
     this.movesLeft = this.session.state.movesLeft;
     this.score = this.session.state.score;
     this.goalText = this.describeGoals();
+    this.coinBalance = economyService.getWallet().coins;
+    this.comboText = this.session.state.lastCascadeCount >= 2 ? `连击 x${this.session.state.lastCascadeCount}` : '';
     this.syncToolCounts();
     if (this.session.state.status === 'won') {
       this.statusText = '胜利';
@@ -854,6 +906,7 @@ struct GamePage {
       const eased = this.easeInOut(progress);
       const amount = fromProgress + (toProgress - fromProgress) * eased;
       this.drawBoardSnapshot(board, {
+        fastStaticMode: true,
         pieceEffects: [
           { row: first.row, col: first.col, offsetX: moveX * amount, offsetY: moveY * amount, scale: 1.05, opacity: 1 },
           { row: second.row, col: second.col, offsetX: -moveX * amount, offsetY: -moveY * amount, scale: 1.05, opacity: 1 }
@@ -876,7 +929,7 @@ struct GamePage {
           opacity: 1 - eased
         });
       });
-      this.drawBoardSnapshot(board, { pieceEffects: effects });
+      this.drawBoardSnapshot(board, { pieceEffects: effects, fastStaticMode: true });
     }, done);
   }
 
@@ -895,7 +948,7 @@ struct GamePage {
           opacity: 1
         });
       });
-      this.drawBoardSnapshot(progress < 0.18 ? fromBoard : toBoard, { pieceEffects: effects });
+      this.drawBoardSnapshot(progress < 0.18 ? fromBoard : toBoard, { pieceEffects: effects, fastStaticMode: true });
     }, done);
   }
 
@@ -904,6 +957,7 @@ struct GamePage {
       const eased = this.easeInOut(progress);
       const pulse = progress < 0.5 ? eased : 1 - eased;
       this.drawBoardSnapshot(board, {
+        fastStaticMode: true,
         pieceEffects: [
           {
             row: position.row,
@@ -924,7 +978,7 @@ struct GamePage {
     this.runAnimation(190, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
-      this.drawBoardSnapshot(toBoard, { pieceEffects: effects });
+      this.drawBoardSnapshot(toBoard, { pieceEffects: effects, fastMode: true });
     }, done);
   }
 
@@ -1039,6 +1093,11 @@ struct GamePage {
     }
     this.resultSaved = true;
     const won = this.session.state.status === 'won';
+    this.resultWon = won;
+    if (won) {
+      economyService.addCoins(60 + this.movesLeft * 2);
+      this.coinBalance = economyService.getWallet().coins;
+    }
     const progress = await progressService.recordResult({
       levelId: this.levelId,
       won,
@@ -1051,6 +1110,30 @@ struct GamePage {
       ? `得分 ${this.score}，剩余 ${this.movesLeft} 步`
       : `得分 ${this.score}，再试一次就差不多了`;
     this.showResult = true;
+  }
+
+  private buyExtraMoves(): void {
+    if (!this.session) {
+      return;
+    }
+    const product = economyService.getProduct('extra_moves');
+    if (!economyService.purchase('extra_moves')) {
+      this.coinBalance = economyService.getWallet().coins;
+      this.resultMessage = `金币不足，还需要 ${product.price} 金币`;
+      return;
+    }
+    if (this.session.reviveWithMoves(product.extraMoves)) {
+      this.coinBalance = economyService.getWallet().coins;
+      this.showResult = false;
+      this.resultSaved = false;
+      this.resultWon = false;
+      this.statusText = '进行中';
+      this.syncState();
+      this.draw();
+      return;
+    }
+    economyService.addCoins(product.price);
+    this.coinBalance = economyService.getWallet().coins;
   }
 
   private draw(): void {
@@ -1077,8 +1160,27 @@ struct GamePage {
       if (goal.type === 'clear_marshmallow') {
         return `清除棉花糖 ${Math.max(0, goal.count)}`;
       }
+      if (goal.type === 'collect_special') {
+        return `触发${this.specialGoalName(goal.targetSpecial)} ${Math.max(0, goal.count)}`;
+      }
       return `收集 ${goal.target} ${Math.max(0, goal.count)}`;
     }).join(' / ');
+  }
+
+  private specialGoalName(special?: SpecialType): string {
+    if (special === 'row_clear') {
+      return '左右消除果冻';
+    }
+    if (special === 'col_clear') {
+      return '上下消除果冻';
+    }
+    if (special === 'bomb') {
+      return '爆炸果冻';
+    }
+    if (special === 'rainbow') {
+      return '彩虹果冻';
+    }
+    return '特殊果冻';
   }
 
   private formatStars(stars: number): string {

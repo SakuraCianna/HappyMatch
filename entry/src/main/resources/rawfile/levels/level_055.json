@@ -19,6 +19,11 @@
     {
       "type": "break_chain",
       "count": 6
+    },
+    {
+      "type": "collect_special",
+      "targetSpecial": "row_clear",
+      "count": 2
     }
   ],
   "blockers": [

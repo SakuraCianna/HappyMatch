@@ -318,6 +318,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "score",
         "count": 1605
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -390,6 +395,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "score",
         "count": 1770
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -465,6 +475,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "score",
         "count": 1935
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -534,6 +549,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "score",
         "count": 2100
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -618,6 +643,16 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "score",
         "count": 2265
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 1
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 1
       }
     ],
     "blockers": [
@@ -1074,6 +1109,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "red",
         "count": 10
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -1160,6 +1200,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "blue",
         "count": 10
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -1234,6 +1279,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "yellow",
         "count": 10
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -1320,6 +1370,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "green",
         "count": 11
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -1400,6 +1455,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "collect_piece",
         "target": "purple",
         "count": 11
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 1
       }
     ],
     "blockers": [
@@ -2480,6 +2540,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       }
     ],
     "blockers": [
@@ -3059,6 +3124,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_ice",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 1
       }
     ],
     "blockers": [
@@ -3681,6 +3751,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 3
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -4454,6 +4529,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 4
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -5260,6 +5340,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6096,6 +6181,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "row_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -6968,6 +7058,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 3
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -7957,6 +8052,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 4
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -8997,6 +9097,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 5
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -10097,6 +10202,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "clear_marshmallow",
         "count": 6
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "col_clear",
+        "count": 2
       }
     ],
     "blockers": [
@@ -11211,6 +11321,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -11469,6 +11584,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -11724,6 +11844,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -11967,6 +12092,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -12210,6 +12340,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -12453,6 +12588,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -12708,6 +12848,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -12969,6 +13114,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -13224,6 +13374,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -13485,6 +13640,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -13722,6 +13882,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -13965,6 +14130,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -14220,6 +14390,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -14478,6 +14653,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 2
       }
     ],
     "blockers": [
@@ -14748,6 +14928,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 2
       }
     ],
     "blockers": [
@@ -15012,6 +15197,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 3
       }
     ],
     "blockers": [
@@ -15282,6 +15472,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 3
       }
     ],
     "blockers": [
@@ -15546,6 +15741,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 3
       }
     ],
     "blockers": [
@@ -15816,6 +16016,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 3
       }
     ],
     "blockers": [
@@ -16086,6 +16291,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "rainbow",
+        "count": 3
       }
     ],
     "blockers": [
@@ -16344,6 +16554,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "type": "break_chain",
         "count": 8
+      },
+      {
+        "type": "collect_special",
+        "targetSpecial": "bomb",
+        "count": 3
       }
     ],
     "blockers": [

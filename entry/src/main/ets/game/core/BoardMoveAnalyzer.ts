@@ -17,6 +17,9 @@ export class BoardMoveAnalyzer {
   }
 
   static isValidMove(board: Board, first: Position, second: Position): boolean {
+    if (first.row < 0 || first.row >= board.rows || first.col < 0 || first.col >= board.cols) {
+      return false;
+    }
     if (second.row < 0 || second.row >= board.rows || second.col < 0 || second.col >= board.cols) {
       return false;
     }
