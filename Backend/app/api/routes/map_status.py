@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Query
 
 from app.api.deps import SessionDep
-from app.schemas.schemas import NearbySummary, PresenceUpdate, WorldPopulation
-from app.services import map_service
+from app.schemas.schemas import LocationSummary, NearbySummary, PresenceUpdate, WorldPopulation
+from app.services import amap_service, map_service
 
 router = APIRouter()
 
@@ -25,3 +25,16 @@ def get_nearby(
 @router.get("/worlds", response_model=list[WorldPopulation])
 def get_world_population(session: SessionDep) -> list[WorldPopulation]:
   return map_service.world_population(session)
+
+
+@router.get("/location/ip", response_model=LocationSummary)
+def get_ip_location(ip: str | None = Query(default=None, max_length=64)) -> LocationSummary:
+  return amap_service.locate_by_ip(ip)
+
+
+@router.get("/location/regeo", response_model=LocationSummary)
+def get_regeo_location(
+  longitude: float = Query(ge=-180, le=180),
+  latitude: float = Query(ge=-90, le=90)
+) -> LocationSummary:
+  return amap_service.locate_by_regeo(longitude, latitude)

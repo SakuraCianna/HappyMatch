@@ -46,3 +46,6 @@ def test_guest_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
 
     nearby = client.get("/api/map/nearby?region_key=school-east&world_id=1").json()
     assert nearby["active_players"] == 2
+
+    location = client.get("/api/map/location/ip").json()
+    assert "region_key" in location

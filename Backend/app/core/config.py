@@ -22,6 +22,9 @@ class Settings(BaseSettings):
   nearby_grid_precision: int = 2
   secret_key: str = "dev-only-change-me"
   enable_openapi: bool = True
+  amap_web_service_key: str = ""
+  amap_web_service_base_url: str = "https://restapi.amap.com"
+  amap_fallback_region_key: str = "unknown"
 
   model_config = SettingsConfigDict(
     env_file=BACKEND_DIR / ".env",

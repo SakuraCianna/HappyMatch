@@ -1,6 +1,7 @@
 import { common } from '@kit.AbilityKit';
 import { economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
+import { remoteGameService } from '../game/remote/RemoteGameService';
 import { gameSettingsService } from '../game/settings/GameSettings';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { progressService } from '../game/storage/ProgressService';
@@ -11,6 +12,8 @@ struct Index {
   @State private continueLevel: number = 1;
   @State private coins: number = 0;
   @State private homeMotion: boolean = false;
+  @State private cloudText: string = '云端连接中';
+  @State private nearbyText: string = '附近 0 人';
 
   aboutToAppear(): void {
     const context = this.appContext();
@@ -62,6 +65,16 @@ struct Index {
               feedbackService.play('tap');
               this.getUIContext().getRouter().pushUrl({ url: 'pages/GuidePage' });
             })
+          Button('社交')
+            .height(34)
+            .borderRadius(17)
+            .fontColor('#5C3A4A')
+            .backgroundColor('rgba(255, 255, 255, 0.70)')
+            .margin({ left: 8 })
+            .onClick(() => {
+              feedbackService.play('tap');
+              this.getUIContext().getRouter().pushUrl({ url: 'pages/SocialPage' });
+            })
           Blank()
           Button('设置')
             .height(34)
@@ -94,7 +107,14 @@ struct Index {
             .padding({ left: 14, right: 14, top: 5, bottom: 5 })
             .borderRadius(14)
             .backgroundColor('rgba(255, 255, 255, 0.58)')
-            .margin({ top: 16, bottom: 38 })
+            .margin({ top: 16, bottom: 8 })
+          Text(`${this.cloudText} · ${this.nearbyText}`)
+            .fontSize(12)
+            .fontColor('#8C6A3D')
+            .padding({ left: 14, right: 14, top: 5, bottom: 5 })
+            .borderRadius(14)
+            .backgroundColor('rgba(255, 255, 255, 0.58)')
+            .margin({ bottom: 28 })
 
           Button('开始游戏')
             .width(230)
@@ -176,6 +196,12 @@ struct Index {
     await bootstrapProgress(this.appContext());
     this.continueLevel = await progressService.getUnlockedLevel();
     this.coins = economyService.getWallet().coins;
+    const state = await remoteGameService.init(this.appContext());
+    await remoteGameService.syncPlayerProgress(this.continueLevel, this.coins);
+    const nearby = await remoteGameService.updatePresence(1, this.continueLevel);
+    const latest = remoteGameService.getState();
+    this.cloudText = latest.player ? `好友码 ${latest.player.friend_code}` : state.message;
+    this.nearbyText = nearby ? `附近 ${nearby.active_players} 人` : '后端离线';
   }
 
   private appContext(): common.Context {

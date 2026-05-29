@@ -14,6 +14,7 @@ HappyMatch 是一个基于 HarmonyOS 6.0.2 SDK 开发的三消闯关游戏项目
 - 支持无可行移动时自动洗盘，避免棋盘死局。
 - 支持一星、二星、三星结算，以及三星后的剩余步数奖励动画。
 - 支持本地进度、金币、成就、设置、音效和震动反馈。
+- 支持 FastAPI 后端、好友码、排行榜、云端成绩和附近人数统计。
 - 支持机制图鉴和首次机制提示，降低新机制理解成本。
 
 ## 技术栈
@@ -23,6 +24,7 @@ HappyMatch 是一个基于 HarmonyOS 6.0.2 SDK 开发的三消闯关游戏项目
 - 开发语言：ArkTS / ArkUI
 - 构建工具：Hvigor
 - 测试框架：Hypium
+- 后端框架：FastAPI / SQLite / SQLModel
 - 资源形式：JSON 关卡、rawfile 音效、Canvas 绘制棋盘与果冻纹理
 
 ## 页面结构
@@ -36,6 +38,7 @@ GamePage.ets          游戏主界面
 AchievementsPage.ets  成就馆
 SettingsPage.ets      设置页
 GuidePage.ets         机制图鉴
+SocialPage.ets        社交与排行榜
 ```
 
 路由配置位于：
@@ -55,8 +58,10 @@ entry/src/main/ets/game/storage     本地进度仓库
 entry/src/main/ets/game/economy     金币与模拟购买
 entry/src/main/ets/game/achievements 成就系统
 entry/src/main/ets/game/feedback    音效与震动反馈
+entry/src/main/ets/game/remote      后端请求、玩家同步、好友与排行榜
 entry/src/main/resources/rawfile/levels 100 个关卡 JSON 文件
 entry/src/main/resources/rawfile/sfx    游戏音效资源
+Backend                            FastAPI 后端服务与 SQLite 数据库
 tools                              关卡生成与同步脚本
 ```
 
@@ -139,6 +144,19 @@ E:\CodeHome\Experiment\HappyMatch
 
 如果没有配置签名，构建日志会出现跳过签名的警告。这不影响调试构建，但发布安装包前需要在 `build-profile.json5` 中配置签名。
 
+启动后端：
+
+```powershell
+cd E:\CodeHome\Experiment\HappyMatch\Backend
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+Copy-Item .env.example .env
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+HarmonyOS 模拟器默认通过 `http://10.0.2.2:8000/api` 访问宿主机后端。真机联调时需要把 `entry/src/main/ets/game/remote/RemoteConfig.ts` 中的地址改为电脑局域网 IP 或部署后的 HTTPS 地址。
+
 ## 关卡生成
 
 项目提供了关卡生成和同步脚本：
@@ -189,13 +207,12 @@ entry/src/test/GameCore.test.ets
 
 ## 后续可扩展方向
 
-- 增加好友排行榜和关卡进度展示。
 - 增加每日挑战、限时关卡或随机挑战模式。
 - 增加更多机制方块，例如钥匙、宝箱、传送带、染色桶。
 - 给不同世界增加更完整的剧情和关卡目标文案。
-- 接入云数据库或账号系统，实现多设备同步。
+- 增加账号登录或云数据库，实现多设备同步。
 - 将无限道具改为金币购买或模拟支付流程。
 
 ## 说明
 
-本项目目前以本地运行和功能演示为主要目标，没有接入真实支付、登录或云数据库。所有核心玩法、关卡配置和进度逻辑都保留在本地，方便开发、调试和本地体验。
+本项目目前以本地运行和功能演示为主要目标，已经提供轻量 FastAPI 后端用于好友、排行榜和附近人数统计，但没有接入真实支付、登录或云数据库。核心玩法与关卡配置仍保留在 HarmonyOS 端，便于开发、调试和本地体验。

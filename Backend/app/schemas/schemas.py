@@ -99,4 +99,15 @@ class WorldPopulation(SQLModel):
   active_players: int
 
 
+class LocationSummary(SQLModel):
+  region_key: str
+  source: str
+  province: str | None = None
+  city: str | None = None
+  adcode: str | None = None
+  rectangle: str | None = None
+  longitude: float | None = None
+  latitude: float | None = None
+
+
 LeaderboardScope = Literal["stars", "level", "score"]

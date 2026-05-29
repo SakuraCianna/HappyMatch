@@ -35,6 +35,7 @@ GET  /health
 POST /api/players/guest
 GET  /api/players/{player_id}
 PATCH /api/players/{player_id}
+PUT  /api/players/{player_id}
 POST /api/players/{player_id}/records
 GET  /api/players/{player_id}/records
 POST /api/friends/{player_id}
@@ -44,6 +45,8 @@ GET  /api/leaderboard
 POST /api/map/presence
 GET  /api/map/nearby
 GET  /api/map/worlds
+GET  /api/map/location/ip
+GET  /api/map/location/regeo
 ```
 
 ## 配置说明
@@ -57,6 +60,11 @@ GET  /api/map/worlds
 - `NEARBY_ACTIVE_SECONDS`: 地图在线人数统计窗口。
 - `NEARBY_GRID_PRECISION`: 经纬度粗粒度网格精度。
 - `SECRET_KEY`: 后续接入签名或 token 时使用，开发环境先保留占位值。
+- `AMAP_WEB_SERVICE_KEY`: 高德开放平台 Web 服务 API Key。
+- `AMAP_WEB_SERVICE_BASE_URL`: 高德 Web 服务 API 地址，默认 `https://restapi.amap.com`。
+- `AMAP_FALLBACK_REGION_KEY`: 未配置高德 Key 或定位失败时使用的区域键。
+
+HarmonyOS 端默认请求 `http://10.0.2.2:8000/api`，用于在模拟器里访问宿主机后端。真机联调时需要把 `entry/src/main/ets/game/remote/RemoteConfig.ts` 中的地址改为电脑局域网 IP 或部署后的 HTTPS 地址。
 
 ## 设计边界
 

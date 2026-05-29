@@ -14,6 +14,7 @@ import { BlockerResolver } from '../game/mechanics/BlockerResolver';
 import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
 import { BoardLayout, BoardLayoutResult } from '../game/render/BoardLayout';
 import { BoardRenderState, CanvasRenderer, GameCanvasContext, PieceRenderEffect } from '../game/render/CanvasRenderer';
+import { remoteGameService } from '../game/remote/RemoteGameService';
 import { gameSettingsService } from '../game/settings/GameSettings';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { progressService } from '../game/storage/ProgressService';
@@ -689,6 +690,7 @@ struct GamePage {
     this.tutorialIndex = 0;
     this.showTutorial = this.tutorialSteps.length > 0;
     this.syncToolCounts();
+    this.syncRemotePresence(level.id);
     this.draw();
   }
 
@@ -1514,6 +1516,14 @@ struct GamePage {
     if (this.session !== finishedSession || this.levelId !== finishedLevelId) {
       return;
     }
+    this.uploadRemoteResult(
+      finishedLevelId,
+      finalScore,
+      progress.stars,
+      finishedSession.state.lastCascadeCount,
+      finalMovesLeft,
+      won ? Math.min(100, finishedLevelId + 1) : finishedLevelId
+    );
     feedbackService.play(won ? 'win' : 'lose');
     this.resultTitle = won ? '通关成功' : '挑战失败';
     this.resultStars = won ? formatStars(progress.stars) : '☆☆☆';
@@ -1560,5 +1570,31 @@ struct GamePage {
 
   private appContext(): common.Context {
     return this.getUIContext().getHostContext() as common.Context;
+  }
+
+  private async syncRemotePresence(levelId: number): Promise<void> {
+    try {
+      const chapter = getLevelChapter(levelId);
+      await remoteGameService.init(this.appContext());
+      await remoteGameService.updatePresence(chapter.id, levelId);
+    } catch (_error) {
+    }
+  }
+
+  private async uploadRemoteResult(
+    levelId: number,
+    score: number,
+    stars: number,
+    bestCombo: number,
+    movesLeft: number,
+    currentLevel: number
+  ): Promise<void> {
+    try {
+      await remoteGameService.init(this.appContext());
+      await remoteGameService.uploadLevelRecord(levelId, score, stars, bestCombo, movesLeft);
+      await remoteGameService.syncPlayerProgress(currentLevel, this.coinBalance);
+      await remoteGameService.updatePresence(getLevelChapter(levelId).id, currentLevel);
+    } catch (_error) {
+    }
   }
 }

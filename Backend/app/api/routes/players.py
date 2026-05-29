@@ -24,6 +24,11 @@ def update_player(player_id: str, payload: PlayerUpdate, session: SessionDep) ->
   return player_service.update_player(session, player_id, payload)
 
 
+@router.put("/{player_id}", response_model=PlayerPublic)
+def replace_player(player_id: str, payload: PlayerUpdate, session: SessionDep) -> Player:
+  return player_service.update_player(session, player_id, payload)
+
+
 @router.post("/{player_id}/records", response_model=LevelRecordPublic)
 def save_level_record(player_id: str, payload: LevelRecordCreate, session: SessionDep) -> LevelRecord:
   return player_service.upsert_level_record(session, player_id, payload)

@@ -5,6 +5,7 @@
     "pages/GamePage",
     "pages/SettingsPage",
     "pages/AchievementsPage",
-    "pages/GuidePage"
+    "pages/GuidePage",
+    "pages/SocialPage"
   ]
 }

@@ -5,6 +5,8 @@ import { LevelConfig } from '../game/levels/LevelConfig';
 import { getWorldThemeById, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
 import { isLevelPlayable, isWorldEntryLevel } from '../game/levels/LevelUnlocks';
 import { LEVELS } from '../game/levels/levels';
+import { WorldPopulation } from '../game/remote/RemoteModels';
+import { remoteGameService } from '../game/remote/RemoteGameService';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { LevelProgress } from '../game/storage/ProgressRepository';
 import { progressService } from '../game/storage/ProgressService';
@@ -14,6 +16,7 @@ import { progressService } from '../game/storage/ProgressService';
 struct LevelSelectPage {
   @State private unlockedLevel: number = 1;
   @State private progressItems: LevelProgress[] = [];
+  @State private worldPopulation: WorldPopulation[] = [];
 
   aboutToAppear(): void {
     feedbackService.init(this.appContext());
@@ -132,12 +135,22 @@ struct LevelSelectPage {
         }
         .alignItems(HorizontalAlign.Start)
         .layoutWeight(1)
-        Text(this.chapterClearText(chapter))
-          .fontSize(12)
-          .fontColor(chapter.accent)
-          .padding({ left: 10, right: 10, top: 4, bottom: 4 })
-          .borderRadius(12)
-          .backgroundColor('rgba(255, 255, 255, 0.60)')
+        Row() {
+          Text(this.chapterClearText(chapter))
+            .fontSize(12)
+            .fontColor(chapter.accent)
+            .padding({ left: 10, right: 10, top: 4, bottom: 4 })
+            .borderRadius(12)
+            .backgroundColor('rgba(255, 255, 255, 0.60)')
+          Text(this.chapterOnlineText(chapter))
+            .fontSize(12)
+            .fontColor('#5C3A4A')
+            .padding({ left: 10, right: 10, top: 4, bottom: 4 })
+            .borderRadius(12)
+            .backgroundColor('rgba(255, 255, 255, 0.50)')
+            .margin({ left: 6 })
+        }
+        .alignItems(VerticalAlign.Center)
       }
       .width('100%')
       .margin({ bottom: 12 })
@@ -239,6 +252,20 @@ struct LevelSelectPage {
     await bootstrapProgress(this.appContext());
     this.unlockedLevel = await progressService.getUnlockedLevel();
     this.progressItems = await progressService.getAll();
+    try {
+      const chapter = getLevelChapter(this.unlockedLevel);
+      await remoteGameService.init(this.appContext());
+      await remoteGameService.updatePresence(chapter.id, this.unlockedLevel);
+      this.worldPopulation = await remoteGameService.listWorldPopulation();
+    } catch (_error) {
+      this.worldPopulation = [];
+    }
+  }
+
+  private chapterOnlineText(chapter: LevelChapter): string {
+    const population = this.worldPopulation.find(item => item.world_id === chapter.id);
+    const count = population ? population.active_players : 0;
+    return `在线 ${count}`;
   }
 
   private appContext(): common.Context {
