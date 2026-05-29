@@ -1,0 +1,1 @@
+"""HappyMatch FastAPI backend."""

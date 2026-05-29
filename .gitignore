@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 oh_modules/
+Backend/.venv/
 
 # Local SDK and IDE settings
 local.properties
@@ -21,6 +22,17 @@ build/
 **/.cxx/
 **/.test/
 coverage/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+Backend/data/*.db
+Backend/data/*.db-shm
+Backend/data/*.db-wal
+
+# Local backend configuration
+Backend/.env
 
 # Local brainstorm/mockup workspace
 .superpowers/
