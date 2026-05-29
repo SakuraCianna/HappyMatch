@@ -54,7 +54,6 @@ GET  /api/map/location/regeo
 重要配置写在 `Backend/.env`，提交到仓库的是 `Backend/.env.example`。
 
 - `DATABASE_URL`: SQLite 数据库地址。
-- `CORS_ORIGINS`: 允许访问后端的前端来源。
 - `DEFAULT_PLAYER_COINS`: 新游客玩家默认金币。
 - `FRIEND_CODE_LENGTH`: 好友码长度。
 - `NEARBY_ACTIVE_SECONDS`: 地图在线人数统计窗口。

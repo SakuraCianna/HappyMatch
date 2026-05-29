@@ -14,10 +14,9 @@ class Settings(BaseSettings):
   port: int = 8000
   database_url: str = f"sqlite:///{(BACKEND_DIR / 'data' / 'happymatch.db').as_posix()}"
   sql_echo: bool = False
-  cors_origins: str = "http://localhost:49891,http://127.0.0.1:49891,http://localhost:8000"
   default_player_coins: int = 500
   default_guest_nickname: str = "糖果游客"
-  friend_code_length: int = 8
+  friend_code_length: int = 6
   nearby_active_seconds: int = 300
   nearby_grid_precision: int = 2
   secret_key: str = "dev-only-change-me"
@@ -31,10 +30,6 @@ class Settings(BaseSettings):
     env_file_encoding="utf-8",
     extra="ignore"
   )
-
-  @property
-  def cors_origin_list(self) -> list[str]:
-    return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
 @lru_cache

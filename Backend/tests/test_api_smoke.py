@@ -14,6 +14,7 @@ def test_guest_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
 
     assert first["coin"] == 620
     assert first["friend_code"] != second["friend_code"]
+    assert len(first["friend_code"]) == 6
 
     friend_response = client.post(
       f"/api/friends/{first['id']}",
