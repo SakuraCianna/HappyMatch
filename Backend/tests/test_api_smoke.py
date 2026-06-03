@@ -11,11 +11,11 @@ def test_auth_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
   with TestClient(app) as client:
     first_session = client.post(
       "/api/auth/register",
-      json={"username": "alice", "password": "secret123", "nickname": "Alice"}
+      json={"nickname": "Alice", "password": "secret123"}
     ).json()
     second_session = client.post(
       "/api/auth/register",
-      json={"username": "bob", "password": "secret123", "nickname": "Bob"}
+      json={"nickname": "Bob", "password": "secret123"}
     ).json()
     first = first_session["player"]
     second = second_session["player"]
@@ -23,7 +23,7 @@ def test_auth_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
     second_headers = {"Authorization": f"Bearer {second_session['access_token']}"}
 
     assert first["coin"] == 620
-    assert first["username"] == "alice"
+    assert first["nickname"] == "Alice"
     assert first["friend_code"] != second["friend_code"]
     assert len(first["friend_code"]) == 6
 
@@ -36,7 +36,7 @@ def test_auth_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
 
     login_response = client.post(
       "/api/auth/login",
-      json={"username": "alice", "password": "secret123"}
+      json={"nickname": "Alice", "password": "secret123"}
     )
     assert login_response.status_code == 200
     assert login_response.json()["player"]["friend_code"] == first["friend_code"]

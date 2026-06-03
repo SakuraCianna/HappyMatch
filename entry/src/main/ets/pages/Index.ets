@@ -12,7 +12,7 @@ struct Index {
   @State private continueLevel: number = 1;
   @State private coins: number = 0;
   @State private homeMotion: boolean = false;
-  @State private cloudText: string = '账号未登录';
+  @State private cloudText: string = '玩家未登录';
   @State private nearbyText: string = '登录后同步';
 
   aboutToAppear(): void {
@@ -51,7 +51,7 @@ struct Index {
             this.NavButton('图鉴', 'pages/GuidePage')
             this.NavButton('社交', 'pages/SocialPage')
             Blank()
-            this.NavButton('账号', 'pages/AuthPage')
+            this.NavButton('玩家', 'pages/AuthPage')
             this.NavButton('设置', 'pages/SettingsPage')
           }
           .width('100%')
@@ -202,8 +202,8 @@ struct Index {
     await remoteGameService.syncPlayerProgress(this.continueLevel, this.coins);
     const nearby = await remoteGameService.updatePresence(1, this.continueLevel);
     const latest = remoteGameService.getState();
-    this.cloudText = latest.player ? `好友码 ${latest.player.friend_code}` : '账号未登录';
-    this.nearbyText = latest.player && nearby ? `附近 ${nearby.active_players} 人在线` : '登录账号后同步好友, 排行榜和附近人数';
+    this.cloudText = latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
+    this.nearbyText = latest.player && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';
   }
 
   private appContext(): common.Context {

@@ -1,6 +1,5 @@
 export interface RemotePlayer {
   id: string;
-  username?: string;
   nickname: string;
   avatar?: string;
   friend_code: string;

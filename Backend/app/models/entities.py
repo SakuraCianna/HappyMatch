@@ -17,11 +17,10 @@ class Player(SQLModel, table=True):
   __tablename__ = "players"
   __table_args__ = (
     UniqueConstraint("friend_code", name="uq_players_friend_code"),
-    UniqueConstraint("username", name="uq_players_username")
+    UniqueConstraint("nickname", name="uq_players_nickname")
   )
 
   id: str = Field(default_factory=new_id, primary_key=True)
-  username: str = Field(index=True, max_length=32)
   password_hash: str = Field(max_length=255)
   nickname: str = Field(index=True, max_length=32)
   avatar: str | None = Field(default=None, max_length=255)

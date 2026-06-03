@@ -11,7 +11,7 @@ struct SocialPage {
     authenticated: false,
     nearbyPlayers: 0,
     regionKey: '',
-    message: '请登录账号'
+    message: '请登录玩家'
   };
   @State private friends: RemoteFriend[] = [];
   @State private leaderboard: LeaderboardEntry[] = [];
@@ -314,7 +314,7 @@ struct SocialPage {
   private playerLine(): string {
     const player = this.remoteState.player;
     if (!player) {
-      return '请先在账号页登录或注册。';
+      return '请先在玩家信息页登录或注册。';
     }
     return `${player.nickname} · 好友码 ${player.friend_code} · 第 ${player.current_level} 关`;
   }

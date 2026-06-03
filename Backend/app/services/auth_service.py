@@ -14,16 +14,14 @@ from app.schemas.schemas import AuthLoginRequest, AuthRegisterRequest, AuthSessi
 from app.services.player_service import generate_friend_code, touch_player
 
 PBKDF2_ITERATIONS = 210_000
-USERNAME_MIN_LENGTH = 3
+NICKNAME_MIN_LENGTH = 1
 PASSWORD_MIN_LENGTH = 6
 
 
-def normalize_username(username: str) -> str:
-  value = username.strip().lower()
-  if len(value) < USERNAME_MIN_LENGTH or len(value) > 32:
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username length must be 3-32.")
-  if not all(char.isalnum() or char in ("_", "-") for char in value):
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username only supports letters, numbers, '_' and '-'.")
+def normalize_nickname(nickname: str) -> str:
+  value = nickname.strip()
+  if len(value) < NICKNAME_MIN_LENGTH or len(value) > 32:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Nickname length must be 1-32.")
   return value
 
 
@@ -54,8 +52,8 @@ def verify_password(password: str, stored_hash: str | None) -> bool:
   return hmac.compare_digest(encoded, parts[3])
 
 
-def find_player_by_username(session: Session, username: str) -> Player | None:
-  return session.exec(select(Player).where(Player.username == username)).first()
+def find_player_by_nickname(session: Session, nickname: str) -> Player | None:
+  return session.exec(select(Player).where(Player.nickname == nickname)).first()
 
 
 def create_token(player_id: str) -> tuple[str, int]:
@@ -104,14 +102,12 @@ def auth_response(player: Player) -> AuthSession:
 
 
 def register(session: Session, payload: AuthRegisterRequest) -> AuthSession:
-  username = normalize_username(payload.username)
+  nickname = normalize_nickname(payload.nickname)
   validate_password(payload.password)
-  if find_player_by_username(session, username) is not None:
-    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Username already exists.")
+  if find_player_by_nickname(session, nickname) is not None:
+    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Nickname already exists.")
 
-  nickname = (payload.nickname or username).strip()[:32] or username
   player = Player(
-    username=username,
     password_hash=hash_password(payload.password),
     nickname=nickname,
     avatar=None,
@@ -125,10 +121,10 @@ def register(session: Session, payload: AuthRegisterRequest) -> AuthSession:
 
 
 def login(session: Session, payload: AuthLoginRequest) -> AuthSession:
-  username = normalize_username(payload.username)
-  player = find_player_by_username(session, username)
+  nickname = normalize_nickname(payload.nickname)
+  player = find_player_by_nickname(session, nickname)
   if player is None or not verify_password(payload.password, player.password_hash):
-    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid username or password.")
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid nickname or password.")
   touch_player(player)
   session.add(player)
   session.commit()

@@ -13,7 +13,6 @@ class PlayerUpdate(SQLModel):
 
 class PlayerPublic(SQLModel):
   id: str
-  username: str
   nickname: str
   avatar: str | None
   friend_code: str
@@ -28,13 +27,12 @@ class PlayerPublic(SQLModel):
 
 
 class AuthRegisterRequest(SQLModel):
-  username: str = Field(min_length=3, max_length=32)
+  nickname: str = Field(min_length=1, max_length=32)
   password: str = Field(min_length=6, max_length=72)
-  nickname: str | None = Field(default=None, max_length=32)
 
 
 class AuthLoginRequest(SQLModel):
-  username: str = Field(min_length=3, max_length=32)
+  nickname: str = Field(min_length=1, max_length=32)
   password: str = Field(min_length=6, max_length=72)
 
 

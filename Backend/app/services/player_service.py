@@ -44,7 +44,12 @@ def update_player(session: Session, player_id: str, payload: PlayerUpdate) -> Pl
   player = get_player_or_404(session, player_id)
   data = model_data(payload, exclude_unset=True)
   if "nickname" in data and data["nickname"] is not None:
-    player.nickname = str(data["nickname"]).strip()[:32] or player.nickname
+    next_nickname = str(data["nickname"]).strip()[:32]
+    if next_nickname and next_nickname != player.nickname:
+      existing = session.exec(select(Player).where(Player.nickname == next_nickname)).first()
+      if existing is not None and existing.id != player.id:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Nickname already exists.")
+      player.nickname = next_nickname
   if "avatar" in data:
     player.avatar = data["avatar"] if data["avatar"] is None else str(data["avatar"])
   if "coin" in data and data["coin"] is not None:

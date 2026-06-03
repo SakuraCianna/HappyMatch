@@ -34,13 +34,12 @@ interface FriendAddRequest {
 }
 
 interface AuthRegisterRequest {
-  username: string;
+  nickname: string;
   password: string;
-  nickname?: string;
 }
 
 interface AuthLoginRequest {
-  username: string;
+  nickname: string;
   password: string;
 }
 
@@ -62,7 +61,7 @@ export class RemoteGameService {
     authenticated: false,
     nearbyPlayers: 0,
     regionKey: '',
-    message: '请登录账号'
+    message: '请登录玩家'
   };
 
   async init(context: common.Context): Promise<RemoteState> {
@@ -83,12 +82,12 @@ export class RemoteGameService {
       this.state.connected = true;
       this.state.authenticated = this.authToken.length > 0;
       this.state.player = this.player;
-      this.state.message = `账号 ${this.player.username}`;
+      this.state.message = `玩家 ${this.player.nickname}`;
     } else {
       this.state.connected = false;
       this.state.authenticated = false;
       this.state.player = undefined;
-      this.state.message = this.authToken.length > 0 ? '账号验证失败, 请重新登录' : '请登录账号';
+      this.state.message = this.authToken.length > 0 ? '登录状态失效, 请重新登录' : '请登录玩家';
     }
     return this.getState();
   }
@@ -201,19 +200,18 @@ export class RemoteGameService {
     return this.client.post<RemoteFriend>(`/friends/${player.id}`, payload as Object);
   }
 
-  async registerAccount(username: string, password: string, nickname: string): Promise<boolean> {
+  async registerAccount(nickname: string, password: string): Promise<boolean> {
     const payload: AuthRegisterRequest = {
-      username: username.trim(),
-      password,
-      nickname: nickname.trim().length > 0 ? nickname.trim() : username.trim()
+      nickname: nickname.trim(),
+      password
     };
     const session = await this.client.post<AuthSession>('/auth/register', payload as Object);
     return this.applyAuthSession(session);
   }
 
-  async loginAccount(username: string, password: string): Promise<boolean> {
+  async loginAccount(nickname: string, password: string): Promise<boolean> {
     const payload: AuthLoginRequest = {
-      username: username.trim(),
+      nickname: nickname.trim(),
       password
     };
     const session = await this.client.post<AuthSession>('/auth/login', payload as Object);
@@ -234,7 +232,7 @@ export class RemoteGameService {
     this.state.connected = true;
     this.state.authenticated = true;
     this.state.player = session.player;
-    this.state.message = `账号 ${session.player.username}`;
+    this.state.message = `玩家 ${session.player.nickname}`;
     await this.saveAuthToken(session.access_token);
     return true;
   }
@@ -259,7 +257,7 @@ export class RemoteGameService {
     this.state.player = undefined;
     this.state.nearbyPlayers = 0;
     this.state.regionKey = '';
-    this.state.message = '请登录账号';
+    this.state.message = '请登录玩家';
     if (!this.store) {
       return;
     }
@@ -268,7 +266,6 @@ export class RemoteGameService {
       await this.store.delete('player_id');
       await this.store.delete('friend_code');
       await this.store.delete('nickname');
-      await this.store.delete('username');
       await this.store.flush();
     } catch (_error) {
     }

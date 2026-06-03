@@ -7,7 +7,6 @@ import { remoteGameService } from '../game/remote/RemoteGameService';
 @Component
 struct AuthPage {
   @State private isRegisterMode: boolean = false;
-  @State private username: string = '';
   @State private password: string = '';
   @State private nickname: string = '';
   @State private tipText: string = '';
@@ -17,7 +16,7 @@ struct AuthPage {
     authenticated: false,
     nearbyPlayers: 0,
     regionKey: '',
-    message: '请登录账号'
+    message: '请登录玩家'
   };
 
   aboutToAppear(): void {
@@ -35,7 +34,7 @@ struct AuthPage {
       Column() {
         Row() {
           Column() {
-            Text('玩家账号')
+            Text('玩家信息')
               .fontSize(28)
               .fontWeight(FontWeight.Bold)
               .fontColor('#5C3A4A')
@@ -64,11 +63,11 @@ struct AuthPage {
         Column() {
           Row() {
             Column() {
-              Text(this.remoteState.authenticated ? '已连接云端' : '账号未登录')
+              Text(this.remoteState.authenticated ? '已连接云端' : '昵称未登录')
                 .fontSize(18)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#5C3A4A')
-              Text(this.accountHint())
+              Text(this.playerHint())
                 .fontSize(12)
                 .fontColor('#8A6250')
                 .margin({ top: 4 })
@@ -112,28 +111,15 @@ struct AuthPage {
           .width('100%')
           .margin({ top: 18 })
 
-          if (this.isRegisterMode) {
-            TextInput({ placeholder: '昵称', text: this.nickname })
-              .height(46)
-              .fontSize(15)
-              .borderRadius(23)
-              .backgroundColor('rgba(255, 255, 255, 0.78)')
-              .padding({ left: 16, right: 16 })
-              .margin({ top: 16 })
-              .onChange((value: string) => {
-                this.nickname = value;
-              })
-          }
-
-          TextInput({ placeholder: '账号, 3-32 位', text: this.username })
+          TextInput({ placeholder: '昵称', text: this.nickname })
             .height(46)
             .fontSize(15)
             .borderRadius(23)
             .backgroundColor('rgba(255, 255, 255, 0.78)')
             .padding({ left: 16, right: 16 })
-            .margin({ top: 14 })
+            .margin({ top: 16 })
             .onChange((value: string) => {
-              this.username = value;
+              this.nickname = value;
             })
 
           TextInput({ placeholder: '密码, 至少 6 位', text: this.password })
@@ -164,7 +150,7 @@ struct AuthPage {
             })
 
           if (this.remoteState.authenticated) {
-            Button('退出当前账号')
+            Button('退出当前玩家')
               .width('100%')
               .height(42)
               .fontColor('#7B5A4D')
@@ -218,54 +204,54 @@ struct AuthPage {
       return;
     }
     feedbackService.play('tap');
-    const name = this.username.trim();
-    if (name.length < 3 || this.password.length < 6) {
-      this.tipText = '账号至少 3 位, 密码至少 6 位';
+    const name = this.nickname.trim();
+    if (name.length < 1 || this.password.length < 6) {
+      this.tipText = '请输入昵称, 密码至少 6 位';
       return;
     }
     this.loading = true;
     const ok = this.isRegisterMode
-      ? await remoteGameService.registerAccount(name, this.password, this.nickname)
+      ? await remoteGameService.registerAccount(name, this.password)
       : await remoteGameService.loginAccount(name, this.password);
     this.loading = false;
     this.remoteState = remoteGameService.getState();
     if (ok) {
       this.password = '';
-      this.tipText = this.isRegisterMode ? '注册成功, 已创建云端账号' : '登录成功, 已切换到账号进度';
+      this.tipText = this.isRegisterMode ? '注册成功, 已创建云端玩家信息' : '登录成功, 已切换到玩家进度';
       return;
     }
-    this.tipText = this.isRegisterMode ? '注册失败, 账号可能已存在' : '登录失败, 请检查账号或密码';
+    this.tipText = this.isRegisterMode ? '注册失败, 昵称可能已存在' : '登录失败, 请检查昵称或密码';
   }
 
   private async logout(): Promise<void> {
     feedbackService.play('tap');
     await remoteGameService.logoutAccount();
     this.remoteState = remoteGameService.getState();
-    this.tipText = '已退出账号, 登录后才能同步云端数据';
+    this.tipText = '已退出登录, 登录后才能同步云端数据';
   }
 
   private primaryButtonText(): string {
     if (this.loading) {
       return '处理中...';
     }
-    return this.isRegisterMode ? '注册账号' : '登录';
+    return this.isRegisterMode ? '注册' : '登录';
   }
 
   private helpLine(): string {
     return this.isRegisterMode
       ? '注册后会创建好友码, 金币和云端闯关进度'
-      : '登录后会读取该账号的云端进度';
+      : '登录后会读取该昵称对应的云端进度';
   }
 
   private statusLine(): string {
     const player = this.remoteState.player;
     if (player && this.remoteState.authenticated) {
-      return `${player.nickname} · 账号 ${player.username}`;
+      return `${player.nickname} · 已登录`;
     }
-    return '请先登录或注册账号';
+    return '请先用昵称和密码登录或注册';
   }
 
-  private accountHint(): string {
+  private playerHint(): string {
     const player = this.remoteState.player;
     if (player && this.remoteState.authenticated) {
       return `好友码 ${player.friend_code} · 第 ${player.current_level} 关`;
