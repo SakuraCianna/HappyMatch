@@ -1,11 +1,11 @@
 import { common } from '@kit.AbilityKit';
 import { BoardInputMapper } from '../game/input/BoardInputMapper';
 import { cloneBoard, swapPieces } from '../game/core/BoardSnapshot';
-import { GameSession } from '../game/core/GameSession';
+import { GameSession, ResolutionStep } from '../game/core/GameSession';
 import { MatchResolver } from '../game/core/MatchResolver';
 import { SpecialResolver } from '../game/core/SpecialResolver';
 import { Board, PieceType, Position, SpecialType } from '../game/core/Types';
-import { economyService } from '../game/economy/EconomyService';
+import { EconomyProductId, economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { chapterProgressText, getLevelChapter } from '../game/levels/LevelChapters';
 import { getLevelWorldTheme, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
@@ -77,12 +77,10 @@ struct GamePage {
 
   aboutToAppear(): void {
     const context = this.appContext();
-    bootstrapProgress(context);
     feedbackService.init(context);
-    gameSettingsService.init(context);
     const params = this.getUIContext().getRouter().getParams() as Record<string, number>;
     const nextLevelId = params && params.levelId ? Number(params.levelId) : 1;
-    this.startLevel(nextLevelId);
+    this.prepareServicesAndStart(context, nextLevelId);
   }
 
   build() {
@@ -254,7 +252,7 @@ struct GamePage {
                 .fontSize(14)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#5C3A4A')
-              Text(this.toolCountLabel(this.shuffleToolCount))
+              Text(this.toolPriceLabel('shuffle'))
                 .fontSize(11)
                 .fontColor('#8A6250')
                 .margin({ top: 1 })
@@ -280,7 +278,7 @@ struct GamePage {
                 .fontSize(14)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#5C3A4A')
-              Text(this.toolCountLabel(this.hammerToolCount))
+              Text(this.toolPriceLabel('hammer'))
                 .fontSize(11)
                 .fontColor('#8A6250')
                 .margin({ top: 1 })
@@ -306,7 +304,7 @@ struct GamePage {
                 .fontSize(14)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#5C3A4A')
-              Text(this.toolCountLabel(this.brushToolCount))
+              Text(this.toolPriceLabel('brush'))
                 .fontSize(11)
                 .fontColor('#8A6250')
                 .margin({ top: 1 })
@@ -332,7 +330,7 @@ struct GamePage {
                 .fontSize(14)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#5C3A4A')
-              Text(this.toolCountLabel(this.addMovesToolCount))
+              Text(this.toolPriceLabel('add_moves'))
                 .fontSize(11)
                 .fontColor('#8A6250')
                 .margin({ top: 1 })
@@ -358,7 +356,7 @@ struct GamePage {
                 .fontSize(14)
                 .fontWeight(FontWeight.Bold)
                 .fontColor('#5C3A4A')
-              Text(this.toolCountLabel(this.undoToolCount))
+              Text(this.toolPriceLabel('undo'))
                 .fontSize(11)
                 .fontColor('#8A6250')
                 .margin({ top: 1 })
@@ -694,6 +692,13 @@ struct GamePage {
     this.draw();
   }
 
+  private async prepareServicesAndStart(context: common.Context, levelId: number): Promise<void> {
+    await bootstrapProgress(context);
+    await gameSettingsService.init(context);
+    await economyService.init(context);
+    this.startLevel(levelId);
+  }
+
   private currentTutorialTitle(): string {
     if (this.tutorialSteps.length === 0) {
       return '';
@@ -839,7 +844,7 @@ struct GamePage {
     const expectedSession = this.session;
     this.isAnimating = true;
     feedbackService.play('swap');
-    this.animateSwap(beforeBoard, first, second, 0, 1, 82, () => {
+    this.animateSwap(beforeBoard, first, second, 0, 1, 120, () => {
       const token = this.animationToken;
       setTimeout(() => {
         if (token !== this.animationToken || this.session !== expectedSession) {
@@ -863,21 +868,18 @@ struct GamePage {
       return;
     }
     const afterBoard = cloneBoard(this.session.state.board);
-    if (preview.clearPositions.length > 0) {
+    const steps = this.session.lastResolutionSteps;
+    if (steps.length > 0) {
       feedbackService.play(preview.conversionBoard ? 'special' : 'match');
       if (preview.conversionBoard && preview.convertedPositions) {
         this.animateConversion(preview.swappedBoard, preview.conversionBoard, preview.convertedPositions, () => {
-          this.animateClear(preview.conversionBoard!, preview.clearPositions, () => {
-            this.animateSettle(clearedBoard, afterBoard, () => {
-              this.finishAnimatedMove();
-            });
+          this.animateResolutionSteps(steps, 0, () => {
+            this.finishAnimatedMove();
           });
         });
       } else {
-        this.animateClear(preview.swappedBoard, preview.clearPositions, () => {
-          this.animateSettle(clearedBoard, afterBoard, () => {
-            this.finishAnimatedMove();
-          });
+        this.animateResolutionSteps(steps, 0, () => {
+          this.finishAnimatedMove();
         });
       }
     } else {
@@ -922,8 +924,8 @@ struct GamePage {
   private playRejectedMove(board: Board, first: Position, second: Position): void {
     this.isAnimating = true;
     feedbackService.play('error');
-    this.animateSwap(board, first, second, 0, 0.35, 70, () => {
-      this.animateSwap(board, first, second, 0.35, 0, 90, () => {
+    this.animateSwap(board, first, second, 0, 0.35, 90, () => {
+      this.animateSwap(board, first, second, 0.35, 0, 120, () => {
         this.isAnimating = false;
         this.draw();
       });
@@ -948,8 +950,7 @@ struct GamePage {
       this.draw();
       return;
     }
-    const afterBoard = cloneBoard(expectedSession.state.board);
-    const clearedBoard = this.createClearedBoard(bonus.convertedBoard, bonus.clearPositions);
+    const steps = expectedSession.lastResolutionSteps;
     this.isBonusResolving = true;
     this.isAnimating = true;
     this.busyTool = 'bonus';
@@ -970,14 +971,11 @@ struct GamePage {
         if (token !== this.animationToken || this.session !== expectedSession) {
           return;
         }
-        this.animateClear(bonus.convertedBoard, bonus.clearPositions, () => {
-          if (this.session !== expectedSession) {
-            return;
-          }
-          this.animateSettle(clearedBoard, afterBoard, () => {
+        this.animateResolutionSteps(steps, 0, () => {
+          if (this.session === expectedSession) {
             this.finishBonusAnimation(expectedSession);
-          }, 360);
-        }, 420);
+          }
+        }, 560, 520);
       }, 360);
     });
   }
@@ -1016,7 +1014,7 @@ struct GamePage {
         if (token === this.animationToken && this.session === expectedSession) {
           this.animateBonusConversionSequence(expectedSession, baseBoard, convertedBoard, positions, done, index + 1);
         }
-      }, 55);
+      }, 120);
     }, this.bonusConversionDuration(positions.length), 0.48);
   }
 
@@ -1036,12 +1034,12 @@ struct GamePage {
 
   private bonusConversionDuration(count: number): number {
     if (count >= 24) {
-      return 145;
+      return 210;
     }
     if (count >= 14) {
-      return 170;
+      return 240;
     }
-    return 220;
+    return 300;
   }
 
   private finishBonusAnimation(expectedSession: GameSession): void {
@@ -1068,7 +1066,14 @@ struct GamePage {
       if (token !== this.animationToken || !this.session) {
         return;
       }
+      if (!this.canAffordProduct('shuffle')) {
+        this.busyTool = '';
+        this.isAnimating = false;
+        this.draw();
+        return;
+      }
       if (this.session.useShuffleTool()) {
+        economyService.purchase('shuffle');
         this.statusText = '已重组';
         this.syncState();
       }
@@ -1085,7 +1090,12 @@ struct GamePage {
     }
     this.busyTool = 'undo';
     feedbackService.play('tool');
+    if (!this.canAffordProduct('undo')) {
+      this.busyTool = '';
+      return;
+    }
     if (this.session.useUndoTool()) {
+      economyService.purchase('undo');
       this.activeTool = '';
       this.showResult = false;
       this.resultSaved = false;
@@ -1103,7 +1113,12 @@ struct GamePage {
     this.activeTool = '';
     this.busyTool = 'addMoves';
     feedbackService.play('tool');
+    if (!this.canAffordProduct('add_moves')) {
+      this.busyTool = '';
+      return;
+    }
     if (this.session.useAddMovesTool(3)) {
+      economyService.purchase('add_moves');
       this.statusText = '已增加 3 步';
       this.syncState();
       this.draw();
@@ -1132,6 +1147,10 @@ struct GamePage {
     const expectedSession = this.session;
     const tool = this.activeTool;
     if (!this.canApplyTargetTool(tool, position)) {
+      return;
+    }
+    const productId = this.productForTargetTool(tool);
+    if (productId && !this.canAffordProduct(productId)) {
       return;
     }
     const beforeBoard = cloneBoard(this.session.state.board);
@@ -1188,6 +1207,11 @@ struct GamePage {
       return;
     }
     let used = false;
+    const productId = this.productForTargetTool(tool);
+    if (productId && !this.canAffordProduct(productId)) {
+      this.finishToolAnimation();
+      return;
+    }
     if (tool === 'hammer') {
       used = this.session.useHammerTool(position);
     } else if (tool === 'brush') {
@@ -1197,11 +1221,13 @@ struct GamePage {
       this.finishToolAnimation();
       return;
     }
+    if (productId) {
+      economyService.purchase(productId);
+    }
     feedbackService.play(tool === 'hammer' ? 'match' : 'tool');
-    const afterBoard = cloneBoard(this.session.state.board);
-    if (tool === 'hammer') {
-      const clearedBoard = this.createClearedBoard(beforeBoard, clearPositions);
-      this.animateSettle(clearedBoard, afterBoard, () => {
+    const steps = this.session.lastResolutionSteps;
+    if (steps.length > 0) {
+      this.animateResolutionSteps(steps, 0, () => {
         this.finishToolAnimation();
       });
       return;
@@ -1243,6 +1269,31 @@ struct GamePage {
     return `x${count}`;
   }
 
+  private toolPriceLabel(productId: EconomyProductId): string {
+    return `${economyService.getProduct(productId).price}币`;
+  }
+
+  private canAffordProduct(productId: EconomyProductId): boolean {
+    const product = economyService.getProduct(productId);
+    if (economyService.canPurchase(productId)) {
+      return true;
+    }
+    this.coinBalance = economyService.getWallet().coins;
+    this.statusText = `金币不足：${product.title}需要 ${product.price} 金币`;
+    feedbackService.play('error');
+    return false;
+  }
+
+  private productForTargetTool(tool: string): EconomyProductId | undefined {
+    if (tool === 'hammer') {
+      return 'hammer';
+    }
+    if (tool === 'brush') {
+      return 'brush';
+    }
+    return undefined;
+  }
+
   private canUseBrushColor(type: PieceType): boolean {
     const level = LEVELS[this.levelId - 1];
     return level.board.pieceTypes.indexOf(type) >= 0;
@@ -1275,7 +1326,7 @@ struct GamePage {
     }, done);
   }
 
-  private animateClear(board: Board, positions: Position[], done: () => void, durationMs: number = 110): void {
+  private animateClear(board: Board, positions: Position[], done: () => void, durationMs: number = 260): void {
     this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects: PieceRenderEffect[] = [];
@@ -1320,7 +1371,7 @@ struct GamePage {
   }
 
   private animateToolPulse(board: Board, position: Position, done: () => void): void {
-    this.runAnimation(88, (progress: number) => {
+    this.runAnimation(160, (progress: number) => {
       const eased = this.easeInOut(progress);
       const pulse = progress < 0.5 ? eased : 1 - eased;
       this.drawBoardSnapshot(board, {
@@ -1339,7 +1390,7 @@ struct GamePage {
     }, done);
   }
 
-  private animateSettle(fromBoard: Board, toBoard: Board, done: () => void, durationMs: number = 190): void {
+  private animateSettle(fromBoard: Board, toBoard: Board, done: () => void, durationMs: number = 460): void {
     const layout = this.layoutForBoard(toBoard);
     const motions = BoardAnimationPlanner.planFallEffects(fromBoard, toBoard, layout.tileSize);
     this.runAnimation(durationMs, (progress: number) => {
@@ -1347,6 +1398,35 @@ struct GamePage {
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
       this.drawBoardSnapshot(toBoard, { pieceEffects: effects, fastMode: true });
     }, done);
+  }
+
+  private animateResolutionSteps(
+    steps: ResolutionStep[],
+    index: number,
+    done: () => void,
+    clearDurationMs: number = 260,
+    settleDurationMs: number = 460
+  ): void {
+    if (index >= steps.length) {
+      done();
+      return;
+    }
+    const step = steps[index];
+    if (step.clearPositions.length === 0) {
+      this.animateResolutionSteps(steps, index + 1, done, clearDurationMs, settleDurationMs);
+      return;
+    }
+    const clearedBoard = this.createClearedBoard(step.beforeBoard, step.clearPositions);
+    this.animateClear(step.beforeBoard, step.clearPositions, () => {
+      this.animateSettle(clearedBoard, step.afterBoard, () => {
+        if (index + 1 < steps.length) {
+          feedbackService.play('drop');
+        }
+        setTimeout(() => {
+          this.animateResolutionSteps(steps, index + 1, done, clearDurationMs, settleDurationMs);
+        }, 150);
+      }, settleDurationMs);
+    }, clearDurationMs);
   }
 
   private runAnimation(durationMs: number, frame: (progress: number) => void, done: () => void): void {
@@ -1499,14 +1579,11 @@ struct GamePage {
     const finalScore = this.score;
     const finalMovesLeft = this.movesLeft;
     const targetScore = this.scoreGoalValue();
+    const earnedStars = progressService.calculateStars(won, finalScore, targetScore);
     const showContinueOffer = !won && finalScore < targetScore;
     this.resultWon = won;
     this.showContinueOffer = showContinueOffer;
-    if (won) {
-      economyService.addCoins(60 + finalMovesLeft * 2);
-      this.coinBalance = economyService.getWallet().coins;
-    }
-    const progress = await progressService.recordResult({
+    await progressService.recordResult({
       levelId: finishedLevelId,
       won,
       score: finalScore,
@@ -1516,19 +1593,23 @@ struct GamePage {
     if (this.session !== finishedSession || this.levelId !== finishedLevelId) {
       return;
     }
+    if (won && earnedStars > 0) {
+      economyService.addCoins(earnedStars);
+      this.coinBalance = economyService.getWallet().coins;
+    }
     this.uploadRemoteResult(
       finishedLevelId,
       finalScore,
-      progress.stars,
+      earnedStars,
       finishedSession.state.lastCascadeCount,
       finalMovesLeft,
       won ? Math.min(100, finishedLevelId + 1) : finishedLevelId
     );
     feedbackService.play(won ? 'win' : 'lose');
     this.resultTitle = won ? '通关成功' : '挑战失败';
-    this.resultStars = won ? formatStars(progress.stars) : '☆☆☆';
+    this.resultStars = won ? formatStars(earnedStars) : '☆☆☆';
     this.resultMessage = won
-      ? `得分 ${finalScore}，剩余 ${finalMovesLeft} 步`
+      ? `得分 ${finalScore}，${earnedStars} 星通关，金币 +${earnedStars}`
       : showContinueOffer
         ? `基础分未达标，是否花费 20 个游戏代币买一个“+5步”？`
         : `得分 ${finalScore}，再试一次就差不多了`;

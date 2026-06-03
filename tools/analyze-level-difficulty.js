@@ -46,7 +46,7 @@ const rows = levels.map(level => {
     problems.push(`Level ${level.id} has ${visibleMechanics.size} visible mechanic types.`);
   }
   const score = scoreGoal(level);
-  if (score > 7800) {
+  if (score > 8800) {
     problems.push(`Level ${level.id} score goal ${score} may be too high.`);
   }
   return {

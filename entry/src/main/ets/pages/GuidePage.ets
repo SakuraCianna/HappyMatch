@@ -1,6 +1,7 @@
 import { common } from '@kit.AbilityKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { MechanicGuideCategory, MechanicGuideItem, guideItemsByCategory } from '../game/mechanics/MechanicGuide';
+import { CanvasRenderer, GameCanvasContext } from '../game/render/CanvasRenderer';
 
 @Entry
 @Component
@@ -98,16 +99,12 @@ struct GuidePage {
   GuideCard(item: MechanicGuideItem) {
     Row() {
       Stack() {
-        Text(item.symbol)
-          .fontSize(item.symbol.length > 3 ? 10 : 13)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#FFFFFF')
-          .textAlign(TextAlign.Center)
+        this.GuideIcon(item)
       }
       .width(48)
       .height(48)
       .borderRadius(24)
-      .backgroundColor(item.accent)
+      .backgroundColor('rgba(255, 255, 255, 0.18)')
       .border({ width: 2, color: 'rgba(255, 255, 255, 0.86)' })
       .shadow({ radius: 10, color: 'rgba(92, 58, 74, 0.14)', offsetX: 0, offsetY: 4 })
 
@@ -146,7 +143,65 @@ struct GuidePage {
     .border({ width: { bottom: 1 }, color: 'rgba(92, 58, 74, 0.07)' })
   }
 
+  @Builder
+  GuideIcon(item: MechanicGuideItem) {
+    MechanicCanvasIcon({ itemId: item.id })
+  }
+
   private appContext(): common.Context {
     return this.getUIContext().getHostContext() as common.Context;
+  }
+}
+
+@Component
+struct MechanicCanvasIcon {
+  itemId: string = '';
+  private settings: RenderingContextSettings = new RenderingContextSettings(true);
+  private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings);
+  private renderer: CanvasRenderer = new CanvasRenderer();
+
+  build() {
+    Canvas(this.context)
+      .width(48)
+      .height(48)
+      .onReady(() => {
+        this.drawIcon();
+      })
+  }
+
+  private drawIcon(): void {
+    if (this.itemId === 'row_clear') {
+      this.renderer.drawGuidePiece(this.context as GameCanvasContext, { id: 'guide_row', type: 'red', special: 'row_clear' }, 48, 48);
+      return;
+    }
+    if (this.itemId === 'col_clear') {
+      this.renderer.drawGuidePiece(this.context as GameCanvasContext, { id: 'guide_col', type: 'blue', special: 'col_clear' }, 48, 48);
+      return;
+    }
+    if (this.itemId === 'bomb') {
+      this.renderer.drawGuidePiece(this.context as GameCanvasContext, { id: 'guide_bomb', type: 'orange', special: 'bomb' }, 48, 48);
+      return;
+    }
+    if (this.itemId === 'rainbow') {
+      this.renderer.drawGuidePiece(this.context as GameCanvasContext, { id: 'guide_rainbow', type: 'purple', special: 'rainbow' }, 48, 48);
+      return;
+    }
+    if (this.itemId === 'ice') {
+      this.renderer.drawGuideBlocker(this.context as GameCanvasContext, 'ice', 48, 48, 2);
+      return;
+    }
+    if (this.itemId === 'chain') {
+      this.renderer.drawGuideBlocker(this.context as GameCanvasContext, 'chain', 48, 48);
+      return;
+    }
+    if (this.itemId === 'marshmallow') {
+      this.renderer.drawGuideBlocker(this.context as GameCanvasContext, 'marshmallow', 48, 48);
+      return;
+    }
+    if (this.itemId === 'portal') {
+      this.renderer.drawGuideBlocker(this.context as GameCanvasContext, 'portal', 48, 48);
+      return;
+    }
+    this.renderer.drawGuidePiece(this.context as GameCanvasContext, { id: 'guide_normal', type: 'green', special: 'none' }, 48, 48);
   }
 }

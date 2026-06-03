@@ -90,6 +90,17 @@ const PALETTE: Record<PieceType, PiecePalette> = {
 };
 
 export class CanvasRenderer {
+  drawGuidePiece(ctx: GameCanvasContext, piece: Piece, width: number, height: number): void {
+    ctx.clearRect(0, 0, width, height);
+    const size = Math.min(width, height) * 0.72;
+    this.drawPiece(ctx, piece, width / 2, height / 2, size, 1, false);
+  }
+
+  drawGuideBlocker(ctx: GameCanvasContext, type: string, width: number, height: number, hp: number = 1): void {
+    ctx.clearRect(0, 0, width, height);
+    this.drawBlocker(ctx, type, width / 2, height / 2, Math.min(width, height) * 0.74, hp);
+  }
+
   draw(ctx: GameCanvasContext, board: Board, options: RenderOptions): void {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
     const effectLookup = options.animation?.pieceEffects ?

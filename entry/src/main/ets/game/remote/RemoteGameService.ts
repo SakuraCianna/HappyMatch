@@ -8,17 +8,12 @@ import {
   RemoteFriend,
   RemotePlayer,
   RemoteState,
+  AuthSession,
   WorldPopulation
 } from './RemoteModels';
 
 const STORE_NAME = 'happy_match_remote';
-const KEY_PLAYER_ID = 'player_id';
-const KEY_FRIEND_CODE = 'friend_code';
-const KEY_NICKNAME = 'nickname';
-
-interface CreatePlayerRequest {
-  nickname: string;
-}
+const KEY_AUTH_TOKEN = 'auth_token';
 
 interface UpdatePlayerRequest {
   nickname?: string;
@@ -38,6 +33,17 @@ interface FriendAddRequest {
   friend_code: string;
 }
 
+interface AuthRegisterRequest {
+  username: string;
+  password: string;
+  nickname?: string;
+}
+
+interface AuthLoginRequest {
+  username: string;
+  password: string;
+}
+
 interface PresenceRequest {
   player_id: string;
   world_id: number;
@@ -49,32 +55,40 @@ export class RemoteGameService {
   private client: BackendHttpClient = new BackendHttpClient();
   private store?: preferences.Preferences;
   private player?: RemotePlayer;
+  private authToken: string = '';
   private location?: LocationSummary;
   private state: RemoteState = {
     connected: false,
+    authenticated: false,
     nearbyPlayers: 0,
     regionKey: '',
-    message: '云端未连接'
+    message: '请登录账号'
   };
 
   async init(context: common.Context): Promise<RemoteState> {
     await this.ensureStore(context);
-    if (!this.player) {
-      const savedPlayerId = await this.savedString(KEY_PLAYER_ID);
-      if (savedPlayerId.length > 0) {
-        const player = await this.client.get<RemotePlayer>(`/players/${savedPlayerId}`);
-        if (player) {
-          this.player = player;
-        }
-      }
+    if (this.authToken.length === 0) {
+      this.authToken = await this.savedString(KEY_AUTH_TOKEN);
+      this.client.setAuthToken(this.authToken);
     }
-    if (!this.player) {
-      await this.createGuestPlayer();
+    if (!this.player && this.authToken.length > 0) {
+      const player = await this.client.get<RemotePlayer>('/auth/me');
+      if (player) {
+        this.player = player;
+      } else {
+        await this.clearSession();
+      }
     }
     if (this.player) {
       this.state.connected = true;
+      this.state.authenticated = this.authToken.length > 0;
       this.state.player = this.player;
-      this.state.message = `云端 ${this.player.friend_code}`;
+      this.state.message = `账号 ${this.player.username}`;
+    } else {
+      this.state.connected = false;
+      this.state.authenticated = false;
+      this.state.player = undefined;
+      this.state.message = this.authToken.length > 0 ? '账号验证失败, 请重新登录' : '请登录账号';
     }
     return this.getState();
   }
@@ -83,6 +97,7 @@ export class RemoteGameService {
     return {
       connected: this.state.connected,
       player: this.player,
+      authenticated: this.state.authenticated,
       nearbyPlayers: this.state.nearbyPlayers,
       regionKey: this.state.regionKey,
       message: this.state.message
@@ -98,10 +113,10 @@ export class RemoteGameService {
       current_level: Math.max(1, Math.min(100, currentLevel)),
       coin: Math.max(0, coins)
     };
-    const updated = await this.client.patch<RemotePlayer>(`/players/${player.id}`, payload as Object);
+    const updated = await this.client.put<RemotePlayer>(`/players/${player.id}`, payload as Object);
     if (updated) {
       this.player = updated;
-      await this.savePlayer(updated);
+      this.state.player = updated;
     }
   }
 
@@ -186,33 +201,74 @@ export class RemoteGameService {
     return this.client.post<RemoteFriend>(`/friends/${player.id}`, payload as Object);
   }
 
-  private async createGuestPlayer(): Promise<void> {
-    const nickname = await this.savedString(KEY_NICKNAME);
-    const payload: CreatePlayerRequest = {
-      nickname: nickname.length > 0 ? nickname : '糖果玩家'
+  async registerAccount(username: string, password: string, nickname: string): Promise<boolean> {
+    const payload: AuthRegisterRequest = {
+      username: username.trim(),
+      password,
+      nickname: nickname.trim().length > 0 ? nickname.trim() : username.trim()
     };
-    const player = await this.client.post<RemotePlayer>('/players/guest', payload as Object);
-    if (player) {
-      this.player = player;
-      await this.savePlayer(player);
-    } else {
-      this.state = {
-        connected: false,
-        nearbyPlayers: 0,
-        regionKey: '',
-        message: '后端未启动'
-      };
-    }
+    const session = await this.client.post<AuthSession>('/auth/register', payload as Object);
+    return this.applyAuthSession(session);
   }
 
-  private async savePlayer(player: RemotePlayer): Promise<void> {
+  async loginAccount(username: string, password: string): Promise<boolean> {
+    const payload: AuthLoginRequest = {
+      username: username.trim(),
+      password
+    };
+    const session = await this.client.post<AuthSession>('/auth/login', payload as Object);
+    return this.applyAuthSession(session);
+  }
+
+  async logoutAccount(): Promise<void> {
+    await this.clearSession();
+  }
+
+  private async applyAuthSession(session: AuthSession | undefined): Promise<boolean> {
+    if (!session) {
+      return false;
+    }
+    this.authToken = session.access_token;
+    this.client.setAuthToken(this.authToken);
+    this.player = session.player;
+    this.state.connected = true;
+    this.state.authenticated = true;
+    this.state.player = session.player;
+    this.state.message = `账号 ${session.player.username}`;
+    await this.saveAuthToken(session.access_token);
+    return true;
+  }
+
+  private async saveAuthToken(token: string): Promise<void> {
     if (!this.store) {
       return;
     }
     try {
-      await this.store.put(KEY_PLAYER_ID, player.id);
-      await this.store.put(KEY_FRIEND_CODE, player.friend_code);
-      await this.store.put(KEY_NICKNAME, player.nickname);
+      await this.store.put(KEY_AUTH_TOKEN, token);
+      await this.store.flush();
+    } catch (_error) {
+    }
+  }
+
+  private async clearSession(): Promise<void> {
+    this.authToken = '';
+    this.client.setAuthToken('');
+    this.player = undefined;
+    this.state.connected = false;
+    this.state.authenticated = false;
+    this.state.player = undefined;
+    this.state.nearbyPlayers = 0;
+    this.state.regionKey = '';
+    this.state.message = '请登录账号';
+    if (!this.store) {
+      return;
+    }
+    try {
+      await this.store.delete(KEY_AUTH_TOKEN);
+      await this.store.delete('player_id');
+      await this.store.delete('friend_code');
+      await this.store.delete('nickname');
+      await this.store.delete('username');
       await this.store.flush();
     } catch (_error) {
     }

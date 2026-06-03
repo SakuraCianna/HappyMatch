@@ -379,7 +379,7 @@ export default function gameCoreTest() {
         } else if (baseScore >= 3600) {
           scale = 0.74;
         }
-        const expectedScore = Math.max(450, Math.round(baseScore * scale / 10) * 10);
+        const expectedScore = Math.max(500, Math.round(baseScore * scale * 1.15 / 10) * 10);
         expect(scoreGoal?.count).assertEqual(expectedScore);
       });
     });
@@ -444,12 +444,12 @@ export default function gameCoreTest() {
       board.tiles[0][0].blocker = { type: 'portal', hp: 1, portalId: 'entry', targetPortalId: 'exit' };
       board.tiles[2][2].blocker = { type: 'portal', hp: 1, portalId: 'exit' };
       const entryId = board.tiles[0][0].piece!.id;
-      const exitId = board.tiles[2][2].piece!.id;
+      board.tiles[2][2].piece = undefined;
 
       const moves = PortalResolver.apply(board);
 
       expect(moves.length).assertEqual(1);
-      expect(board.tiles[0][0].piece!.id).assertEqual(exitId);
+      expect(Boolean(board.tiles[0][0].piece)).assertFalse();
       expect(board.tiles[2][2].piece!.id).assertEqual(entryId);
     });
 

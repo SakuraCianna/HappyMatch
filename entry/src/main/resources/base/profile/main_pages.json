@@ -4,6 +4,7 @@
     "pages/LevelSelectPage",
     "pages/GamePage",
     "pages/SettingsPage",
+    "pages/AuthPage",
     "pages/AchievementsPage",
     "pages/GuidePage",
     "pages/SocialPage"

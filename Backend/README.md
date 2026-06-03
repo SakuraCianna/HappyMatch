@@ -32,7 +32,9 @@ http://127.0.0.1:8000/docs
 
 ```text
 GET  /health
-POST /api/players/guest
+POST /api/auth/register
+POST /api/auth/login
+GET  /api/auth/me
 GET  /api/players/{player_id}
 PATCH /api/players/{player_id}
 PUT  /api/players/{player_id}
@@ -54,11 +56,12 @@ GET  /api/map/location/regeo
 重要配置写在 `Backend/.env`，提交到仓库的是 `Backend/.env.example`。
 
 - `DATABASE_URL`: SQLite 数据库地址。
-- `DEFAULT_PLAYER_COINS`: 新游客玩家默认金币。
+- `DEFAULT_PLAYER_COINS`: 新注册玩家默认金币。
 - `FRIEND_CODE_LENGTH`: 好友码长度。
 - `NEARBY_ACTIVE_SECONDS`: 地图在线人数统计窗口。
 - `NEARBY_GRID_PRECISION`: 经纬度粗粒度网格精度。
 - `SECRET_KEY`: 后续接入签名或 token 时使用，开发环境先保留占位值。
+- `AUTH_TOKEN_EXPIRE_SECONDS`: 登录 token 有效期，默认 30 天。
 - `AMAP_WEB_SERVICE_KEY`: 高德开放平台 Web 服务 API Key。
 - `AMAP_WEB_SERVICE_BASE_URL`: 高德 Web 服务 API 地址，默认 `https://restapi.amap.com`。
 - `AMAP_FALLBACK_REGION_KEY`: 未配置高德 Key 或定位失败时使用的区域键。

@@ -60,8 +60,31 @@ export class GravityResolver {
       }
     }
 
-    moved += PortalResolver.apply(board).length;
+    const portalMoves = PortalResolver.apply(board).length;
+    moved += portalMoves;
+    if (portalMoves > 0) {
+      spawned += GravityResolver.refillEmptyTiles(board, pieceTypes, random, `${idPrefix}_portal`);
+    }
     return { moved, spawned };
+  }
+
+  private static refillEmptyTiles(board: Board, pieceTypes: PieceType[], random: SeededRandom, idPrefix: string): number {
+    let spawned = 0;
+    for (let row = 0; row < board.rows; row++) {
+      for (let col = 0; col < board.cols; col++) {
+        const tile = board.tiles[row][col];
+        if (tile.piece || GravityResolver.isGravityBarrier(board, row, col)) {
+          continue;
+        }
+        tile.piece = {
+          id: `${idPrefix}_${col}_${row}_${spawned}`,
+          type: random.pick(pieceTypes),
+          special: 'none'
+        };
+        spawned++;
+      }
+    }
+    return spawned;
   }
 
   private static isGravityBarrier(board: Board, row: number, col: number): boolean {

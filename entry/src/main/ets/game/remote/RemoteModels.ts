@@ -1,5 +1,6 @@
 export interface RemotePlayer {
   id: string;
+  username?: string;
   nickname: string;
   avatar?: string;
   friend_code: string;
@@ -63,7 +64,15 @@ export interface LocationSummary {
 export interface RemoteState {
   connected: boolean;
   player?: RemotePlayer;
+  authenticated: boolean;
   nearbyPlayers: number;
   regionKey: string;
   message: string;
+}
+
+export interface AuthSession {
+  access_token: string;
+  token_type: string;
+  expires_at: number;
+  player: RemotePlayer;
 }

@@ -28,7 +28,8 @@ def count_active(
   session: Session,
   region_key: str | None = None,
   world_id: int | None = None,
-  level_id: int | None = None
+  level_id: int | None = None,
+  exclude_player_id: str | None = None
 ) -> int:
   statement = select(PlayerPresence).where(PlayerPresence.last_seen_at >= active_cutoff())
   if region_key:
@@ -37,6 +38,8 @@ def count_active(
     statement = statement.where(PlayerPresence.world_id == world_id)
   if level_id is not None:
     statement = statement.where(PlayerPresence.level_id == level_id)
+  if exclude_player_id is not None:
+    statement = statement.where(PlayerPresence.player_id != exclude_player_id)
   return len(session.exec(statement).all())
 
 
@@ -44,14 +47,15 @@ def nearby_summary(
   session: Session,
   region_key: str | None = None,
   world_id: int | None = None,
-  level_id: int | None = None
+  level_id: int | None = None,
+  exclude_player_id: str | None = None
 ) -> NearbySummary:
   normalized_region_key = region_key.strip().lower() if region_key else None
   return NearbySummary(
     region_key=normalized_region_key,
     world_id=world_id,
     level_id=level_id,
-    active_players=count_active(session, normalized_region_key, world_id, level_id),
+    active_players=count_active(session, normalized_region_key, world_id, level_id, exclude_player_id),
     active_window_seconds=settings.nearby_active_seconds
   )
 
@@ -78,7 +82,7 @@ def update_presence(session: Session, payload: PresenceUpdate) -> NearbySummary:
   session.add(player)
   session.add(presence)
   session.commit()
-  return nearby_summary(session, region_key, payload.world_id, None)
+  return nearby_summary(session, region_key, payload.world_id, None, payload.player_id)
 
 
 def world_population(session: Session) -> list[WorldPopulation]:

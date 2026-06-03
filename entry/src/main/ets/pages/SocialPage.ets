@@ -8,9 +8,10 @@ import { remoteGameService } from '../game/remote/RemoteGameService';
 struct SocialPage {
   @State private remoteState: RemoteState = {
     connected: false,
+    authenticated: false,
     nearbyPlayers: 0,
     regionKey: '',
-    message: '云端未连接'
+    message: '请登录账号'
   };
   @State private friends: RemoteFriend[] = [];
   @State private leaderboard: LeaderboardEntry[] = [];
@@ -47,7 +48,7 @@ struct SocialPage {
             .height(36)
             .borderRadius(18)
             .fontColor('#5C3A4A')
-            .backgroundColor('rgba(255, 255, 255, 0.74)')
+            .backgroundColor('rgba(255, 255, 255, 0.76)')
             .onClick(() => {
               feedbackService.play('tap');
               this.getUIContext().getRouter().back();
@@ -80,32 +81,39 @@ struct SocialPage {
   PlayerCard() {
     Column() {
       Row() {
-        Text(this.remoteState.connected ? '云端玩家' : '离线模式')
-          .fontSize(18)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#5C3A4A')
-        Blank()
+        Column() {
+          Text(this.remoteState.authenticated ? '云端玩家' : '未登录')
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#5C3A4A')
+          Text(this.playerLine())
+            .fontSize(12)
+            .fontColor('#7B5A4D')
+            .margin({ top: 5 })
+        }
+        .alignItems(HorizontalAlign.Start)
+        .layoutWeight(1)
         Text(`附近 ${this.remoteState.nearbyPlayers} 人`)
           .fontSize(12)
           .fontColor('#F27A91')
-          .padding({ left: 10, right: 10, top: 4, bottom: 4 })
-          .borderRadius(12)
-          .backgroundColor('rgba(255, 255, 255, 0.64)')
+          .padding({ left: 10, right: 10, top: 5, bottom: 5 })
+          .borderRadius(13)
+          .backgroundColor('rgba(255, 255, 255, 0.66)')
       }
       .width('100%')
-      Text(this.playerLine())
-        .fontSize(13)
-        .fontColor('#7B5A4D')
-        .margin({ top: 8 })
-      Text(this.regionLine())
-        .fontSize(12)
-        .fontColor('#8A6250')
-        .margin({ top: 5 })
+
+      Row() {
+        this.SocialStat('好友', `${this.friends.length}`)
+        this.SocialStat('排行', `${this.leaderboard.length}`)
+        this.SocialStat('区域', this.regionShortText())
+      }
+      .width('100%')
+      .margin({ top: 14 })
     }
     .width('100%')
     .padding(18)
     .borderRadius(22)
-    .backgroundColor('rgba(255, 253, 244, 0.80)')
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
     .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
     .margin({ bottom: 14 })
   }
@@ -120,20 +128,22 @@ struct SocialPage {
         .width('100%')
       Row() {
         TextInput({ placeholder: '输入好友码', text: this.friendCodeInput })
-          .height(40)
+          .height(42)
           .fontSize(14)
-          .borderRadius(20)
-          .backgroundColor('rgba(255, 255, 255, 0.72)')
+          .borderRadius(21)
+          .backgroundColor('rgba(255, 255, 255, 0.74)')
+          .padding({ left: 14, right: 14 })
           .onChange((value: string) => {
             this.friendCodeInput = value;
           })
           .layoutWeight(1)
         Button('添加')
-          .height(40)
-          .borderRadius(20)
+          .height(42)
+          .borderRadius(21)
           .fontColor('#FFFFFF')
-          .backgroundColor('#F27A91')
+          .backgroundColor(this.remoteState.authenticated ? '#F27A91' : '#BFAFB5')
           .margin({ left: 10 })
+          .enabled(this.remoteState.authenticated)
           .onClick(() => {
             this.addFriend();
           })
@@ -151,7 +161,7 @@ struct SocialPage {
     .width('100%')
     .padding(18)
     .borderRadius(22)
-    .backgroundColor('rgba(255, 253, 244, 0.80)')
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
     .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
     .margin({ bottom: 14 })
   }
@@ -165,7 +175,7 @@ struct SocialPage {
         .fontColor('#5C3A4A')
         .width('100%')
       if (this.friends.length === 0) {
-        Text('还没有好友，先用好友码添加一个。')
+        Text(this.remoteState.authenticated ? '还没有好友, 用好友码添加一个。' : '登录后可以查看好友所在关卡。')
           .fontSize(12)
           .fontColor('#8A6250')
           .margin({ top: 10 })
@@ -178,7 +188,7 @@ struct SocialPage {
     .width('100%')
     .padding(18)
     .borderRadius(22)
-    .backgroundColor('rgba(255, 253, 244, 0.80)')
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
     .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
     .margin({ bottom: 14 })
   }
@@ -191,34 +201,41 @@ struct SocialPage {
         .fontWeight(FontWeight.Bold)
         .fontColor('#5C3A4A')
         .width('100%')
-      ForEach(this.leaderboard.slice(0, 8), (entry: LeaderboardEntry) => {
-        Row() {
-          Text(`${entry.rank}`)
-            .fontSize(13)
-            .fontWeight(FontWeight.Bold)
-            .fontColor('#FFFFFF')
-            .textAlign(TextAlign.Center)
-            .width(28)
-            .height(28)
-            .borderRadius(14)
-            .backgroundColor(entry.rank <= 3 ? '#F2B84B' : '#69B8EA')
-          Text(entry.nickname)
-            .fontSize(14)
-            .fontColor('#5C3A4A')
-            .margin({ left: 10 })
-            .layoutWeight(1)
-          Text(`${entry.total_stars} 星`)
-            .fontSize(12)
-            .fontColor('#8A6250')
-        }
-        .width('100%')
-        .padding({ top: 8, bottom: 8 })
-      }, (entry: LeaderboardEntry) => entry.player_id)
+      if (this.leaderboard.length === 0) {
+        Text('暂无排行数据。')
+          .fontSize(12)
+          .fontColor('#8A6250')
+          .margin({ top: 10 })
+      } else {
+        ForEach(this.leaderboard.slice(0, 8), (entry: LeaderboardEntry) => {
+          Row() {
+            Text(`${entry.rank}`)
+              .fontSize(13)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#FFFFFF')
+              .textAlign(TextAlign.Center)
+              .width(28)
+              .height(28)
+              .borderRadius(14)
+              .backgroundColor(entry.rank <= 3 ? '#F2B84B' : '#69B8EA')
+            Text(entry.nickname)
+              .fontSize(14)
+              .fontColor('#5C3A4A')
+              .margin({ left: 10 })
+              .layoutWeight(1)
+            Text(`${entry.total_stars} 星`)
+              .fontSize(12)
+              .fontColor('#8A6250')
+          }
+          .width('100%')
+          .padding({ top: 8, bottom: 8 })
+        }, (entry: LeaderboardEntry) => entry.player_id)
+      }
     }
     .width('100%')
     .padding(18)
     .borderRadius(22)
-    .backgroundColor('rgba(255, 253, 244, 0.80)')
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
     .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
   }
 
@@ -246,15 +263,40 @@ struct SocialPage {
     .border({ width: { bottom: 1 }, color: 'rgba(92, 58, 74, 0.07)' })
   }
 
+  @Builder
+  SocialStat(label: string, value: string) {
+    Column() {
+      Text(value)
+        .fontSize(15)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#5C3A4A')
+      Text(label)
+        .fontSize(10)
+        .fontColor('#8A6250')
+        .margin({ top: 2 })
+    }
+    .height(48)
+    .layoutWeight(1)
+    .alignItems(HorizontalAlign.Center)
+    .justifyContent(FlexAlign.Center)
+    .borderRadius(16)
+    .backgroundColor('rgba(255, 255, 255, 0.56)')
+    .margin({ right: 8 })
+  }
+
   private async refreshSocial(): Promise<void> {
     this.remoteState = await remoteGameService.init(this.appContext());
+    this.leaderboard = await remoteGameService.listLeaderboard('stars');
+    if (!this.remoteState.player) {
+      this.friends = [];
+      return;
+    }
     await remoteGameService.refreshLocation();
-    const nearby = await remoteGameService.updatePresence(1, this.remoteState.player?.current_level ?? 1);
+    const nearby = await remoteGameService.updatePresence(1, this.remoteState.player.current_level);
     if (nearby) {
       this.remoteState = remoteGameService.getState();
     }
     this.friends = await remoteGameService.listFriends();
-    this.leaderboard = await remoteGameService.listLeaderboard('stars');
   }
 
   private async addFriend(): Promise<void> {
@@ -266,22 +308,25 @@ struct SocialPage {
       this.friends = await remoteGameService.listFriends();
       return;
     }
-    this.tipText = '添加失败，请检查好友码或后端连接。';
+    this.tipText = '添加失败, 请检查好友码或后端连接。';
   }
 
   private playerLine(): string {
     const player = this.remoteState.player;
     if (!player) {
-      return '启动 Backend 后会自动创建云端游客玩家。';
+      return '请先在账号页登录或注册。';
     }
     return `${player.nickname} · 好友码 ${player.friend_code} · 第 ${player.current_level} 关`;
   }
 
-  private regionLine(): string {
+  private regionShortText(): string {
     if (this.remoteState.regionKey.length === 0) {
-      return '地图区域：等待高德定位';
+      return '等待';
     }
-    return `地图区域：${this.remoteState.regionKey}`;
+    if (this.remoteState.regionKey.length > 8) {
+      return this.remoteState.regionKey.substring(0, 8);
+    }
+    return this.remoteState.regionKey;
   }
 
   private appContext(): common.Context {

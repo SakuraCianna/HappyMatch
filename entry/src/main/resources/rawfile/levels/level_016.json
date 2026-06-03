@@ -17,7 +17,7 @@
   "goals": [
     {
       "type": "score",
-      "count": 2000
+      "count": 2300
     },
     {
       "type": "collect_piece",

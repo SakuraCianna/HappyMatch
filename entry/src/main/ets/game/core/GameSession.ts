@@ -47,11 +47,18 @@ export interface RemainingMoveBonus {
   clearPositions: Position[];
 }
 
+export interface ResolutionStep {
+  beforeBoard: Board;
+  clearPositions: Position[];
+  afterBoard: Board;
+}
+
 export class GameSession {
   private random: SeededRandom;
   private pieceTypes: PieceType[];
   private history: GameHistoryEntry[] = [];
   private refillSequence: number = 0;
+  lastResolutionSteps: ResolutionStep[] = [];
   state: GameState;
 
   constructor(level: LevelConfig, seed: number) {
@@ -121,6 +128,7 @@ export class GameSession {
     }
 
     this.saveHistory();
+    this.lastResolutionSteps = [];
     this.state.lastCascadeCount = 0;
     if (SpecialResolver.isDirectSpecialSwap(this.state.board, first, second)) {
       this.swap(first, second);
@@ -157,6 +165,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.lastResolutionSteps = [];
     this.state.lastCascadeCount = 0;
     const shuffled = this.shuffleBoard();
     if (!shuffled) {
@@ -176,6 +185,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.lastResolutionSteps = [];
     this.state.lastCascadeCount = 0;
     this.resolveClearPositions(SpecialResolver.expandedClearPositions(this.state.board, [position]));
     this.resolveBoard();
@@ -199,6 +209,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.lastResolutionSteps = [];
     this.state.lastCascadeCount = 0;
     tile.piece.type = nextType;
     this.state.tools.brush = this.consumeTool(this.state.tools.brush);
@@ -240,6 +251,7 @@ export class GameSession {
       return false;
     }
     this.saveHistory();
+    this.lastResolutionSteps = [];
     this.state.lastCascadeCount = 0;
     this.state.movesLeft += extraMoves;
     this.state.tools.addMoves = this.consumeTool(this.state.tools.addMoves);
@@ -258,6 +270,7 @@ export class GameSession {
       return undefined;
     }
     const convertedPositions = this.pickRemainingMoveBonusPositions(this.state.movesLeft);
+    this.lastResolutionSteps = [];
     convertedPositions.forEach((position, index) => {
       const piece = this.state.board.tiles[position.row][position.col].piece;
       if (piece) {
@@ -349,14 +362,20 @@ export class GameSession {
     if (positions.length === 0) {
       return;
     }
+    const beforeBoard = cloneBoard(this.state.board);
     this.state.lastCascadeCount++;
-    this.state.score += positions.length * 10;
+    this.state.score += this.scoreForClear(positions.length, this.state.lastCascadeCount);
     this.updateCollectGoals(positions);
     const blockerResult = BlockerResolver.damageAdjacent(this.state.board, positions);
     this.updateBlockerGoals(blockerResult);
     GravityResolver.clearPositions(this.state.board, positions);
     const refillId = this.refillSequence++;
     GravityResolver.collapseAndRefill(this.state.board, this.pieceTypes, this.random, `s_${refillId}_${loopIndex}`);
+    this.lastResolutionSteps.push({
+      beforeBoard,
+      clearPositions: positions.map(position => ({ row: position.row, col: position.col })),
+      afterBoard: cloneBoard(this.state.board)
+    });
   }
 
   private updateCollectGoals(positions: Position[]): void {
@@ -374,6 +393,11 @@ export class GameSession {
         }
       });
     });
+  }
+
+  private scoreForClear(clearCount: number, cascadeIndex: number): number {
+    const comboMultiplier = 1 + Math.max(0, cascadeIndex - 1) * 0.5;
+    return Math.round(clearCount * 10 * comboMultiplier);
   }
 
   private applyRainbowFunctionalConversion(first: Position, second: Position): void {

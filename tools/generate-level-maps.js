@@ -321,7 +321,8 @@ function moderateScoreGoal(baseScore) {
   } else if (baseScore >= 3600) {
     scale = 0.74;
   }
-  return Math.max(450, Math.round(baseScore * scale / 10) * 10);
+  const comboScoringAdjustment = 1.15;
+  return Math.max(500, Math.round(baseScore * scale * comboScoringAdjustment / 10) * 10);
 }
 
 function buildGoals(id, blockers, pieces) {

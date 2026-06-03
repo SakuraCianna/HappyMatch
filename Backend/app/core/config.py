@@ -15,11 +15,11 @@ class Settings(BaseSettings):
   database_url: str = f"sqlite:///{(BACKEND_DIR / 'data' / 'happymatch.db').as_posix()}"
   sql_echo: bool = False
   default_player_coins: int = 500
-  default_guest_nickname: str = "糖果游客"
   friend_code_length: int = 6
   nearby_active_seconds: int = 300
   nearby_grid_precision: int = 2
   secret_key: str = "dev-only-change-me"
+  auth_token_expire_seconds: int = 2_592_000
   enable_openapi: bool = True
   amap_web_service_key: str = ""
   amap_web_service_base_url: str = "https://restapi.amap.com"

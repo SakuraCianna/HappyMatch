@@ -139,7 +139,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 520
+        "count": 590
       }
     ],
     "blockers": [],
@@ -166,7 +166,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 610
+        "count": 700
       }
     ],
     "blockers": [
@@ -218,7 +218,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 700
+        "count": 800
       }
     ],
     "blockers": [
@@ -267,7 +267,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 790
+        "count": 910
       }
     ],
     "blockers": [
@@ -317,7 +317,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 880
+        "count": 1010
       },
       {
         "type": "collect_special",
@@ -394,7 +394,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 970
+        "count": 1110
       },
       {
         "type": "collect_special",
@@ -474,7 +474,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1060
+        "count": 1220
       },
       {
         "type": "collect_special",
@@ -548,7 +548,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1150
+        "count": 1320
       },
       {
         "type": "collect_special",
@@ -642,7 +642,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1240
+        "count": 1420
       },
       {
         "type": "collect_special",
@@ -721,7 +721,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1460
+        "count": 1680
       },
       {
         "type": "collect_piece",
@@ -801,7 +801,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1550
+        "count": 1780
       },
       {
         "type": "collect_piece",
@@ -881,7 +881,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1640
+        "count": 1890
       },
       {
         "type": "collect_piece",
@@ -943,7 +943,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1730
+        "count": 1990
       },
       {
         "type": "collect_piece",
@@ -1023,7 +1023,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1820
+        "count": 2090
       },
       {
         "type": "collect_piece",
@@ -1103,7 +1103,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 1910
+        "count": 2200
       },
       {
         "type": "collect_piece",
@@ -1194,7 +1194,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2000
+        "count": 2300
       },
       {
         "type": "collect_piece",
@@ -1273,7 +1273,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2090
+        "count": 2400
       },
       {
         "type": "collect_piece",
@@ -1364,7 +1364,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2180
+        "count": 2510
       },
       {
         "type": "collect_piece",
@@ -1449,7 +1449,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 2270
+        "count": 2610
       },
       {
         "type": "collect_piece",
@@ -1528,7 +1528,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3180
+        "count": 3660
       },
       {
         "type": "clear_ice",
@@ -1616,7 +1616,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3240
+        "count": 3730
       },
       {
         "type": "clear_ice",
@@ -1713,7 +1713,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3310
+        "count": 3800
       },
       {
         "type": "clear_ice",
@@ -1816,7 +1816,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3370
+        "count": 3880
       },
       {
         "type": "clear_ice",
@@ -1913,7 +1913,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3430
+        "count": 3950
       },
       {
         "type": "clear_ice",
@@ -2016,7 +2016,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3500
+        "count": 4020
       },
       {
         "type": "clear_ice",
@@ -2119,7 +2119,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3560
+        "count": 4090
       },
       {
         "type": "clear_ice",
@@ -2210,7 +2210,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3620
+        "count": 4170
       },
       {
         "type": "clear_ice",
@@ -2301,7 +2301,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3690
+        "count": 4240
       },
       {
         "type": "clear_ice",
@@ -2398,7 +2398,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3750
+        "count": 4310
       },
       {
         "type": "clear_ice",
@@ -2501,7 +2501,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3810
+        "count": 4380
       },
       {
         "type": "clear_ice",
@@ -2609,7 +2609,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3870
+        "count": 4450
       },
       {
         "type": "clear_ice",
@@ -2718,7 +2718,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 3940
+        "count": 4530
       },
       {
         "type": "clear_ice",
@@ -2827,7 +2827,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4000
+        "count": 4600
       },
       {
         "type": "clear_ice",
@@ -2936,7 +2936,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4060
+        "count": 4670
       },
       {
         "type": "clear_ice",
@@ -3027,7 +3027,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4130
+        "count": 4740
       },
       {
         "type": "clear_ice",
@@ -3135,7 +3135,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4190
+        "count": 4820
       },
       {
         "type": "clear_ice",
@@ -3238,7 +3238,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4250
+        "count": 4890
       },
       {
         "type": "clear_ice",
@@ -3353,7 +3353,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4310
+        "count": 4960
       },
       {
         "type": "clear_ice",
@@ -3474,7 +3474,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4380
+        "count": 5030
       },
       {
         "type": "clear_ice",
@@ -3590,7 +3590,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4200
+        "count": 4830
       },
       {
         "type": "break_chain",
@@ -3708,7 +3708,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4260
+        "count": 4900
       },
       {
         "type": "break_chain",
@@ -3806,7 +3806,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4320
+        "count": 4970
       },
       {
         "type": "break_chain",
@@ -3904,7 +3904,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4380
+        "count": 5040
       },
       {
         "type": "break_chain",
@@ -4008,7 +4008,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4440
+        "count": 5100
       },
       {
         "type": "break_chain",
@@ -4112,7 +4112,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4500
+        "count": 5170
       },
       {
         "type": "break_chain",
@@ -4227,7 +4227,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4560
+        "count": 5240
       },
       {
         "type": "break_chain",
@@ -4325,7 +4325,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4620
+        "count": 5310
       },
       {
         "type": "break_chain",
@@ -4435,7 +4435,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4680
+        "count": 5380
       },
       {
         "type": "break_chain",
@@ -4539,7 +4539,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4740
+        "count": 5450
       },
       {
         "type": "break_chain",
@@ -4655,7 +4655,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4800
+        "count": 5510
       },
       {
         "type": "break_chain",
@@ -4776,7 +4776,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4850
+        "count": 5580
       },
       {
         "type": "break_chain",
@@ -4886,7 +4886,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4910
+        "count": 5650
       },
       {
         "type": "break_chain",
@@ -4996,7 +4996,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 4970
+        "count": 5720
       },
       {
         "type": "break_chain",
@@ -5118,7 +5118,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5030
+        "count": 5790
       },
       {
         "type": "break_chain",
@@ -5246,7 +5246,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5090
+        "count": 5860
       },
       {
         "type": "break_chain",
@@ -5379,7 +5379,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5150
+        "count": 5920
       },
       {
         "type": "break_chain",
@@ -5519,7 +5519,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5210
+        "count": 5990
       },
       {
         "type": "break_chain",
@@ -5641,7 +5641,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5270
+        "count": 6060
       },
       {
         "type": "break_chain",
@@ -5775,7 +5775,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5330
+        "count": 6130
       },
       {
         "type": "break_chain",
@@ -5897,7 +5897,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5390
+        "count": 6200
       },
       {
         "type": "clear_marshmallow",
@@ -5997,7 +5997,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5450
+        "count": 6270
       },
       {
         "type": "clear_marshmallow",
@@ -6101,7 +6101,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5510
+        "count": 6340
       },
       {
         "type": "clear_marshmallow",
@@ -6199,7 +6199,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5570
+        "count": 6400
       },
       {
         "type": "clear_marshmallow",
@@ -6303,7 +6303,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5630
+        "count": 6470
       },
       {
         "type": "clear_marshmallow",
@@ -6401,7 +6401,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5690
+        "count": 6540
       },
       {
         "type": "clear_marshmallow",
@@ -6516,7 +6516,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5750
+        "count": 6610
       },
       {
         "type": "clear_marshmallow",
@@ -6626,7 +6626,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5810
+        "count": 6680
       },
       {
         "type": "clear_marshmallow",
@@ -6718,7 +6718,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5870
+        "count": 6750
       },
       {
         "type": "clear_marshmallow",
@@ -6822,7 +6822,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5930
+        "count": 6810
       },
       {
         "type": "clear_marshmallow",
@@ -6938,7 +6938,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5640
+        "count": 6490
       },
       {
         "type": "clear_marshmallow",
@@ -7071,7 +7071,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5700
+        "count": 6550
       },
       {
         "type": "clear_marshmallow",
@@ -7193,7 +7193,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5760
+        "count": 6620
       },
       {
         "type": "clear_marshmallow",
@@ -7321,7 +7321,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5810
+        "count": 6680
       },
       {
         "type": "clear_marshmallow",
@@ -7437,7 +7437,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5870
+        "count": 6750
       },
       {
         "type": "clear_marshmallow",
@@ -7553,7 +7553,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5920
+        "count": 6810
       },
       {
         "type": "clear_marshmallow",
@@ -7680,7 +7680,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 5980
+        "count": 6880
       },
       {
         "type": "clear_marshmallow",
@@ -7814,7 +7814,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6040
+        "count": 6940
       },
       {
         "type": "clear_marshmallow",
@@ -7948,7 +7948,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6090
+        "count": 7010
       },
       {
         "type": "clear_marshmallow",
@@ -8064,7 +8064,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6150
+        "count": 7070
       },
       {
         "type": "clear_marshmallow",
@@ -8198,7 +8198,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6200
+        "count": 7130
       },
       {
         "type": "clear_ice",
@@ -8312,7 +8312,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6260
+        "count": 7200
       },
       {
         "type": "clear_ice",
@@ -8423,7 +8423,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6320
+        "count": 7260
       },
       {
         "type": "clear_ice",
@@ -8522,7 +8522,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6370
+        "count": 7330
       },
       {
         "type": "clear_ice",
@@ -8621,7 +8621,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6430
+        "count": 7390
       },
       {
         "type": "clear_ice",
@@ -8720,7 +8720,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6480
+        "count": 7460
       },
       {
         "type": "clear_ice",
@@ -8831,7 +8831,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6540
+        "count": 7520
       },
       {
         "type": "clear_ice",
@@ -8948,7 +8948,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6600
+        "count": 7590
       },
       {
         "type": "clear_ice",
@@ -9065,7 +9065,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6650
+        "count": 7650
       },
       {
         "type": "clear_ice",
@@ -9188,7 +9188,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6710
+        "count": 7720
       },
       {
         "type": "clear_ice",
@@ -9287,7 +9287,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6770
+        "count": 7780
       },
       {
         "type": "clear_ice",
@@ -9392,7 +9392,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6820
+        "count": 7840
       },
       {
         "type": "clear_ice",
@@ -9509,7 +9509,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6880
+        "count": 7910
       },
       {
         "type": "clear_ice",
@@ -9614,7 +9614,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6930
+        "count": 7970
       },
       {
         "type": "clear_ice",
@@ -9731,7 +9731,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 6990
+        "count": 8040
       },
       {
         "type": "clear_ice",
@@ -9848,7 +9848,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7050
+        "count": 8100
       },
       {
         "type": "clear_ice",
@@ -9971,7 +9971,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7100
+        "count": 8170
       },
       {
         "type": "clear_ice",
@@ -10088,7 +10088,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7160
+        "count": 8230
       },
       {
         "type": "clear_ice",
@@ -10211,7 +10211,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7210
+        "count": 8300
       },
       {
         "type": "clear_ice",
@@ -10334,7 +10334,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7270
+        "count": 8360
       },
       {
         "type": "clear_ice",
@@ -10445,7 +10445,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "goals": [
       {
         "type": "score",
-        "count": 7330
+        "count": 8420
       },
       {
         "type": "clear_ice",

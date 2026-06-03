@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 
-from app.api.deps import SessionDep
+from app.api.deps import AuthorizedPlayerIdDep, SessionDep, require_same_player
 from app.schemas.schemas import LocationSummary, NearbySummary, PresenceUpdate, WorldPopulation
 from app.services import amap_service, map_service
 
@@ -8,7 +8,12 @@ router = APIRouter()
 
 
 @router.post("/presence", response_model=NearbySummary)
-def update_presence(payload: PresenceUpdate, session: SessionDep) -> NearbySummary:
+def update_presence(
+  payload: PresenceUpdate,
+  session: SessionDep,
+  authorized_player_id: AuthorizedPlayerIdDep
+) -> NearbySummary:
+  require_same_player(payload.player_id, authorized_player_id)
   return map_service.update_presence(session, payload)
 
 

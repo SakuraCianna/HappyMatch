@@ -162,7 +162,9 @@ struct AchievementsPage {
   }
 
   private async refreshAchievements(): Promise<void> {
-    await bootstrapProgress(this.appContext());
+    const context = this.appContext();
+    await bootstrapProgress(context);
+    await economyService.init(context);
     const summary = deriveAchievements(await progressService.getAll(), economyService.getWallet());
     this.achievements = summary.items;
     this.unlockedCount = summary.unlockedCount;

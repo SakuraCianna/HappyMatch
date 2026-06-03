@@ -6,7 +6,7 @@ from sqlmodel import Session, select
 
 from app.core.config import settings
 from app.models.entities import LevelRecord, Player, utc_now
-from app.schemas.schemas import LevelRecordCreate, PlayerCreate, PlayerUpdate
+from app.schemas.schemas import LevelRecordCreate, PlayerUpdate
 
 FRIEND_CODE_ALPHABET = string.ascii_uppercase.replace("O", "").replace("I", "") + "23456789"
 
@@ -38,20 +38,6 @@ def touch_player(player: Player) -> None:
   now = utc_now()
   player.last_seen_at = now
   player.updated_at = now
-
-
-def create_guest(session: Session, payload: PlayerCreate) -> Player:
-  nickname = (payload.nickname or settings.default_guest_nickname).strip() or settings.default_guest_nickname
-  player = Player(
-    nickname=nickname[:32],
-    avatar=payload.avatar,
-    friend_code=generate_friend_code(session),
-    coin=settings.default_player_coins
-  )
-  session.add(player)
-  session.commit()
-  session.refresh(player)
-  return player
 
 
 def update_player(session: Session, player_id: str, payload: PlayerUpdate) -> Player:

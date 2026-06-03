@@ -4,11 +4,6 @@ from typing import Literal
 from sqlmodel import Field, SQLModel
 
 
-class PlayerCreate(SQLModel):
-  nickname: str | None = Field(default=None, max_length=32)
-  avatar: str | None = Field(default=None, max_length=255)
-
-
 class PlayerUpdate(SQLModel):
   nickname: str | None = Field(default=None, max_length=32)
   avatar: str | None = Field(default=None, max_length=255)
@@ -18,6 +13,7 @@ class PlayerUpdate(SQLModel):
 
 class PlayerPublic(SQLModel):
   id: str
+  username: str
   nickname: str
   avatar: str | None
   friend_code: str
@@ -29,6 +25,24 @@ class PlayerPublic(SQLModel):
   last_seen_at: datetime
   created_at: datetime
   updated_at: datetime
+
+
+class AuthRegisterRequest(SQLModel):
+  username: str = Field(min_length=3, max_length=32)
+  password: str = Field(min_length=6, max_length=72)
+  nickname: str | None = Field(default=None, max_length=32)
+
+
+class AuthLoginRequest(SQLModel):
+  username: str = Field(min_length=3, max_length=32)
+  password: str = Field(min_length=6, max_length=72)
+
+
+class AuthSession(SQLModel):
+  access_token: str
+  token_type: str
+  expires_at: int
+  player: PlayerPublic
 
 
 class LevelRecordCreate(SQLModel):
