@@ -14,6 +14,7 @@ struct Index {
   @State private homeMotion: boolean = false;
   @State private cloudText: string = '玩家未登录';
   @State private nearbyText: string = '登录后同步';
+  @State private canPlay: boolean = false;
 
   aboutToAppear(): void {
     const context = this.appContext();
@@ -93,25 +94,29 @@ struct Index {
             .fontColor('#FFFFFF')
             .fontWeight(FontWeight.Medium)
             .borderRadius(26)
-            .backgroundColor('#F27A91')
+            .backgroundColor(this.canPlay ? '#F27A91' : '#BFAFB5')
             .shadow({ radius: 18, color: 'rgba(242, 122, 145, 0.32)', offsetX: 0, offsetY: 8 })
             .onClick(() => {
               feedbackService.play('tap');
-              this.getUIContext().getRouter().pushUrl({ url: 'pages/LevelSelectPage' });
+              this.openPlayEntry('pages/LevelSelectPage');
             })
-          Button(`继续第 ${this.continueLevel} 关`)
+          Button(this.canPlay ? `继续第 ${this.continueLevel} 关` : '登录后继续')
             .width(230)
             .height(52)
             .fontSize(18)
             .fontColor('#FFFFFF')
             .fontWeight(FontWeight.Medium)
             .borderRadius(26)
-            .backgroundColor('#69B8EA')
+            .backgroundColor(this.canPlay ? '#69B8EA' : '#BFAFB5')
             .shadow({ radius: 18, color: 'rgba(105, 184, 234, 0.28)', offsetX: 0, offsetY: 8 })
             .margin({ top: 16 })
             .onClick(() => {
               feedbackService.play('tap');
-              this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: this.continueLevel } });
+              if (this.canPlay) {
+                this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: this.continueLevel } });
+                return;
+              }
+              this.openPlayEntry('pages/AuthPage');
             })
         }
         .width('100%')
@@ -202,8 +207,20 @@ struct Index {
     await remoteGameService.syncPlayerProgress(this.continueLevel, this.coins);
     const nearby = await remoteGameService.updatePresence(1, this.continueLevel);
     const latest = remoteGameService.getState();
+    this.canPlay = latest.authenticated && latest.player !== undefined;
     this.cloudText = latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
     this.nearbyText = latest.player && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';
+  }
+
+  private openPlayEntry(url: string): void {
+    try {
+      if (!this.canPlay) {
+        this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
+        return;
+      }
+      this.getUIContext().getRouter().pushUrl({ url });
+    } catch (_error) {
+    }
   }
 
   private appContext(): common.Context {

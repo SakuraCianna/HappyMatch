@@ -103,6 +103,10 @@ export class RemoteGameService {
     };
   }
 
+  hasAuthenticatedPlayer(): boolean {
+    return this.player !== undefined && this.state.authenticated;
+  }
+
   async syncPlayerProgress(currentLevel: number, coins: number): Promise<void> {
     const player = this.player;
     if (!player) {

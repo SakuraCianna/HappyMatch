@@ -693,6 +693,15 @@ struct GamePage {
   }
 
   private async prepareServicesAndStart(context: common.Context, levelId: number): Promise<void> {
+    const state = await remoteGameService.init(context);
+    if (!state.authenticated || !state.player) {
+      feedbackService.play('error');
+      try {
+        this.getUIContext().getRouter().replaceUrl({ url: 'pages/AuthPage' });
+      } catch (_error) {
+      }
+      return;
+    }
     await bootstrapProgress(context);
     await gameSettingsService.init(context);
     await economyService.init(context);

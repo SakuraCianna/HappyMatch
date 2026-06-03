@@ -17,6 +17,7 @@ struct LevelSelectPage {
   @State private unlockedLevel: number = 1;
   @State private progressItems: LevelProgress[] = [];
   @State private worldPopulation: WorldPopulation[] = [];
+  @State private canPlay: boolean = false;
 
   aboutToAppear(): void {
     feedbackService.init(this.appContext());
@@ -191,6 +192,11 @@ struct LevelSelectPage {
       .border({ width: this.isMilestone(level.id) ? 3 : 1, color: this.isMilestone(level.id) ? '#FFF6D6' : 'rgba(255, 255, 255, 0.72)' })
       .shadow({ radius: this.isPlayableLevel(level.id) ? 10 : 4, color: 'rgba(92, 58, 74, 0.14)', offsetX: 0, offsetY: 5 })
       .onClick(() => {
+        if (!this.canPlay) {
+          feedbackService.play('error');
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
+          return;
+        }
         if (this.isPlayableLevel(level.id)) {
           feedbackService.play('tap');
           this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: level.id } });
@@ -237,6 +243,9 @@ struct LevelSelectPage {
   }
 
   private currentChapterText(): string {
+    if (!this.canPlay) {
+      return '请先登录或注册玩家信息';
+    }
     const chapter = getLevelChapter(this.unlockedLevel);
     return `${chapter.name} ${this.unlockedLevel - chapter.startLevel + 1}/20`;
   }
@@ -253,11 +262,17 @@ struct LevelSelectPage {
     this.unlockedLevel = await progressService.getUnlockedLevel();
     this.progressItems = await progressService.getAll();
     try {
+      const state = await remoteGameService.init(this.appContext());
+      this.canPlay = state.authenticated && state.player !== undefined;
+      if (!this.canPlay) {
+        this.worldPopulation = [];
+        return;
+      }
       const chapter = getLevelChapter(this.unlockedLevel);
-      await remoteGameService.init(this.appContext());
       await remoteGameService.updatePresence(chapter.id, this.unlockedLevel);
       this.worldPopulation = await remoteGameService.listWorldPopulation();
     } catch (_error) {
+      this.canPlay = false;
       this.worldPopulation = [];
     }
   }
@@ -275,6 +290,9 @@ struct LevelSelectPage {
   private starsForLevel(levelId: number): string {
     const progress = this.progressItems.find(item => item.levelId === levelId);
     if (!progress || progress.stars <= 0) {
+      if (!this.canPlay) {
+        return '需登录';
+      }
       return this.isPlayableLevel(levelId) ? '未通关' : '锁定';
     }
     if (progress.stars === 1) {
