@@ -231,7 +231,7 @@ struct GamePage {
         Canvas(this.context)
           .width(this.canvasWidth)
           .height(this.canvasHeight)
-          .backgroundColor(this.worldTheme().board.fill)
+          .backgroundColor(this.worldTheme().board.canvasFill)
           .borderRadius(22)
           .shadow({ radius: 24, color: this.worldTheme().shadow, offsetX: 0, offsetY: 8 })
           .margin({ top: 10 })
@@ -449,6 +449,7 @@ struct GamePage {
     .width('100%')
     .height('100%')
     .alignContent(Alignment.Center)
+    .backgroundColor(this.worldTheme().backgroundMiddle)
   }
 
   @Builder

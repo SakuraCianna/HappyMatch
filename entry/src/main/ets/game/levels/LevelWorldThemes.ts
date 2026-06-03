@@ -36,6 +36,7 @@ const WORLD_THEMES: LevelWorldTheme[] = [
     shelfFill: 'rgba(255, 246, 210, 0.46)',
     shadow: 'rgba(92, 58, 74, 0.14)',
     board: {
+      canvasFill: '#FFF4DC',
       fill: 'rgba(255, 252, 238, 0.78)',
       innerFill: 'rgba(255, 246, 212, 0.52)',
       stroke: 'rgba(255, 210, 128, 0.82)',
@@ -59,6 +60,7 @@ const WORLD_THEMES: LevelWorldTheme[] = [
     shelfFill: 'rgba(229, 247, 255, 0.52)',
     shadow: 'rgba(51, 105, 148, 0.14)',
     board: {
+      canvasFill: '#EEF9FF',
       fill: 'rgba(247, 253, 255, 0.84)',
       innerFill: 'rgba(223, 245, 255, 0.48)',
       stroke: 'rgba(105, 184, 234, 0.78)',
@@ -82,6 +84,7 @@ const WORLD_THEMES: LevelWorldTheme[] = [
     shelfFill: 'rgba(255, 236, 178, 0.52)',
     shadow: 'rgba(131, 88, 42, 0.16)',
     board: {
+      canvasFill: '#FFF1CE',
       fill: 'rgba(255, 249, 229, 0.82)',
       innerFill: 'rgba(255, 234, 184, 0.52)',
       stroke: 'rgba(223, 167, 66, 0.78)',
@@ -105,6 +108,7 @@ const WORLD_THEMES: LevelWorldTheme[] = [
     shelfFill: 'rgba(225, 249, 218, 0.52)',
     shadow: 'rgba(58, 112, 74, 0.15)',
     board: {
+      canvasFill: '#F2F9DF',
       fill: 'rgba(248, 255, 239, 0.82)',
       innerFill: 'rgba(226, 247, 207, 0.52)',
       stroke: 'rgba(118, 211, 123, 0.78)',
@@ -128,6 +132,7 @@ const WORLD_THEMES: LevelWorldTheme[] = [
     shelfFill: 'rgba(243, 225, 255, 0.50)',
     shadow: 'rgba(92, 58, 112, 0.16)',
     board: {
+      canvasFill: '#FFF0FA',
       fill: 'rgba(255, 248, 255, 0.82)',
       innerFill: 'rgba(239, 224, 255, 0.52)',
       stroke: 'rgba(180, 135, 239, 0.80)',

@@ -25,6 +25,7 @@ export interface BoardRenderState {
 }
 
 export interface BoardRenderTheme {
+  canvasFill: string;
   fill: string;
   innerFill: string;
   stroke: string;
@@ -35,6 +36,7 @@ export interface BoardRenderTheme {
 type PieceEffectLookup = (PieceRenderEffect | undefined)[];
 
 const DEFAULT_BOARD_THEME: BoardRenderTheme = {
+  canvasFill: '#FFF8E7',
   fill: 'rgba(255, 255, 255, 0.62)',
   innerFill: 'rgba(255, 246, 212, 0.38)',
   stroke: 'rgba(255, 210, 128, 0.70)',
@@ -107,15 +109,16 @@ export class CanvasRenderer {
       this.buildEffectLookup(options.animation.pieceEffects, board.cols) : undefined;
     const fastMode = options.animation?.fastMode === true;
     const fastStaticMode = options.animation?.fastStaticMode === true;
+    const theme = options.theme ?? DEFAULT_BOARD_THEME;
 
-    ctx.clearRect(0, 0, options.width, options.height);
+    this.paintCanvasBase(ctx, options.width, options.height, theme.canvasFill);
     this.drawBoardBackground(
       ctx,
       layout.offsetX,
       layout.offsetY,
       layout.boardWidth,
       layout.boardHeight,
-      options.theme ?? DEFAULT_BOARD_THEME,
+      theme,
       fastMode || fastStaticMode
     );
 
@@ -141,6 +144,15 @@ export class CanvasRenderer {
         }
       }
     }
+  }
+
+  private paintCanvasBase(ctx: GameCanvasContext, width: number, height: number, fill: string): void {
+    ctx.save();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = fill;
+    this.roundRect(ctx, 0, 0, width, height, 22);
+    ctx.fill();
+    ctx.restore();
   }
 
   private drawBoardBackground(
@@ -268,11 +280,7 @@ export class CanvasRenderer {
     ctx.arc(cx - size * 0.19, cy - size * 0.20, size * 0.065, 0, Math.PI * 2);
     ctx.fill();
 
-    if (piece.special === 'none') {
-      this.drawPieceMark(ctx, piece.type, cx, cy, size);
-    } else {
-      this.drawSpecialMark(ctx, piece, cx, cy, size);
-    }
+    this.drawPieceIdentity(ctx, piece, cx, cy, size);
     ctx.restore();
   }
 
@@ -291,12 +299,20 @@ export class CanvasRenderer {
       this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
       this.drawPieceSurface(ctx, piece.type, cx, cy, size, palette);
     }
+    this.drawPieceIdentity(ctx, piece, cx, cy, size);
+  }
+
+  private drawPieceIdentity(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number): void {
     if (piece.special === 'none') {
       this.drawPieceMark(ctx, piece.type, cx, cy, size);
+      return;
     }
-    if (piece.special !== 'none') {
+    if (piece.special !== 'rainbow') {
+      this.drawPieceMark(ctx, piece.type, cx, cy, size, true);
       this.drawSpecialMark(ctx, piece, cx, cy, size);
+      return;
     }
+    this.drawSpecialMark(ctx, piece, cx, cy, size);
   }
 
   private buildEffectLookup(effects: PieceRenderEffect[], cols: number): PieceEffectLookup {
@@ -397,11 +413,11 @@ export class CanvasRenderer {
     }
   }
 
-  private drawPieceMark(ctx: GameCanvasContext, type: PieceType, cx: number, cy: number, size: number): void {
+  private drawPieceMark(ctx: GameCanvasContext, type: PieceType, cx: number, cy: number, size: number, subtle: boolean = false): void {
     ctx.save();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.58)';
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.66)';
-    ctx.lineWidth = Math.max(1, size * 0.035);
+    ctx.fillStyle = subtle ? 'rgba(255, 255, 255, 0.44)' : 'rgba(255, 255, 255, 0.58)';
+    ctx.strokeStyle = subtle ? 'rgba(255, 255, 255, 0.54)' : 'rgba(255, 255, 255, 0.66)';
+    ctx.lineWidth = Math.max(1, size * (subtle ? 0.026 : 0.035));
     if (type === 'red') {
       ctx.beginPath();
       ctx.arc(cx - size * 0.045, cy - size * 0.01, size * 0.035, 0, Math.PI * 2);
@@ -448,39 +464,46 @@ export class CanvasRenderer {
     }
     ctx.save();
     if (piece.special === 'row_clear') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(35, 188, 232, 0.90)', 'rgba(255, 255, 255, 0.96)');
       this.drawBeamBadge(ctx, cx, cy, size, true);
-      ctx.strokeStyle = 'rgba(18, 84, 122, 0.92)';
-      ctx.lineWidth = Math.max(5, size * 0.14);
+      ctx.strokeStyle = 'rgba(168, 70, 118, 0.92)';
+      ctx.lineWidth = Math.max(4, size * 0.10);
       ctx.beginPath();
       this.rowArrowPath(ctx, cx, cy, size);
       ctx.stroke();
-      ctx.strokeStyle = '#F5FFFF';
-      ctx.lineWidth = Math.max(3, size * 0.08);
+      ctx.strokeStyle = 'rgba(255, 252, 222, 0.96)';
+      ctx.lineWidth = Math.max(2, size * 0.050);
       ctx.beginPath();
       this.rowArrowPath(ctx, cx, cy, size);
       ctx.stroke();
       this.drawArrowHeadDots(ctx, cx, cy, size, true);
     } else if (piece.special === 'col_clear') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(116, 92, 242, 0.90)', 'rgba(255, 255, 255, 0.96)');
       this.drawBeamBadge(ctx, cx, cy, size, false);
-      ctx.strokeStyle = 'rgba(50, 39, 142, 0.92)';
-      ctx.lineWidth = Math.max(5, size * 0.14);
+      ctx.strokeStyle = 'rgba(112, 72, 184, 0.92)';
+      ctx.lineWidth = Math.max(4, size * 0.10);
       ctx.beginPath();
       this.colArrowPath(ctx, cx, cy, size);
       ctx.stroke();
-      ctx.strokeStyle = '#F5FFFF';
-      ctx.lineWidth = Math.max(3, size * 0.08);
+      ctx.strokeStyle = 'rgba(255, 252, 222, 0.96)';
+      ctx.lineWidth = Math.max(2, size * 0.050);
       ctx.beginPath();
       this.colArrowPath(ctx, cx, cy, size);
       ctx.stroke();
       this.drawArrowHeadDots(ctx, cx, cy, size, false);
     } else if (piece.special === 'bomb') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(255, 199, 66, 0.94)', 'rgba(255, 255, 255, 0.96)');
-      this.drawBombGlyph(ctx, cx, cy, size);
+      ctx.strokeStyle = 'rgba(255, 205, 82, 0.92)';
+      ctx.lineWidth = Math.max(3, size * 0.075);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.38, 0, Math.PI * 2);
+      ctx.stroke();
+      this.drawSmallSpark(ctx, cx - size * 0.27, cy + size * 0.24, size * 0.060);
+      this.drawBombGlyph(ctx, cx + size * 0.18, cy - size * 0.16, size * 0.72);
     } else if (piece.special === 'rainbow') {
-      this.drawSpecialBadge(ctx, cx, cy, size, 'rgba(255, 255, 255, 0.94)', 'rgba(124, 107, 255, 0.92)');
-      this.drawRainbowCore(ctx, cx, cy, size);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.86)';
+      ctx.lineWidth = Math.max(2, size * 0.050);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.38, 0, Math.PI * 2);
+      ctx.stroke();
+      this.drawRainbowCore(ctx, cx, cy, size * 0.88);
     }
     ctx.restore();
   }
@@ -669,24 +692,6 @@ export class CanvasRenderer {
 
   private shouldDrawBlockerUnderPiece(type: string): boolean {
     return type === 'hole' || type === 'marshmallow';
-  }
-
-  private drawSpecialBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number, fill: string, stroke: string): void {
-    ctx.fillStyle = 'rgba(92, 58, 74, 0.18)';
-    ctx.beginPath();
-    ctx.arc(cx, cy + size * 0.04, size * 0.42, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.34)';
-    ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.43, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = fill;
-    ctx.strokeStyle = stroke;
-    ctx.lineWidth = Math.max(3, size * 0.070);
-    ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.35, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
   }
 
   private drawBeamBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
