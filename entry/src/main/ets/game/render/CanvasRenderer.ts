@@ -486,39 +486,36 @@ export class CanvasRenderer {
     }
     ctx.save();
     if (piece.special === 'row_clear') {
-      this.drawBeamBadge(ctx, cx, cy, size, true);
-      ctx.strokeStyle = 'rgba(168, 70, 118, 0.92)';
-      ctx.lineWidth = Math.max(4, size * 0.10);
+      this.drawDirectionalBadge(ctx, cx, cy, size, true);
+      this.drawSpecialEdgeCaps(ctx, cx, cy, size, true, '#FF4F9A');
+      ctx.strokeStyle = 'rgba(112, 31, 75, 0.95)';
+      ctx.lineWidth = Math.max(5, size * 0.13);
       ctx.beginPath();
       this.rowArrowPath(ctx, cx, cy, size);
       ctx.stroke();
-      ctx.strokeStyle = 'rgba(255, 252, 222, 0.96)';
-      ctx.lineWidth = Math.max(2, size * 0.050);
+      ctx.strokeStyle = '#FFF8C7';
+      ctx.lineWidth = Math.max(3, size * 0.066);
       ctx.beginPath();
       this.rowArrowPath(ctx, cx, cy, size);
       ctx.stroke();
       this.drawArrowHeadDots(ctx, cx, cy, size, true);
     } else if (piece.special === 'col_clear') {
-      this.drawBeamBadge(ctx, cx, cy, size, false);
-      ctx.strokeStyle = 'rgba(112, 72, 184, 0.92)';
-      ctx.lineWidth = Math.max(4, size * 0.10);
+      this.drawDirectionalBadge(ctx, cx, cy, size, false);
+      this.drawSpecialEdgeCaps(ctx, cx, cy, size, false, '#38CFFF');
+      ctx.strokeStyle = 'rgba(43, 62, 162, 0.95)';
+      ctx.lineWidth = Math.max(5, size * 0.13);
       ctx.beginPath();
       this.colArrowPath(ctx, cx, cy, size);
       ctx.stroke();
-      ctx.strokeStyle = 'rgba(255, 252, 222, 0.96)';
-      ctx.lineWidth = Math.max(2, size * 0.050);
+      ctx.strokeStyle = '#F5FFFF';
+      ctx.lineWidth = Math.max(3, size * 0.066);
       ctx.beginPath();
       this.colArrowPath(ctx, cx, cy, size);
       ctx.stroke();
       this.drawArrowHeadDots(ctx, cx, cy, size, false);
     } else if (piece.special === 'bomb') {
-      ctx.strokeStyle = 'rgba(255, 205, 82, 0.92)';
-      ctx.lineWidth = Math.max(3, size * 0.075);
-      ctx.beginPath();
-      ctx.arc(cx, cy, size * 0.38, 0, Math.PI * 2);
-      ctx.stroke();
-      this.drawSmallSpark(ctx, cx - size * 0.27, cy + size * 0.24, size * 0.060);
-      this.drawBombGlyph(ctx, cx + size * 0.18, cy - size * 0.16, size * 0.72);
+      this.drawExplosionBadge(ctx, cx, cy, size);
+      this.drawBombGlyph(ctx, cx + size * 0.17, cy - size * 0.15, size * 0.74);
     } else if (piece.special === 'rainbow') {
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.86)';
       ctx.lineWidth = Math.max(2, size * 0.050);
@@ -716,17 +713,51 @@ export class CanvasRenderer {
     return type === 'hole' || type === 'marshmallow';
   }
 
-  private drawBeamBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
+  private drawDirectionalBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
+    ctx.fillStyle = horizontal ? 'rgba(255, 82, 154, 0.48)' : 'rgba(54, 207, 255, 0.48)';
     if (horizontal) {
-      this.roundRect(ctx, cx - size * 0.38, cy - size * 0.11, size * 0.76, size * 0.22, 8);
+      this.roundRect(ctx, cx - size * 0.48, cy - size * 0.16, size * 0.96, size * 0.32, 10);
     } else {
-      this.roundRect(ctx, cx - size * 0.11, cy - size * 0.38, size * 0.22, size * 0.76, 8);
+      this.roundRect(ctx, cx - size * 0.16, cy - size * 0.48, size * 0.32, size * 0.96, 10);
     }
     ctx.fill();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.68)';
-    ctx.lineWidth = Math.max(1, size * 0.032);
+    ctx.strokeStyle = horizontal ? 'rgba(255, 246, 143, 0.96)' : 'rgba(255, 255, 255, 0.96)';
+    ctx.lineWidth = Math.max(2, size * 0.050);
     ctx.stroke();
+  }
+
+  private drawSpecialEdgeCaps(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean, fill: string): void {
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = '#FFF8C7';
+    ctx.lineWidth = Math.max(2, size * 0.045);
+    ctx.beginPath();
+    if (horizontal) {
+      ctx.arc(cx - size * 0.51, cy, size * 0.12, 0, Math.PI * 2);
+      ctx.arc(cx + size * 0.51, cy, size * 0.12, 0, Math.PI * 2);
+    } else {
+      ctx.arc(cx, cy - size * 0.51, size * 0.12, 0, Math.PI * 2);
+      ctx.arc(cx, cy + size * 0.51, size * 0.12, 0, Math.PI * 2);
+    }
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  private drawExplosionBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.fillStyle = 'rgba(255, 180, 62, 0.46)';
+    ctx.strokeStyle = 'rgba(139, 55, 24, 0.92)';
+    ctx.lineWidth = Math.max(3, size * 0.075);
+    ctx.beginPath();
+    this.starPath(ctx, cx, cy, size * 0.50, size * 0.28, 10);
+    ctx.fill();
+    ctx.stroke();
+    ctx.strokeStyle = '#FFF27A';
+    ctx.lineWidth = Math.max(2, size * 0.052);
+    ctx.beginPath();
+    this.starPath(ctx, cx, cy, size * 0.40, size * 0.22, 10);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255, 245, 160, 0.96)';
+    this.drawSmallSpark(ctx, cx - size * 0.32, cy + size * 0.24, size * 0.070);
+    this.drawSmallSpark(ctx, cx + size * 0.30, cy + size * 0.20, size * 0.060);
   }
 
   private drawArrowHeadDots(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
