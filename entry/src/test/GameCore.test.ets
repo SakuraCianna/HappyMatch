@@ -1224,6 +1224,8 @@ export default function gameCoreTest() {
       expect(animatedFullContext.operations).assertEqual(staticContext.operations);
       expect(animatedFastStaticContext.operations < staticContext.operations).assertTrue();
       expect(animatedFastContext.operations < staticContext.operations).assertTrue();
+      expect(animatedFastStaticContext.operations * 2 < staticContext.operations).assertTrue();
+      expect(animatedFastContext.operations * 2 < staticContext.operations).assertTrue();
     });
 
     it('recordsWinningProgressAndUnlocksNextLevel', 0, async () => {

@@ -1442,7 +1442,9 @@ struct GamePage {
   private runAnimation(durationMs: number, frame: (progress: number) => void, done: () => void): void {
     const token = ++this.animationToken;
     const startedAt = Date.now();
-    const duration = gameSettingsService.getState().reducedMotion ? Math.max(48, Math.floor(durationMs * 0.64)) : durationMs;
+    const reducedMotion = gameSettingsService.getState().reducedMotion;
+    const duration = reducedMotion ? Math.max(48, Math.floor(durationMs * 0.64)) : durationMs;
+    const frameDelay = reducedMotion ? 32 : 24;
     const tick = (): void => {
       if (token !== this.animationToken) {
         return;
@@ -1451,12 +1453,12 @@ struct GamePage {
       const rawProgress = Math.min(1, elapsed / duration);
       frame(rawProgress);
       if (rawProgress < 1) {
-        setTimeout(tick, 16);
+        setTimeout(tick, frameDelay);
         return;
       }
       done();
     };
-    tick();
+    setTimeout(tick, 0);
   }
 
   private drawBoardSnapshot(board: Board, animation?: BoardRenderState): void {

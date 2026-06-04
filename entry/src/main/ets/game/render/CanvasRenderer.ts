@@ -150,7 +150,12 @@ export class CanvasRenderer {
     ctx.save();
     ctx.globalAlpha = 1;
     ctx.fillStyle = fill;
-    this.roundRect(ctx, 0, 0, width, height, 22);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(width, 0);
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
     ctx.fill();
     ctx.restore();
   }
@@ -292,14 +297,31 @@ export class CanvasRenderer {
     size: number,
     palette: PiecePalette
   ): void {
-    this.drawSpecialAura(ctx, piece, cx, cy, size);
     if (piece.special === 'rainbow') {
-      this.drawRainbowPiece(ctx, cx, cy, size);
+      this.drawFastRainbowPiece(ctx, cx, cy, size);
     } else {
       this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
-      this.drawPieceSurface(ctx, piece.type, cx, cy, size, palette);
+      this.drawFastPieceShine(ctx, cx, cy, size, palette);
     }
     this.drawPieceIdentity(ctx, piece, cx, cy, size);
+  }
+
+  private drawFastPieceShine(ctx: GameCanvasContext, cx: number, cy: number, size: number, palette: PiecePalette): void {
+    ctx.fillStyle = palette.sheen;
+    ctx.beginPath();
+    ctx.ellipse(cx - size * 0.16, cy - size * 0.20, size * 0.13, size * 0.070, -Math.PI / 7, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  private drawFastRainbowPiece(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.fillStyle = '#F9F7FF';
+    ctx.strokeStyle = 'rgba(124, 107, 255, 0.78)';
+    ctx.lineWidth = Math.max(3, size * 0.070);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.50, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    this.drawRainbowCore(ctx, cx, cy, size * 0.78);
   }
 
   private drawPieceIdentity(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number): void {
