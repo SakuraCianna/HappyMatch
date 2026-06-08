@@ -231,7 +231,7 @@ struct GamePage {
         Canvas(this.context)
           .width(this.canvasWidth)
           .height(this.canvasHeight)
-          .backgroundColor(this.worldTheme().board.canvasFill)
+          .backgroundColor('rgba(255, 255, 255, 0.00)')
           .borderRadius(22)
           .shadow({ radius: 24, color: this.worldTheme().shadow, offsetX: 0, offsetY: 8 })
           .margin({ top: 10 })
@@ -1327,7 +1327,6 @@ struct GamePage {
       const eased = this.easeInOut(progress);
       const amount = fromProgress + (toProgress - fromProgress) * eased;
       this.drawBoardSnapshot(board, {
-        fastStaticMode: true,
         pieceEffects: [
           { row: first.row, col: first.col, offsetX: moveX * amount, offsetY: moveY * amount, scale: 1.05, opacity: 1 },
           { row: second.row, col: second.col, offsetX: -moveX * amount, offsetY: -moveY * amount, scale: 1.05, opacity: 1 }

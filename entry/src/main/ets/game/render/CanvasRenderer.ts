@@ -119,7 +119,7 @@ export class CanvasRenderer {
       layout.boardWidth,
       layout.boardHeight,
       theme,
-      fastMode || fastStaticMode
+      false
     );
 
     for (let row = 0; row < board.rows; row++) {
