@@ -46,22 +46,11 @@ struct Index {
       this.DecorationJelly('#F39967', 30, 30, '78%', '52%', -5, 6, 2500, 10)
 
       Column() {
-        Column() {
-          Row() {
-            if (this.canPlay) {
-              this.NavButton('成就', 'pages/AchievementsPage')
-              this.NavButton('图鉴', 'pages/GuidePage')
-              this.NavButton('社交', 'pages/SocialPage')
-              Blank()
-              this.NavButton('玩家', 'pages/AuthPage')
-              this.NavButton('设置', 'pages/SettingsPage')
-            } else {
-              Blank()
-              this.NavButton('登录 / 注册', 'pages/AuthPage')
-            }
-          }
-          .width('100%')
+        Stack() {
+          this.PlayerNavBar()
+          this.GuestNavBar()
         }
+        .height(38)
         .width('100%')
         .padding({ left: 16, right: 16, top: 22 })
 
@@ -140,6 +129,40 @@ struct Index {
   }
 
   @Builder
+  PlayerNavBar() {
+    Row() {
+      this.NavButton('成就', 'pages/AchievementsPage')
+      this.NavButton('图鉴', 'pages/GuidePage')
+      this.NavButton('社交', 'pages/SocialPage')
+      Blank()
+      this.NavButton('玩家', 'pages/AuthPage')
+      this.NavButton('设置', 'pages/SettingsPage')
+    }
+    .width('100%')
+    .opacity(this.canPlay ? 1 : 0)
+  }
+
+  @Builder
+  GuestNavBar() {
+    Row() {
+      Blank()
+      Button('登录 / 注册')
+        .height(34)
+        .borderRadius(17)
+        .fontSize(12)
+        .fontColor('#5C3A4A')
+        .backgroundColor('rgba(255, 255, 255, 0.78)')
+        .enabled(!this.canPlay)
+        .onClick(() => {
+          feedbackService.play('tap');
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
+        })
+    }
+    .width('100%')
+    .opacity(this.canPlay ? 0 : 1)
+  }
+
+  @Builder
   NavButton(label: string, url: string) {
     Button(label)
       .height(34)
@@ -148,6 +171,7 @@ struct Index {
       .fontColor('#5C3A4A')
       .backgroundColor('rgba(255, 255, 255, 0.70)')
       .margin({ right: 7 })
+      .enabled(this.canPlay)
       .onClick(() => {
         feedbackService.play('tap');
         this.openProtectedEntry(url);
@@ -201,6 +225,9 @@ struct Index {
 
   private async refreshProgress(): Promise<void> {
     const context = this.appContext();
+    this.canPlay = false;
+    this.cloudText = '玩家未登录';
+    this.nearbyText = '登录后同步好友, 排行榜和附近人数';
     await bootstrapProgress(context);
     await economyService.init(context);
     this.continueLevel = await progressService.getUnlockedLevel();
@@ -212,9 +239,10 @@ struct Index {
     await remoteGameService.syncPlayerProgress(this.continueLevel, this.coins);
     const nearby = await remoteGameService.updatePresence(1, this.continueLevel);
     const latest = remoteGameService.getState();
-    this.canPlay = latest.authenticated && latest.player !== undefined;
-    this.cloudText = latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
-    this.nearbyText = latest.player && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';
+    const loggedIn = latest.authenticated && latest.player !== undefined;
+    this.canPlay = loggedIn;
+    this.cloudText = loggedIn && latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
+    this.nearbyText = loggedIn && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';
   }
 
   private openPlayEntry(url: string): void {
