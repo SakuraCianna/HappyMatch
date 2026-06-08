@@ -1,5 +1,6 @@
 import { common } from '@kit.AbilityKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
+import { remoteGameService } from '../game/remote/RemoteGameService';
 import { gameSettingsService } from '../game/settings/GameSettings';
 
 @Entry
@@ -8,10 +9,12 @@ struct SettingsPage {
   @State private soundEnabled: boolean = true;
   @State private vibrationEnabled: boolean = true;
   @State private reducedMotion: boolean = false;
+  @State private canShowSettings: boolean = false;
 
   aboutToAppear(): void {
     const context = this.appContext();
     feedbackService.init(context);
+    this.requireLogin();
     this.loadSettings(context);
   }
 
@@ -42,35 +45,39 @@ struct SettingsPage {
         .width('100%')
         .padding({ left: 20, right: 20, top: 24, bottom: 18 })
 
-        Column() {
-          this.SettingRow('音效反馈', '交换、消除、道具和通关时播放短音效', this.soundEnabled, () => {
-            this.soundEnabled = !this.soundEnabled;
-            gameSettingsService.setSoundEnabled(this.soundEnabled);
-            feedbackService.play('tap');
-          })
-          this.SettingRow('震动反馈', '点击和特效触发时给一点触感提示', this.vibrationEnabled, () => {
-            this.vibrationEnabled = !this.vibrationEnabled;
-            gameSettingsService.setVibrationEnabled(this.vibrationEnabled);
-            feedbackService.play('tap');
-          })
-          this.SettingRow('柔和动画', '降低部分特效强度，适合虚拟机或低性能设备', this.reducedMotion, () => {
-            this.reducedMotion = !this.reducedMotion;
-            gameSettingsService.setReducedMotion(this.reducedMotion);
-            feedbackService.play('tap');
-          })
-        }
-        .width('90%')
-        .padding({ left: 18, right: 18, top: 14, bottom: 14 })
-        .borderRadius(24)
-        .backgroundColor('rgba(255, 253, 244, 0.78)')
-        .shadow({ radius: 20, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 8 })
+        if (this.canShowSettings) {
+          Column() {
+            this.SettingRow('音效反馈', '交换、消除、道具和通关时播放短音效', this.soundEnabled, () => {
+              this.soundEnabled = !this.soundEnabled;
+              gameSettingsService.setSoundEnabled(this.soundEnabled);
+              feedbackService.play('tap');
+            })
+            this.SettingRow('震动反馈', '点击和特效触发时给一点触感提示', this.vibrationEnabled, () => {
+              this.vibrationEnabled = !this.vibrationEnabled;
+              gameSettingsService.setVibrationEnabled(this.vibrationEnabled);
+              feedbackService.play('tap');
+            })
+            this.SettingRow('柔和动画', '降低部分特效强度，适合虚拟机或低性能设备', this.reducedMotion, () => {
+              this.reducedMotion = !this.reducedMotion;
+              gameSettingsService.setReducedMotion(this.reducedMotion);
+              feedbackService.play('tap');
+            })
+          }
+          .width('90%')
+          .padding({ left: 18, right: 18, top: 14, bottom: 14 })
+          .borderRadius(24)
+          .backgroundColor('rgba(255, 253, 244, 0.78)')
+          .shadow({ radius: 20, color: 'rgba(92, 58, 74, 0.13)', offsetX: 0, offsetY: 8 })
 
-        Text('音效素材来自 Kenney Interface Sounds，许可证为 CC0。')
-          .fontSize(12)
-          .fontColor('#8A6250')
-          .textAlign(TextAlign.Center)
-          .width('82%')
-          .margin({ top: 18 })
+          Text('音效素材来自 Kenney Interface Sounds，许可证为 CC0。')
+            .fontSize(12)
+            .fontColor('#8A6250')
+            .textAlign(TextAlign.Center)
+            .width('82%')
+            .margin({ top: 18 })
+        } else {
+          this.LoginRequiredPanel()
+        }
       }
       .width('100%')
       .height('100%')
@@ -79,6 +86,34 @@ struct SettingsPage {
     }
     .width('100%')
     .height('100%')
+  }
+
+  @Builder
+  LoginRequiredPanel() {
+    Column() {
+      Text('登录后查看设置')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#5C3A4A')
+      Text('玩家设置会随登录身份保存。')
+        .fontSize(12)
+        .fontColor('#8A6250')
+        .margin({ top: 8, bottom: 18 })
+      Button('去登录')
+        .height(42)
+        .borderRadius(21)
+        .fontColor('#FFFFFF')
+        .backgroundColor('#F27A91')
+        .onClick(() => {
+          this.redirectToAuth();
+        })
+    }
+    .width('86%')
+    .padding(22)
+    .borderRadius(24)
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
+    .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
+    .margin({ top: 96 })
   }
 
   @Builder
@@ -120,5 +155,22 @@ struct SettingsPage {
 
   private appContext(): common.Context {
     return this.getUIContext().getHostContext() as common.Context;
+  }
+
+  private async requireLogin(): Promise<void> {
+    const remoteState = await remoteGameService.init(this.appContext());
+    if (remoteState.authenticated && remoteState.player !== undefined) {
+      this.canShowSettings = true;
+      return;
+    }
+    this.canShowSettings = false;
+    this.redirectToAuth();
+  }
+
+  private redirectToAuth(): void {
+    try {
+      this.getUIContext().getRouter().replaceUrl({ url: 'pages/AuthPage' });
+    } catch (_error) {
+    }
   }
 }

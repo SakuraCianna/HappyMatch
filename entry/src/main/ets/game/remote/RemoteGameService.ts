@@ -1,9 +1,11 @@
 import { common } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
+import { BACKEND_BASE_URL } from './RemoteConfig';
 import { BackendHttpClient } from './BackendHttpClient';
 import {
   LeaderboardEntry,
   LocationSummary,
+  NearbyPlayer,
   NearbySummary,
   RemoteFriend,
   RemotePlayer,
@@ -48,6 +50,8 @@ interface PresenceRequest {
   world_id: number;
   level_id: number;
   region_key: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export class RemoteGameService {
@@ -107,6 +111,10 @@ export class RemoteGameService {
     return this.player !== undefined && this.state.authenticated;
   }
 
+  getLocation(): LocationSummary | undefined {
+    return this.location;
+  }
+
   async syncPlayerProgress(currentLevel: number, coins: number): Promise<void> {
     const player = this.player;
     if (!player) {
@@ -162,6 +170,10 @@ export class RemoteGameService {
       level_id: levelId,
       region_key: regionKey
     };
+    if (this.location?.latitude !== undefined && this.location.longitude !== undefined) {
+      payload.latitude = this.location.latitude;
+      payload.longitude = this.location.longitude;
+    }
     const nearby = await this.client.post<NearbySummary>('/map/presence', payload as Object);
     if (nearby) {
       this.state.connected = true;
@@ -175,6 +187,23 @@ export class RemoteGameService {
   async listWorldPopulation(): Promise<WorldPopulation[]> {
     const result = await this.client.get<WorldPopulation[]>('/map/worlds');
     return result ?? [];
+  }
+
+  async listNearbyPlayers(worldId: number): Promise<NearbyPlayer[]> {
+    const regionKey = this.state.regionKey;
+    if (regionKey.length === 0) {
+      return [];
+    }
+    const result = await this.client.get<NearbyPlayer[]>(
+      `/map/nearby/players?region_key=${encodeURIComponent(regionKey)}&world_id=${worldId}&include_self=true`
+    );
+    return result ?? [];
+  }
+
+  mapSnapshotUrl(worldId: number, cacheKey: number): string {
+    const regionKey = this.state.regionKey;
+    const regionQuery = regionKey.length > 0 ? `region_key=${encodeURIComponent(regionKey)}&` : '';
+    return `${BACKEND_BASE_URL}/map/static?${regionQuery}world_id=${worldId}&t=${cacheKey}`;
   }
 
   async listLeaderboard(scope: string = 'stars'): Promise<LeaderboardEntry[]> {

@@ -61,14 +61,28 @@ def test_auth_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
 
     first_presence = client.post(
       "/api/map/presence",
-      json={"player_id": first["id"], "world_id": 1, "level_id": 8, "region_key": "school-east"},
+      json={
+        "player_id": first["id"],
+        "world_id": 1,
+        "level_id": 8,
+        "region_key": "school-east",
+        "longitude": 116.397428,
+        "latitude": 39.90923
+      },
       headers=first_headers
     )
     assert first_presence.status_code == 200
 
     second_presence = client.post(
       "/api/map/presence",
-      json={"player_id": second["id"], "world_id": 1, "level_id": 3, "region_key": "school-east"},
+      json={
+        "player_id": second["id"],
+        "world_id": 1,
+        "level_id": 3,
+        "region_key": "school-east",
+        "longitude": 116.407428,
+        "latitude": 39.91923
+      },
       headers=second_headers
     )
     assert second_presence.status_code == 200
@@ -76,6 +90,14 @@ def test_auth_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
 
     nearby = client.get("/api/map/nearby?region_key=school-east&world_id=1").json()
     assert nearby["active_players"] == 2
+
+    nearby_players = client.get(
+      "/api/map/nearby/players?region_key=school-east&world_id=1",
+      headers=first_headers
+    ).json()
+    assert len(nearby_players) == 2
+    assert nearby_players[0]["is_self"] is True
+    assert nearby_players[0]["longitude"] == 116.397428
 
     location = client.get("/api/map/location/ip").json()
     assert "region_key" in location

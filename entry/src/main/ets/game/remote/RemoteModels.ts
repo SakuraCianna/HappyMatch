@@ -44,6 +44,21 @@ export interface NearbySummary {
   active_window_seconds: number;
 }
 
+export interface NearbyPlayer {
+  player_id: string;
+  nickname: string;
+  friend_code: string;
+  current_level: number;
+  total_stars: number;
+  world_id: number;
+  level_id: number;
+  region_key: string;
+  latitude?: number;
+  longitude?: number;
+  last_seen_at: string;
+  is_self: boolean;
+}
+
 export interface WorldPopulation {
   world_id: number;
   active_players: number;

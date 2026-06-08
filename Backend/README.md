@@ -46,6 +46,8 @@ DELETE /api/friends/{player_id}/{friend_id}
 GET  /api/leaderboard
 POST /api/map/presence
 GET  /api/map/nearby
+GET  /api/map/nearby/players
+GET  /api/map/static
 GET  /api/map/worlds
 GET  /api/map/location/ip
 GET  /api/map/location/regeo
@@ -70,4 +72,4 @@ HarmonyOS 端默认请求 `http://10.0.2.2:8000/api`，用于在模拟器里访�
 
 ## 设计边界
 
-当前后端先做异步社交和云端数据雏形，不做实时联机对战。地图附近人数使用粗粒度 `region_key` 或经纬度舍入后的网格，避免保存过细的位置数据。
+当前后端先做异步社交和云端数据雏形，不做实时联机对战。地图附近人数使用粗粒度 `region_key` 或经纬度舍入后的网格，避免保存过细的位置数据。HarmonyOS 端社交地图通过后端代理 `GET /api/map/static` 获取高德静态地图图片，前端不会直接保存高德 Key。

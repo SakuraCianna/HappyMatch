@@ -2,6 +2,7 @@ import { common } from '@kit.AbilityKit';
 import { AchievementItem, deriveAchievements } from '../game/achievements/AchievementService';
 import { economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
+import { remoteGameService } from '../game/remote/RemoteGameService';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { progressService } from '../game/storage/ProgressService';
 
@@ -11,6 +12,7 @@ struct AchievementsPage {
   @State private achievements: AchievementItem[] = [];
   @State private unlockedCount: number = 0;
   @State private totalCount: number = 0;
+  @State private canShowAchievements: boolean = false;
 
   aboutToAppear(): void {
     feedbackService.init(this.appContext());
@@ -55,16 +57,20 @@ struct AchievementsPage {
         .width('100%')
         .padding({ left: 20, right: 20, top: 24, bottom: 14 })
 
-        Scroll() {
-          Column() {
-            ForEach(this.achievements, (item: AchievementItem) => {
-              this.AchievementCard(item)
-            })
+        if (this.canShowAchievements) {
+          Scroll() {
+            Column() {
+              ForEach(this.achievements, (item: AchievementItem) => {
+                this.AchievementCard(item)
+              })
+            }
+            .width('100%')
+            .padding({ left: 18, right: 18, bottom: 28 })
           }
-          .width('100%')
-          .padding({ left: 18, right: 18, bottom: 28 })
+          .layoutWeight(1)
+        } else {
+          this.LoginRequiredPanel()
         }
-        .layoutWeight(1)
       }
       .width('100%')
       .height('100%')
@@ -72,6 +78,34 @@ struct AchievementsPage {
     }
     .width('100%')
     .height('100%')
+  }
+
+  @Builder
+  LoginRequiredPanel() {
+    Column() {
+      Text('登录后查看成就')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#5C3A4A')
+      Text('成就会跟随玩家身份同步进度。')
+        .fontSize(12)
+        .fontColor('#8A6250')
+        .margin({ top: 8, bottom: 18 })
+      Button('去登录')
+        .height(42)
+        .borderRadius(21)
+        .fontColor('#FFFFFF')
+        .backgroundColor('#F27A91')
+        .onClick(() => {
+          this.redirectToAuth();
+        })
+    }
+    .width('86%')
+    .padding(22)
+    .borderRadius(24)
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
+    .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
+    .margin({ top: 96 })
   }
 
   @Builder
@@ -163,6 +197,15 @@ struct AchievementsPage {
 
   private async refreshAchievements(): Promise<void> {
     const context = this.appContext();
+    const remoteState = await remoteGameService.init(context);
+    this.canShowAchievements = remoteState.authenticated && remoteState.player !== undefined;
+    if (!this.canShowAchievements) {
+      this.achievements = [];
+      this.unlockedCount = 0;
+      this.totalCount = 0;
+      this.redirectToAuth();
+      return;
+    }
     await bootstrapProgress(context);
     await economyService.init(context);
     const summary = deriveAchievements(await progressService.getAll(), economyService.getWallet());
@@ -173,6 +216,13 @@ struct AchievementsPage {
 
   private appContext(): common.Context {
     return this.getUIContext().getHostContext() as common.Context;
+  }
+
+  private redirectToAuth(): void {
+    try {
+      this.getUIContext().getRouter().replaceUrl({ url: 'pages/AuthPage' });
+    } catch (_error) {
+    }
   }
 
   private progressPercentText(item: AchievementItem): string {

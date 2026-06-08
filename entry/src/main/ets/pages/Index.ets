@@ -48,12 +48,17 @@ struct Index {
       Column() {
         Column() {
           Row() {
-            this.NavButton('成就', 'pages/AchievementsPage')
-            this.NavButton('图鉴', 'pages/GuidePage')
-            this.NavButton('社交', 'pages/SocialPage')
-            Blank()
-            this.NavButton('玩家', 'pages/AuthPage')
-            this.NavButton('设置', 'pages/SettingsPage')
+            if (this.canPlay) {
+              this.NavButton('成就', 'pages/AchievementsPage')
+              this.NavButton('图鉴', 'pages/GuidePage')
+              this.NavButton('社交', 'pages/SocialPage')
+              Blank()
+              this.NavButton('玩家', 'pages/AuthPage')
+              this.NavButton('设置', 'pages/SettingsPage')
+            } else {
+              Blank()
+              this.NavButton('登录 / 注册', 'pages/AuthPage')
+            }
           }
           .width('100%')
         }
@@ -145,7 +150,7 @@ struct Index {
       .margin({ right: 7 })
       .onClick(() => {
         feedbackService.play('tap');
-        this.getUIContext().getRouter().pushUrl({ url });
+        this.openProtectedEntry(url);
       })
   }
 
@@ -215,6 +220,17 @@ struct Index {
   private openPlayEntry(url: string): void {
     try {
       if (!this.canPlay) {
+        this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
+        return;
+      }
+      this.getUIContext().getRouter().pushUrl({ url });
+    } catch (_error) {
+    }
+  }
+
+  private openProtectedEntry(url: string): void {
+    try {
+      if (!this.canPlay && url !== 'pages/AuthPage') {
         this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
         return;
       }

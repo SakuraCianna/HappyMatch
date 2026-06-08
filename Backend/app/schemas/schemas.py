@@ -106,6 +106,21 @@ class NearbySummary(SQLModel):
   active_window_seconds: int
 
 
+class NearbyPlayer(SQLModel):
+  player_id: str
+  nickname: str
+  friend_code: str
+  current_level: int
+  total_stars: int
+  world_id: int
+  level_id: int
+  region_key: str
+  latitude: float | None
+  longitude: float | None
+  last_seen_at: datetime
+  is_self: bool = False
+
+
 class WorldPopulation(SQLModel):
   world_id: int
   active_players: int

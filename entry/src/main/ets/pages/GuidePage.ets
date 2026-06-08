@@ -1,6 +1,7 @@
 import { common } from '@kit.AbilityKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { MechanicGuideCategory, MechanicGuideItem, guideItemsByCategory } from '../game/mechanics/MechanicGuide';
+import { remoteGameService } from '../game/remote/RemoteGameService';
 import { CanvasRenderer, GameCanvasContext } from '../game/render/CanvasRenderer';
 
 @Entry
@@ -9,9 +10,11 @@ struct GuidePage {
   private specialItems: MechanicGuideItem[] = guideItemsByCategory('special');
   private blockerItems: MechanicGuideItem[] = guideItemsByCategory('blocker');
   private toolItems: MechanicGuideItem[] = guideItemsByCategory('tool');
+  @State private canShowGuide: boolean = false;
 
   aboutToAppear(): void {
     feedbackService.init(this.appContext());
+    this.requireLogin();
   }
 
   build() {
@@ -48,16 +51,20 @@ struct GuidePage {
         .width('100%')
         .padding({ left: 20, right: 20, top: 24, bottom: 12 })
 
-        Scroll() {
-          Column() {
-            this.GuideSection('功能果冻', '由 4 连、5 连或特殊形状生成，是连锁消除的核心。', this.specialItems, 'special')
-            this.GuideSection('关卡机制', '它们会改变棋盘结构或清理目标，需要优先识别。', this.blockerItems, 'blocker')
-            this.GuideSection('道具', '用于调整棋盘和降低卡关压力。', this.toolItems, 'tool')
+        if (this.canShowGuide) {
+          Scroll() {
+            Column() {
+              this.GuideSection('功能果冻', '由 4 连、5 连或特殊形状生成，是连锁消除的核心。', this.specialItems, 'special')
+              this.GuideSection('关卡机制', '它们会改变棋盘结构或清理目标，需要优先识别。', this.blockerItems, 'blocker')
+              this.GuideSection('道具', '用于调整棋盘和降低卡关压力。', this.toolItems, 'tool')
+            }
+            .width('100%')
+            .padding({ left: 16, right: 16, bottom: 28 })
           }
-          .width('100%')
-          .padding({ left: 16, right: 16, bottom: 28 })
+          .layoutWeight(1)
+        } else {
+          this.LoginRequiredPanel()
         }
-        .layoutWeight(1)
       }
       .width('100%')
       .height('100%')
@@ -65,6 +72,34 @@ struct GuidePage {
     }
     .width('100%')
     .height('100%')
+  }
+
+  @Builder
+  LoginRequiredPanel() {
+    Column() {
+      Text('登录后查看机制图鉴')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#5C3A4A')
+      Text('图鉴内容会跟随玩家进度和机制解锁展示。')
+        .fontSize(12)
+        .fontColor('#8A6250')
+        .margin({ top: 8, bottom: 18 })
+      Button('去登录')
+        .height(42)
+        .borderRadius(21)
+        .fontColor('#FFFFFF')
+        .backgroundColor('#F27A91')
+        .onClick(() => {
+          this.redirectToAuth();
+        })
+    }
+    .width('86%')
+    .padding(22)
+    .borderRadius(24)
+    .backgroundColor('rgba(255, 253, 244, 0.84)')
+    .shadow({ radius: 16, color: 'rgba(92, 58, 74, 0.12)', offsetX: 0, offsetY: 7 })
+    .margin({ top: 96 })
   }
 
   @Builder
@@ -150,6 +185,23 @@ struct GuidePage {
 
   private appContext(): common.Context {
     return this.getUIContext().getHostContext() as common.Context;
+  }
+
+  private async requireLogin(): Promise<void> {
+    const remoteState = await remoteGameService.init(this.appContext());
+    if (remoteState.authenticated && remoteState.player !== undefined) {
+      this.canShowGuide = true;
+      return;
+    }
+    this.canShowGuide = false;
+    this.redirectToAuth();
+  }
+
+  private redirectToAuth(): void {
+    try {
+      this.getUIContext().getRouter().replaceUrl({ url: 'pages/AuthPage' });
+    } catch (_error) {
+    }
   }
 }
 

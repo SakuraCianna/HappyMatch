@@ -4,8 +4,8 @@ from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
 from app.core.config import settings
-from app.models.entities import PlayerPresence, utc_now
-from app.schemas.schemas import NearbySummary, PresenceUpdate, WorldPopulation
+from app.models.entities import Player, PlayerPresence, utc_now
+from app.schemas.schemas import NearbyPlayer, NearbySummary, PresenceUpdate, WorldPopulation
 from app.services.player_service import get_player_or_404, touch_player
 
 
@@ -43,6 +43,21 @@ def count_active(
   return len(session.exec(statement).all())
 
 
+def active_presence_statement(
+  region_key: str | None = None,
+  world_id: int | None = None,
+  level_id: int | None = None
+):
+  statement = select(PlayerPresence).where(PlayerPresence.last_seen_at >= active_cutoff())
+  if region_key:
+    statement = statement.where(PlayerPresence.region_key == region_key)
+  if world_id is not None:
+    statement = statement.where(PlayerPresence.world_id == world_id)
+  if level_id is not None:
+    statement = statement.where(PlayerPresence.level_id == level_id)
+  return statement
+
+
 def nearby_summary(
   session: Session,
   region_key: str | None = None,
@@ -58,6 +73,41 @@ def nearby_summary(
     active_players=count_active(session, normalized_region_key, world_id, level_id, exclude_player_id),
     active_window_seconds=settings.nearby_active_seconds
   )
+
+
+def nearby_players(
+  session: Session,
+  region_key: str | None = None,
+  world_id: int | None = None,
+  level_id: int | None = None,
+  current_player_id: str | None = None,
+  include_self: bool = True
+) -> list[NearbyPlayer]:
+  normalized_region_key = region_key.strip().lower() if region_key else None
+  presences = session.exec(active_presence_statement(normalized_region_key, world_id, level_id)).all()
+  result: list[NearbyPlayer] = []
+  for presence in presences:
+    if not include_self and presence.player_id == current_player_id:
+      continue
+    player = session.get(Player, presence.player_id)
+    if player is None:
+      continue
+    result.append(NearbyPlayer(
+      player_id=player.id,
+      nickname=player.nickname,
+      friend_code=player.friend_code,
+      current_level=player.current_level,
+      total_stars=player.total_stars,
+      world_id=presence.world_id,
+      level_id=presence.level_id,
+      region_key=presence.region_key,
+      latitude=presence.latitude,
+      longitude=presence.longitude,
+      last_seen_at=presence.last_seen_at,
+      is_self=presence.player_id == current_player_id
+    ))
+  result.sort(key=lambda item: (not item.is_self, -item.total_stars, item.nickname))
+  return result
 
 
 def update_presence(session: Session, payload: PresenceUpdate) -> NearbySummary:
@@ -86,9 +136,7 @@ def update_presence(session: Session, payload: PresenceUpdate) -> NearbySummary:
 
 
 def world_population(session: Session) -> list[WorldPopulation]:
-  presences = session.exec(
-    select(PlayerPresence).where(PlayerPresence.last_seen_at >= active_cutoff())
-  ).all()
+  presences = session.exec(active_presence_statement()).all()
   counts: dict[int, int] = {}
   for presence in presences:
     counts[presence.world_id] = counts.get(presence.world_id, 0) + 1
