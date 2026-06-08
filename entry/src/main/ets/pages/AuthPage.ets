@@ -218,6 +218,7 @@ struct AuthPage {
     if (ok) {
       this.password = '';
       this.tipText = this.isRegisterMode ? '注册成功, 已创建云端玩家信息' : '登录成功, 已切换到玩家进度';
+      this.returnHome();
       return;
     }
     this.tipText = this.isRegisterMode ? '注册失败, 昵称可能已存在' : '登录失败, 请检查昵称或密码';
@@ -228,6 +229,13 @@ struct AuthPage {
     await remoteGameService.logoutAccount();
     this.remoteState = remoteGameService.getState();
     this.tipText = '已退出登录, 登录后才能同步云端数据';
+  }
+
+  private returnHome(): void {
+    try {
+      this.getUIContext().getRouter().replaceUrl({ url: 'pages/Index' });
+    } catch (_error) {
+    }
   }
 
   private primaryButtonText(): string {
