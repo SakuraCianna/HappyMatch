@@ -136,7 +136,7 @@ export class CanvasRenderer {
           const offsetY = effect ? effect.offsetY : 0;
           const scale = effect ? effect.scale : 1;
           const opacity = effect ? effect.opacity : 1;
-          const pieceFastMode = fastMode || (fastStaticMode && !effect);
+          const pieceFastMode = tile.piece.special === 'none' && (fastMode || (fastStaticMode && !effect));
           this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity, pieceFastMode);
         }
         if (tile.blocker && !this.shouldDrawBlockerUnderPiece(tile.blocker.type)) {

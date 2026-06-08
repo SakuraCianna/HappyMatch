@@ -231,7 +231,7 @@ struct GamePage {
         Canvas(this.context)
           .width(this.canvasWidth)
           .height(this.canvasHeight)
-          .backgroundColor('rgba(255, 255, 255, 0.00)')
+          .backgroundColor(this.worldTheme().board.canvasFill)
           .borderRadius(22)
           .shadow({ radius: 24, color: this.worldTheme().shadow, offsetX: 0, offsetY: 8 })
           .margin({ top: 10 })
@@ -1349,7 +1349,7 @@ struct GamePage {
           opacity: 1 - eased
         });
       });
-      this.drawBoardSnapshot(board, { pieceEffects: effects, fastStaticMode: true });
+      this.drawBoardSnapshot(board, { pieceEffects: effects });
     }, done);
   }
 
@@ -1375,7 +1375,7 @@ struct GamePage {
           opacity: 1
         });
       });
-      this.drawBoardSnapshot(progress < switchAt ? fromBoard : toBoard, { pieceEffects: effects, fastStaticMode: true });
+      this.drawBoardSnapshot(progress < switchAt ? fromBoard : toBoard, { pieceEffects: effects });
     }, done);
   }
 
@@ -1384,7 +1384,6 @@ struct GamePage {
       const eased = this.easeInOut(progress);
       const pulse = progress < 0.5 ? eased : 1 - eased;
       this.drawBoardSnapshot(board, {
-        fastStaticMode: true,
         pieceEffects: [
           {
             row: position.row,
@@ -1405,7 +1404,7 @@ struct GamePage {
     this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
-      this.drawBoardSnapshot(toBoard, { pieceEffects: effects, fastMode: true });
+      this.drawBoardSnapshot(toBoard, { pieceEffects: effects });
     }, done);
   }
 
