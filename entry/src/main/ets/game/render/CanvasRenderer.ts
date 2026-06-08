@@ -20,8 +20,6 @@ export interface PieceRenderEffect {
 
 export interface BoardRenderState {
   pieceEffects?: PieceRenderEffect[];
-  fastMode?: boolean;
-  fastStaticMode?: boolean;
 }
 
 export interface BoardRenderTheme {
@@ -95,7 +93,7 @@ export class CanvasRenderer {
   drawGuidePiece(ctx: GameCanvasContext, piece: Piece, width: number, height: number): void {
     ctx.clearRect(0, 0, width, height);
     const size = Math.min(width, height) * 0.72;
-    this.drawPiece(ctx, piece, width / 2, height / 2, size, 1, false);
+    this.drawPiece(ctx, piece, width / 2, height / 2, size, 1);
   }
 
   drawGuideBlocker(ctx: GameCanvasContext, type: string, width: number, height: number, hp: number = 1): void {
@@ -107,8 +105,6 @@ export class CanvasRenderer {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
     const effectLookup = options.animation?.pieceEffects ?
       this.buildEffectLookup(options.animation.pieceEffects, board.cols) : undefined;
-    const fastMode = options.animation?.fastMode === true;
-    const fastStaticMode = options.animation?.fastStaticMode === true;
     const theme = options.theme ?? DEFAULT_BOARD_THEME;
 
     this.paintCanvasBase(ctx, options.width, options.height, theme.canvasFill);
@@ -136,8 +132,7 @@ export class CanvasRenderer {
           const offsetY = effect ? effect.offsetY : 0;
           const scale = effect ? effect.scale : 1;
           const opacity = effect ? effect.opacity : 1;
-          const pieceFastMode = tile.piece.special === 'none' && (fastMode || (fastStaticMode && !effect));
-          this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity, pieceFastMode);
+          this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
         }
         if (tile.blocker && !this.shouldDrawBlockerUnderPiece(tile.blocker.type)) {
           this.drawBlocker(ctx, tile.blocker.type, centerX, centerY, layout.tileSize * 0.86, tile.blocker.hp);
@@ -259,18 +254,13 @@ export class CanvasRenderer {
     ctx.fill();
   }
 
-  private drawPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number, fastMode: boolean): void {
+  private drawPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number): void {
     if (opacity <= 0.01 || size <= 1) {
       return;
     }
     const palette = PALETTE[piece.type];
     ctx.save();
     ctx.globalAlpha = opacity;
-    if (fastMode) {
-      this.drawFastPiece(ctx, piece, cx, cy, size, palette);
-      ctx.restore();
-      return;
-    }
     this.drawSpecialAura(ctx, piece, cx, cy, size);
     if (piece.special === 'rainbow') {
       this.drawRainbowPiece(ctx, cx, cy, size);
@@ -287,41 +277,6 @@ export class CanvasRenderer {
 
     this.drawPieceIdentity(ctx, piece, cx, cy, size);
     ctx.restore();
-  }
-
-  private drawFastPiece(
-    ctx: GameCanvasContext,
-    piece: Piece,
-    cx: number,
-    cy: number,
-    size: number,
-    palette: PiecePalette
-  ): void {
-    if (piece.special === 'rainbow') {
-      this.drawFastRainbowPiece(ctx, cx, cy, size);
-    } else {
-      this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
-      this.drawFastPieceShine(ctx, cx, cy, size, palette);
-    }
-    this.drawPieceIdentity(ctx, piece, cx, cy, size);
-  }
-
-  private drawFastPieceShine(ctx: GameCanvasContext, cx: number, cy: number, size: number, palette: PiecePalette): void {
-    ctx.fillStyle = palette.sheen;
-    ctx.beginPath();
-    ctx.ellipse(cx - size * 0.16, cy - size * 0.20, size * 0.13, size * 0.070, -Math.PI / 7, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  private drawFastRainbowPiece(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
-    ctx.fillStyle = '#F9F7FF';
-    ctx.strokeStyle = 'rgba(124, 107, 255, 0.78)';
-    ctx.lineWidth = Math.max(3, size * 0.070);
-    ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.50, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-    this.drawRainbowCore(ctx, cx, cy, size * 0.78);
   }
 
   private drawPieceIdentity(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number): void {
