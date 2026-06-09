@@ -1,4 +1,5 @@
 import { common } from '@kit.AbilityKit';
+import { image } from '@kit.ImageKit';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { getLevelChapter } from '../game/levels/LevelChapters';
 import { LeaderboardEntry, LocationSummary, NearbyPlayer, RemoteFriend, RemoteState } from '../game/remote/RemoteModels';
@@ -18,7 +19,8 @@ struct SocialPage {
   @State private leaderboard: LeaderboardEntry[] = [];
   @State private nearbyPlayers: NearbyPlayer[] = [];
   @State private location?: LocationSummary = undefined;
-  @State private mapImageUrl: string = '';
+  @State private mapPixelMap?: image.PixelMap = undefined;
+  @State private mapLoadText: string = '地图加载中';
   @State private friendCodeInput: string = '';
   @State private tipText: string = '';
   @State private canShowSocial: boolean = false;
@@ -26,6 +28,10 @@ struct SocialPage {
   aboutToAppear(): void {
     feedbackService.init(this.appContext());
     this.refreshSocial();
+  }
+
+  aboutToDisappear(): void {
+    this.releaseMapPixelMap();
   }
 
   build() {
@@ -141,15 +147,15 @@ struct SocialPage {
       .width('100%')
 
       Stack() {
-        if (this.mapImageUrl.length > 0) {
-          Image(this.mapImageUrl)
+        if (this.mapPixelMap) {
+          Image(this.mapPixelMap)
             .width('100%')
             .height(178)
             .objectFit(ImageFit.Cover)
             .borderRadius(18)
         } else {
           Column() {
-            Text('地图加载中')
+            Text(this.mapLoadText)
               .fontSize(17)
               .fontWeight(FontWeight.Bold)
               .fontColor('#5C3A4A')
@@ -438,27 +444,30 @@ struct SocialPage {
   }
 
   private async refreshSocial(): Promise<void> {
-    this.remoteState = await remoteGameService.init(this.appContext());
-    this.canShowSocial = this.remoteState.authenticated && this.remoteState.player !== undefined;
-    if (!this.canShowSocial || !this.remoteState.player) {
-      this.friends = [];
-      this.leaderboard = [];
-      this.nearbyPlayers = [];
-      this.mapImageUrl = '';
-      this.redirectToAuth();
-      return;
+    try {
+      this.remoteState = await remoteGameService.init(this.appContext());
+      this.canShowSocial = this.remoteState.authenticated && this.remoteState.player !== undefined;
+      if (!this.canShowSocial || !this.remoteState.player) {
+        this.clearSocialData();
+        this.redirectToAuth();
+        return;
+      }
+      this.leaderboard = await remoteGameService.listLeaderboard('stars');
+      this.location = await remoteGameService.refreshLocation();
+      const worldId = getLevelChapter(this.remoteState.player.current_level).id;
+      const nearby = await remoteGameService.updatePresence(worldId, this.remoteState.player.current_level);
+      if (nearby) {
+        this.remoteState = remoteGameService.getState();
+      }
+      this.location = remoteGameService.getLocation();
+      this.nearbyPlayers = await remoteGameService.listNearbyPlayers(worldId);
+      await this.loadMapSnapshot(worldId);
+      this.friends = await remoteGameService.listFriends();
+    } catch (_error) {
+      this.tipText = '社交数据加载失败, 请检查后端服务。';
+      this.mapLoadText = '地图暂不可用';
+      this.releaseMapPixelMap();
     }
-    this.leaderboard = await remoteGameService.listLeaderboard('stars');
-    this.location = await remoteGameService.refreshLocation();
-    const worldId = getLevelChapter(this.remoteState.player.current_level).id;
-    const nearby = await remoteGameService.updatePresence(worldId, this.remoteState.player.current_level);
-    if (nearby) {
-      this.remoteState = remoteGameService.getState();
-    }
-    this.location = remoteGameService.getLocation();
-    this.nearbyPlayers = await remoteGameService.listNearbyPlayers(worldId);
-    this.mapImageUrl = remoteGameService.mapSnapshotUrl(worldId, Date.now());
-    this.friends = await remoteGameService.listFriends();
   }
 
   private async addFriend(): Promise<void> {
@@ -518,6 +527,45 @@ struct SocialPage {
       return this.remoteState.regionKey.substring(0, 8);
     }
     return this.remoteState.regionKey;
+  }
+
+  private clearSocialData(): void {
+    this.friends = [];
+    this.leaderboard = [];
+    this.nearbyPlayers = [];
+    this.mapLoadText = '地图加载中';
+    this.releaseMapPixelMap();
+  }
+
+  private async loadMapSnapshot(worldId: number): Promise<void> {
+    this.mapLoadText = '地图加载中';
+    this.releaseMapPixelMap();
+    const buffer = await remoteGameService.fetchMapSnapshot(worldId, Date.now());
+    if (!buffer) {
+      this.mapLoadText = '地图暂不可用';
+      return;
+    }
+    const source = image.createImageSource(buffer);
+    try {
+      const pixelMap = await source.createPixelMap();
+      this.mapPixelMap = pixelMap;
+      this.mapLoadText = '';
+    } catch (_error) {
+      this.mapLoadText = '地图暂不可用';
+      this.mapPixelMap = undefined;
+    } finally {
+      await source.release();
+    }
+  }
+
+  private releaseMapPixelMap(): void {
+    const pixelMap = this.mapPixelMap;
+    this.mapPixelMap = undefined;
+    if (!pixelMap) {
+      return;
+    }
+    pixelMap.release().catch(() => {
+    });
   }
 
   private appContext(): common.Context {

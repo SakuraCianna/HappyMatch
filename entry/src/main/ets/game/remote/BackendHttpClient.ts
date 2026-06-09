@@ -30,6 +30,34 @@ export class BackendHttpClient {
     return result !== undefined;
   }
 
+  async getArrayBuffer(path: string): Promise<ArrayBuffer | undefined> {
+    const request = http.createHttp();
+    const header: RequestHeaders = {
+      'Content-Type': 'application/json'
+    };
+    if (this.authToken.length > 0) {
+      header.Authorization = `Bearer ${this.authToken}`;
+    }
+    try {
+      const response = await request.request(`${BACKEND_BASE_URL}${path}`, {
+        method: http.RequestMethod.GET,
+        header,
+        expectDataType: http.HttpDataType.ARRAY_BUFFER,
+        connectTimeout: BACKEND_REQUEST_TIMEOUT_MS,
+        readTimeout: BACKEND_REQUEST_TIMEOUT_MS,
+        usingCache: false
+      });
+      if (response.responseCode >= 200 && response.responseCode < 300 && response.result instanceof ArrayBuffer) {
+        return response.result;
+      }
+    } catch (_error) {
+      return undefined;
+    } finally {
+      request.destroy();
+    }
+    return undefined;
+  }
+
   private async request<T>(path: string, method: http.RequestMethod, body?: Object): Promise<T | undefined> {
     const request = http.createHttp();
     const header: RequestHeaders = {

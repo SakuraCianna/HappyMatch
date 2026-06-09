@@ -1,6 +1,5 @@
 import { common } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
-import { BACKEND_BASE_URL } from './RemoteConfig';
 import { BackendHttpClient } from './BackendHttpClient';
 import {
   LeaderboardEntry,
@@ -200,10 +199,10 @@ export class RemoteGameService {
     return result ?? [];
   }
 
-  mapSnapshotUrl(worldId: number, cacheKey: number): string {
+  async fetchMapSnapshot(worldId: number, cacheKey: number): Promise<ArrayBuffer | undefined> {
     const regionKey = this.state.regionKey;
     const regionQuery = regionKey.length > 0 ? `region_key=${encodeURIComponent(regionKey)}&` : '';
-    return `${BACKEND_BASE_URL}/map/static?${regionQuery}world_id=${worldId}&t=${cacheKey}`;
+    return this.client.getArrayBuffer(`/map/static?${regionQuery}world_id=${worldId}&t=${cacheKey}`);
   }
 
   async listLeaderboard(scope: string = 'stars'): Promise<LeaderboardEntry[]> {
