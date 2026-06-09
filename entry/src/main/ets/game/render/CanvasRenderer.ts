@@ -495,7 +495,7 @@ export class CanvasRenderer {
       this.drawArrowHeadDots(ctx, cx, cy, size, false);
     } else if (piece.special === 'bomb') {
       this.drawExplosionBadge(ctx, cx, cy, size);
-      this.drawBombGlyph(ctx, cx + size * 0.17, cy - size * 0.15, size * 0.74);
+      this.drawBombGlyph(ctx, cx, cy, size * 0.92);
     } else if (piece.special === 'rainbow') {
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.86)';
       ctx.lineWidth = Math.max(2, size * 0.050);
@@ -731,21 +731,26 @@ export class CanvasRenderer {
   }
 
   private drawExplosionBadge(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
-    ctx.fillStyle = 'rgba(255, 180, 62, 0.46)';
-    ctx.strokeStyle = 'rgba(139, 55, 24, 0.92)';
-    ctx.lineWidth = Math.max(3, size * 0.075);
+    ctx.fillStyle = 'rgba(255, 203, 62, 0.92)';
+    ctx.strokeStyle = 'rgba(184, 69, 24, 0.98)';
+    ctx.lineWidth = Math.max(3, size * 0.070);
     ctx.beginPath();
-    this.starPath(ctx, cx, cy, size * 0.50, size * 0.28, 10);
+    this.starPath(ctx, cx, cy, size * 0.55, size * 0.34, 12);
     ctx.fill();
     ctx.stroke();
-    ctx.strokeStyle = '#FFF27A';
-    ctx.lineWidth = Math.max(2, size * 0.052);
+    ctx.fillStyle = 'rgba(255, 246, 150, 0.96)';
     ctx.beginPath();
-    this.starPath(ctx, cx, cy, size * 0.40, size * 0.22, 10);
-    ctx.stroke();
-    ctx.fillStyle = 'rgba(255, 245, 160, 0.96)';
-    this.drawSmallSpark(ctx, cx - size * 0.32, cy + size * 0.24, size * 0.070);
-    this.drawSmallSpark(ctx, cx + size * 0.30, cy + size * 0.20, size * 0.060);
+    this.starPath(ctx, cx, cy, size * 0.35, size * 0.22, 12);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(102, 43, 26, 0.52)';
+    ctx.lineWidth = Math.max(1, size * 0.032);
+    for (let index = 0; index < 8; index++) {
+      const angle = index * Math.PI / 4;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * size * 0.40, cy + Math.sin(angle) * size * 0.40);
+      ctx.lineTo(cx + Math.cos(angle) * size * 0.52, cy + Math.sin(angle) * size * 0.52);
+      ctx.stroke();
+    }
   }
 
   private drawArrowHeadDots(ctx: GameCanvasContext, cx: number, cy: number, size: number, horizontal: boolean): void {
@@ -762,26 +767,41 @@ export class CanvasRenderer {
   }
 
   private drawBombGlyph(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
-    ctx.fillStyle = 'rgba(117, 70, 24, 0.94)';
+    ctx.fillStyle = 'rgba(58, 45, 43, 0.98)';
     ctx.beginPath();
-    ctx.arc(cx - size * 0.02, cy + size * 0.03, size * 0.20, 0, Math.PI * 2);
+    ctx.arc(cx - size * 0.03, cy + size * 0.08, size * 0.23, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = '#FFF4A6';
-    ctx.lineWidth = Math.max(2, size * 0.050);
+    ctx.strokeStyle = '#FFF0A8';
+    ctx.lineWidth = Math.max(2, size * 0.046);
     ctx.stroke();
-    ctx.strokeStyle = 'rgba(117, 70, 24, 0.92)';
-    ctx.lineWidth = Math.max(2, size * 0.055);
-    ctx.beginPath();
-    ctx.moveTo(cx + size * 0.10, cy - size * 0.11);
-    ctx.lineTo(cx + size * 0.24, cy - size * 0.24);
-    ctx.stroke();
-    ctx.fillStyle = '#FFF8C8';
-    ctx.beginPath();
-    this.starPath(ctx, cx + size * 0.30, cy - size * 0.30, size * 0.13, size * 0.05, 5);
+
+    ctx.fillStyle = '#FFF2AF';
+    this.roundRect(ctx, cx + size * 0.06, cy - size * 0.16, size * 0.16, size * 0.10, 4);
     ctx.fill();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+    ctx.strokeStyle = 'rgba(58, 45, 43, 0.92)';
+    ctx.lineWidth = Math.max(1, size * 0.030);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(76, 48, 34, 0.96)';
+    ctx.lineWidth = Math.max(2, size * 0.052);
     ctx.beginPath();
-    ctx.arc(cx - size * 0.09, cy - size * 0.04, size * 0.050, 0, Math.PI * 2);
+    ctx.moveTo(cx + size * 0.16, cy - size * 0.17);
+    ctx.lineTo(cx + size * 0.26, cy - size * 0.26);
+    ctx.lineTo(cx + size * 0.34, cy - size * 0.20);
+    ctx.stroke();
+
+    ctx.fillStyle = '#FFF6B0';
+    ctx.beginPath();
+    this.starPath(ctx, cx + size * 0.39, cy - size * 0.20, size * 0.12, size * 0.045, 6);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 132, 64, 0.92)';
+    ctx.beginPath();
+    ctx.arc(cx + size * 0.39, cy - size * 0.20, size * 0.042, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.82)';
+    ctx.beginPath();
+    ctx.arc(cx - size * 0.12, cy - size * 0.01, size * 0.052, 0, Math.PI * 2);
     ctx.fill();
   }
 
