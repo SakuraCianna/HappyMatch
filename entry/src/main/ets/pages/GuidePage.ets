@@ -149,7 +149,8 @@ struct GuidePage {
             .fontSize(16)
             .fontWeight(FontWeight.Bold)
             .fontColor('#5C3A4A')
-          Blank()
+            .textAlign(TextAlign.Start)
+            .layoutWeight(1)
           Text(`第 ${item.unlockLevel} 关`)
             .fontSize(11)
             .fontColor(item.accent)
@@ -162,15 +163,20 @@ struct GuidePage {
         Text(item.summary)
           .fontSize(12)
           .fontColor('#7B5A4D')
+          .textAlign(TextAlign.Start)
           .lineHeight(18)
+          .width('100%')
           .margin({ top: 4 })
         Text(item.detail)
           .fontSize(11)
           .fontColor('#8A6250')
+          .textAlign(TextAlign.Start)
           .lineHeight(17)
+          .width('100%')
           .margin({ top: 3 })
       }
       .layoutWeight(1)
+      .alignItems(HorizontalAlign.Start)
       .margin({ left: 12 })
     }
     .width('100%')
@@ -252,6 +258,10 @@ struct MechanicCanvasIcon {
     }
     if (this.itemId === 'portal') {
       this.renderer.drawGuideBlocker(this.context as GameCanvasContext, 'portal', 48, 48);
+      return;
+    }
+    if (this.itemId === 'shuffle' || this.itemId === 'hammer' || this.itemId === 'brush' || this.itemId === 'add_moves') {
+      this.renderer.drawGuideTool(this.context as GameCanvasContext, this.itemId, 48, 48);
       return;
     }
     this.renderer.drawGuidePiece(this.context as GameCanvasContext, { id: 'guide_normal', type: 'green', special: 'none' }, 48, 48);

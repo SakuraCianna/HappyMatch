@@ -101,6 +101,31 @@ export class CanvasRenderer {
     this.drawBlocker(ctx, type, width / 2, height / 2, Math.min(width, height) * 0.74, hp);
   }
 
+  drawGuideTool(ctx: GameCanvasContext, type: string, width: number, height: number): void {
+    ctx.clearRect(0, 0, width, height);
+    const cx = width / 2;
+    const cy = height / 2;
+    const size = Math.min(width, height) * 0.76;
+    ctx.save();
+    ctx.fillStyle = this.toolFill(type);
+    ctx.strokeStyle = this.toolStroke(type);
+    ctx.lineWidth = Math.max(2, size * 0.065);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.50, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    if (type === 'shuffle') {
+      this.drawShuffleTool(ctx, cx, cy, size);
+    } else if (type === 'hammer') {
+      this.drawHammerTool(ctx, cx, cy, size);
+    } else if (type === 'brush') {
+      this.drawBrushTool(ctx, cx, cy, size);
+    } else if (type === 'add_moves') {
+      this.drawAddMovesTool(ctx, cx, cy, size);
+    }
+    ctx.restore();
+  }
+
   draw(ctx: GameCanvasContext, board: Board, options: RenderOptions): void {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
     const effectLookup = options.animation?.pieceEffects ?
@@ -487,40 +512,48 @@ export class CanvasRenderer {
       return;
     }
     ctx.save();
-    const innerAura = this.specialAuraColor(piece.special, true);
-    const outerAura = this.specialAuraColor(piece.special, false);
-    ctx.strokeStyle = outerAura;
-    ctx.lineWidth = Math.max(6, size * 0.16);
+    ctx.fillStyle = this.specialAuraFill(piece.special);
     ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.72, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.strokeStyle = innerAura;
-    ctx.lineWidth = Math.max(4, size * 0.12);
+    ctx.arc(cx, cy, size * 0.64, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = this.specialAuraStroke(piece.special);
+    ctx.lineWidth = Math.max(3, size * 0.075);
     ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.58, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
-    ctx.lineWidth = Math.max(2, size * 0.052);
-    ctx.beginPath();
-    ctx.arc(cx, cy, size * 0.45, 0, Math.PI * 2);
+    ctx.arc(cx, cy, size * 0.61, 0, Math.PI * 2);
     ctx.stroke();
     ctx.restore();
   }
 
-  private specialAuraColor(special: string, inner: boolean): string {
+  private specialAuraFill(special: string): string {
     if (special === 'row_clear') {
-      return inner ? 'rgba(255, 103, 152, 0.96)' : 'rgba(255, 214, 96, 0.76)';
+      return 'rgba(255, 103, 152, 0.22)';
     }
     if (special === 'col_clear') {
-      return inner ? 'rgba(179, 94, 255, 0.96)' : 'rgba(255, 206, 103, 0.76)';
+      return 'rgba(179, 94, 255, 0.22)';
     }
     if (special === 'bomb') {
-      return inner ? 'rgba(255, 137, 64, 0.97)' : 'rgba(255, 220, 80, 0.82)';
+      return 'rgba(255, 137, 64, 0.24)';
     }
     if (special === 'rainbow') {
-      return inner ? 'rgba(255, 112, 205, 0.94)' : 'rgba(255, 226, 94, 0.82)';
+      return 'rgba(255, 112, 205, 0.22)';
     }
-    return inner ? 'rgba(255, 132, 176, 0.94)' : 'rgba(255, 218, 100, 0.76)';
+    return 'rgba(255, 132, 176, 0.22)';
+  }
+
+  private specialAuraStroke(special: string): string {
+    if (special === 'row_clear') {
+      return 'rgba(255, 103, 152, 0.82)';
+    }
+    if (special === 'col_clear') {
+      return 'rgba(179, 94, 255, 0.82)';
+    }
+    if (special === 'bomb') {
+      return 'rgba(255, 137, 64, 0.84)';
+    }
+    if (special === 'rainbow') {
+      return 'rgba(255, 112, 205, 0.80)';
+    }
+    return 'rgba(255, 132, 176, 0.80)';
   }
 
   private drawRainbowPiece(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
@@ -858,6 +891,112 @@ export class CanvasRenderer {
     ctx.beginPath();
     ctx.arc(cx, cy + size * 0.09, size * 0.035, 0, Math.PI * 2);
     ctx.fill();
+  }
+
+  private drawShuffleTool(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.strokeStyle = '#1C8DAD';
+    ctx.lineWidth = Math.max(3, size * 0.085);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.24, Math.PI * 0.02, Math.PI * 1.34);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.24, Math.PI * 1.08, Math.PI * 2.40);
+    ctx.stroke();
+    ctx.fillStyle = '#F7FCFF';
+    ctx.beginPath();
+    ctx.moveTo(cx + size * 0.25, cy - size * 0.13);
+    ctx.lineTo(cx + size * 0.40, cy - size * 0.12);
+    ctx.lineTo(cx + size * 0.31, cy + size * 0.01);
+    ctx.closePath();
+    ctx.moveTo(cx - size * 0.25, cy + size * 0.13);
+    ctx.lineTo(cx - size * 0.40, cy + size * 0.12);
+    ctx.lineTo(cx - size * 0.31, cy - size * 0.01);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  private drawHammerTool(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.strokeStyle = '#8B5A25';
+    ctx.lineWidth = Math.max(5, size * 0.15);
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.18, cy + size * 0.26);
+    ctx.lineTo(cx + size * 0.12, cy - size * 0.05);
+    ctx.stroke();
+    ctx.fillStyle = '#FFE8A8';
+    ctx.strokeStyle = '#A66E28';
+    ctx.lineWidth = Math.max(2, size * 0.060);
+    this.roundRect(ctx, cx - size * 0.02, cy - size * 0.30, size * 0.43, size * 0.18, 6);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = '#FFF7D6';
+    this.roundRect(ctx, cx + size * 0.02, cy - size * 0.27, size * 0.15, size * 0.04, 3);
+    ctx.fill();
+  }
+
+  private drawBrushTool(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.strokeStyle = '#2E9B53';
+    ctx.lineWidth = Math.max(5, size * 0.13);
+    ctx.beginPath();
+    ctx.moveTo(cx - size * 0.20, cy + size * 0.25);
+    ctx.lineTo(cx + size * 0.12, cy - size * 0.06);
+    ctx.stroke();
+    ctx.fillStyle = '#F6FFF2';
+    ctx.strokeStyle = '#2E9B53';
+    ctx.lineWidth = Math.max(2, size * 0.055);
+    this.roundRect(ctx, cx + size * 0.02, cy - size * 0.28, size * 0.25, size * 0.18, 7);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = '#75D37A';
+    ctx.beginPath();
+    ctx.arc(cx - size * 0.18, cy + size * 0.24, size * 0.075, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  private drawAddMovesTool(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `${Math.floor(size * 0.35)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('+3', cx, cy - size * 0.02);
+    ctx.strokeStyle = '#FFF2B9';
+    ctx.lineWidth = Math.max(2, size * 0.052);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.32, Math.PI * 0.10, Math.PI * 1.64);
+    ctx.stroke();
+    ctx.fillStyle = '#FFF2B9';
+    this.drawSmallSpark(ctx, cx + size * 0.28, cy - size * 0.24, size * 0.070);
+  }
+
+  private toolFill(type: string): string {
+    if (type === 'shuffle') {
+      return '#78D7F3';
+    }
+    if (type === 'hammer') {
+      return '#F2B84B';
+    }
+    if (type === 'brush') {
+      return '#76D37B';
+    }
+    if (type === 'add_moves') {
+      return '#F7C36C';
+    }
+    return '#76D37B';
+  }
+
+  private toolStroke(type: string): string {
+    if (type === 'shuffle') {
+      return '#FFFFFF';
+    }
+    if (type === 'hammer') {
+      return '#FFF4B8';
+    }
+    if (type === 'brush') {
+      return '#EFFFF0';
+    }
+    if (type === 'add_moves') {
+      return '#FFFFFF';
+    }
+    return '#FFFFFF';
   }
 
   private rowArrowPath(ctx: GameCanvasContext, cx: number, cy: number, size: number): void {
