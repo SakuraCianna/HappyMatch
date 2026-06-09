@@ -53,8 +53,8 @@ export interface NearbyPlayer {
   world_id: number;
   level_id: number;
   region_key: string;
-  latitude?: number;
-  longitude?: number;
+  latitude?: number | null;
+  longitude?: number | null;
   last_seen_at: string;
   is_self: boolean;
 }
@@ -71,8 +71,8 @@ export interface LocationSummary {
   city?: string;
   adcode?: string;
   rectangle?: string;
-  longitude?: number;
-  latitude?: number;
+  longitude?: number | null;
+  latitude?: number | null;
 }
 
 export interface RemoteState {

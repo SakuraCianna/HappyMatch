@@ -389,9 +389,9 @@ struct SocialPage {
       }
       .alignItems(HorizontalAlign.Start)
       .layoutWeight(1)
-      Text(player.longitude !== undefined && player.latitude !== undefined ? '已定位' : '区域')
+      Text(this.hasCoordinates(player.longitude, player.latitude) ? '已定位' : '区域')
         .fontSize(11)
-        .fontColor(player.longitude !== undefined && player.latitude !== undefined ? '#4DB862' : '#8A6250')
+        .fontColor(this.hasCoordinates(player.longitude, player.latitude) ? '#4DB862' : '#8A6250')
     }
     .width('100%')
     .padding({ top: 7, bottom: 7 })
@@ -498,8 +498,10 @@ struct SocialPage {
       return '正在获取地图位置。';
     }
     const city = this.location.city ?? this.location.province ?? this.location.region_key;
-    if (this.location.longitude !== undefined && this.location.latitude !== undefined) {
-      return `${city} · ${this.location.longitude.toFixed(3)}, ${this.location.latitude.toFixed(3)}`;
+    const longitude = this.location.longitude;
+    const latitude = this.location.latitude;
+    if (typeof longitude === 'number' && typeof latitude === 'number') {
+      return `${city} · ${longitude.toFixed(3)}, ${latitude.toFixed(3)}`;
     }
     return `${city} · 区域定位`;
   }
@@ -510,6 +512,10 @@ struct SocialPage {
 
   private playerWorldText(player: NearbyPlayer): string {
     return getLevelChapter(player.current_level).name;
+  }
+
+  private hasCoordinates(longitude: number | null | undefined, latitude: number | null | undefined): boolean {
+    return typeof longitude === 'number' && typeof latitude === 'number';
   }
 
   private redirectToAuth(): void {

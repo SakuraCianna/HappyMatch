@@ -169,9 +169,11 @@ export class RemoteGameService {
       level_id: levelId,
       region_key: regionKey
     };
-    if (this.location?.latitude !== undefined && this.location.longitude !== undefined) {
-      payload.latitude = this.location.latitude;
-      payload.longitude = this.location.longitude;
+    const latitude = this.location?.latitude;
+    const longitude = this.location?.longitude;
+    if (typeof latitude === 'number' && typeof longitude === 'number') {
+      payload.latitude = latitude;
+      payload.longitude = longitude;
     }
     const nearby = await this.client.post<NearbySummary>('/map/presence', payload as Object);
     if (nearby) {
