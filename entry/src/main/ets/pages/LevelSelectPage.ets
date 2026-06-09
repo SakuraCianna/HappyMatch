@@ -76,6 +76,7 @@ struct LevelSelectPage {
     }
     .width('100%')
     .height('100%')
+    .backgroundColor(getWorldThemeById(1).backgroundMiddle)
   }
 
   @Builder
@@ -83,12 +84,15 @@ struct LevelSelectPage {
     Stack() {
       Column() {
         Row()
+          .width('100%')
           .layoutWeight(1)
           .backgroundColor(getWorldThemeById(2).backgroundTop)
         Row()
+          .width('100%')
           .layoutWeight(1)
           .backgroundColor(getWorldThemeById(1).backgroundMiddle)
         Row()
+          .width('100%')
           .layoutWeight(1)
           .backgroundColor(getWorldThemeById(5).backgroundBottom)
       }
@@ -116,6 +120,7 @@ struct LevelSelectPage {
     }
     .width('100%')
     .height('100%')
+    .backgroundColor(getWorldThemeById(1).backgroundMiddle)
   }
 
   @Builder

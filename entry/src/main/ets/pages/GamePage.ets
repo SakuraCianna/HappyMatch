@@ -457,12 +457,15 @@ struct GamePage {
     Stack() {
       Column() {
         Row()
+          .width('100%')
           .layoutWeight(1)
           .backgroundColor(this.worldTheme().backgroundTop)
         Row()
+          .width('100%')
           .layoutWeight(1)
           .backgroundColor(this.worldTheme().backgroundMiddle)
         Row()
+          .width('100%')
           .layoutWeight(1)
           .backgroundColor(this.worldTheme().backgroundBottom)
       }
@@ -508,6 +511,7 @@ struct GamePage {
     }
     .width('100%')
     .height('100%')
+    .backgroundColor(this.worldTheme().backgroundMiddle)
   }
 
   @Builder
