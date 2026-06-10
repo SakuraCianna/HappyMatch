@@ -50,6 +50,13 @@ interface PieceBitmapCacheEntry {
   renderSize: number;
 }
 
+interface RenderBounds {
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+}
+
 const DEFAULT_BOARD_THEME: BoardRenderTheme = {
   canvasFill: '#FFF8E7',
   fill: 'rgba(255, 255, 255, 0.62)',
@@ -147,14 +154,26 @@ export class CanvasRenderer {
   private pieceBitmapCache: Map<string, PieceBitmapCacheEntry> = new Map();
   private maxPieceBitmapCacheEntries: number = 96;
   private bitmapCacheAvailable: boolean = true;
+  private layeredStaticKey: string = '';
+  private previousDynamicBounds?: RenderBounds;
+  private animatedBoardVisualSource?: Board;
+  private animatedBoardVisualKey: string = '';
 
   clearCache(): void {
     this.releaseStaticLayerCache();
+    this.layeredStaticKey = '';
+    this.previousDynamicBounds = undefined;
+    this.animatedBoardVisualSource = undefined;
+    this.animatedBoardVisualKey = '';
   }
 
   dispose(): void {
     this.releaseStaticLayerCache();
     this.releasePieceBitmapCache();
+    this.layeredStaticKey = '';
+    this.previousDynamicBounds = undefined;
+    this.animatedBoardVisualSource = undefined;
+    this.animatedBoardVisualKey = '';
   }
 
   warmPieceCache(pieceTypes: PieceType[], baseSize: number): void {
@@ -235,6 +254,44 @@ export class CanvasRenderer {
     );
 
     this.drawBoardTiles(ctx, board, layout, effectLookup, fastMode, fastStaticMode, false);
+  }
+
+  drawLayered(staticCtx: GameCanvasContext, dynamicCtx: GameCanvasContext, board: Board, options: RenderOptions): void {
+    const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
+    const effects = options.animation?.pieceEffects ?? [];
+    const hasAnimation = effects.length > 0;
+    const effectLookup = hasAnimation ? this.buildEffectLookup(effects, board.cols) : undefined;
+    const fastMode = options.animation?.fastMode === true;
+    const fastStaticMode = options.animation?.fastStaticMode === true;
+    const theme = options.theme ?? DEFAULT_BOARD_THEME;
+    const staticKey = this.layeredStaticLayerKey(board, options, layout, theme, effects, hasAnimation);
+
+    if (this.layeredStaticKey !== staticKey) {
+      this.paintCanvasBase(staticCtx, options.width, options.height, theme.canvasFill);
+      this.drawBoardBackground(
+        staticCtx,
+        layout.offsetX,
+        layout.offsetY,
+        layout.boardWidth,
+        layout.boardHeight,
+        theme,
+        fastMode || fastStaticMode
+      );
+      this.drawBoardTiles(staticCtx, board, layout, effectLookup, fastMode, fastStaticMode, hasAnimation);
+      this.layeredStaticKey = staticKey;
+    }
+
+    if (!hasAnimation) {
+      dynamicCtx.clearRect(0, 0, options.width, options.height);
+      this.previousDynamicBounds = undefined;
+      return;
+    }
+
+    const currentBounds = this.dynamicEffectBounds(effects, layout, options.width, options.height);
+    const clearBounds = this.mergeBounds(this.previousDynamicBounds, currentBounds);
+    this.clearBounds(dynamicCtx, clearBounds, options.width, options.height);
+    this.drawAnimatedPieces(dynamicCtx, board, layout, effects, fastMode);
+    this.previousDynamicBounds = currentBounds;
   }
 
   private drawCachedAnimationFrame(
@@ -380,9 +437,78 @@ export class CanvasRenderer {
       `${options.width}x${options.height}`,
       `${layout.offsetX},${layout.offsetY},${layout.boardWidth},${layout.boardHeight},${layout.tileSize}`,
       `${theme.canvasFill}|${theme.fill}|${theme.innerFill}|${theme.stroke}|${theme.motif}|${theme.pattern}`,
-      this.boardVisualKey(board),
+      this.boardVisualKeyFor(board, effects.length > 0),
       this.effectPositionKey(effects)
     ].join('#');
+  }
+
+  private layeredStaticLayerKey(
+    board: Board,
+    options: RenderOptions,
+    layout: BoardLayoutResult,
+    theme: BoardRenderTheme,
+    effects: PieceRenderEffect[],
+    hasAnimation: boolean
+  ): string {
+    return [
+      'layered',
+      hasAnimation ? 'animated' : 'still',
+      `${options.width}x${options.height}`,
+      `${layout.offsetX},${layout.offsetY},${layout.boardWidth},${layout.boardHeight},${layout.tileSize}`,
+      `${theme.canvasFill}|${theme.fill}|${theme.innerFill}|${theme.stroke}|${theme.motif}|${theme.pattern}`,
+      this.boardVisualKeyFor(board, hasAnimation),
+      hasAnimation ? this.effectPositionKey(effects) : ''
+    ].join('#');
+  }
+
+  private dynamicEffectBounds(
+    effects: PieceRenderEffect[],
+    layout: BoardLayoutResult,
+    width: number,
+    height: number
+  ): RenderBounds | undefined {
+    let result: RenderBounds | undefined = undefined;
+    for (let index = 0; index < effects.length; index++) {
+      const effect = effects[index];
+      const centerX = layout.offsetX + effect.col * layout.tileSize + layout.tileSize / 2 + effect.offsetX;
+      const centerY = layout.offsetY + effect.row * layout.tileSize + layout.tileSize / 2 + effect.offsetY;
+      const radius = layout.tileSize * Math.max(0.76, 0.95 * effect.scale);
+      const bounds: RenderBounds = {
+        left: Math.max(0, Math.floor(centerX - radius)),
+        top: Math.max(0, Math.floor(centerY - radius)),
+        right: Math.min(width, Math.ceil(centerX + radius)),
+        bottom: Math.min(height, Math.ceil(centerY + radius))
+      };
+      result = this.mergeBounds(result, bounds);
+    }
+    return result;
+  }
+
+  private mergeBounds(first: RenderBounds | undefined, second: RenderBounds | undefined): RenderBounds | undefined {
+    if (!first) {
+      return second;
+    }
+    if (!second) {
+      return first;
+    }
+    return {
+      left: Math.min(first.left, second.left),
+      top: Math.min(first.top, second.top),
+      right: Math.max(first.right, second.right),
+      bottom: Math.max(first.bottom, second.bottom)
+    };
+  }
+
+  private clearBounds(ctx: GameCanvasContext, bounds: RenderBounds | undefined, width: number, height: number): void {
+    if (!bounds) {
+      ctx.clearRect(0, 0, width, height);
+      return;
+    }
+    const left = Math.max(0, bounds.left - 2);
+    const top = Math.max(0, bounds.top - 2);
+    const right = Math.min(width, bounds.right + 2);
+    const bottom = Math.min(height, bounds.bottom + 2);
+    ctx.clearRect(left, top, Math.max(1, right - left), Math.max(1, bottom - top));
   }
 
   private boardVisualKey(board: Board): string {
@@ -398,6 +524,18 @@ export class CanvasRenderer {
       }
     }
     return parts.join('|');
+  }
+
+  private boardVisualKeyFor(board: Board, allowAnimationCache: boolean): string {
+    if (allowAnimationCache && this.animatedBoardVisualSource === board) {
+      return this.animatedBoardVisualKey;
+    }
+    const key = this.boardVisualKey(board);
+    if (allowAnimationCache) {
+      this.animatedBoardVisualSource = board;
+      this.animatedBoardVisualKey = key;
+    }
+    return key;
   }
 
   private effectPositionKey(effects: PieceRenderEffect[]): string {

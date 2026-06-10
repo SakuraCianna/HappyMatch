@@ -9,6 +9,7 @@ export class AnimationFrameMetrics {
   private maxDrawCostMs: number = 0;
   private slowFrameCount: number = 0;
   private targetDurationMs: number = 0;
+  private latestSummaryText: string = '等待动画数据';
 
   isEnabled(): boolean {
     return this.enabled;
@@ -49,7 +50,13 @@ export class AnimationFrameMetrics {
       return '';
     }
     const average = Math.round(this.totalDrawCostMs * 10 / this.frameCount) / 10;
-    return `帧统计 ${this.label}: ${this.frameCount}帧, 平均${average}ms, 峰值${this.maxDrawCostMs}ms, 慢帧${this.slowFrameCount}, 时长${this.targetDurationMs}ms`;
+    this.latestSummaryText =
+      `${this.label}: ${this.frameCount}帧 / 平均${average}ms / 峰值${this.maxDrawCostMs}ms / 慢帧${this.slowFrameCount}`;
+    return this.latestSummaryText;
+  }
+
+  latestText(): string {
+    return this.latestSummaryText;
   }
 }
 

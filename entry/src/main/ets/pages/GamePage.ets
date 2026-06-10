@@ -56,10 +56,21 @@ interface GoalSnapshotItem {
   count: number;
 }
 
+interface ResolutionAnimationPlan {
+  beforeBoard: Board;
+  clearPositions: Position[];
+  afterBoard: Board;
+  fallMotions: PieceFallMotion[];
+  clearDurationMs: number;
+  settleDurationMs: number;
+}
+
 @Entry
 @Component
 struct GamePage {
   private settings: RenderingContextSettings = new RenderingContextSettings(true);
+  private staticSettings: RenderingContextSettings = new RenderingContextSettings(true);
+  private staticContext: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.staticSettings);
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings);
   private renderer: CanvasRenderer = new CanvasRenderer();
   private inputMapper: BoardInputMapper = new BoardInputMapper();
@@ -77,7 +88,11 @@ struct GamePage {
   private previousGoalSnapshot: GoalSnapshotItem[] = [];
   private friendBestScore: number = 0;
   private friendBestName: string = '';
+  private staticCanvasReady: boolean = false;
+  private dynamicCanvasReady: boolean = false;
   @State private canvasReady: boolean = false;
+  @State private showPerformancePanel: boolean = false;
+  @State private performanceText: string = '等待动画数据';
   @State private levelId: number = 1;
   @State private movesLeft: number = 0;
   @State private score: number = 0;
@@ -140,6 +155,9 @@ struct GamePage {
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
             .fontColor('#5C3A4A')
+            .onClick(() => {
+              this.togglePerformancePanel();
+            })
           Blank()
           Button('重玩')
             .height(34)
@@ -266,20 +284,34 @@ struct GamePage {
 
         this.MessageSlot()
 
-        Canvas(this.context)
+        Stack() {
+          Canvas(this.staticContext)
+            .width(this.canvasWidth)
+            .height(this.canvasHeight)
+            .borderRadius(22)
+            .onReady(() => {
+              this.staticCanvasReady = true;
+              this.updateCanvasReady();
+            })
+
+          Canvas(this.context)
+            .width(this.canvasWidth)
+            .height(this.canvasHeight)
+            .borderRadius(22)
+            .onReady(() => {
+              this.dynamicCanvasReady = true;
+              this.updateCanvasReady();
+            })
+            .onTouch((event: TouchEvent) => {
+              this.handleTouch(event);
+            })
+        }
           .width(this.canvasWidth)
           .height(this.canvasHeight)
           .backgroundColor(this.worldTheme().board.canvasFill)
           .borderRadius(22)
           .shadow({ radius: 24, color: this.worldTheme().shadow, offsetX: 0, offsetY: 8 })
           .margin({ top: 10 })
-          .onReady(() => {
-            this.canvasReady = true;
-            this.draw();
-          })
-          .onTouch((event: TouchEvent) => {
-            this.handleTouch(event);
-          })
 
         this.BrushPaletteSlot()
 
@@ -482,6 +514,25 @@ struct GamePage {
 
       if (this.showTutorial && !this.showResult) {
         this.TutorialOverlay()
+      }
+
+      if (this.showPerformancePanel) {
+        Column() {
+          Text('性能')
+            .fontSize(12)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#5C3A4A')
+          Text(this.performanceText)
+            .fontSize(10)
+            .fontColor('#7B5A4D')
+            .margin({ top: 3 })
+        }
+        .alignItems(HorizontalAlign.Start)
+        .padding({ left: 10, right: 10, top: 7, bottom: 7 })
+        .borderRadius(12)
+        .backgroundColor('rgba(255, 253, 244, 0.88)')
+        .border({ width: 1, color: 'rgba(242, 122, 145, 0.30)' })
+        .position({ x: 18, y: 112 })
       }
     }
     .width('100%')
@@ -813,6 +864,24 @@ struct GamePage {
     }, 0);
   }
 
+  private updateCanvasReady(): void {
+    const ready = this.staticCanvasReady && this.dynamicCanvasReady;
+    if (this.canvasReady === ready) {
+      return;
+    }
+    this.canvasReady = ready;
+    if (ready) {
+      this.draw();
+    }
+  }
+
+  private togglePerformancePanel(): void {
+    const nextVisible = !this.showPerformancePanel;
+    this.showPerformancePanel = nextVisible;
+    animationFrameMetrics.setEnabled(nextVisible);
+    this.performanceText = nextVisible ? animationFrameMetrics.latestText() : '等待动画数据';
+  }
+
   private async prepareServicesAndStart(context: common.Context, levelId: number): Promise<void> {
     const state = await remoteGameService.init(context);
     if (!state.authenticated || !state.player) {
@@ -1000,16 +1069,17 @@ struct GamePage {
     }
     const afterBoard = cloneBoard(this.session.state.board);
     const steps = this.session.lastResolutionSteps;
+    const plan = this.buildResolutionAnimationPlan(steps, 240, 500);
     if (steps.length > 0) {
       feedbackService.play(preview.conversionBoard ? 'special' : 'match');
       if (preview.conversionBoard && preview.convertedPositions) {
         this.animateConversion(preview.swappedBoard, preview.conversionBoard, preview.convertedPositions, () => {
-          this.animateResolutionSteps(steps, 0, () => {
+          this.animateResolutionPlan(plan, 0, () => {
             this.finishAnimatedMove();
           });
         });
       } else {
-        this.animateResolutionSteps(steps, 0, () => {
+        this.animateResolutionPlan(plan, 0, () => {
           this.finishAnimatedMove();
         });
       }
@@ -1082,6 +1152,7 @@ struct GamePage {
       return;
     }
     const steps = expectedSession.lastResolutionSteps;
+    const plan = this.buildResolutionAnimationPlan(steps, 560, 520);
     this.isBonusResolving = true;
     this.isAnimating = true;
     this.busyTool = 'bonus';
@@ -1102,11 +1173,11 @@ struct GamePage {
         if (token !== this.animationToken || this.session !== expectedSession) {
           return;
         }
-        this.animateResolutionSteps(steps, 0, () => {
+        this.animateResolutionPlan(plan, 0, () => {
           if (this.session === expectedSession) {
             this.finishBonusAnimation(expectedSession);
           }
-        }, 560, 520);
+        });
       }, 360);
     });
   }
@@ -1357,8 +1428,9 @@ struct GamePage {
     }
     feedbackService.play(tool === 'hammer' ? 'match' : 'tool');
     const steps = this.session.lastResolutionSteps;
+    const plan = this.buildResolutionAnimationPlan(steps, 240, 500);
     if (steps.length > 0) {
-      this.animateResolutionSteps(steps, 0, () => {
+      this.animateResolutionPlan(plan, 0, () => {
         this.finishToolAnimation();
       });
       return;
@@ -1523,7 +1595,11 @@ struct GamePage {
     const layout = this.layoutForBoard(toBoard);
     const motions = BoardAnimationPlanner.planFallEffects(fromBoard, toBoard, layout.tileSize);
     const settleDuration = this.settleDurationForMotions(motions, layout.tileSize, durationMs);
-    this.runAnimation(settleDuration, (progress: number) => {
+    this.animateSettleWithMotions(toBoard, motions, settleDuration, done);
+  }
+
+  private animateSettleWithMotions(toBoard: Board, motions: PieceFallMotion[], durationMs: number, done: () => void): void {
+    this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
       this.drawBoardSnapshot(toBoard, { pieceEffects: effects });
@@ -1545,33 +1621,52 @@ struct GamePage {
     return Math.min(680, Math.max(baseDuration, Math.floor(baseDuration + longestDistance * 24)));
   }
 
-  private animateResolutionSteps(
+  private buildResolutionAnimationPlan(
     steps: ResolutionStep[],
+    clearDurationMs: number,
+    settleDurationMs: number
+  ): ResolutionAnimationPlan[] {
+    const result: ResolutionAnimationPlan[] = [];
+    for (let index = 0; index < steps.length; index++) {
+      const step = steps[index];
+      if (step.clearPositions.length === 0) {
+        continue;
+      }
+      const clearedBoard = this.createClearedBoard(step.beforeBoard, step.clearPositions);
+      const layout = this.layoutForBoard(step.afterBoard);
+      const fallMotions = BoardAnimationPlanner.planFallEffects(clearedBoard, step.afterBoard, layout.tileSize);
+      result.push({
+        beforeBoard: step.beforeBoard,
+        clearPositions: step.clearPositions,
+        afterBoard: step.afterBoard,
+        fallMotions,
+        clearDurationMs,
+        settleDurationMs: this.settleDurationForMotions(fallMotions, layout.tileSize, settleDurationMs)
+      });
+    }
+    return result;
+  }
+
+  private animateResolutionPlan(
+    plans: ResolutionAnimationPlan[],
     index: number,
-    done: () => void,
-    clearDurationMs: number = 240,
-    settleDurationMs: number = 500
+    done: () => void
   ): void {
-    if (index >= steps.length) {
+    if (index >= plans.length) {
       done();
       return;
     }
-    const step = steps[index];
-    if (step.clearPositions.length === 0) {
-      this.animateResolutionSteps(steps, index + 1, done, clearDurationMs, settleDurationMs);
-      return;
-    }
-    const clearedBoard = this.createClearedBoard(step.beforeBoard, step.clearPositions);
-    this.animateClear(step.beforeBoard, step.clearPositions, () => {
-      this.animateSettle(clearedBoard, step.afterBoard, () => {
-        if (index + 1 < steps.length) {
+    const plan = plans[index];
+    this.animateClear(plan.beforeBoard, plan.clearPositions, () => {
+      this.animateSettleWithMotions(plan.afterBoard, plan.fallMotions, plan.settleDurationMs, () => {
+        if (index + 1 < plans.length) {
           feedbackService.play('drop');
         }
         setTimeout(() => {
-          this.animateResolutionSteps(steps, index + 1, done, clearDurationMs, settleDurationMs);
+          this.animateResolutionPlan(plans, index + 1, done);
         }, 96);
-      }, settleDurationMs);
-    }, clearDurationMs);
+      });
+    }, plan.clearDurationMs);
   }
 
   private runAnimation(durationMs: number, frame: (progress: number) => void, done: () => void, label: string = 'animation'): void {
@@ -1597,7 +1692,7 @@ struct GamePage {
       }
       const metricsText = animationFrameMetrics.finish();
       if (metricsText.length > 0) {
-        this.statusText = metricsText;
+        this.performanceText = metricsText;
       }
       done();
     };
@@ -1610,7 +1705,7 @@ struct GamePage {
     }
     const layout = this.layoutForBoard(board);
     this.boardLayout = layout;
-    this.renderer.draw(this.context as GameCanvasContext, board, {
+    this.renderer.drawLayered(this.staticContext as GameCanvasContext, this.context as GameCanvasContext, board, {
       width: this.canvasWidth,
       height: this.canvasHeight,
       layout,
