@@ -8,6 +8,9 @@ import { remoteGameService } from '../game/remote/RemoteGameService';
 @Entry
 @Component
 struct SocialPage {
+  private pageActive: boolean = false;
+  private refreshToken: number = 0;
+  private friendActionToken: number = 0;
   @State private remoteState: RemoteState = {
     connected: false,
     authenticated: false,
@@ -26,11 +29,15 @@ struct SocialPage {
   @State private canShowSocial: boolean = false;
 
   aboutToAppear(): void {
+    this.pageActive = true;
     feedbackService.init(this.appContext());
     this.refreshSocial();
   }
 
   aboutToDisappear(): void {
+    this.pageActive = false;
+    this.refreshToken++;
+    this.friendActionToken++;
     this.releaseMapPixelMap();
   }
 
@@ -444,39 +451,67 @@ struct SocialPage {
   }
 
   private async refreshSocial(): Promise<void> {
+    const token = ++this.refreshToken;
     try {
-      this.remoteState = await remoteGameService.init(this.appContext());
+      const remoteState = await remoteGameService.init(this.appContext());
+      if (!this.pageActive || token !== this.refreshToken) {
+        return;
+      }
+      this.remoteState = remoteState;
       this.canShowSocial = this.remoteState.authenticated && this.remoteState.player !== undefined;
       if (!this.canShowSocial || !this.remoteState.player) {
         this.clearSocialData();
         this.redirectToAuth();
         return;
       }
-      this.leaderboard = await remoteGameService.listLeaderboard('stars');
+      const leaderboard = await remoteGameService.listLeaderboard('stars');
+      if (!this.pageActive || token !== this.refreshToken) {
+        return;
+      }
+      this.leaderboard = leaderboard;
       this.location = await remoteGameService.refreshLocation();
+      if (!this.pageActive || token !== this.refreshToken) {
+        return;
+      }
       const worldId = getLevelChapter(this.remoteState.player.current_level).id;
       const nearby = await remoteGameService.updatePresence(worldId, this.remoteState.player.current_level);
       if (nearby) {
         this.remoteState = remoteGameService.getState();
       }
       this.location = remoteGameService.getLocation();
-      this.nearbyPlayers = await remoteGameService.listNearbyPlayers(worldId);
-      await this.loadMapSnapshot(worldId);
-      this.friends = await remoteGameService.listFriends();
+      const nearbyPlayers = await remoteGameService.listNearbyPlayers(worldId);
+      if (!this.pageActive || token !== this.refreshToken) {
+        return;
+      }
+      this.nearbyPlayers = nearbyPlayers;
+      await this.loadMapSnapshot(worldId, token);
+      const friends = await remoteGameService.listFriends();
+      if (this.pageActive && token === this.refreshToken) {
+        this.friends = friends;
+      }
     } catch (_error) {
-      this.tipText = '社交数据加载失败, 请检查后端服务。';
-      this.mapLoadText = '地图暂不可用';
-      this.releaseMapPixelMap();
+      if (this.pageActive && token === this.refreshToken) {
+        this.tipText = '社交数据加载失败, 请检查后端服务。';
+        this.mapLoadText = '地图暂不可用';
+        this.releaseMapPixelMap();
+      }
     }
   }
 
   private async addFriend(): Promise<void> {
     feedbackService.play('tap');
+    const token = ++this.friendActionToken;
     const friend = await remoteGameService.addFriend(this.friendCodeInput);
+    if (!this.pageActive || token !== this.friendActionToken) {
+      return;
+    }
     if (friend) {
       this.tipText = `已添加 ${friend.nickname}`;
       this.friendCodeInput = '';
-      this.friends = await remoteGameService.listFriends();
+      const friends = await remoteGameService.listFriends();
+      if (this.pageActive && token === this.friendActionToken) {
+        this.friends = friends;
+      }
       return;
     }
     this.tipText = '添加失败, 请检查好友码或后端连接。';
@@ -543,10 +578,13 @@ struct SocialPage {
     this.releaseMapPixelMap();
   }
 
-  private async loadMapSnapshot(worldId: number): Promise<void> {
+  private async loadMapSnapshot(worldId: number, token: number): Promise<void> {
     this.mapLoadText = '地图加载中';
     this.releaseMapPixelMap();
     const buffer = await remoteGameService.fetchMapSnapshot(worldId, Date.now());
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
     if (!buffer) {
       this.mapLoadText = '地图暂不可用';
       return;
@@ -554,11 +592,17 @@ struct SocialPage {
     const source = image.createImageSource(buffer);
     try {
       const pixelMap = await source.createPixelMap();
-      this.mapPixelMap = pixelMap;
-      this.mapLoadText = '';
+      if (this.pageActive && token === this.refreshToken) {
+        this.mapPixelMap = pixelMap;
+        this.mapLoadText = '';
+      } else {
+        await pixelMap.release();
+      }
     } catch (_error) {
-      this.mapLoadText = '地图暂不可用';
-      this.mapPixelMap = undefined;
+      if (this.pageActive && token === this.refreshToken) {
+        this.mapLoadText = '地图暂不可用';
+        this.mapPixelMap = undefined;
+      }
     } finally {
       await source.release();
     }

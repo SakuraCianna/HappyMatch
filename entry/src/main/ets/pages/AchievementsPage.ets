@@ -9,14 +9,22 @@ import { progressService } from '../game/storage/ProgressService';
 @Entry
 @Component
 struct AchievementsPage {
+  private refreshToken: number = 0;
+  private pageActive: boolean = false;
   @State private achievements: AchievementItem[] = [];
   @State private unlockedCount: number = 0;
   @State private totalCount: number = 0;
   @State private canShowAchievements: boolean = false;
 
   aboutToAppear(): void {
+    this.pageActive = true;
     feedbackService.init(this.appContext());
     this.refreshAchievements();
+  }
+
+  aboutToDisappear(): void {
+    this.pageActive = false;
+    this.refreshToken++;
   }
 
   onPageShow(): void {
@@ -196,8 +204,12 @@ struct AchievementsPage {
   }
 
   private async refreshAchievements(): Promise<void> {
+    const token = ++this.refreshToken;
     const context = this.appContext();
     const remoteState = await remoteGameService.init(context);
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
     this.canShowAchievements = remoteState.authenticated && remoteState.player !== undefined;
     if (!this.canShowAchievements) {
       this.achievements = [];
@@ -209,6 +221,9 @@ struct AchievementsPage {
     await bootstrapProgress(context);
     await economyService.init(context);
     const summary = deriveAchievements(await progressService.getAll(), economyService.getWallet());
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
     this.achievements = summary.items;
     this.unlockedCount = summary.unlockedCount;
     this.totalCount = summary.totalCount;

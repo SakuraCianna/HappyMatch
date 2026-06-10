@@ -9,6 +9,8 @@ import { progressService } from '../game/storage/ProgressService';
 @Entry
 @Component
 struct Index {
+  private refreshToken: number = 0;
+  private pageActive: boolean = false;
   @State private continueLevel: number = 1;
   @State private coins: number = 0;
   @State private homeMotion: boolean = false;
@@ -17,14 +19,22 @@ struct Index {
   @State private canPlay: boolean = false;
 
   aboutToAppear(): void {
+    this.pageActive = true;
     const context = this.appContext();
     feedbackService.init(context);
     gameSettingsService.init(context);
     this.homeMotion = false;
     setTimeout(() => {
-      this.homeMotion = true;
+      if (this.pageActive) {
+        this.homeMotion = true;
+      }
     }, 80);
     this.refreshProgress();
+  }
+
+  aboutToDisappear(): void {
+    this.pageActive = false;
+    this.refreshToken++;
   }
 
   onPageShow(): void {
@@ -224,22 +234,36 @@ struct Index {
   }
 
   private async refreshProgress(): Promise<void> {
+    const token = ++this.refreshToken;
     const context = this.appContext();
     this.canPlay = false;
     this.cloudText = '玩家未登录';
     this.nearbyText = '登录后同步好友, 排行榜和附近人数';
     await bootstrapProgress(context);
     await economyService.init(context);
-    this.continueLevel = await progressService.getUnlockedLevel();
+    const unlockedLevel = await progressService.getUnlockedLevel();
     const state = await remoteGameService.init(context);
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
+    this.continueLevel = unlockedLevel;
     if (state.player) {
       economyService.syncFromRemote(state.player.coin);
     }
     this.coins = economyService.getWallet().coins;
-    await remoteGameService.syncPlayerProgress(this.continueLevel, this.coins);
-    const nearby = await remoteGameService.updatePresence(1, this.continueLevel);
+    const loggedIn = state.authenticated && state.player !== undefined;
+    if (!loggedIn) {
+      this.canPlay = false;
+      this.cloudText = '玩家未登录';
+      this.nearbyText = '登录后同步好友, 排行榜和附近人数';
+      return;
+    }
+    await remoteGameService.syncPlayerProgress(unlockedLevel, this.coins);
+    const nearby = await remoteGameService.updatePresence(1, unlockedLevel);
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
     const latest = remoteGameService.getState();
-    const loggedIn = latest.authenticated && latest.player !== undefined;
     this.canPlay = loggedIn;
     this.cloudText = loggedIn && latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
     this.nearbyText = loggedIn && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';

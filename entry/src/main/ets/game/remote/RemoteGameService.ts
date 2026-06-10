@@ -78,8 +78,14 @@ export class RemoteGameService {
       const player = await this.client.get<RemotePlayer>('/auth/me');
       if (player) {
         this.player = player;
-      } else {
+      } else if (this.shouldClearAuthAfterMeFailure()) {
         await this.clearSession();
+      } else {
+        this.state.connected = false;
+        this.state.authenticated = false;
+        this.state.player = undefined;
+        this.state.message = '云端暂不可用, 已保留登录状态';
+        return this.getState();
       }
     }
     if (this.player) {
@@ -314,6 +320,11 @@ export class RemoteGameService {
       await this.store.flush();
     } catch (_error) {
     }
+  }
+
+  private shouldClearAuthAfterMeFailure(): boolean {
+    const statusCode = this.client.getLastResponseCode();
+    return statusCode === 401 || statusCode === 403;
   }
 
   private async ensureStore(context: common.Context): Promise<void> {

@@ -8,9 +8,14 @@ interface RequestHeaders {
 
 export class BackendHttpClient {
   private authToken: string = '';
+  private lastResponseCode: number = 0;
 
   setAuthToken(token: string): void {
     this.authToken = token;
+  }
+
+  getLastResponseCode(): number {
+    return this.lastResponseCode;
   }
 
   async get<T>(path: string): Promise<T | undefined> {
@@ -32,6 +37,7 @@ export class BackendHttpClient {
 
   async getArrayBuffer(path: string): Promise<ArrayBuffer | undefined> {
     const request = http.createHttp();
+    this.resetLastRequestState();
     const header: RequestHeaders = {
       'Content-Type': 'application/json'
     };
@@ -47,6 +53,7 @@ export class BackendHttpClient {
         readTimeout: BACKEND_REQUEST_TIMEOUT_MS,
         usingCache: false
       });
+      this.lastResponseCode = response.responseCode;
       if (response.responseCode >= 200 && response.responseCode < 300 && response.result instanceof ArrayBuffer) {
         return response.result;
       }
@@ -60,6 +67,7 @@ export class BackendHttpClient {
 
   private async request<T>(path: string, method: http.RequestMethod, body?: Object): Promise<T | undefined> {
     const request = http.createHttp();
+    this.resetLastRequestState();
     const header: RequestHeaders = {
       'Content-Type': 'application/json'
     };
@@ -76,6 +84,7 @@ export class BackendHttpClient {
         readTimeout: BACKEND_REQUEST_TIMEOUT_MS,
         usingCache: false
       });
+      this.lastResponseCode = response.responseCode;
       if (response.responseCode >= 200 && response.responseCode < 300) {
         return response.result as T;
       }
@@ -85,5 +94,9 @@ export class BackendHttpClient {
       request.destroy();
     }
     return undefined;
+  }
+
+  private resetLastRequestState(): void {
+    this.lastResponseCode = 0;
   }
 }

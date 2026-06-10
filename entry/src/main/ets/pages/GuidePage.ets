@@ -10,11 +10,19 @@ struct GuidePage {
   private specialItems: MechanicGuideItem[] = guideItemsByCategory('special');
   private blockerItems: MechanicGuideItem[] = guideItemsByCategory('blocker');
   private toolItems: MechanicGuideItem[] = guideItemsByCategory('tool');
+  private requestToken: number = 0;
+  private pageActive: boolean = false;
   @State private canShowGuide: boolean = false;
 
   aboutToAppear(): void {
+    this.pageActive = true;
     feedbackService.init(this.appContext());
     this.requireLogin();
+  }
+
+  aboutToDisappear(): void {
+    this.pageActive = false;
+    this.requestToken++;
   }
 
   build() {
@@ -194,7 +202,11 @@ struct GuidePage {
   }
 
   private async requireLogin(): Promise<void> {
+    const token = ++this.requestToken;
     const remoteState = await remoteGameService.init(this.appContext());
+    if (!this.pageActive || token !== this.requestToken) {
+      return;
+    }
     if (remoteState.authenticated && remoteState.player !== undefined) {
       this.canShowGuide = true;
       return;

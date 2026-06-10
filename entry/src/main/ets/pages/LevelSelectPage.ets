@@ -14,14 +14,22 @@ import { progressService } from '../game/storage/ProgressService';
 @Entry
 @Component
 struct LevelSelectPage {
+  private refreshToken: number = 0;
+  private pageActive: boolean = false;
   @State private unlockedLevel: number = 1;
   @State private progressItems: LevelProgress[] = [];
   @State private worldPopulation: WorldPopulation[] = [];
   @State private canPlay: boolean = false;
 
   aboutToAppear(): void {
+    this.pageActive = true;
     feedbackService.init(this.appContext());
     this.refreshProgress();
+  }
+
+  aboutToDisappear(): void {
+    this.pageActive = false;
+    this.refreshToken++;
   }
 
   onPageShow(): void {
@@ -263,22 +271,36 @@ struct LevelSelectPage {
   }
 
   private async refreshProgress(): Promise<void> {
+    const token = ++this.refreshToken;
     await bootstrapProgress(this.appContext());
-    this.unlockedLevel = await progressService.getUnlockedLevel();
-    this.progressItems = await progressService.getAll();
+    const unlockedLevel = await progressService.getUnlockedLevel();
+    const progressItems = await progressService.getAll();
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
+    this.unlockedLevel = unlockedLevel;
+    this.progressItems = progressItems;
     try {
       const state = await remoteGameService.init(this.appContext());
+      if (!this.pageActive || token !== this.refreshToken) {
+        return;
+      }
       this.canPlay = state.authenticated && state.player !== undefined;
       if (!this.canPlay) {
         this.worldPopulation = [];
         return;
       }
-      const chapter = getLevelChapter(this.unlockedLevel);
-      await remoteGameService.updatePresence(chapter.id, this.unlockedLevel);
-      this.worldPopulation = await remoteGameService.listWorldPopulation();
+      const chapter = getLevelChapter(unlockedLevel);
+      await remoteGameService.updatePresence(chapter.id, unlockedLevel);
+      const worldPopulation = await remoteGameService.listWorldPopulation();
+      if (this.pageActive && token === this.refreshToken) {
+        this.worldPopulation = worldPopulation;
+      }
     } catch (_error) {
-      this.canPlay = false;
-      this.worldPopulation = [];
+      if (this.pageActive && token === this.refreshToken) {
+        this.canPlay = false;
+        this.worldPopulation = [];
+      }
     }
   }
 

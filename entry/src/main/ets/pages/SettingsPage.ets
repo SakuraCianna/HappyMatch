@@ -6,16 +6,26 @@ import { gameSettingsService } from '../game/settings/GameSettings';
 @Entry
 @Component
 struct SettingsPage {
+  private settingsToken: number = 0;
+  private loginToken: number = 0;
+  private pageActive: boolean = false;
   @State private soundEnabled: boolean = true;
   @State private vibrationEnabled: boolean = true;
   @State private reducedMotion: boolean = false;
   @State private canShowSettings: boolean = false;
 
   aboutToAppear(): void {
+    this.pageActive = true;
     const context = this.appContext();
     feedbackService.init(context);
     this.requireLogin();
     this.loadSettings(context);
+  }
+
+  aboutToDisappear(): void {
+    this.pageActive = false;
+    this.settingsToken++;
+    this.loginToken++;
   }
 
   build() {
@@ -146,7 +156,11 @@ struct SettingsPage {
   }
 
   private async loadSettings(context: common.Context): Promise<void> {
+    const token = ++this.settingsToken;
     await gameSettingsService.init(context);
+    if (!this.pageActive || token !== this.settingsToken) {
+      return;
+    }
     const state = gameSettingsService.getState();
     this.soundEnabled = state.soundEnabled;
     this.vibrationEnabled = state.vibrationEnabled;
@@ -158,7 +172,11 @@ struct SettingsPage {
   }
 
   private async requireLogin(): Promise<void> {
+    const token = ++this.loginToken;
     const remoteState = await remoteGameService.init(this.appContext());
+    if (!this.pageActive || token !== this.loginToken) {
+      return;
+    }
     if (remoteState.authenticated && remoteState.player !== undefined) {
       this.canShowSettings = true;
       return;

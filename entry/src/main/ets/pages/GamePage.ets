@@ -85,6 +85,8 @@ struct GamePage {
   private isAnimating: boolean = false;
   private isBonusResolving: boolean = false;
   private animationToken: number = 0;
+  private startupToken: number = 0;
+  private pageActive: boolean = false;
   private previousGoalSnapshot: GoalSnapshotItem[] = [];
   private friendBestScore: number = 0;
   private friendBestName: string = '';
@@ -125,6 +127,7 @@ struct GamePage {
   @State private tutorialSteps: TutorialStep[] = [];
 
   aboutToAppear(): void {
+    this.pageActive = true;
     const context = this.appContext();
     feedbackService.init(context);
     const params = this.getUIContext().getRouter().getParams() as Record<string, number>;
@@ -133,6 +136,10 @@ struct GamePage {
   }
 
   aboutToDisappear(): void {
+    this.pageActive = false;
+    this.animationToken++;
+    this.startupToken++;
+    animationFrameMetrics.setEnabled(false);
     this.renderer.dispose();
   }
 
@@ -883,7 +890,11 @@ struct GamePage {
   }
 
   private async prepareServicesAndStart(context: common.Context, levelId: number): Promise<void> {
+    const token = ++this.startupToken;
     const state = await remoteGameService.init(context);
+    if (!this.pageActive || token !== this.startupToken) {
+      return;
+    }
     if (!state.authenticated || !state.player) {
       feedbackService.play('error');
       try {
@@ -895,7 +906,9 @@ struct GamePage {
     await bootstrapProgress(context);
     await gameSettingsService.init(context);
     await economyService.init(context);
-    this.startLevel(levelId);
+    if (this.pageActive && token === this.startupToken) {
+      this.startLevel(levelId);
+    }
   }
 
   private currentTutorialTitle(): string {
@@ -1918,7 +1931,7 @@ struct GamePage {
   }
 
   private async finishLevel(): Promise<void> {
-    if (!this.session || this.resultSaved) {
+    if (!this.pageActive || !this.session || this.resultSaved) {
       return;
     }
     const finishedSession = this.session;
@@ -1941,7 +1954,7 @@ struct GamePage {
       movesLeft: finalMovesLeft,
       targetScore
     });
-    if (this.session !== finishedSession || this.levelId !== finishedLevelId) {
+    if (!this.pageActive || this.session !== finishedSession || this.levelId !== finishedLevelId) {
       return;
     }
     if (won && earnedStars > 0) {
@@ -2008,6 +2021,9 @@ struct GamePage {
     try {
       const chapter = getLevelChapter(levelId);
       await remoteGameService.init(this.appContext());
+      if (!this.pageActive || this.levelId !== levelId) {
+        return;
+      }
       await remoteGameService.updatePresence(chapter.id, levelId);
     } catch (_error) {
     }
@@ -2018,12 +2034,12 @@ struct GamePage {
     try {
       await remoteGameService.init(this.appContext());
       const scores = await remoteGameService.listFriendLevelScores(levelId);
-      if (this.levelId !== expectedLevelId) {
+      if (!this.pageActive || this.levelId !== expectedLevelId) {
         return;
       }
       this.applyFriendLevelScores(scores);
     } catch (_error) {
-      if (this.levelId === expectedLevelId) {
+      if (this.pageActive && this.levelId === expectedLevelId) {
         this.friendBestScore = 0;
         this.friendBestName = '';
         this.friendLevelText = '好友成绩暂不可用';
@@ -2080,7 +2096,7 @@ struct GamePage {
       await remoteGameService.uploadLevelRecord(levelId, score, stars, bestCombo, movesLeft);
       await remoteGameService.syncPlayerProgress(currentLevel, this.coinBalance);
       await remoteGameService.updatePresence(getLevelChapter(levelId).id, currentLevel);
-      if (this.levelId === levelId) {
+      if (this.pageActive && this.levelId === levelId) {
         this.loadFriendLevelScores(levelId);
       }
     } catch (_error) {

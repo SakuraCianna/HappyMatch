@@ -6,6 +6,8 @@ import { remoteGameService } from '../game/remote/RemoteGameService';
 @Entry
 @Component
 struct AuthPage {
+  private requestToken: number = 0;
+  private pageActive: boolean = false;
   @State private isRegisterMode: boolean = false;
   @State private password: string = '';
   @State private nickname: string = '';
@@ -20,8 +22,15 @@ struct AuthPage {
   };
 
   aboutToAppear(): void {
+    this.pageActive = true;
     feedbackService.init(this.appContext());
     this.refreshAccount();
+  }
+
+  aboutToDisappear(): void {
+    this.pageActive = false;
+    this.requestToken++;
+    this.loading = false;
   }
 
   build() {
@@ -196,7 +205,11 @@ struct AuthPage {
   }
 
   private async refreshAccount(): Promise<void> {
-    this.remoteState = await remoteGameService.init(this.appContext());
+    const token = ++this.requestToken;
+    const state = await remoteGameService.init(this.appContext());
+    if (this.pageActive && token === this.requestToken) {
+      this.remoteState = state;
+    }
   }
 
   private async submit(): Promise<void> {
@@ -210,9 +223,13 @@ struct AuthPage {
       return;
     }
     this.loading = true;
+    const token = ++this.requestToken;
     const ok = this.isRegisterMode
       ? await remoteGameService.registerAccount(name, this.password)
       : await remoteGameService.loginAccount(name, this.password);
+    if (!this.pageActive || token !== this.requestToken) {
+      return;
+    }
     this.loading = false;
     this.remoteState = remoteGameService.getState();
     if (ok) {
@@ -226,9 +243,12 @@ struct AuthPage {
 
   private async logout(): Promise<void> {
     feedbackService.play('tap');
+    const token = ++this.requestToken;
     await remoteGameService.logoutAccount();
-    this.remoteState = remoteGameService.getState();
-    this.tipText = '已退出登录, 登录后才能同步云端数据';
+    if (this.pageActive && token === this.requestToken) {
+      this.remoteState = remoteGameService.getState();
+      this.tipText = '已退出登录, 登录后才能同步云端数据';
+    }
   }
 
   private returnHome(): void {
