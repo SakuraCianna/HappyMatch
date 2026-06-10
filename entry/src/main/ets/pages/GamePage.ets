@@ -116,6 +116,10 @@ struct GamePage {
     this.prepareServicesAndStart(context, nextLevelId);
   }
 
+  aboutToDisappear(): void {
+    this.renderer.clearCache();
+  }
+
   build() {
     Stack() {
       this.WorldBackdrop()
@@ -757,6 +761,7 @@ struct GamePage {
     this.isBonusResolving = false;
     this.activeTool = '';
     this.busyTool = '';
+    this.renderer.clearCache();
     this.cachedLayout = undefined;
     this.cachedLayoutKey = '';
     this.levelId = level.id;

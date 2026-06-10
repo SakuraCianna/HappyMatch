@@ -35,6 +35,15 @@ export interface BoardRenderTheme {
 
 type PieceEffectLookup = (PieceRenderEffect | undefined)[];
 
+interface CachedImageBitmap {
+  close(): void;
+}
+
+interface StaticLayerCache {
+  key: string;
+  bitmap: CachedImageBitmap;
+}
+
 const DEFAULT_BOARD_THEME: BoardRenderTheme = {
   canvasFill: '#FFF8E7',
   fill: 'rgba(255, 255, 255, 0.62)',
@@ -73,6 +82,40 @@ export interface GameCanvasContext {
   moveTo(x: number, y: number): void;
   lineTo(x: number, y: number): void;
   fillText(text: string, x: number, y: number): void;
+  drawImage?(image: CachedImageBitmap, dx: number, dy: number, dw: number, dh: number): void;
+}
+
+declare class OffscreenCanvasRenderingContext2D {
+  fillStyle: string;
+  strokeStyle: string;
+  lineWidth: number;
+  font: string;
+  textAlign: string;
+  textBaseline: string;
+  globalAlpha: number;
+  constructor(width: number, height: number);
+  clearRect(x: number, y: number, width: number, height: number): void;
+  save(): void;
+  restore(): void;
+  fill(): void;
+  stroke(): void;
+  beginPath(): void;
+  closePath(): void;
+  arc(x: number, y: number, radius: number, startAngle: number, endAngle: number): void;
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+  ellipse(
+    x: number,
+    y: number,
+    radiusX: number,
+    radiusY: number,
+    rotation: number,
+    startAngle: number,
+    endAngle: number
+  ): void;
+  moveTo(x: number, y: number): void;
+  lineTo(x: number, y: number): void;
+  fillText(text: string, x: number, y: number): void;
+  transferToImageBitmap(): CachedImageBitmap;
 }
 
 interface PiecePalette {
@@ -92,6 +135,12 @@ const PALETTE: Record<PieceType, PiecePalette> = {
 };
 
 export class CanvasRenderer {
+  private staticLayerCache?: StaticLayerCache;
+
+  clearCache(): void {
+    this.releaseStaticLayerCache();
+  }
+
   drawGuidePiece(ctx: GameCanvasContext, piece: Piece, width: number, height: number): void {
     ctx.clearRect(0, 0, width, height);
     const size = Math.min(width, height) * 0.72;
@@ -136,6 +185,11 @@ export class CanvasRenderer {
     const fastStaticMode = options.animation?.fastStaticMode === true;
     const theme = options.theme ?? DEFAULT_BOARD_THEME;
 
+    if (options.animation?.pieceEffects && options.animation.pieceEffects.length > 0 &&
+      this.drawCachedAnimationFrame(ctx, board, options, layout, theme, options.animation.pieceEffects, fastMode)) {
+      return;
+    }
+
     this.paintCanvasBase(ctx, options.width, options.height, theme.canvasFill);
     this.drawBoardBackground(
       ctx,
@@ -147,6 +201,81 @@ export class CanvasRenderer {
       fastMode || fastStaticMode
     );
 
+    this.drawBoardTiles(ctx, board, layout, effectLookup, fastMode, fastStaticMode, false);
+  }
+
+  private drawCachedAnimationFrame(
+    ctx: GameCanvasContext,
+    board: Board,
+    options: RenderOptions,
+    layout: BoardLayoutResult,
+    theme: BoardRenderTheme,
+    effects: PieceRenderEffect[],
+    fastMode: boolean
+  ): boolean {
+    if (!ctx.drawImage) {
+      return false;
+    }
+    const cache = this.ensureStaticLayerCache(board, options, layout, theme, effects);
+    if (!cache) {
+      return false;
+    }
+    ctx.drawImage(cache.bitmap, 0, 0, options.width, options.height);
+    this.drawAnimatedPieces(ctx, board, layout, effects, fastMode);
+    return true;
+  }
+
+  private ensureStaticLayerCache(
+    board: Board,
+    options: RenderOptions,
+    layout: BoardLayoutResult,
+    theme: BoardRenderTheme,
+    effects: PieceRenderEffect[]
+  ): StaticLayerCache | undefined {
+    const cacheKey = this.staticLayerKey(board, options, layout, theme, effects);
+    if (this.staticLayerCache && this.staticLayerCache.key === cacheKey) {
+      return this.staticLayerCache;
+    }
+    try {
+      const offscreen = new OffscreenCanvasRenderingContext2D(
+        Math.max(1, Math.ceil(options.width)),
+        Math.max(1, Math.ceil(options.height))
+      );
+      const offscreenContext = offscreen as GameCanvasContext;
+      const effectLookup = this.buildEffectLookup(effects, board.cols);
+      this.paintCanvasBase(offscreenContext, options.width, options.height, theme.canvasFill);
+      this.drawBoardBackground(
+        offscreenContext,
+        layout.offsetX,
+        layout.offsetY,
+        layout.boardWidth,
+        layout.boardHeight,
+        theme,
+        false
+      );
+      this.drawBoardTiles(offscreenContext, board, layout, effectLookup, false, false, true);
+      const nextCache: StaticLayerCache = {
+        key: cacheKey,
+        bitmap: offscreen.transferToImageBitmap()
+      };
+      this.releaseStaticLayerCache();
+      this.staticLayerCache = nextCache;
+      return nextCache;
+    } catch (_error) {
+      this.releaseStaticLayerCache();
+      return undefined;
+    }
+  }
+
+  private drawBoardTiles(
+    ctx: GameCanvasContext,
+    board: Board,
+    layout: BoardLayoutResult,
+    effectLookup: PieceEffectLookup | undefined,
+    fastMode: boolean,
+    fastStaticMode: boolean,
+    skipAnimatedPieces: boolean
+  ): void {
     for (let row = 0; row < board.rows; row++) {
       for (let col = 0; col < board.cols; col++) {
         const tile = board.tiles[row][col];
@@ -157,14 +286,16 @@ export class CanvasRenderer {
         }
         if (tile.piece) {
           const effect = effectLookup ? effectLookup[row * board.cols + col] : undefined;
-          const offsetX = effect ? effect.offsetX : 0;
-          const offsetY = effect ? effect.offsetY : 0;
-          const scale = effect ? effect.scale : 1;
-          const opacity = effect ? effect.opacity : 1;
-          if (fastMode || (fastStaticMode && !effect)) {
-            this.drawFastPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
-          } else {
-            this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+          if (!skipAnimatedPieces || !effect) {
+            const offsetX = effect ? effect.offsetX : 0;
+            const offsetY = effect ? effect.offsetY : 0;
+            const scale = effect ? effect.scale : 1;
+            const opacity = effect ? effect.opacity : 1;
+            if (fastMode || (fastStaticMode && !effect)) {
+              this.drawFastPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+            } else {
+              this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+            }
           }
         }
         if (tile.blocker && !this.shouldDrawBlockerUnderPiece(tile.blocker.type)) {
@@ -172,6 +303,81 @@ export class CanvasRenderer {
         }
       }
     }
+  }
+
+  private drawAnimatedPieces(
+    ctx: GameCanvasContext,
+    board: Board,
+    layout: BoardLayoutResult,
+    effects: PieceRenderEffect[],
+    fastMode: boolean
+  ): void {
+    for (let index = 0; index < effects.length; index++) {
+      const effect = effects[index];
+      if (effect.row < 0 || effect.row >= board.rows || effect.col < 0 || effect.col >= board.cols) {
+        continue;
+      }
+      const piece = board.tiles[effect.row][effect.col].piece;
+      if (!piece) {
+        continue;
+      }
+      const centerX = layout.offsetX + effect.col * layout.tileSize + layout.tileSize / 2;
+      const centerY = layout.offsetY + effect.row * layout.tileSize + layout.tileSize / 2;
+      const size = layout.tileSize * 0.70 * effect.scale;
+      if (fastMode) {
+        this.drawFastPiece(ctx, piece, centerX + effect.offsetX, centerY + effect.offsetY, size, effect.opacity);
+      } else {
+        this.drawPiece(ctx, piece, centerX + effect.offsetX, centerY + effect.offsetY, size, effect.opacity);
+      }
+    }
+  }
+
+  private staticLayerKey(
+    board: Board,
+    options: RenderOptions,
+    layout: BoardLayoutResult,
+    theme: BoardRenderTheme,
+    effects: PieceRenderEffect[]
+  ): string {
+    return [
+      `${options.width}x${options.height}`,
+      `${layout.offsetX},${layout.offsetY},${layout.boardWidth},${layout.boardHeight},${layout.tileSize}`,
+      `${theme.canvasFill}|${theme.fill}|${theme.innerFill}|${theme.stroke}|${theme.motif}|${theme.pattern}`,
+      this.boardVisualKey(board),
+      this.effectPositionKey(effects)
+    ].join('#');
+  }
+
+  private boardVisualKey(board: Board): string {
+    const parts: string[] = [`${board.rows}x${board.cols}`];
+    for (let row = 0; row < board.rows; row++) {
+      for (let col = 0; col < board.cols; col++) {
+        const tile = board.tiles[row][col];
+        const piece = tile.piece ? `${tile.piece.id}:${tile.piece.type}:${tile.piece.special}` : '-';
+        const blocker = tile.blocker ?
+          `${tile.blocker.type}:${tile.blocker.hp}:${tile.blocker.portalId ?? ''}:${tile.blocker.targetPortalId ?? ''}` :
+          '-';
+        parts.push(`${piece}/${blocker}`);
+      }
+    }
+    return parts.join('|');
+  }
+
+  private effectPositionKey(effects: PieceRenderEffect[]): string {
+    const keys: string[] = [];
+    for (let index = 0; index < effects.length; index++) {
+      keys.push(`${effects[index].row}_${effects[index].col}`);
+    }
+    keys.sort();
+    return keys.join(',');
+  }
+
+  private releaseStaticLayerCache(): void {
+    if (!this.staticLayerCache) {
+      return;
+    }
+    this.staticLayerCache.bitmap.close();
+    this.staticLayerCache = undefined;
   }
 
   private paintCanvasBase(ctx: GameCanvasContext, width: number, height: number, fill: string): void {
