@@ -20,6 +20,8 @@ export interface PieceRenderEffect {
 
 export interface BoardRenderState {
   pieceEffects?: PieceRenderEffect[];
+  fastMode?: boolean;
+  fastStaticMode?: boolean;
 }
 
 export interface BoardRenderTheme {
@@ -130,6 +132,8 @@ export class CanvasRenderer {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
     const effectLookup = options.animation?.pieceEffects ?
       this.buildEffectLookup(options.animation.pieceEffects, board.cols) : undefined;
+    const fastMode = options.animation?.fastMode === true;
+    const fastStaticMode = options.animation?.fastStaticMode === true;
     const theme = options.theme ?? DEFAULT_BOARD_THEME;
 
     this.paintCanvasBase(ctx, options.width, options.height, theme.canvasFill);
@@ -140,7 +144,7 @@ export class CanvasRenderer {
       layout.boardWidth,
       layout.boardHeight,
       theme,
-      false
+      fastMode || fastStaticMode
     );
 
     for (let row = 0; row < board.rows; row++) {
@@ -157,7 +161,11 @@ export class CanvasRenderer {
           const offsetY = effect ? effect.offsetY : 0;
           const scale = effect ? effect.scale : 1;
           const opacity = effect ? effect.opacity : 1;
-          this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+          if (fastMode || (fastStaticMode && !effect)) {
+            this.drawFastPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+          } else {
+            this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+          }
         }
         if (tile.blocker && !this.shouldDrawBlockerUnderPiece(tile.blocker.type)) {
           this.drawBlocker(ctx, tile.blocker.type, centerX, centerY, layout.tileSize * 0.86, tile.blocker.hp);
@@ -301,6 +309,34 @@ export class CanvasRenderer {
     ctx.fill();
 
     this.drawPieceIdentity(ctx, piece, cx, cy, size);
+    ctx.restore();
+  }
+
+  private drawFastPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number): void {
+    if (opacity <= 0.01 || size <= 1) {
+      return;
+    }
+    const palette = PALETTE[piece.type];
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    if (piece.special === 'rainbow') {
+      ctx.fillStyle = '#F9F7FF';
+      ctx.strokeStyle = 'rgba(83, 67, 172, 0.72)';
+      ctx.lineWidth = Math.max(2, size * 0.060);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.50, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    } else {
+      this.drawPieceShape(ctx, piece.type, cx, cy, size, palette.base, palette.dark);
+    }
+    if (piece.special !== 'none') {
+      ctx.strokeStyle = this.specialAuraStroke(piece.special);
+      ctx.lineWidth = Math.max(2, size * 0.055);
+      ctx.beginPath();
+      ctx.arc(cx, cy, size * 0.58, 0, Math.PI * 2);
+      ctx.stroke();
+    }
     ctx.restore();
   }
 

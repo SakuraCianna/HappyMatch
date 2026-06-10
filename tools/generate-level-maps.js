@@ -353,6 +353,8 @@ function buildGoals(id, blockers, pieces) {
     ];
     if (id >= 30 && id % 5 === 0) {
       goals.push({ type: 'collect_special', targetSpecial: 'rainbow', count: 1 });
+    } else if (id >= 25 && id % 4 === 1) {
+      goals.push({ type: 'combo_goal', comboLength: 2, count: 1 });
     }
     return goals;
   }
@@ -363,6 +365,8 @@ function buildGoals(id, blockers, pieces) {
     ];
     if (id % 5 === 0) {
       goals.push({ type: 'collect_special', targetSpecial: id % 10 === 0 ? 'bomb' : 'row_clear', count: 2 });
+    } else if (id % 6 === 0) {
+      goals.push({ type: 'combo_goal', comboLength: 2, count: 1 });
     }
     return goals;
   }
@@ -373,14 +377,18 @@ function buildGoals(id, blockers, pieces) {
     ];
     if (id % 5 === 0) {
       goals.push({ type: 'collect_special', targetSpecial: id % 10 === 0 ? 'rainbow' : 'col_clear', count: 2 });
+    } else if (id % 6 === 1) {
+      goals.push({ type: 'combo_goal', comboLength: id >= 72 ? 3 : 2, count: 1 });
     }
     return goals;
   }
+  const advancedGoal = id % 3 === 0 ?
+    { type: 'combo_goal', comboLength: id >= 92 ? 3 : 2, count: id >= 96 ? 2 : 1 } :
+    { type: 'special_combo_goal', comboType: 'rainbow_functional', count: id >= 95 ? 2 : 1 };
   return [
     { type: 'score', count: moderateScoreGoal(2600 + id * 85) },
     { type: 'clear_ice', count: Math.max(1, blockers.filter(blocker => blocker.type === 'ice').length) },
-    { type: 'collect_special', targetSpecial: id % 2 === 0 ? 'bomb' : 'rainbow', count: id >= 95 ? 2 : 1 },
-    { type: 'special_combo_goal', comboType: 'rainbow_functional', count: id >= 95 ? 2 : 1 }
+    advancedGoal
   ];
 }
 
@@ -460,6 +468,7 @@ function tutorialForLevel(id) {
     5: ['Special glowing pieces and shaped hollow cells begin here.'],
     8: ['Vertical and horizontal specials use different arrow marks.'],
     20: ['Ice appears: clear nearby pieces to break it.'],
+    25: ['Combo goals appear: one strong move can trigger several clears.'],
     40: ['Chains appear and must be broken by clearing the locked piece.'],
     60: ['Marshmallows block cells until nearby clears remove them.'],
     80: ['Portals begin to bend falling paths.']

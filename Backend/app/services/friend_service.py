@@ -1,8 +1,8 @@
 from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
-from app.models.entities import Friendship, Player
-from app.schemas.schemas import FriendPublic
+from app.models.entities import Friendship, LevelRecord, Player
+from app.schemas.schemas import FriendLevelScore, FriendPublic
 from app.services.player_service import get_player_or_404
 
 
@@ -30,6 +30,41 @@ def list_friends(session: Session, player_id: str) -> list[FriendPublic]:
       friends.append(friend_public(player))
   friends.sort(key=lambda item: (-item.highest_level, -item.total_stars, item.nickname))
   return friends
+
+
+def list_friend_level_scores(session: Session, player_id: str, level_id: int) -> list[FriendLevelScore]:
+  get_player_or_404(session, player_id)
+  links = session.exec(select(Friendship).where(Friendship.player_id == player_id)).all()
+  allowed_player_ids = {player_id}
+  for link in links:
+    allowed_player_ids.add(link.friend_id)
+
+  records = session.exec(select(LevelRecord).where(LevelRecord.level_id == level_id)).all()
+  entries: list[FriendLevelScore] = []
+  for record in records:
+    if record.player_id not in allowed_player_ids:
+      continue
+    player = session.get(Player, record.player_id)
+    if player is None:
+      continue
+    entries.append(FriendLevelScore(
+      rank=0,
+      player_id=player.id,
+      nickname=player.nickname,
+      avatar=player.avatar,
+      friend_code=player.friend_code,
+      level_id=record.level_id,
+      score=record.score,
+      stars=record.stars,
+      best_combo=record.best_combo,
+      moves_left=record.moves_left,
+      is_self=player.id == player_id
+    ))
+
+  entries.sort(key=lambda item: (-item.score, -item.stars, -item.moves_left, -item.best_combo, item.nickname))
+  for index, entry in enumerate(entries, start=1):
+    entry.rank = index
+  return entries
 
 
 def add_friend_by_code(session: Session, player_id: str, friend_code: str) -> FriendPublic:

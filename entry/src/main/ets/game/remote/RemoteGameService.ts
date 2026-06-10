@@ -2,6 +2,7 @@ import { common } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
 import { BackendHttpClient } from './BackendHttpClient';
 import {
+  FriendLevelScore,
   LeaderboardEntry,
   LocationSummary,
   NearbyPlayer,
@@ -218,6 +219,16 @@ export class RemoteGameService {
       return [];
     }
     const result = await this.client.get<RemoteFriend[]>(`/friends/${player.id}`);
+    return result ?? [];
+  }
+
+  async listFriendLevelScores(levelId: number): Promise<FriendLevelScore[]> {
+    const player = this.player;
+    if (!player) {
+      return [];
+    }
+    const safeLevelId = Math.max(1, Math.min(100, levelId));
+    const result = await this.client.get<FriendLevelScore[]>(`/friends/${player.id}/levels/${safeLevelId}/scores`);
     return result ?? [];
   }
 

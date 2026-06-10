@@ -25,11 +25,6 @@
       "count": 2
     },
     {
-      "type": "collect_special",
-      "targetSpecial": "bomb",
-      "count": 1
-    },
-    {
       "type": "special_combo_goal",
       "comboType": "rainbow_functional",
       "count": 1

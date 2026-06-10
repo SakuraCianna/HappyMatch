@@ -56,6 +56,23 @@ def test_auth_friend_record_leaderboard_and_presence(tmp_path, monkeypatch):
     )
     assert record_response.status_code == 200
 
+    second_record_response = client.post(
+      f"/api/players/{second['id']}/records",
+      json={"level_id": 8, "score": 2600, "stars": 2, "best_combo": 5, "moves_left": 3},
+      headers=second_headers
+    )
+    assert second_record_response.status_code == 200
+
+    friend_level_scores = client.get(
+      f"/api/friends/{first['id']}/levels/8/scores",
+      headers=first_headers
+    )
+    assert friend_level_scores.status_code == 200
+    score_rows = friend_level_scores.json()
+    assert score_rows[0]["player_id"] == second["id"]
+    assert score_rows[0]["score"] == 2600
+    assert score_rows[1]["is_self"] is True
+
     leaderboard = client.get("/api/leaderboard?scope=stars").json()
     assert leaderboard[0]["player_id"] == first["id"]
 

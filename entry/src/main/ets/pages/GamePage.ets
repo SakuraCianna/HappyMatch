@@ -8,18 +8,29 @@ import { Board, PieceType, Position, SpecialType } from '../game/core/Types';
 import { EconomyProductId, economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
 import { chapterProgressText, getLevelChapter } from '../game/levels/LevelChapters';
+import { LevelGoal } from '../game/levels/LevelConfig';
 import { getLevelWorldTheme, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
 import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
 import { BoardLayout, BoardLayoutResult } from '../game/render/BoardLayout';
 import { BoardRenderState, CanvasRenderer, GameCanvasContext, PieceRenderEffect } from '../game/render/CanvasRenderer';
+import { FriendLevelScore } from '../game/remote/RemoteModels';
 import { remoteGameService } from '../game/remote/RemoteGameService';
 import { gameSettingsService } from '../game/settings/GameSettings';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
 import { progressService } from '../game/storage/ProgressService';
 import { TutorialStep, tutorialStepsForLevel } from '../game/tutorial/TutorialGuide';
-import { brushColorValue, describeGoals, formatStars } from '../game/ui/GameTextFormatter';
+import {
+  brushColorValue,
+  describeGoals,
+  formatStars,
+  goalAccentColor,
+  goalBadgeText,
+  goalDetailText,
+  goalRemainingText,
+  goalTitle
+} from '../game/ui/GameTextFormatter';
 
 interface MovePreview {
   accepted: boolean;
@@ -27,6 +38,21 @@ interface MovePreview {
   clearPositions: Position[];
   conversionBoard?: Board;
   convertedPositions?: Position[];
+}
+
+interface GoalDisplayItem {
+  key: string;
+  badge: string;
+  title: string;
+  detail: string;
+  remaining: string;
+  accent: string;
+  done: boolean;
+}
+
+interface GoalSnapshotItem {
+  key: string;
+  count: number;
 }
 
 @Entry
@@ -47,6 +73,9 @@ struct GamePage {
   private isAnimating: boolean = false;
   private isBonusResolving: boolean = false;
   private animationToken: number = 0;
+  private previousGoalSnapshot: GoalSnapshotItem[] = [];
+  private friendBestScore: number = 0;
+  private friendBestName: string = '';
   @State private canvasReady: boolean = false;
   @State private levelId: number = 1;
   @State private movesLeft: number = 0;
@@ -55,8 +84,12 @@ struct GamePage {
   @State private chapterAccent: string = '#F27A91';
   @State private coinBalance: number = 0;
   @State private comboText: string = '';
+  @State private goalPulseText: string = '';
   @State private statusText: string = '进行中';
   @State private goalText: string = '';
+  @State private goalItems: GoalDisplayItem[] = [];
+  @State private friendLevelText: string = '';
+  @State private friendCompareText: string = '';
   @State private activeTool: string = '';
   @State private shuffleToolCount: number = 0;
   @State private hammerToolCount: number = 0;
@@ -516,25 +549,81 @@ struct GamePage {
 
   @Builder
   MessageSlot() {
-    Stack() {
+    Column() {
       if (this.messageChipText().length > 0) {
         Text(this.messageChipText())
-          .fontSize(this.comboText.length > 0 ? 14 : 13)
-          .fontWeight(this.comboText.length > 0 ? FontWeight.Bold : FontWeight.Medium)
+          .fontSize(this.comboText.length > 0 || this.goalPulseText.length > 0 ? 13 : 12)
+          .fontWeight(this.comboText.length > 0 || this.goalPulseText.length > 0 ? FontWeight.Bold : FontWeight.Medium)
           .fontColor('#5C3A4A')
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
-          .padding({ left: 16, right: 16, top: 6, bottom: 6 })
+          .padding({ left: 14, right: 14, top: 4, bottom: 4 })
           .borderRadius(16)
-          .backgroundColor(this.comboText.length > 0 ? 'rgba(255, 241, 166, 0.78)' : 'rgba(255, 255, 255, 0.54)')
-          .border({ width: 1, color: this.comboText.length > 0 ? 'rgba(242, 184, 75, 0.32)' : 'rgba(255, 255, 255, 0.52)' })
+          .backgroundColor(this.comboText.length > 0 || this.goalPulseText.length > 0 ? 'rgba(255, 241, 166, 0.82)' : 'rgba(255, 255, 255, 0.58)')
+          .border({ width: 1, color: this.comboText.length > 0 || this.goalPulseText.length > 0 ? 'rgba(242, 184, 75, 0.36)' : 'rgba(255, 255, 255, 0.52)' })
           .shadow({ radius: 8, color: 'rgba(92, 58, 74, 0.08)', offsetX: 0, offsetY: 3 })
       }
+      Row() {
+        ForEach(this.goalItems, (item: GoalDisplayItem) => {
+          this.GoalChip(item)
+        }, (item: GoalDisplayItem) => item.key)
+      }
+      .width('100%')
+      .height(35)
+      .justifyContent(FlexAlign.SpaceBetween)
+      .alignItems(VerticalAlign.Center)
+      .margin({ top: 4 })
     }
     .width('92%')
-    .height(32)
-    .alignContent(Alignment.Center)
+    .height(60)
+    .alignItems(HorizontalAlign.Center)
     .margin({ top: 6 })
+  }
+
+  @Builder
+  GoalChip(item: GoalDisplayItem) {
+    Row() {
+      Text(item.badge)
+        .fontSize(11)
+        .fontWeight(FontWeight.Bold)
+        .fontColor('#FFFFFF')
+        .textAlign(TextAlign.Center)
+        .width(24)
+        .height(24)
+        .borderRadius(12)
+        .backgroundColor(item.done ? '#84D27E' : item.accent)
+        .margin({ right: 6 })
+      Column() {
+        Text(item.title)
+          .fontSize(10)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#5C3A4A')
+          .maxLines(1)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+          .width('100%')
+        Text(item.detail)
+          .fontSize(8)
+          .fontColor('#8A6250')
+          .maxLines(1)
+          .textOverflow({ overflow: TextOverflow.Ellipsis })
+          .width('100%')
+      }
+      .layoutWeight(1)
+      Text(item.remaining)
+        .fontSize(9)
+        .fontWeight(FontWeight.Medium)
+        .fontColor(item.done ? '#4C9E52' : item.accent)
+        .maxLines(1)
+        .margin({ left: 5 })
+    }
+    .height(35)
+    .layoutWeight(1)
+    .padding({ left: 6, right: 6 })
+    .borderRadius(18)
+    .backgroundColor(item.done ? 'rgba(232, 255, 232, 0.78)' : 'rgba(255, 253, 244, 0.72)')
+    .border({ width: 1, color: item.done ? 'rgba(132, 210, 126, 0.46)' : 'rgba(255, 255, 255, 0.72)' })
+    .shadow({ radius: 6, color: 'rgba(92, 58, 74, 0.08)', offsetX: 0, offsetY: 2 })
+    .margin({ left: 3, right: 3 })
   }
 
   @Builder
@@ -689,11 +778,18 @@ struct GamePage {
     this.resultStars = '';
     this.resultMessage = '';
     this.goalText = describeGoals(this.session.state.goals);
+    this.goalPulseText = '';
+    this.friendLevelText = '好友成绩同步中';
+    this.friendCompareText = '';
+    this.friendBestScore = 0;
+    this.friendBestName = '';
+    this.refreshGoalDisplay(false);
     this.tutorialSteps = tutorialStepsForLevel(level.id);
     this.tutorialIndex = 0;
     this.showTutorial = this.tutorialSteps.length > 0;
     this.syncToolCounts();
     this.syncRemotePresence(level.id);
+    this.loadFriendLevelScores(level.id);
     this.draw();
   }
 
@@ -832,6 +928,7 @@ struct GamePage {
     this.movesLeft = this.session.state.movesLeft;
     this.score = this.session.state.score;
     this.goalText = describeGoals(this.session.state.goals);
+    this.refreshGoalDisplay(true);
     this.coinBalance = economyService.getWallet().coins;
     this.comboText = this.session.state.lastCascadeCount >= 2 ? `连击 x${this.session.state.lastCascadeCount}` : '';
     this.syncToolCounts();
@@ -1482,6 +1579,96 @@ struct GamePage {
     return getLevelWorldTheme(this.levelId);
   }
 
+  private refreshGoalDisplay(emitDelta: boolean): void {
+    if (!this.session) {
+      this.goalItems = [];
+      this.previousGoalSnapshot = [];
+      this.goalPulseText = '';
+      return;
+    }
+    const goals = this.session.state.goals;
+    this.goalPulseText = emitDelta ? this.changedGoalText(this.previousGoalSnapshot, goals) : '';
+    const items: GoalDisplayItem[] = [];
+    for (let index = 0; index < goals.length; index++) {
+      const goal = goals[index];
+      if (goal.type !== 'score' && items.length < 3) {
+        items.push(this.createGoalDisplayItem(goal, index));
+      }
+    }
+    if (items.length === 0) {
+      items.push({
+        key: 'score_star_goal',
+        badge: '星',
+        title: '冲三星',
+        detail: '达标后继续涨星',
+        remaining: `${this.score}/${this.scorePipeTargetValue()}`,
+        accent: this.worldTheme().scoreMarkerFill,
+        done: this.score >= this.scorePipeTargetValue()
+      });
+    }
+    this.goalItems = items;
+    this.previousGoalSnapshot = this.snapshotGoals(goals);
+  }
+
+  private createGoalDisplayItem(goal: LevelGoal, index: number): GoalDisplayItem {
+    return {
+      key: this.goalKey(goal, index),
+      badge: goalBadgeText(goal),
+      title: goalTitle(goal),
+      detail: goalDetailText(goal),
+      remaining: goalRemainingText(goal),
+      accent: goalAccentColor(goal),
+      done: goal.count <= 0
+    };
+  }
+
+  private snapshotGoals(goals: LevelGoal[]): GoalSnapshotItem[] {
+    const result: GoalSnapshotItem[] = [];
+    for (let index = 0; index < goals.length; index++) {
+      result.push({
+        key: this.goalKey(goals[index], index),
+        count: goals[index].count
+      });
+    }
+    return result;
+  }
+
+  private changedGoalText(previous: GoalSnapshotItem[], goals: LevelGoal[]): string {
+    const changes: string[] = [];
+    for (let index = 0; index < goals.length; index++) {
+      const goal = goals[index];
+      if (goal.type === 'score') {
+        continue;
+      }
+      const before = this.previousGoalCount(previous, this.goalKey(goal, index));
+      const after = Math.max(0, goal.count);
+      if (before > after) {
+        const diff = before - after;
+        changes.push(after === 0 ? `${goalTitle(goal)}完成` : `${goalTitle(goal)} -${diff}`);
+      }
+    }
+    if (changes.length === 0) {
+      return '';
+    }
+    if (changes.length === 1) {
+      return `目标推进：${changes[0]}`;
+    }
+    return `目标推进：${changes[0]} / ${changes[1]}`;
+  }
+
+  private previousGoalCount(previous: GoalSnapshotItem[], key: string): number {
+    for (let index = 0; index < previous.length; index++) {
+      if (previous[index].key === key) {
+        return Math.max(0, previous[index].count);
+      }
+    }
+    return 0;
+  }
+
+  private goalKey(goal: LevelGoal, index: number): string {
+    return `${index}_${goal.type}_${goal.target ?? ''}_${goal.targetSpecial ?? ''}_${goal.comboType ?? ''}_${goal.comboLength ?? 0}`;
+  }
+
   private layoutForBoard(board: Board): BoardLayoutResult {
     const key = `${board.rows}x${board.cols}_${this.canvasWidth}x${this.canvasHeight}`;
     if (!this.cachedLayout || this.cachedLayoutKey !== key) {
@@ -1573,8 +1760,17 @@ struct GamePage {
   }
 
   private messageChipText(): string {
+    if (this.goalPulseText.length > 0) {
+      return this.goalPulseText;
+    }
     if (this.comboText.length > 0) {
       return this.comboText;
+    }
+    if (this.friendCompareText.length > 0) {
+      return this.friendCompareText;
+    }
+    if (this.friendLevelText.length > 0) {
+      return this.friendLevelText;
     }
     if (this.shouldShowGoalChip()) {
       return this.goalText;
@@ -1595,6 +1791,8 @@ struct GamePage {
     const targetScore = this.scoreGoalValue();
     const earnedStars = progressService.calculateStars(won, finalScore, targetScore);
     const showContinueOffer = !won && finalScore < targetScore;
+    const friendCompare = this.friendResultCompareText(finalScore);
+    this.friendCompareText = friendCompare;
     this.resultWon = won;
     this.showContinueOffer = showContinueOffer;
     await progressService.recordResult({
@@ -1623,10 +1821,10 @@ struct GamePage {
     this.resultTitle = won ? '通关成功' : '挑战失败';
     this.resultStars = won ? formatStars(earnedStars) : '☆☆☆';
     this.resultMessage = won
-      ? `得分 ${finalScore}，${earnedStars} 星通关，金币 +${earnedStars}`
+      ? `得分 ${finalScore}，${earnedStars} 星通关，金币 +${earnedStars}${friendCompare.length > 0 ? `，${friendCompare}` : ''}`
       : showContinueOffer
         ? `基础分未达标，是否花费 20 个游戏代币买一个“+5步”？`
-        : `得分 ${finalScore}，再试一次就差不多了`;
+        : `得分 ${finalScore}，再试一次就差不多了${friendCompare.length > 0 ? `，${friendCompare}` : ''}`;
     this.showResult = true;
   }
 
@@ -1676,6 +1874,60 @@ struct GamePage {
     }
   }
 
+  private async loadFriendLevelScores(levelId: number): Promise<void> {
+    const expectedLevelId = levelId;
+    try {
+      await remoteGameService.init(this.appContext());
+      const scores = await remoteGameService.listFriendLevelScores(levelId);
+      if (this.levelId !== expectedLevelId) {
+        return;
+      }
+      this.applyFriendLevelScores(scores);
+    } catch (_error) {
+      if (this.levelId === expectedLevelId) {
+        this.friendBestScore = 0;
+        this.friendBestName = '';
+        this.friendLevelText = '好友成绩暂不可用';
+      }
+    }
+  }
+
+  private applyFriendLevelScores(scores: FriendLevelScore[]): void {
+    let bestFriend: FriendLevelScore | undefined = undefined;
+    let selfRecord: FriendLevelScore | undefined = undefined;
+    for (let index = 0; index < scores.length; index++) {
+      const item = scores[index];
+      if (item.is_self) {
+        selfRecord = item;
+      } else if (!bestFriend || item.score > bestFriend.score) {
+        bestFriend = item;
+      }
+    }
+    if (bestFriend) {
+      this.friendBestScore = bestFriend.score;
+      this.friendBestName = bestFriend.nickname;
+      this.friendLevelText = `好友最高 ${bestFriend.nickname} ${bestFriend.score}`;
+      return;
+    }
+    this.friendBestScore = 0;
+    this.friendBestName = '';
+    this.friendLevelText = selfRecord ? '本关等待好友挑战' : '本关暂无好友成绩';
+  }
+
+  private friendResultCompareText(finalScore: number): string {
+    if (this.friendBestScore <= 0 || this.friendBestName.length === 0) {
+      return '';
+    }
+    const diff = finalScore - this.friendBestScore;
+    if (diff > 0) {
+      return `超过好友榜 ${this.friendBestName} ${diff} 分`;
+    }
+    if (diff === 0) {
+      return `追平好友榜 ${this.friendBestName}`;
+    }
+    return `距好友榜 ${this.friendBestName} 还差 ${Math.abs(diff)} 分`;
+  }
+
   private async uploadRemoteResult(
     levelId: number,
     score: number,
@@ -1689,6 +1941,9 @@ struct GamePage {
       await remoteGameService.uploadLevelRecord(levelId, score, stars, bestCombo, movesLeft);
       await remoteGameService.syncPlayerProgress(currentLevel, this.coinBalance);
       await remoteGameService.updatePresence(getLevelChapter(levelId).id, currentLevel);
+      if (this.levelId === levelId) {
+        this.loadFriendLevelScores(levelId);
+      }
     } catch (_error) {
     }
   }

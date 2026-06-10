@@ -23,6 +23,11 @@
     {
       "type": "clear_marshmallow",
       "count": 4
+    },
+    {
+      "type": "combo_goal",
+      "comboLength": 2,
+      "count": 1
     }
   ],
   "blockers": [

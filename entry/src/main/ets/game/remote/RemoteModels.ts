@@ -36,6 +36,20 @@ export interface LeaderboardEntry {
   total_score: number;
 }
 
+export interface FriendLevelScore {
+  rank: number;
+  player_id: string;
+  nickname: string;
+  avatar?: string;
+  friend_code: string;
+  level_id: number;
+  score: number;
+  stars: number;
+  best_combo: number;
+  moves_left: number;
+  is_self: boolean;
+}
+
 export interface NearbySummary {
   region_key?: string;
   world_id?: number;

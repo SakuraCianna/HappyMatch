@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 
 from app.api.deps import AuthorizedPlayerIdDep, SessionDep, require_same_player
-from app.schemas.schemas import FriendAddRequest, FriendPublic
+from app.schemas.schemas import FriendAddRequest, FriendLevelScore, FriendPublic
 from app.services import friend_service
 
 router = APIRouter()
@@ -11,6 +11,17 @@ router = APIRouter()
 def list_friends(player_id: str, session: SessionDep, authorized_player_id: AuthorizedPlayerIdDep) -> list[FriendPublic]:
   require_same_player(player_id, authorized_player_id)
   return friend_service.list_friends(session, player_id)
+
+
+@router.get("/{player_id}/levels/{level_id}/scores", response_model=list[FriendLevelScore])
+def list_friend_level_scores(
+  player_id: str,
+  level_id: int,
+  session: SessionDep,
+  authorized_player_id: AuthorizedPlayerIdDep
+) -> list[FriendLevelScore]:
+  require_same_player(player_id, authorized_player_id)
+  return friend_service.list_friend_level_scores(session, player_id, level_id)
 
 
 @router.post("/{player_id}", response_model=FriendPublic, status_code=status.HTTP_201_CREATED)

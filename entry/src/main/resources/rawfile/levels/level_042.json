@@ -23,6 +23,11 @@
     {
       "type": "break_chain",
       "count": 3
+    },
+    {
+      "type": "combo_goal",
+      "comboLength": 2,
+      "count": 1
     }
   ],
   "blockers": [

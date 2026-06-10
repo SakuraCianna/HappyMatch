@@ -89,6 +89,20 @@ class LeaderboardEntry(SQLModel):
   total_score: int
 
 
+class FriendLevelScore(SQLModel):
+  rank: int
+  player_id: str
+  nickname: str
+  avatar: str | None
+  friend_code: str
+  level_id: int
+  score: int
+  stars: int
+  best_combo: int
+  moves_left: int
+  is_self: bool = False
+
+
 class PresenceUpdate(SQLModel):
   player_id: str
   world_id: int = Field(default=1, ge=1, le=5)

@@ -62,6 +62,132 @@ export function specialComboGoalName(comboType?: string): string {
   return '特殊组合';
 }
 
+export function pieceGoalName(type?: PieceType): string {
+  if (type === 'red') {
+    return '粉心果冻';
+  }
+  if (type === 'blue') {
+    return '蓝晶果冻';
+  }
+  if (type === 'yellow') {
+    return '星糖果冻';
+  }
+  if (type === 'green') {
+    return '青叶果冻';
+  }
+  if (type === 'purple') {
+    return '葡萄果冻';
+  }
+  if (type === 'orange') {
+    return '橙光果冻';
+  }
+  return '指定果冻';
+}
+
+export function goalBadgeText(goal: LevelGoal): string {
+  if (goal.type === 'score') {
+    return '分';
+  }
+  if (goal.type === 'clear_ice') {
+    return '冰';
+  }
+  if (goal.type === 'break_chain') {
+    return '锁';
+  }
+  if (goal.type === 'clear_marshmallow') {
+    return '棉';
+  }
+  if (goal.type === 'collect_special') {
+    return '技';
+  }
+  if (goal.type === 'combo_goal') {
+    return '连';
+  }
+  if (goal.type === 'special_combo_goal') {
+    return '组';
+  }
+  return '收';
+}
+
+export function goalTitle(goal: LevelGoal): string {
+  if (goal.type === 'score') {
+    return '基础分';
+  }
+  if (goal.type === 'clear_ice') {
+    return '清除冰层';
+  }
+  if (goal.type === 'break_chain') {
+    return '破除锁链';
+  }
+  if (goal.type === 'clear_marshmallow') {
+    return '清除棉花糖';
+  }
+  if (goal.type === 'collect_special') {
+    return specialGoalName(goal.targetSpecial);
+  }
+  if (goal.type === 'combo_goal') {
+    return `完成 x${Math.max(2, goal.comboLength ?? 2)} 连击`;
+  }
+  if (goal.type === 'special_combo_goal') {
+    return specialComboGoalName(goal.comboType);
+  }
+  return `收集${pieceGoalName(goal.target)}`;
+}
+
+export function goalDetailText(goal: LevelGoal): string {
+  if (goal.type === 'score') {
+    return '达到后继续冲二星三星';
+  }
+  if (goal.type === 'collect_special') {
+    return '生成或触发都能推进';
+  }
+  if (goal.type === 'combo_goal') {
+    return '一次操作连续消除';
+  }
+  if (goal.type === 'special_combo_goal') {
+    return '交换指定功能果冻';
+  }
+  if (goal.type === 'collect_piece') {
+    return '消除指定颜色';
+  }
+  return '在附近消除推进';
+}
+
+export function goalAccentColor(goal: LevelGoal): string {
+  if (goal.type === 'clear_ice') {
+    return '#61B7EA';
+  }
+  if (goal.type === 'break_chain') {
+    return '#B98345';
+  }
+  if (goal.type === 'clear_marshmallow') {
+    return '#EE79B3';
+  }
+  if (goal.type === 'collect_special') {
+    return '#F2B84B';
+  }
+  if (goal.type === 'combo_goal') {
+    return '#79C96E';
+  }
+  if (goal.type === 'special_combo_goal') {
+    return '#9F7CF1';
+  }
+  if (goal.type === 'collect_piece') {
+    return brushColorValue(goal.target ?? 'red');
+  }
+  return '#F27A91';
+}
+
+export function goalRemainingText(goal: LevelGoal): string {
+  if (goal.type === 'score') {
+    return `${Math.max(0, goal.count)}`;
+  }
+  if (goal.count <= 0) {
+    return '完成';
+  }
+  return `剩 ${Math.max(0, goal.count)}`;
+}
+
 export function describeGoals(goals: LevelGoal[]): string {
   return goals.map(goal => {
     if (goal.type === 'score') {
