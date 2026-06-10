@@ -43,7 +43,7 @@ export class BoardAnimationPlanner {
           const spawnedCount = spawnedBySegment.get(segmentKey) ?? 0;
           spawnedBySegment.set(segmentKey, spawnedCount + 1);
           startRow = segmentTop - 1 - spawnedCount;
-          opacity = 0.38;
+          opacity = 0.56;
         }
 
         const offsetX = (startCol - col) * tileSize;
@@ -73,7 +73,7 @@ export class BoardAnimationPlanner {
         col: motion.col,
         offsetX: motion.offsetX * (1 - clampedProgress),
         offsetY: motion.offsetY * (1 - clampedProgress),
-        scale: 0.96 + clampedProgress * 0.04,
+        scale: 0.98 + clampedProgress * 0.02,
         opacity: motion.opacity + (1 - motion.opacity) * clampedProgress
       });
     }

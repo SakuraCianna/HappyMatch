@@ -12,7 +12,7 @@ import { LevelGoal } from '../game/levels/LevelConfig';
 import { getLevelWorldTheme, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
-import { BoardAnimationPlanner } from '../game/render/BoardAnimationPlanner';
+import { BoardAnimationPlanner, PieceFallMotion } from '../game/render/BoardAnimationPlanner';
 import { BoardLayout, BoardLayoutResult } from '../game/render/BoardLayout';
 import { BoardRenderState, CanvasRenderer, GameCanvasContext, PieceRenderEffect } from '../game/render/CanvasRenderer';
 import { FriendLevelScore } from '../game/remote/RemoteModels';
@@ -955,7 +955,7 @@ struct GamePage {
     const expectedSession = this.session;
     this.isAnimating = true;
     feedbackService.play('swap');
-    this.animateSwap(beforeBoard, first, second, 0, 1, 120, () => {
+    this.animateSwap(beforeBoard, first, second, 0, 1, 140, () => {
       const token = this.animationToken;
       setTimeout(() => {
         if (token !== this.animationToken || this.session !== expectedSession) {
@@ -1459,7 +1459,7 @@ struct GamePage {
     toBoard: Board,
     positions: Position[],
     done: () => void,
-    durationMs: number = 170,
+    durationMs: number = 210,
     switchAt: number = 0.18
   ): void {
     this.runAnimation(durationMs, (progress: number) => {
@@ -1499,22 +1499,38 @@ struct GamePage {
     }, done);
   }
 
-  private animateSettle(fromBoard: Board, toBoard: Board, done: () => void, durationMs: number = 460): void {
+  private animateSettle(fromBoard: Board, toBoard: Board, done: () => void, durationMs: number = 500): void {
     const layout = this.layoutForBoard(toBoard);
     const motions = BoardAnimationPlanner.planFallEffects(fromBoard, toBoard, layout.tileSize);
-    this.runAnimation(durationMs, (progress: number) => {
+    const settleDuration = this.settleDurationForMotions(motions, layout.tileSize, durationMs);
+    this.runAnimation(settleDuration, (progress: number) => {
       const eased = this.easeOut(progress);
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
       this.drawBoardSnapshot(toBoard, { pieceEffects: effects });
     }, done);
   }
 
+  private settleDurationForMotions(motions: PieceFallMotion[], tileSize: number, baseDuration: number): number {
+    if (motions.length === 0) {
+      return Math.max(140, Math.floor(baseDuration * 0.40));
+    }
+    let longestDistance = 0;
+    for (let index = 0; index < motions.length; index++) {
+      const motion = motions[index];
+      const distance = (Math.abs(motion.offsetX) + Math.abs(motion.offsetY)) / Math.max(1, tileSize);
+      if (distance > longestDistance) {
+        longestDistance = distance;
+      }
+    }
+    return Math.min(680, Math.max(baseDuration, Math.floor(baseDuration + longestDistance * 24)));
+  }
+
   private animateResolutionSteps(
     steps: ResolutionStep[],
     index: number,
     done: () => void,
-    clearDurationMs: number = 260,
-    settleDurationMs: number = 460
+    clearDurationMs: number = 240,
+    settleDurationMs: number = 500
   ): void {
     if (index >= steps.length) {
       done();
@@ -1533,7 +1549,7 @@ struct GamePage {
         }
         setTimeout(() => {
           this.animateResolutionSteps(steps, index + 1, done, clearDurationMs, settleDurationMs);
-        }, 150);
+        }, 96);
       }, settleDurationMs);
     }, clearDurationMs);
   }
@@ -1543,16 +1559,18 @@ struct GamePage {
     const startedAt = Date.now();
     const reducedMotion = gameSettingsService.getState().reducedMotion;
     const duration = reducedMotion ? Math.max(48, Math.floor(durationMs * 0.64)) : durationMs;
-    const frameDelay = reducedMotion ? 32 : 24;
+    const frameDelay = reducedMotion ? 28 : 16;
     const tick = (): void => {
       if (token !== this.animationToken) {
         return;
       }
-      const elapsed = Date.now() - startedAt;
+      const frameStartedAt = Date.now();
+      const elapsed = frameStartedAt - startedAt;
       const rawProgress = Math.min(1, elapsed / duration);
       frame(rawProgress);
       if (rawProgress < 1) {
-        setTimeout(tick, frameDelay);
+        const drawCost = Date.now() - frameStartedAt;
+        setTimeout(tick, Math.max(1, frameDelay - drawCost));
         return;
       }
       done();
