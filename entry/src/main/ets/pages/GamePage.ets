@@ -12,6 +12,7 @@ import { LevelGoal } from '../game/levels/LevelConfig';
 import { getLevelWorldTheme, LevelWorldTheme } from '../game/levels/LevelWorldThemes';
 import { LEVELS } from '../game/levels/levels';
 import { BlockerResolver } from '../game/mechanics/BlockerResolver';
+import { animationFrameMetrics } from '../game/performance/FrameMetrics';
 import { BoardAnimationPlanner, PieceFallMotion } from '../game/render/BoardAnimationPlanner';
 import { BoardLayout, BoardLayoutResult } from '../game/render/BoardLayout';
 import { BoardRenderState, CanvasRenderer, GameCanvasContext, PieceRenderEffect } from '../game/render/CanvasRenderer';
@@ -117,7 +118,7 @@ struct GamePage {
   }
 
   aboutToDisappear(): void {
-    this.renderer.clearCache();
+    this.renderer.dispose();
   }
 
   build() {
@@ -796,6 +797,20 @@ struct GamePage {
     this.syncRemotePresence(level.id);
     this.loadFriendLevelScores(level.id);
     this.draw();
+    this.warmRendererCache(level.board.pieceTypes, level.id);
+  }
+
+  private warmRendererCache(pieceTypes: PieceType[], levelId: number): void {
+    const layout = this.session ? this.layoutForBoard(this.session.state.board) : undefined;
+    if (!layout) {
+      return;
+    }
+    setTimeout(() => {
+      if (!this.session || this.levelId !== levelId) {
+        return;
+      }
+      this.renderer.warmPieceCache(pieceTypes, layout.tileSize * 0.70);
+    }, 0);
   }
 
   private async prepareServicesAndStart(context: common.Context, levelId: number): Promise<void> {
@@ -1438,7 +1453,7 @@ struct GamePage {
           { row: second.row, col: second.col, offsetX: -moveX * amount, offsetY: -moveY * amount, scale: 1.05, opacity: 1 }
         ]
       });
-    }, done);
+    }, done, 'swap');
   }
 
   private animateClear(board: Board, positions: Position[], done: () => void, durationMs: number = 260): void {
@@ -1456,7 +1471,7 @@ struct GamePage {
         });
       });
       this.drawBoardSnapshot(board, { pieceEffects: effects });
-    }, done);
+    }, done, 'clear');
   }
 
   private animateConversion(
@@ -1482,7 +1497,7 @@ struct GamePage {
         });
       });
       this.drawBoardSnapshot(progress < switchAt ? fromBoard : toBoard, { pieceEffects: effects });
-    }, done);
+    }, done, 'conversion');
   }
 
   private animateToolPulse(board: Board, position: Position, done: () => void): void {
@@ -1501,7 +1516,7 @@ struct GamePage {
           }
         ]
       });
-    }, done);
+    }, done, 'tool');
   }
 
   private animateSettle(fromBoard: Board, toBoard: Board, done: () => void, durationMs: number = 500): void {
@@ -1512,7 +1527,7 @@ struct GamePage {
       const eased = this.easeOut(progress);
       const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
       this.drawBoardSnapshot(toBoard, { pieceEffects: effects });
-    }, done);
+    }, done, 'settle');
   }
 
   private settleDurationForMotions(motions: PieceFallMotion[], tileSize: number, baseDuration: number): number {
@@ -1559,12 +1574,13 @@ struct GamePage {
     }, clearDurationMs);
   }
 
-  private runAnimation(durationMs: number, frame: (progress: number) => void, done: () => void): void {
+  private runAnimation(durationMs: number, frame: (progress: number) => void, done: () => void, label: string = 'animation'): void {
     const token = ++this.animationToken;
     const startedAt = Date.now();
     const reducedMotion = gameSettingsService.getState().reducedMotion;
     const duration = reducedMotion ? Math.max(48, Math.floor(durationMs * 0.64)) : durationMs;
     const frameDelay = reducedMotion ? 28 : 16;
+    animationFrameMetrics.begin(label, duration);
     const tick = (): void => {
       if (token !== this.animationToken) {
         return;
@@ -1573,10 +1589,15 @@ struct GamePage {
       const elapsed = frameStartedAt - startedAt;
       const rawProgress = Math.min(1, elapsed / duration);
       frame(rawProgress);
+      const drawCost = Date.now() - frameStartedAt;
+      animationFrameMetrics.recordFrame(drawCost);
       if (rawProgress < 1) {
-        const drawCost = Date.now() - frameStartedAt;
         setTimeout(tick, Math.max(1, frameDelay - drawCost));
         return;
+      }
+      const metricsText = animationFrameMetrics.finish();
+      if (metricsText.length > 0) {
+        this.statusText = metricsText;
       }
       done();
     };

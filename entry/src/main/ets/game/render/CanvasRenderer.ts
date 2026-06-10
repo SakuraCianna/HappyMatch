@@ -1,4 +1,4 @@
-import { Board, Piece, PieceType } from '../core/Types';
+import { Board, Piece, PieceType, SpecialType } from '../core/Types';
 import { BoardLayout, BoardLayoutResult } from './BoardLayout';
 
 export interface RenderOptions {
@@ -42,6 +42,12 @@ interface CachedImageBitmap {
 interface StaticLayerCache {
   key: string;
   bitmap: CachedImageBitmap;
+}
+
+interface PieceBitmapCacheEntry {
+  bitmap: CachedImageBitmap;
+  canvasSize: number;
+  renderSize: number;
 }
 
 const DEFAULT_BOARD_THEME: BoardRenderTheme = {
@@ -134,11 +140,38 @@ const PALETTE: Record<PieceType, PiecePalette> = {
   orange: { base: '#F39967', dark: '#D7633C', light: '#FFB487', sheen: 'rgba(255, 238, 226, 0.42)' }
 };
 
+const PREWARM_SPECIALS: SpecialType[] = ['none', 'row_clear', 'col_clear', 'bomb', 'rainbow'];
+
 export class CanvasRenderer {
   private staticLayerCache?: StaticLayerCache;
+  private pieceBitmapCache: Map<string, PieceBitmapCacheEntry> = new Map();
+  private maxPieceBitmapCacheEntries: number = 96;
+  private bitmapCacheAvailable: boolean = true;
 
   clearCache(): void {
     this.releaseStaticLayerCache();
+  }
+
+  dispose(): void {
+    this.releaseStaticLayerCache();
+    this.releasePieceBitmapCache();
+  }
+
+  warmPieceCache(pieceTypes: PieceType[], baseSize: number): void {
+    if (!this.bitmapCacheAvailable) {
+      return;
+    }
+    for (let typeIndex = 0; typeIndex < pieceTypes.length; typeIndex++) {
+      for (let specialIndex = 0; specialIndex < PREWARM_SPECIALS.length; specialIndex++) {
+        const special = PREWARM_SPECIALS[specialIndex];
+        const piece: Piece = {
+          id: `warm_${pieceTypes[typeIndex]}_${special}`,
+          type: pieceTypes[typeIndex],
+          special
+        };
+        this.ensurePieceBitmap(piece, baseSize);
+      }
+    }
   }
 
   drawGuidePiece(ctx: GameCanvasContext, piece: Piece, width: number, height: number): void {
@@ -232,6 +265,9 @@ export class CanvasRenderer {
     theme: BoardRenderTheme,
     effects: PieceRenderEffect[]
   ): StaticLayerCache | undefined {
+    if (!this.bitmapCacheAvailable) {
+      return undefined;
+    }
     const cacheKey = this.staticLayerKey(board, options, layout, theme, effects);
     if (this.staticLayerCache && this.staticLayerCache.key === cacheKey) {
       return this.staticLayerCache;
@@ -262,6 +298,7 @@ export class CanvasRenderer {
       this.staticLayerCache = nextCache;
       return nextCache;
     } catch (_error) {
+      this.bitmapCacheAvailable = false;
       this.releaseStaticLayerCache();
       return undefined;
     }
@@ -294,7 +331,7 @@ export class CanvasRenderer {
             if (fastMode || (fastStaticMode && !effect)) {
               this.drawFastPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
             } else {
-              this.drawPiece(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
+              this.drawPieceWithCache(ctx, tile.piece, centerX + offsetX, centerY + offsetY, layout.tileSize * 0.70 * scale, opacity);
             }
           }
         }
@@ -327,7 +364,7 @@ export class CanvasRenderer {
       if (fastMode) {
         this.drawFastPiece(ctx, piece, centerX + effect.offsetX, centerY + effect.offsetY, size, effect.opacity);
       } else {
-        this.drawPiece(ctx, piece, centerX + effect.offsetX, centerY + effect.offsetY, size, effect.opacity);
+        this.drawPieceWithCache(ctx, piece, centerX + effect.offsetX, centerY + effect.offsetY, size, effect.opacity);
       }
     }
   }
@@ -378,6 +415,13 @@ export class CanvasRenderer {
     }
     this.staticLayerCache.bitmap.close();
     this.staticLayerCache = undefined;
+  }
+
+  private releasePieceBitmapCache(): void {
+    this.pieceBitmapCache.forEach((entry: PieceBitmapCacheEntry) => {
+      entry.bitmap.close();
+    });
+    this.pieceBitmapCache.clear();
   }
 
   private paintCanvasBase(ctx: GameCanvasContext, width: number, height: number, fill: string): void {
@@ -516,6 +560,70 @@ export class CanvasRenderer {
 
     this.drawPieceIdentity(ctx, piece, cx, cy, size);
     ctx.restore();
+  }
+
+  private drawPieceWithCache(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number): void {
+    if (opacity <= 0.01 || size <= 1) {
+      return;
+    }
+    if (!ctx.drawImage) {
+      this.drawPiece(ctx, piece, cx, cy, size, opacity);
+      return;
+    }
+    const entry = this.ensurePieceBitmap(piece, size);
+    if (!entry) {
+      this.drawPiece(ctx, piece, cx, cy, size, opacity);
+      return;
+    }
+    const scale = size / entry.renderSize;
+    const drawSize = entry.canvasSize * scale;
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    ctx.drawImage(entry.bitmap, cx - drawSize / 2, cy - drawSize / 2, drawSize, drawSize);
+    ctx.restore();
+  }
+
+  private ensurePieceBitmap(piece: Piece, size: number): PieceBitmapCacheEntry | undefined {
+    if (!this.bitmapCacheAvailable) {
+      return undefined;
+    }
+    const renderSize = this.pieceBitmapRenderSize(size);
+    const key = this.pieceBitmapKey(piece, renderSize);
+    const cached = this.pieceBitmapCache.get(key);
+    if (cached) {
+      return cached;
+    }
+    try {
+      if (this.pieceBitmapCache.size >= this.maxPieceBitmapCacheEntries) {
+        this.releasePieceBitmapCache();
+      }
+      const padding = Math.ceil(renderSize * 0.44);
+      const canvasSize = Math.max(1, renderSize + padding * 2);
+      const offscreen = new OffscreenCanvasRenderingContext2D(canvasSize, canvasSize);
+      const offscreenContext = offscreen as GameCanvasContext;
+      offscreenContext.clearRect(0, 0, canvasSize, canvasSize);
+      this.drawPiece(offscreenContext, piece, canvasSize / 2, canvasSize / 2, renderSize, 1);
+      const entry: PieceBitmapCacheEntry = {
+        bitmap: offscreen.transferToImageBitmap(),
+        canvasSize,
+        renderSize
+      };
+      this.pieceBitmapCache.set(key, entry);
+      return entry;
+    } catch (_error) {
+      this.bitmapCacheAvailable = false;
+      this.releasePieceBitmapCache();
+      return undefined;
+    }
+  }
+
+  private pieceBitmapRenderSize(size: number): number {
+    const rounded = Math.max(16, Math.round(size));
+    return Math.max(16, Math.round(rounded / 4) * 4);
+  }
+
+  private pieceBitmapKey(piece: Piece, renderSize: number): string {
+    return `piece_v3_${piece.type}_${piece.special}_${renderSize}`;
   }
 
   private drawFastPiece(ctx: GameCanvasContext, piece: Piece, cx: number, cy: number, size: number, opacity: number): void {
