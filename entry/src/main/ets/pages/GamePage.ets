@@ -843,7 +843,7 @@ struct GamePage {
     this.resultMessage = '';
     this.goalText = describeGoals(this.session.state.goals);
     this.goalPulseText = '';
-    this.friendLevelText = '好友成绩同步中';
+    this.friendLevelText = '';
     this.friendCompareText = '';
     this.friendBestScore = 0;
     this.friendBestName = '';
@@ -2042,18 +2042,17 @@ struct GamePage {
       if (this.pageActive && this.levelId === expectedLevelId) {
         this.friendBestScore = 0;
         this.friendBestName = '';
-        this.friendLevelText = '好友成绩暂不可用';
+        this.friendLevelText = '';
       }
     }
   }
 
   private applyFriendLevelScores(scores: FriendLevelScore[]): void {
     let bestFriend: FriendLevelScore | undefined = undefined;
-    let selfRecord: FriendLevelScore | undefined = undefined;
     for (let index = 0; index < scores.length; index++) {
       const item = scores[index];
       if (item.is_self) {
-        selfRecord = item;
+        continue;
       } else if (!bestFriend || item.score > bestFriend.score) {
         bestFriend = item;
       }
@@ -2066,7 +2065,7 @@ struct GamePage {
     }
     this.friendBestScore = 0;
     this.friendBestName = '';
-    this.friendLevelText = selfRecord ? '本关等待好友挑战' : '本关暂无好友成绩';
+    this.friendLevelText = '';
   }
 
   private friendResultCompareText(finalScore: number): string {
