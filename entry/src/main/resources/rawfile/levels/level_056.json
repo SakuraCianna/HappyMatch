@@ -5,7 +5,7 @@
   "rows": 9,
   "cols": 9,
   "shape": "spiral",
-  "availableCells": 74,
+  "availableCells": 76,
   "moves": 28,
   "pieceTypes": [
     "red",
@@ -34,7 +34,7 @@
     },
     {
       "row": 1,
-      "col": 4,
+      "col": 7,
       "type": "hole",
       "hp": 1
     },
@@ -42,12 +42,6 @@
       "row": 2,
       "col": 4,
       "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 5,
-      "type": "hole",
       "hp": 1
     },
     {
@@ -94,12 +88,6 @@
     },
     {
       "row": 5,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 5,
       "col": 3,
       "type": "ice",
       "hp": 2
@@ -112,19 +100,19 @@
     },
     {
       "row": 6,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 6,
       "col": 4,
       "type": "ice",
       "hp": 2
     },
     {
-      "row": 6,
-      "col": 6,
+      "row": 7,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 7,
       "type": "hole",
       "hp": 1
     }

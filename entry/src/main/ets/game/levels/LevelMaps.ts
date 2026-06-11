@@ -630,7 +630,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 7,
     "shape": "hourglass",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 32,
     "pieceTypes": [
       "red",
@@ -669,20 +669,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
+        "row": 6,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 7,
-        "col": 5,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
@@ -709,7 +703,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crescent",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 32,
     "pieceTypes": [
       "red",
@@ -732,37 +726,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 6,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
         "col": 7,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 5,
+        "row": 4,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
@@ -775,7 +757,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 5,
+        "row": 3,
         "col": 4,
         "type": "blue",
         "special": "col_clear"
@@ -789,7 +771,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 8,
     "shape": "keyhole",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 32,
     "pieceTypes": [
       "red",
@@ -812,19 +794,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -835,14 +805,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 4,
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 7,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
@@ -892,19 +862,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
         "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
         "type": "hole",
         "hp": 1
       }
@@ -931,7 +901,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crown",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -959,31 +929,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
+        "row": 6,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
+        "row": 6,
         "col": 7,
         "type": "hole",
         "hp": 1
@@ -1011,7 +969,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "wave",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1033,8 +991,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 3,
-        "col": 3,
+        "row": 1,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -1045,25 +1003,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
+        "row": 6,
         "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
+        "row": 6,
         "col": 6,
         "type": "hole",
         "hp": 1
@@ -1091,7 +1037,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "clover",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1118,38 +1064,26 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 2,
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 3,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       }
@@ -1157,18 +1091,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 4,
-        "col": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 3,
-        "col": 4,
+        "row": 4,
+        "col": 5,
         "type": "blue",
         "special": "col_clear"
       },
       {
-        "row": 6,
+        "row": 3,
         "col": 4,
         "type": "purple",
         "special": "bomb"
@@ -1210,25 +1144,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
+        "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 6,
+        "row": 3,
         "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
@@ -1261,7 +1195,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "lantern",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1289,37 +1223,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
+        "row": 1,
         "col": 7,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 5,
         "type": "hole",
         "hp": 1
       }
@@ -1352,7 +1274,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 7,
     "shape": "checker_window",
-    "availableCells": 51,
+    "availableCells": 52,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1380,13 +1302,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 2,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
+        "row": 1,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -1397,14 +1319,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 6,
-        "col": 3,
+        "col": 5,
         "type": "hole",
         "hp": 1
       }
@@ -1464,14 +1380,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 2,
-        "col": 4,
+        "row": 1,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 3,
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -1482,28 +1398,28 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 4,
+        "row": 5,
+        "col": 2,
         "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
+        "row": 4,
         "col": 4,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 4,
-        "col": 5,
+        "row": 5,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       },
       {
         "row": 4,
-        "col": 3,
+        "col": 5,
         "type": "purple",
         "special": "bomb"
       }
@@ -1604,7 +1520,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "heart",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1626,19 +1542,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
+        "row": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -1646,12 +1556,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -1663,18 +1567,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
         "col": 5,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 4,
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       }
@@ -1682,13 +1592,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 5,
-        "col": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 3,
-        "col": 5,
+        "row": 5,
+        "col": 3,
         "type": "purple",
         "special": "bomb"
       }
@@ -1701,7 +1611,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "butterfly",
-    "availableCells": 74,
+    "availableCells": 76,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1734,12 +1644,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
@@ -1764,14 +1668,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 7,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -1804,7 +1702,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "flower",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 31,
     "pieceTypes": [
       "red",
@@ -1826,44 +1724,32 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
         "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
         "col": 3,
-        "type": "ice",
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
         "row": 4,
         "col": 5,
         "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -1874,7 +1760,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       }
@@ -1901,7 +1793,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "spiral",
-    "availableCells": 74,
+    "availableCells": 76,
     "moves": 30,
     "pieceTypes": [
       "red",
@@ -1929,13 +1821,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -1959,25 +1845,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 3,
+        "row": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 6,
+        "row": 7,
+        "col": 7,
         "type": "hole",
         "hp": 1
       }
@@ -2004,7 +1884,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "hourglass",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 30,
     "pieceTypes": [
       "red",
@@ -2036,8 +1916,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 2,
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -2045,12 +1925,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
         "hp": 1
       },
       {
@@ -2062,7 +1936,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -2073,19 +1947,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
+        "col": 2,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 6,
-        "col": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       }
@@ -2137,25 +2011,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 3,
+        "row": 1,
         "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -2168,7 +2042,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -2228,19 +2102,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 2,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
+        "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 3,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -2270,7 +2144,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 3,
+        "col": 4,
         "type": "hole",
         "hp": 1
       }
@@ -2319,7 +2193,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -2332,12 +2212,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -2356,12 +2236,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
         "type": "ice",
         "hp": 1
       },
@@ -2394,7 +2268,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crown",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 30,
     "pieceTypes": [
       "red",
@@ -2426,18 +2300,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 6,
         "type": "hole",
@@ -2445,14 +2307,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 4,
-        "type": "ice",
+        "col": 3,
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 5,
-        "type": "hole",
+        "col": 4,
+        "type": "ice",
         "hp": 1
       },
       {
@@ -2474,7 +2336,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
         "col": 7,
         "type": "hole",
         "hp": 1
@@ -2528,8 +2396,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 2,
-        "col": 3,
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -2543,12 +2417,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -2570,14 +2438,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
+        "row": 5,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -2585,6 +2447,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 4,
         "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "type": "hole",
         "hp": 1
       }
     ],
@@ -2610,7 +2478,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "clover",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 30,
     "pieceTypes": [
       "red",
@@ -2631,82 +2499,76 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 2,
-        "col": 3,
+        "row": 1,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
+        "row": 1,
         "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 5,
         "type": "ice",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
         "row": 5,
         "col": 5,
         "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 4,
+        "row": 3,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
       },
       {
-        "row": 4,
-        "col": 2,
+        "row": 6,
+        "col": 4,
         "type": "purple",
         "special": "rainbow"
       }
@@ -2719,7 +2581,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "arrow",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 30,
     "pieceTypes": [
       "red",
@@ -2741,19 +2603,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -2762,12 +2618,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
       },
       {
         "row": 4,
@@ -2778,8 +2628,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
@@ -2794,14 +2644,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 5,
-        "col": 5,
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 7,
         "type": "hole",
         "hp": 1
       }
@@ -2814,8 +2670,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 3,
-        "col": 3,
+        "row": 4,
+        "col": 2,
         "type": "purple",
         "special": "rainbow"
       }
@@ -2828,7 +2684,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "lantern",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 30,
     "pieceTypes": [
       "red",
@@ -2855,25 +2711,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
+        "row": 1,
         "col": 7,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -2896,18 +2752,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
@@ -2916,6 +2760,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 6,
         "col": 4,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 6,
+        "col": 5,
         "type": "hole",
         "hp": 1
       }
@@ -2982,7 +2832,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -3019,8 +2869,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 5,
-        "col": 5,
+        "row": 4,
+        "col": 2,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3059,14 +2909,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
-        "row": 2,
-        "col": 3,
+        "row": 1,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 2,
+        "row": 1,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -3084,15 +2934,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
+        "col": 3,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 4,
@@ -3105,6 +2949,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "ice",
         "hp": 2
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 5,
@@ -3127,8 +2977,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 5,
-        "col": 5,
+        "row": 4,
+        "col": 2,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3163,7 +3013,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 0,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -3194,8 +3044,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 4,
@@ -3217,9 +3067,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
+        "col": 4,
+        "type": "ice",
+        "hp": 2
       }
     ],
     "specialPieces": [
@@ -3230,8 +3080,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 6,
-        "col": 4,
+        "row": 4,
+        "col": 2,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3244,7 +3094,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "heart",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -3271,19 +3121,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
+        "row": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -3296,18 +3140,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
         "type": "ice",
         "hp": 2
       },
@@ -3320,18 +3152,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
+        "row": 4,
+        "col": 5,
+        "type": "ice",
+        "hp": 2
+      },
+      {
         "row": 5,
         "col": 4,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 6,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -3340,6 +3178,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "ice",
         "hp": 2
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
@@ -3350,8 +3194,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "special": "row_clear"
       },
       {
-        "row": 5,
-        "col": 5,
+        "row": 4,
+        "col": 2,
         "type": "purple",
         "special": "rainbow"
       }
@@ -3364,7 +3208,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "butterfly",
-    "availableCells": 74,
+    "availableCells": 76,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -3397,12 +3241,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
@@ -3443,16 +3281,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 7,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -3485,7 +3317,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "flower",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -3507,57 +3339,45 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 3,
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 3,
+        "col": 5,
         "type": "ice",
         "hp": 2
       },
       {
         "row": 4,
-        "col": 4,
+        "col": 3,
         "type": "hole",
         "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
         "col": 5,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 5,
@@ -3573,7 +3393,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       }
@@ -3600,7 +3426,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "spiral",
-    "availableCells": 74,
+    "availableCells": 76,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -3634,13 +3460,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -3676,25 +3496,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 3,
+        "row": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 6,
+        "row": 7,
+        "col": 7,
         "type": "hole",
         "hp": 1
       }
@@ -3741,7 +3555,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 1,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -3758,20 +3572,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
+        "row": 4,
         "col": 4,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 4,
+        "col": 5,
         "type": "ice",
         "hp": 1
       },
@@ -3779,6 +3587,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 0,
         "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -3844,7 +3658,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -3861,12 +3675,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 3,
         "type": "hole",
@@ -3887,7 +3695,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 3,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -3898,15 +3706,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 2,
+        "row": 6,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -3919,7 +3733,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "keyhole",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -3942,13 +3756,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 1,
-        "col": 5,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -3959,15 +3773,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
+        "row": 3,
+        "col": 3,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -3979,19 +3793,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
         "hp": 1
       },
       {
@@ -4002,7 +3810,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 7,
         "type": "hole",
         "hp": 1
       }
@@ -4010,7 +3818,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 4,
-        "col": 3,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -4023,7 +3831,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 8,
     "shape": "twin_islands",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -4046,66 +3854,60 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
         "col": 6,
-        "type": "chain",
+        "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
+        "row": 3,
         "col": 3,
-        "type": "ice",
+        "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
+        "row": 3,
         "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 7,
+        "row": 4,
+        "col": 3,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 5,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 6,
         "col": 4,
         "type": "hole",
         "hp": 1
@@ -4113,8 +3915,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 4,
+        "row": 4,
+        "col": 2,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -4127,7 +3929,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crown",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -4160,18 +3962,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 6,
         "type": "hole",
@@ -4180,12 +3970,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -4203,12 +3987,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 5,
+        "col": 2,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 5,
+        "col": 5,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
         "col": 7,
         "type": "hole",
         "hp": 1
@@ -4264,33 +4060,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "blockers": [
       {
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 2,
+        "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
         "row": 3,
         "col": 4,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -4308,13 +4098,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "ice",
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
         "col": 6,
         "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -4326,8 +4122,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 6,
-        "col": 4,
+        "row": 3,
+        "col": 5,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -4340,7 +4136,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "clover",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 29,
     "pieceTypes": [
       "red",
@@ -4368,33 +4164,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
         "col": 0,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -4406,24 +4196,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 3,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
         "type": "ice",
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
+        "row": 6,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -4432,12 +4216,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "chain",
         "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 5,
-        "col": 5,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -4478,32 +4268,26 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 2,
         "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "ice",
         "hp": 1
       },
       {
         "row": 3,
         "col": 4,
         "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -4521,19 +4305,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
         "col": 5,
         "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 6,
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "chain",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -4559,7 +4349,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "lantern",
-    "availableCells": 66,
+    "availableCells": 67,
     "moves": 28,
     "pieceTypes": [
       "red",
@@ -4588,19 +4378,25 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 7,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -4623,18 +4419,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 1,
         "type": "chain",
@@ -4642,7 +4426,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -4661,7 +4445,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
+        "row": 5,
         "col": 4,
         "type": "yellow",
         "special": "row_clear"
@@ -4703,13 +4487,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 2,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 1,
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -4726,15 +4510,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 2,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -4763,14 +4541,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 5,
+        "col": 4,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 5,
         "col": 5,
-        "type": "ice",
+        "type": "hole",
         "hp": 1
       },
       {
@@ -4830,21 +4614,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
         "col": 2,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -4867,14 +4651,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
-        "type": "hole",
+        "col": 4,
+        "type": "ice",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
+        "row": 6,
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -4929,7 +4713,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 0,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -4948,8 +4732,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 5,
-        "type": "ice",
-        "hp": 2
+        "type": "chain",
+        "hp": 1
       },
       {
         "row": 4,
@@ -4972,7 +4756,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "chain",
+        "type": "hole",
         "hp": 1
       },
       {
@@ -4989,9 +4773,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 8,
-        "type": "hole",
-        "hp": 1
+        "col": 5,
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 6,
@@ -5016,7 +4800,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "heart",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 28,
     "pieceTypes": [
       "red",
@@ -5040,7 +4824,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 1,
         "col": 2,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
@@ -5050,26 +4834,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 3,
-        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -5082,14 +4848,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 5,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 5,
@@ -5106,6 +4872,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 4,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 6,
+        "col": 2,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -5124,8 +4902,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 6,
+        "row": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -5138,7 +4916,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "butterfly",
-    "availableCells": 74,
+    "availableCells": 76,
     "moves": 28,
     "pieceTypes": [
       "red",
@@ -5177,12 +4955,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "chain",
@@ -5228,12 +5000,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 4,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 2,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -5244,7 +5010,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 7,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -5271,7 +5037,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "flower",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 28,
     "pieceTypes": [
       "red",
@@ -5311,45 +5077,39 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 3,
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 2,
+        "col": 1,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 2,
+        "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 4,
+        "col": 3,
         "type": "hole",
         "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
@@ -5365,19 +5125,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -5386,12 +5140,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "chain",
         "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 5,
+        "row": 3,
+        "col": 4,
         "type": "yellow",
         "special": "row_clear"
       }
@@ -5404,7 +5164,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "spiral",
-    "availableCells": 74,
+    "availableCells": 76,
     "moves": 28,
     "pieceTypes": [
       "red",
@@ -5433,7 +5193,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -5441,12 +5201,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 2,
         "col": 4,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -5493,12 +5247,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 3,
         "type": "ice",
         "hp": 2
@@ -5511,19 +5259,19 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
-        "row": 6,
-        "col": 6,
+        "row": 7,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 7,
+        "col": 7,
         "type": "hole",
         "hp": 1
       }
@@ -5567,12 +5315,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 0,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 0,
         "col": 5,
         "type": "chain",
         "hp": 1
@@ -5580,7 +5322,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 1,
         "col": 1,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
@@ -5590,8 +5332,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 1,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -5604,7 +5352,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 3,
         "col": 3,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
@@ -5626,9 +5374,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "chain",
+        "row": 5,
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -5666,7 +5414,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "crescent",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 28,
     "pieceTypes": [
       "red",
@@ -5689,45 +5437,39 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 4,
         "col": 2,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 2,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 5,
         "type": "ice",
         "hp": 2
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 4,
@@ -5738,7 +5480,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
@@ -5750,43 +5492,43 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
-        "row": 6,
+        "row": 5,
+        "col": 3,
+        "type": "ice",
+        "hp": 2
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 5,
         "col": 5,
+        "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 4,
         "type": "ice",
         "hp": 2
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
+        "row": 4,
         "col": 2,
         "type": "yellow",
         "special": "row_clear"
@@ -5829,13 +5571,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 2,
-        "type": "hole",
+        "col": 4,
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 1,
-        "col": 3,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -5854,12 +5596,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
         "type": "hole",
         "hp": 1
       },
@@ -5877,6 +5613,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 2,
         "type": "chain",
         "hp": 1
@@ -5890,14 +5632,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 2
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 5,
@@ -5908,7 +5650,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
+        "row": 4,
         "col": 5,
         "type": "yellow",
         "special": "row_clear"
@@ -5950,7 +5692,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -5961,31 +5703,31 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 2,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 3,
         "col": 3,
         "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 4,
-        "type": "chain",
+        "row": 4,
+        "col": 2,
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
         "col": 3,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "chain",
         "hp": 1
@@ -6005,8 +5747,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 5,
+        "row": 5,
+        "col": 4,
         "type": "orange",
         "special": "rainbow"
       }
@@ -6022,7 +5764,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crown",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6057,30 +5799,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 1,
         "col": 4,
-        "type": "marshmallow",
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 1,
         "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
+        "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 2,
         "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -6088,24 +5818,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 6,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 7,
-        "type": "hole",
         "hp": 1
       },
       {
         "row": 5,
         "col": 8,
         "type": "marshmallow",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -6131,7 +5861,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 7,
     "shape": "wave",
-    "availableCells": 51,
+    "availableCells": 52,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6159,6 +5889,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
         "col": 3,
         "type": "marshmallow",
@@ -6171,12 +5913,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 3,
         "type": "chain",
@@ -6189,20 +5925,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
+        "row": 6,
         "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -6229,7 +5953,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "clover",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6269,9 +5993,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
         "col": 3,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
@@ -6281,45 +6017,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
+        "col": 3,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 6,
-        "col": 4,
-        "type": "chain",
+        "col": 6,
+        "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 3,
+        "row": 4,
         "col": 4,
         "type": "blue",
         "special": "col_clear"
@@ -6333,7 +6045,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 7,
     "shape": "arrow",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6362,13 +6074,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -6397,21 +6103,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 1,
-        "type": "marshmallow",
+        "row": 6,
+        "col": 5,
+        "type": "hole",
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 3,
+        "row": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 7,
         "col": 3,
-        "type": "hole",
+        "type": "marshmallow",
         "hp": 1
       }
     ],
@@ -6431,7 +6137,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "lantern",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6465,7 +6171,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -6476,8 +6182,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -6489,12 +6195,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 8,
         "type": "marshmallow",
         "hp": 1
@@ -6502,19 +6202,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 1,
-        "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 4,
+        "row": 5,
         "col": 7,
-        "type": "hole",
+        "type": "marshmallow",
         "hp": 1
       },
       {
@@ -6525,7 +6219,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 5,
         "type": "hole",
         "hp": 1
       }
@@ -6546,7 +6240,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 8,
     "shape": "checker_window",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6575,7 +6269,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 5,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -6586,15 +6286,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 4,
-        "col": 2,
-        "type": "hole",
+        "col": 3,
+        "type": "chain",
         "hp": 1
       },
       {
@@ -6606,12 +6300,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 5,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -6619,12 +6307,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 5,
         "col": 4,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -6635,15 +6317,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 7,
-        "col": 5,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 3,
+        "row": 3,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -6689,9 +6371,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
+        "row": 1,
+        "col": 1,
         "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 3,
+        "type": "chain",
         "hp": 1
       },
       {
@@ -6715,12 +6403,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 1,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
         "type": "hole",
         "hp": 1
       },
@@ -6739,8 +6421,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 4,
+        "row": 4,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
       }
@@ -6776,7 +6458,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 0,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -6806,8 +6488,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 4,
+        "col": 3,
         "type": "chain",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -6833,18 +6521,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "chain",
         "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 3,
+        "row": 5,
+        "col": 5,
         "type": "blue",
         "special": "col_clear"
       }
@@ -6857,7 +6539,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "heart",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -6881,7 +6563,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 1,
         "col": 2,
-        "type": "hole",
+        "type": "marshmallow",
         "hp": 1
       },
       {
@@ -6891,27 +6573,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 1,
-        "type": "chain",
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
         "col": 4,
         "type": "marshmallow",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 6,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -6922,7 +6592,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 5,
+        "col": 4,
         "type": "hole",
         "hp": 1
       },
@@ -6934,14 +6604,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 4,
-        "type": "hole",
+        "col": 6,
+        "type": "marshmallow",
         "hp": 1
       },
       {
-        "row": 5,
+        "row": 6,
         "col": 6,
-        "type": "marshmallow",
+        "type": "hole",
         "hp": 1
       },
       {
@@ -6953,14 +6623,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 7,
         "col": 5,
-        "type": "marshmallow",
+        "type": "chain",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 4,
+        "col": 3,
         "type": "blue",
         "special": "col_clear"
       }
@@ -6973,7 +6643,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "butterfly",
-    "availableCells": 74,
+    "availableCells": 77,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -7025,12 +6695,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
         "col": 7,
         "type": "marshmallow",
         "hp": 1
@@ -7067,25 +6731,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
         "col": 8,
         "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 7,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
@@ -7106,7 +6758,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "flower",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 27,
     "pieceTypes": [
       "red",
@@ -7135,7 +6787,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -7143,12 +6801,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 2,
         "col": 1,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -7165,32 +6817,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 1,
-        "type": "hole",
+        "col": 0,
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
         "col": 3,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "marshmallow",
         "hp": 1
       },
       {
         "row": 5,
         "col": 2,
-        "type": "hole",
+        "type": "marshmallow",
         "hp": 1
       },
       {
@@ -7201,7 +6841,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -7215,7 +6855,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 4,
-        "col": 5,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -7228,7 +6868,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "spiral",
-    "availableCells": 74,
+    "availableCells": 77,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -7258,12 +6898,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 1,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "marshmallow",
+        "hp": 2
       },
       {
-        "row": 2,
-        "col": 5,
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -7299,12 +6939,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "chain",
         "hp": 1
@@ -7314,24 +6948,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 5,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 6,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 7,
-        "col": 4,
-        "type": "marshmallow",
-        "hp": 2
+        "col": 1,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 7,
@@ -7356,7 +6978,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 7,
     "shape": "hourglass",
-    "availableCells": 51,
+    "availableCells": 52,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -7419,21 +7041,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 2,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -7445,6 +7055,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 6,
         "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -7477,7 +7093,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 7,
     "cols": 9,
     "shape": "crescent",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -7506,7 +7122,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 5,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -7515,18 +7137,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 3,
-        "type": "chain",
-        "hp": 1
       },
       {
         "row": 3,
@@ -7549,7 +7159,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
@@ -7560,14 +7170,14 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 4,
-        "type": "chain",
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 5,
-        "col": 5,
-        "type": "hole",
+        "col": 4,
+        "type": "chain",
         "hp": 1
       },
       {
@@ -7593,7 +7203,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 7,
     "shape": "keyhole",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -7627,21 +7237,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 2,
+        "col": 1,
         "type": "hole",
         "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 6,
-        "type": "marshmallow",
-        "hp": 2
       },
       {
         "row": 3,
@@ -7659,12 +7257,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 6,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -7686,6 +7278,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 6,
+        "col": 5,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 7,
         "col": 0,
         "type": "marshmallow",
@@ -7693,9 +7291,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 7,
-        "col": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
+      },
+      {
+        "row": 7,
+        "col": 3,
+        "type": "marshmallow",
+        "hp": 2
       },
       {
         "row": 8,
@@ -7720,7 +7324,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "twin_islands",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -7743,15 +7347,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
+        "col": 1,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
+        "col": 3,
+        "type": "marshmallow",
+        "hp": 2
       },
       {
         "row": 1,
@@ -7761,7 +7365,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 2,
-        "col": 4,
+        "col": 7,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
+        "col": 3,
         "type": "hole",
         "hp": 1
       },
@@ -7785,36 +7395,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 2,
-        "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 4,
         "col": 3,
-        "type": "hole",
+        "type": "chain",
         "hp": 1
       },
       {
         "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "chain",
         "hp": 1
       },
       {
-        "row": 5,
+        "row": 4,
         "col": 5,
         "type": "chain",
         "hp": 1
@@ -7840,8 +7432,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 3,
+        "row": 5,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -7854,7 +7446,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crown",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -7889,27 +7481,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 3,
-        "type": "marshmallow",
-        "hp": 2
-      },
-      {
-        "row": 1,
         "col": 6,
         "type": "marshmallow",
         "hp": 2
-      },
-      {
-        "row": 1,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 2,
@@ -7921,12 +7495,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 3,
         "col": 2,
         "type": "chain",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -7950,8 +7518,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 5,
         "col": 7,
-        "type": "hole",
-        "hp": 1
+        "type": "marshmallow",
+        "hp": 2
       },
       {
         "row": 6,
@@ -7961,9 +7529,21 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
         "col": 3,
         "type": "marshmallow",
         "hp": 2
+      },
+      {
+        "row": 6,
+        "col": 7,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 7,
@@ -8022,6 +7602,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 2,
         "col": 2,
         "type": "marshmallow",
@@ -8030,12 +7616,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 2,
         "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
         "type": "hole",
         "hp": 1
       },
@@ -8104,7 +7684,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "clover",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -8144,13 +7724,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 6,
-        "type": "chain",
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 3,
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -8161,18 +7741,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 1,
         "type": "chain",
@@ -8180,13 +7748,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
+        "col": 3,
         "type": "hole",
         "hp": 1
       },
@@ -8204,8 +7766,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 4,
-        "type": "hole",
+        "col": 7,
+        "type": "chain",
         "hp": 1
       },
       {
@@ -8221,6 +7783,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
+        "row": 6,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
         "row": 7,
         "col": 2,
         "type": "marshmallow",
@@ -8230,7 +7798,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 4,
-        "col": 3,
+        "col": 4,
         "type": "blue",
         "special": "col_clear"
       }
@@ -8243,7 +7811,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "arrow",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -8271,56 +7839,45 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
         "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 5,
         "type": "portal",
         "hp": 1,
-        "portalId": "a_out"
+        "portalId": "a_in",
+        "targetPortalId": "a_out"
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -8329,8 +7886,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 7,
         "type": "portal",
         "hp": 1,
-        "portalId": "a_in",
-        "targetPortalId": "a_out"
+        "portalId": "a_out"
       }
     ],
     "specialPieces": [
@@ -8352,7 +7908,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "lantern",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 26,
     "pieceTypes": [
       "red",
@@ -8380,27 +7936,26 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 1,
         "col": 7,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "a_in",
-        "targetPortalId": "a_out"
-      },
-      {
-        "row": 2,
-        "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 3,
-        "col": 7,
+        "col": 6,
+        "type": "portal",
+        "hp": 1,
+        "portalId": "a_out"
+      },
+      {
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -8408,18 +7963,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "row": 4,
         "col": 4,
         "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "hole",
         "hp": 1
       },
       {
@@ -8433,11 +7976,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 8,
         "type": "portal",
         "hp": 1,
-        "portalId": "a_out"
+        "portalId": "a_in",
+        "targetPortalId": "a_out"
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 5,
         "type": "hole",
         "hp": 1
       }
@@ -8493,7 +8037,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 2,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 2,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -8506,8 +8056,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 2,
-        "col": 4,
+        "row": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -8519,19 +8069,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 1
       },
       {
         "row": 6,
-        "col": 3,
+        "col": 4,
         "type": "hole",
         "hp": 1
       }
@@ -8587,7 +8131,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 2,
+        "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
@@ -8601,12 +8151,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 5,
         "type": "hole",
         "hp": 1
@@ -8614,13 +8158,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 5,
-        "type": "ice",
+        "row": 5,
+        "col": 2,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -8740,7 +8284,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "heart",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -8768,12 +8312,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 5,
         "type": "hole",
         "hp": 1
@@ -8787,8 +8325,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 2,
-        "col": 4,
+        "row": 3,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -8799,27 +8337,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -8828,12 +8354,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
+      },
+      {
+        "row": 6,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
         "row": 4,
-        "col": 3,
+        "col": 5,
         "type": "orange",
         "special": "rainbow"
       }
@@ -8846,7 +8378,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "butterfly",
-    "availableCells": 74,
+    "availableCells": 77,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -8885,12 +8417,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 1,
         "type": "portal",
@@ -8917,20 +8443,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 7,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 7,
-        "col": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -8958,7 +8472,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "flower",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -8989,20 +8503,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 3,
         "type": "portal",
         "hp": 1,
-        "portalId": "a_in",
-        "targetPortalId": "a_out"
+        "portalId": "a_out"
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
       {
         "row": 2,
         "col": 5,
-        "type": "hole",
-        "hp": 1
+        "type": "portal",
+        "hp": 1,
+        "portalId": "a_in",
+        "targetPortalId": "a_out"
       },
       {
         "row": 3,
@@ -9012,46 +8533,27 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
         "col": 3,
-        "type": "ice",
+        "type": "hole",
         "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
-        "col": 2,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
         "row": 5,
         "col": 4,
         "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 4,
-        "type": "hole",
         "hp": 1
       },
       {
         "row": 6,
         "col": 6,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "a_out"
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
@@ -9070,7 +8572,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 9,
     "cols": 9,
     "shape": "spiral",
-    "availableCells": 74,
+    "availableCells": 77,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -9104,13 +8606,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -9149,25 +8645,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 5,
         "col": 4,
         "type": "ice",
         "hp": 1
       },
       {
-        "row": 6,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 6,
-        "col": 6,
+        "row": 7,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
@@ -9216,17 +8700,17 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 1,
         "col": 2,
         "type": "portal",
         "hp": 1,
         "portalId": "a_in",
         "targetPortalId": "a_out"
+      },
+      {
+        "row": 1,
+        "col": 4,
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 2,
@@ -9236,26 +8720,20 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 3,
+        "type": "ice",
+        "hp": 1
+      },
+      {
+        "row": 4,
+        "col": 4,
         "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 3,
-        "type": "ice",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 4,
-        "type": "ice",
         "hp": 1
       },
       {
@@ -9264,12 +8742,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
+      },
+      {
+        "row": 5,
+        "col": 4,
+        "type": "ice",
+        "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 4,
+        "row": 4,
+        "col": 5,
         "type": "orange",
         "special": "rainbow"
       }
@@ -9310,6 +8794,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
         "col": 4,
         "type": "hole",
         "hp": 1
@@ -9323,21 +8813,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 2,
+        "row": 3,
         "col": 5,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 4,
-        "type": "ice",
-        "hp": 1
-      },
-      {
         "row": 4,
         "col": 3,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -9354,7 +8838,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
@@ -9368,8 +8852,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 3,
-        "col": 5,
+        "row": 5,
+        "col": 4,
         "type": "purple",
         "special": "bomb"
       }
@@ -9382,7 +8866,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "keyhole",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -9410,7 +8894,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 3,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -9423,20 +8907,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 2,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
-        "col": 4,
+        "col": 3,
         "type": "hole",
         "hp": 1
       },
@@ -9449,7 +8921,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
+        "type": "ice",
         "hp": 1
       },
       {
@@ -9459,9 +8931,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 5,
-        "col": 4,
-        "type": "ice",
+        "row": 6,
+        "col": 1,
+        "type": "hole",
         "hp": 1
       },
       {
@@ -9473,15 +8945,15 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 6,
         "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 5,
-        "col": 3,
+        "row": 3,
+        "col": 4,
         "type": "orange",
         "special": "rainbow"
       }
@@ -9529,7 +9001,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -9548,14 +9026,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 3,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 5,
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -9580,8 +9052,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 3,
+        "row": 3,
+        "col": 4,
         "type": "purple",
         "special": "bomb"
       }
@@ -9594,7 +9066,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "crown",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -9627,18 +9099,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 1,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 2,
         "col": 6,
         "type": "hole",
@@ -9650,12 +9110,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
-      },
-      {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 4,
@@ -9684,7 +9138,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 5,
+        "row": 6,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 6,
         "col": 7,
         "type": "hole",
         "hp": 1
@@ -9706,7 +9166,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 7,
     "cols": 8,
     "shape": "wave",
-    "availableCells": 51,
+    "availableCells": 52,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -9734,6 +9194,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
         "col": 4,
         "type": "portal",
         "hp": 1,
@@ -9747,29 +9213,11 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 6,
         "type": "portal",
         "hp": 1,
         "portalId": "a_in",
         "targetPortalId": "a_out"
-      },
-      {
-        "row": 4,
-        "col": 1,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 4,
@@ -9790,8 +9238,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 6,
+        "row": 5,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -9800,6 +9248,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "ice",
         "hp": 2
+      },
+      {
+        "row": 5,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
@@ -9818,7 +9272,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 8,
     "shape": "clover",
-    "availableCells": 58,
+    "availableCells": 60,
     "moves": 25,
     "pieceTypes": [
       "red",
@@ -9846,64 +9300,52 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
         "col": 7,
         "type": "portal",
         "hp": 1,
         "portalId": "a_out"
       },
       {
-        "row": 2,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
-        "row": 3,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 4,
         "col": 3,
-        "type": "ice",
-        "hp": 2
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 4,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
         "col": 5,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 5,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 6,
@@ -9915,9 +9357,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
-        "type": "ice",
-        "hp": 2
+        "col": 6,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
@@ -9936,7 +9378,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 7,
     "cols": 9,
     "shape": "arrow",
-    "availableCells": 58,
+    "availableCells": 59,
     "moves": 24,
     "pieceTypes": [
       "red",
@@ -9971,7 +9413,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 6,
         "type": "hole",
         "hp": 1
       },
@@ -9990,16 +9432,10 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "targetPortalId": "a_out"
       },
       {
-        "row": 2,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 3,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
@@ -10010,8 +9446,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       {
         "row": 4,
         "col": 4,
-        "type": "ice",
-        "hp": 2
+        "type": "hole",
+        "hp": 1
       },
       {
         "row": 4,
@@ -10021,13 +9457,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 5,
-        "col": 3,
+        "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
         "row": 5,
-        "col": 4,
+        "col": 7,
         "type": "hole",
         "hp": 1
       }
@@ -10048,7 +9484,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "lantern",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 24,
     "pieceTypes": [
       "red",
@@ -10083,13 +9519,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 4,
+        "col": 2,
         "type": "hole",
         "hp": 1
       },
       {
-        "row": 2,
-        "col": 6,
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -10100,8 +9536,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 3,
-        "col": 7,
+        "row": 4,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -10118,18 +9554,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 4,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
@@ -10137,7 +9561,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 6,
-        "col": 4,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -10166,7 +9590,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "rows": 8,
     "cols": 9,
     "shape": "checker_window",
-    "availableCells": 66,
+    "availableCells": 68,
     "moves": 24,
     "pieceTypes": [
       "red",
@@ -10201,7 +9625,13 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 1,
-        "col": 5,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 1,
+        "col": 7,
         "type": "hole",
         "hp": 1
       },
@@ -10215,21 +9645,9 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 3,
-        "col": 3,
-        "type": "hole",
-        "hp": 1
-      },
-      {
-        "row": 3,
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 4,
-        "col": 2,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 4,
@@ -10244,8 +9662,8 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 5,
-        "col": 1,
+        "row": 4,
+        "col": 5,
         "type": "hole",
         "hp": 1
       },
@@ -10254,24 +9672,18 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "col": 4,
         "type": "ice",
         "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 7,
-        "type": "hole",
-        "hp": 1
       },
       {
         "row": 6,
-        "col": 6,
+        "col": 1,
         "type": "hole",
         "hp": 1
       }
     ],
     "specialPieces": [
       {
-        "row": 4,
-        "col": 5,
+        "row": 6,
+        "col": 4,
         "type": "purple",
         "special": "bomb"
       }
@@ -10312,29 +9724,34 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 6,
-        "type": "portal",
-        "hp": 1,
-        "portalId": "a_in",
-        "targetPortalId": "a_out"
+        "col": 1,
+        "type": "hole",
+        "hp": 1
       },
       {
-        "row": 2,
+        "row": 1,
+        "col": 6,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 3,
         "col": 4,
         "type": "ice",
         "hp": 2
       },
       {
         "row": 3,
-        "col": 4,
-        "type": "hole",
-        "hp": 1
+        "col": 5,
+        "type": "portal",
+        "hp": 1,
+        "portalId": "a_out"
       },
       {
         "row": 4,
         "col": 3,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 4,
@@ -10349,29 +9766,24 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 1
       },
       {
-        "row": 4,
-        "col": 6,
-        "type": "ice",
-        "hp": 2
-      },
-      {
-        "row": 5,
-        "col": 3,
-        "type": "ice",
-        "hp": 2
-      },
-      {
         "row": 5,
         "col": 4,
-        "type": "hole",
-        "hp": 1
+        "type": "ice",
+        "hp": 2
       },
       {
         "row": 5,
         "col": 7,
         "type": "portal",
         "hp": 1,
-        "portalId": "a_out"
+        "portalId": "a_in",
+        "targetPortalId": "a_out"
+      },
+      {
+        "row": 7,
+        "col": 1,
+        "type": "hole",
+        "hp": 1
       }
     ],
     "specialPieces": [
@@ -10418,7 +9830,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "blockers": [
       {
         "row": 1,
-        "col": 0,
+        "col": 1,
         "type": "hole",
         "hp": 1
       },
@@ -10443,6 +9855,12 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
       },
       {
         "row": 4,
+        "col": 0,
+        "type": "hole",
+        "hp": 1
+      },
+      {
+        "row": 4,
         "col": 1,
         "type": "portal",
         "hp": 1,
@@ -10462,12 +9880,6 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
         "hp": 2
       },
       {
-        "row": 4,
-        "col": 5,
-        "type": "hole",
-        "hp": 1
-      },
-      {
         "row": 5,
         "col": 4,
         "type": "ice",
@@ -10477,7 +9889,7 @@ export const LEVEL_MAPS: LevelMapConfig[] = [
     "specialPieces": [
       {
         "row": 4,
-        "col": 2,
+        "col": 5,
         "type": "purple",
         "special": "bomb"
       }

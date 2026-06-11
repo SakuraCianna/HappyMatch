@@ -203,20 +203,93 @@ function holeLimit(rows, cols) {
   return Math.floor(6 * rows * cols / 64);
 }
 
-function limitHoles(holes, rows, cols) {
+function targetHoleCount(id, rows, cols, sourceCount) {
   const limit = holeLimit(rows, cols);
-  if (holes.size <= limit) {
+  let target = limit;
+  if (id >= 60) {
+    target = Math.min(target, 4);
+  } else if (id >= 20) {
+    target = Math.min(target, 5);
+  } else if (id >= 9) {
+    target = Math.min(target, 4);
+  }
+  return Math.min(sourceCount, Math.max(0, target));
+}
+
+function holeSpacingScore(candidate, selected) {
+  if (selected.length === 0) {
+    return 999;
+  }
+  let nearest = 999;
+  selected.forEach(item => {
+    const distance = Math.abs(candidate.row - item.row) + Math.abs(candidate.col - item.col);
+    nearest = Math.min(nearest, distance);
+  });
+  return nearest;
+}
+
+function parseHoleKey(item) {
+  const [row, col] = item.split('_').map(Number);
+  return { row, col, item, source: true };
+}
+
+function spreadHoleCandidates(source, rows, cols, id) {
+  const candidates = new Map();
+  source.forEach(item => candidates.set(item.item, item));
+  if (id < 9) {
+    return [...candidates.values()];
+  }
+  for (let row = 1; row < rows - 1; row++) {
+    for (let col = 1; col < cols - 1; col++) {
+      const item = key(row, col);
+      if (!candidates.has(item)) {
+        candidates.set(item, { row, col, item, source: false });
+      }
+    }
+  }
+  return [...candidates.values()];
+}
+
+function limitHoles(holes, rows, cols, id) {
+  const source = [...holes].map(parseHoleKey);
+  const target = targetHoleCount(id, rows, cols, source.length);
+  if (id < 9 && source.length <= target) {
     return holes;
   }
-  const source = [...holes];
   const limited = new Set();
-  if (limit <= 0) {
+  if (target <= 0) {
     return limited;
   }
-  for (let index = 0; index < limit; index++) {
-    const sourceIndex = limit === 1 ? Math.floor(source.length / 2) : Math.round(index * (source.length - 1) / (limit - 1));
-    limited.add(source[sourceIndex]);
+  if (id < 9) {
+    for (let index = 0; index < target; index++) {
+      const sourceIndex = target === 1 ? Math.floor(source.length / 2) : Math.round(index * (source.length - 1) / (target - 1));
+      limited.add(source[sourceIndex].item);
+    }
+    return limited;
   }
+
+  const selected = [];
+  const startIndex = Math.floor(source.length / 2);
+  selected.push(source[startIndex]);
+  const candidates = spreadHoleCandidates(source, rows, cols, id);
+  while (selected.length < target) {
+    const next = candidates
+      .filter(candidate => !selected.some(item => item.item === candidate.item))
+      .map(candidate => {
+        const spacing = holeSpacingScore(candidate, selected);
+        const edgePenalty = candidate.row === 0 || candidate.row === rows - 1 || candidate.col === 0 || candidate.col === cols - 1 ? 0.25 : 0;
+        const shapeBonus = candidate.source ? 12 : 0;
+        return { candidate, score: spacing * 100 + shapeBonus - edgePenalty };
+      })
+      .sort((first, second) => second.score - first.score || first.candidate.row - second.candidate.row || first.candidate.col - second.candidate.col)[0];
+    if (!next) {
+      break;
+    }
+    selected.push(next.candidate);
+  }
+  selected
+    .sort((first, second) => first.row - second.row || first.col - second.col)
+    .forEach(item => limited.add(item.item));
   return limited;
 }
 
@@ -479,7 +552,7 @@ function tutorialForLevel(id) {
 function createLevel(id) {
   const shape = shapeForLevel(id);
   const size = sizeForLevel(id, shape);
-  const holes = limitHoles(holesForShape(shape, size.rows, size.cols), size.rows, size.cols);
+  const holes = limitHoles(holesForShape(shape, size.rows, size.cols), size.rows, size.cols, id);
   const pieces = pieceTypesForLevel(id);
   const blockers = buildBlockers(id, size.rows, size.cols, holes);
   return {

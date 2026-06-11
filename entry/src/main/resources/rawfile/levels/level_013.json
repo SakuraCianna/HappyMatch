@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 9,
   "shape": "crown",
-  "availableCells": 66,
+  "availableCells": 68,
   "moves": 31,
   "pieceTypes": [
     "red",
@@ -33,31 +33,19 @@
       "hp": 1
     },
     {
-      "row": 1,
-      "col": 7,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 2,
       "col": 6,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 3,
-      "col": 5,
+      "row": 6,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 5,
+      "row": 6,
       "col": 7,
       "type": "hole",
       "hp": 1

@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 8,
   "shape": "clover",
-  "availableCells": 58,
+  "availableCells": 59,
   "moves": 30,
   "pieceTypes": [
     "red",
@@ -26,82 +26,76 @@
   ],
   "blockers": [
     {
-      "row": 2,
-      "col": 3,
+      "row": 1,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 3,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 3,
-      "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 4,
-      "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 3,
-      "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
+      "row": 1,
       "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 5,
       "type": "ice",
       "hp": 1
     },
     {
       "row": 5,
       "col": 4,
-      "type": "hole",
+      "type": "ice",
       "hp": 1
     },
     {
       "row": 5,
       "col": 5,
       "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 6,
+      "type": "hole",
       "hp": 1
     }
   ],
   "specialPieces": [
     {
-      "row": 6,
-      "col": 4,
+      "row": 3,
+      "col": 5,
       "type": "yellow",
       "special": "row_clear"
     },
     {
-      "row": 4,
-      "col": 2,
+      "row": 6,
+      "col": 4,
       "type": "purple",
       "special": "rainbow"
     }

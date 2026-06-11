@@ -5,7 +5,7 @@
   "rows": 9,
   "cols": 9,
   "shape": "butterfly",
-  "availableCells": 74,
+  "availableCells": 77,
   "moves": 25,
   "pieceTypes": [
     "red",
@@ -44,12 +44,6 @@
       "hp": 1
     },
     {
-      "row": 2,
-      "col": 6,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 4,
       "col": 1,
       "type": "portal",
@@ -76,20 +70,8 @@
       "hp": 1
     },
     {
-      "row": 6,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 7,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 7,
-      "col": 7,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },

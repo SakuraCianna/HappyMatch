@@ -5,7 +5,7 @@
   "rows": 9,
   "cols": 7,
   "shape": "hourglass",
-  "availableCells": 58,
+  "availableCells": 59,
   "moves": 32,
   "pieceTypes": [
     "red",
@@ -44,20 +44,14 @@
       "hp": 1
     },
     {
-      "row": 3,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 3,
+      "row": 6,
+      "col": 5,
       "type": "hole",
       "hp": 1
     },
     {
       "row": 7,
-      "col": 5,
+      "col": 1,
       "type": "hole",
       "hp": 1
     }

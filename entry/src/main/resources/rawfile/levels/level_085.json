@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 8,
   "shape": "heart",
-  "availableCells": 58,
+  "availableCells": 60,
   "moves": 25,
   "pieceTypes": [
     "red",
@@ -33,12 +33,6 @@
   "blockers": [
     {
       "row": 1,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 1,
       "col": 5,
       "type": "hole",
       "hp": 1
@@ -52,8 +46,8 @@
       "targetPortalId": "a_out"
     },
     {
-      "row": 2,
-      "col": 4,
+      "row": 3,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -64,27 +58,15 @@
       "hp": 1
     },
     {
-      "row": 3,
-      "col": 6,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 4,
       "col": 4,
-      "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 5,
       "type": "hole",
       "hp": 1
     },
     {
       "row": 5,
       "col": 4,
-      "type": "hole",
+      "type": "ice",
       "hp": 1
     },
     {
@@ -93,12 +75,18 @@
       "type": "portal",
       "hp": 1,
       "portalId": "a_out"
+    },
+    {
+      "row": 6,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
     }
   ],
   "specialPieces": [
     {
       "row": 4,
-      "col": 3,
+      "col": 5,
       "type": "orange",
       "special": "rainbow"
     }

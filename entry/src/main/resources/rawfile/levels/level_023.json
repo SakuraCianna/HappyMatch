@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 8,
   "shape": "flower",
-  "availableCells": 58,
+  "availableCells": 59,
   "moves": 31,
   "pieceTypes": [
     "red",
@@ -27,44 +27,32 @@
   "blockers": [
     {
       "row": 1,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
       "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 6,
       "type": "hole",
       "hp": 1
     },
     {
       "row": 4,
       "col": 3,
-      "type": "ice",
+      "type": "hole",
       "hp": 1
     },
     {
       "row": 4,
       "col": 4,
-      "type": "hole",
+      "type": "ice",
       "hp": 1
     },
     {
       "row": 4,
       "col": 5,
       "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 5,
-      "col": 2,
-      "type": "hole",
       "hp": 1
     },
     {
@@ -75,7 +63,13 @@
     },
     {
       "row": 6,
-      "col": 4,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 6,
       "type": "hole",
       "hp": 1
     }

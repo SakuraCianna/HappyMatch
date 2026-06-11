@@ -33,7 +33,7 @@
   "blockers": [
     {
       "row": 1,
-      "col": 0,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -58,6 +58,12 @@
     },
     {
       "row": 4,
+      "col": 0,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
       "col": 1,
       "type": "portal",
       "hp": 1,
@@ -77,12 +83,6 @@
       "hp": 2
     },
     {
-      "row": 4,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 5,
       "col": 4,
       "type": "ice",
@@ -92,7 +92,7 @@
   "specialPieces": [
     {
       "row": 4,
-      "col": 2,
+      "col": 5,
       "type": "purple",
       "special": "bomb"
     }

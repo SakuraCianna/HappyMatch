@@ -40,7 +40,13 @@
     },
     {
       "row": 1,
-      "col": 2,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 2,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -53,8 +59,8 @@
       "targetPortalId": "a_out"
     },
     {
-      "row": 2,
-      "col": 4,
+      "row": 4,
+      "col": 2,
       "type": "hole",
       "hp": 1
     },
@@ -66,19 +72,13 @@
     },
     {
       "row": 5,
-      "col": 1,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 5,
       "col": 4,
       "type": "ice",
       "hp": 1
     },
     {
       "row": 6,
-      "col": 3,
+      "col": 4,
       "type": "hole",
       "hp": 1
     }

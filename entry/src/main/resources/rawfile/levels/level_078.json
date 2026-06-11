@@ -39,6 +39,12 @@
       "hp": 2
     },
     {
+      "row": 1,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
       "row": 2,
       "col": 2,
       "type": "marshmallow",
@@ -47,12 +53,6 @@
     {
       "row": 2,
       "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 4,
       "type": "hole",
       "hp": 1
     },

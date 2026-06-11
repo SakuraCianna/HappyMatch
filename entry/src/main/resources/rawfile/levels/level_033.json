@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 9,
   "shape": "lantern",
-  "availableCells": 66,
+  "availableCells": 67,
   "moves": 30,
   "pieceTypes": [
     "red",
@@ -32,25 +32,25 @@
   "blockers": [
     {
       "row": 1,
-      "col": 4,
+      "col": 2,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 2,
-      "col": 6,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 4,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 3,
+      "row": 1,
       "col": 7,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -73,18 +73,6 @@
       "hp": 2
     },
     {
-      "row": 4,
-      "col": 6,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 7,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 5,
       "col": 4,
       "type": "ice",
@@ -93,6 +81,12 @@
     {
       "row": 6,
       "col": 4,
+      "type": "ice",
+      "hp": 2
+    },
+    {
+      "row": 6,
+      "col": 5,
       "type": "hole",
       "hp": 1
     }

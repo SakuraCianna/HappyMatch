@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 9,
   "shape": "checker_window",
-  "availableCells": 66,
+  "availableCells": 68,
   "moves": 24,
   "pieceTypes": [
     "red",
@@ -40,7 +40,13 @@
     },
     {
       "row": 1,
-      "col": 5,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 7,
       "type": "hole",
       "hp": 1
     },
@@ -54,21 +60,9 @@
     },
     {
       "row": 3,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
       "col": 4,
       "type": "ice",
       "hp": 2
-    },
-    {
-      "row": 4,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
     },
     {
       "row": 4,
@@ -83,8 +77,8 @@
       "hp": 2
     },
     {
-      "row": 5,
-      "col": 1,
+      "row": 4,
+      "col": 5,
       "type": "hole",
       "hp": 1
     },
@@ -93,24 +87,18 @@
       "col": 4,
       "type": "ice",
       "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 7,
-      "type": "hole",
-      "hp": 1
     },
     {
       "row": 6,
-      "col": 6,
+      "col": 1,
       "type": "hole",
       "hp": 1
     }
   ],
   "specialPieces": [
     {
-      "row": 4,
-      "col": 5,
+      "row": 6,
+      "col": 4,
       "type": "purple",
       "special": "bomb"
     }

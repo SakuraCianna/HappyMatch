@@ -5,7 +5,7 @@
   "rows": 9,
   "cols": 7,
   "shape": "keyhole",
-  "availableCells": 58,
+  "availableCells": 59,
   "moves": 26,
   "pieceTypes": [
     "red",
@@ -39,21 +39,9 @@
     },
     {
       "row": 1,
-      "col": 2,
+      "col": 1,
       "type": "hole",
       "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 6,
-      "type": "marshmallow",
-      "hp": 2
     },
     {
       "row": 3,
@@ -71,12 +59,6 @@
       "row": 3,
       "col": 6,
       "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 3,
-      "type": "hole",
       "hp": 1
     },
     {
@@ -98,6 +80,12 @@
       "hp": 1
     },
     {
+      "row": 6,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
       "row": 7,
       "col": 0,
       "type": "marshmallow",
@@ -105,9 +93,15 @@
     },
     {
       "row": 7,
-      "col": 3,
+      "col": 1,
       "type": "hole",
       "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 3,
+      "type": "marshmallow",
+      "hp": 2
     },
     {
       "row": 8,

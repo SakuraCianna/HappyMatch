@@ -33,29 +33,34 @@
   "blockers": [
     {
       "row": 1,
-      "col": 6,
-      "type": "portal",
-      "hp": 1,
-      "portalId": "a_in",
-      "targetPortalId": "a_out"
+      "col": 1,
+      "type": "hole",
+      "hp": 1
     },
     {
-      "row": 2,
+      "row": 1,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
       "col": 4,
       "type": "ice",
       "hp": 2
     },
     {
       "row": 3,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
+      "col": 5,
+      "type": "portal",
+      "hp": 1,
+      "portalId": "a_out"
     },
     {
       "row": 4,
       "col": 3,
-      "type": "hole",
-      "hp": 1
+      "type": "ice",
+      "hp": 2
     },
     {
       "row": 4,
@@ -70,29 +75,24 @@
       "hp": 1
     },
     {
-      "row": 4,
-      "col": 6,
-      "type": "ice",
-      "hp": 2
-    },
-    {
-      "row": 5,
-      "col": 3,
-      "type": "ice",
-      "hp": 2
-    },
-    {
       "row": 5,
       "col": 4,
-      "type": "hole",
-      "hp": 1
+      "type": "ice",
+      "hp": 2
     },
     {
       "row": 5,
       "col": 7,
       "type": "portal",
       "hp": 1,
-      "portalId": "a_out"
+      "portalId": "a_in",
+      "targetPortalId": "a_out"
+    },
+    {
+      "row": 7,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
     }
   ],
   "specialPieces": [

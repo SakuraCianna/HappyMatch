@@ -28,7 +28,7 @@
   "blockers": [
     {
       "row": 1,
-      "col": 0,
+      "col": 2,
       "type": "hole",
       "hp": 1
     },
@@ -47,8 +47,8 @@
     {
       "row": 3,
       "col": 5,
-      "type": "ice",
-      "hp": 2
+      "type": "chain",
+      "hp": 1
     },
     {
       "row": 4,
@@ -71,7 +71,7 @@
     {
       "row": 4,
       "col": 5,
-      "type": "chain",
+      "type": "hole",
       "hp": 1
     },
     {
@@ -88,9 +88,9 @@
     },
     {
       "row": 5,
-      "col": 8,
-      "type": "hole",
-      "hp": 1
+      "col": 5,
+      "type": "ice",
+      "hp": 2
     },
     {
       "row": 6,

@@ -31,8 +31,14 @@
   ],
   "blockers": [
     {
-      "row": 2,
-      "col": 3,
+      "row": 1,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 7,
       "type": "hole",
       "hp": 1
     },
@@ -46,12 +52,6 @@
       "row": 3,
       "col": 4,
       "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 1,
-      "type": "hole",
       "hp": 1
     },
     {
@@ -73,14 +73,8 @@
       "hp": 1
     },
     {
-      "row": 4,
-      "col": 6,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 7,
+      "row": 5,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -88,6 +82,12 @@
       "row": 5,
       "col": 4,
       "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 5,
+      "col": 7,
+      "type": "hole",
       "hp": 1
     }
   ],

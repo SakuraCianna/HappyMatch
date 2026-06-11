@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 8,
   "shape": "heart",
-  "availableCells": 58,
+  "availableCells": 60,
   "moves": 27,
   "pieceTypes": [
     "red",
@@ -29,7 +29,7 @@
     {
       "row": 1,
       "col": 2,
-      "type": "hole",
+      "type": "marshmallow",
       "hp": 1
     },
     {
@@ -39,27 +39,15 @@
       "hp": 1
     },
     {
-      "row": 2,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
-    },
-    {
       "row": 3,
       "col": 1,
-      "type": "chain",
+      "type": "hole",
       "hp": 1
     },
     {
       "row": 3,
       "col": 4,
       "type": "marshmallow",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 6,
-      "type": "hole",
       "hp": 1
     },
     {
@@ -70,7 +58,7 @@
     },
     {
       "row": 4,
-      "col": 5,
+      "col": 4,
       "type": "hole",
       "hp": 1
     },
@@ -82,14 +70,14 @@
     },
     {
       "row": 5,
-      "col": 4,
-      "type": "hole",
+      "col": 6,
+      "type": "marshmallow",
       "hp": 1
     },
     {
-      "row": 5,
+      "row": 6,
       "col": 6,
-      "type": "marshmallow",
+      "type": "hole",
       "hp": 1
     },
     {
@@ -101,14 +89,14 @@
     {
       "row": 7,
       "col": 5,
-      "type": "marshmallow",
+      "type": "chain",
       "hp": 1
     }
   ],
   "specialPieces": [
     {
       "row": 4,
-      "col": 4,
+      "col": 3,
       "type": "blue",
       "special": "col_clear"
     }

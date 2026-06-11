@@ -33,7 +33,7 @@
   "blockers": [
     {
       "row": 1,
-      "col": 4,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -50,12 +50,6 @@
       "hp": 1
     },
     {
-      "row": 3,
-      "col": 5,
-      "type": "ice",
-      "hp": 1
-    },
-    {
       "row": 4,
       "col": 3,
       "type": "hole",
@@ -76,7 +70,7 @@
     {
       "row": 5,
       "col": 3,
-      "type": "hole",
+      "type": "ice",
       "hp": 1
     },
     {
@@ -87,15 +81,21 @@
     },
     {
       "row": 6,
-      "col": 4,
+      "col": 5,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 7,
+      "col": 1,
       "type": "hole",
       "hp": 1
     }
   ],
   "specialPieces": [
     {
-      "row": 4,
-      "col": 2,
+      "row": 6,
+      "col": 4,
       "type": "yellow",
       "special": "row_clear"
     }

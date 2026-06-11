@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 8,
   "shape": "flower",
-  "availableCells": 58,
+  "availableCells": 60,
   "moves": 27,
   "pieceTypes": [
     "red",
@@ -34,7 +34,13 @@
     },
     {
       "row": 1,
-      "col": 4,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
+      "col": 6,
       "type": "hole",
       "hp": 1
     },
@@ -42,12 +48,6 @@
       "row": 2,
       "col": 1,
       "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 2,
-      "col": 5,
-      "type": "hole",
       "hp": 1
     },
     {
@@ -64,32 +64,20 @@
     },
     {
       "row": 4,
-      "col": 1,
-      "type": "hole",
+      "col": 0,
+      "type": "chain",
       "hp": 1
     },
     {
       "row": 4,
       "col": 3,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 4,
       "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 6,
-      "type": "marshmallow",
       "hp": 1
     },
     {
       "row": 5,
       "col": 2,
-      "type": "hole",
+      "type": "marshmallow",
       "hp": 1
     },
     {
@@ -100,7 +88,7 @@
     },
     {
       "row": 6,
-      "col": 4,
+      "col": 6,
       "type": "hole",
       "hp": 1
     },
@@ -114,7 +102,7 @@
   "specialPieces": [
     {
       "row": 4,
-      "col": 5,
+      "col": 4,
       "type": "blue",
       "special": "col_clear"
     }

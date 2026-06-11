@@ -5,7 +5,7 @@
   "rows": 7,
   "cols": 8,
   "shape": "wave",
-  "availableCells": 51,
+  "availableCells": 52,
   "moves": 25,
   "pieceTypes": [
     "red",
@@ -33,6 +33,12 @@
   "blockers": [
     {
       "row": 1,
+      "col": 1,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 1,
       "col": 4,
       "type": "portal",
       "hp": 1,
@@ -46,29 +52,11 @@
     },
     {
       "row": 3,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
       "col": 6,
       "type": "portal",
       "hp": 1,
       "portalId": "a_in",
       "targetPortalId": "a_out"
-    },
-    {
-      "row": 4,
-      "col": 1,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
     },
     {
       "row": 4,
@@ -89,8 +77,8 @@
       "hp": 2
     },
     {
-      "row": 4,
-      "col": 6,
+      "row": 5,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -99,6 +87,12 @@
       "col": 4,
       "type": "ice",
       "hp": 2
+    },
+    {
+      "row": 5,
+      "col": 6,
+      "type": "hole",
+      "hp": 1
     }
   ],
   "specialPieces": [

@@ -33,17 +33,17 @@
   "blockers": [
     {
       "row": 1,
-      "col": 1,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 1,
       "col": 2,
       "type": "portal",
       "hp": 1,
       "portalId": "a_in",
       "targetPortalId": "a_out"
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "type": "hole",
+      "hp": 1
     },
     {
       "row": 2,
@@ -53,26 +53,20 @@
     },
     {
       "row": 3,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
       "col": 3,
+      "type": "ice",
+      "hp": 1
+    },
+    {
+      "row": 4,
+      "col": 4,
       "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
-      "col": 4,
-      "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 3,
-      "type": "ice",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 4,
-      "type": "ice",
       "hp": 1
     },
     {
@@ -81,12 +75,18 @@
       "type": "portal",
       "hp": 1,
       "portalId": "a_out"
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "ice",
+      "hp": 1
     }
   ],
   "specialPieces": [
     {
-      "row": 5,
-      "col": 4,
+      "row": 4,
+      "col": 5,
       "type": "orange",
       "special": "rainbow"
     }

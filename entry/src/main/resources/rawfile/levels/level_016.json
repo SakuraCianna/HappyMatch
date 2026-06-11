@@ -33,25 +33,25 @@
   "blockers": [
     {
       "row": 1,
-      "col": 3,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 3,
       "col": 1,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 3,
+      "row": 1,
       "col": 4,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 6,
+      "row": 3,
       "col": 3,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 6,
+      "col": 1,
       "type": "hole",
       "hp": 1
     }

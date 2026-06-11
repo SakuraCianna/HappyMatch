@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 8,
   "shape": "wave",
-  "availableCells": 58,
+  "availableCells": 60,
   "moves": 31,
   "pieceTypes": [
     "red",
@@ -27,8 +27,8 @@
   ],
   "blockers": [
     {
-      "row": 3,
-      "col": 3,
+      "row": 1,
+      "col": 1,
       "type": "hole",
       "hp": 1
     },
@@ -39,25 +39,13 @@
       "hp": 1
     },
     {
-      "row": 4,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 5,
+      "row": 6,
       "col": 1,
       "type": "hole",
       "hp": 1
     },
     {
-      "row": 5,
-      "col": 2,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 5,
+      "row": 6,
       "col": 6,
       "type": "hole",
       "hp": 1

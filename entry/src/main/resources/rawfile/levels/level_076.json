@@ -5,7 +5,7 @@
   "rows": 8,
   "cols": 9,
   "shape": "twin_islands",
-  "availableCells": 66,
+  "availableCells": 68,
   "moves": 26,
   "pieceTypes": [
     "red",
@@ -28,15 +28,15 @@
   "blockers": [
     {
       "row": 1,
-      "col": 3,
-      "type": "marshmallow",
-      "hp": 2
+      "col": 1,
+      "type": "hole",
+      "hp": 1
     },
     {
       "row": 1,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
+      "col": 3,
+      "type": "marshmallow",
+      "hp": 2
     },
     {
       "row": 1,
@@ -46,7 +46,13 @@
     },
     {
       "row": 2,
-      "col": 4,
+      "col": 7,
+      "type": "hole",
+      "hp": 1
+    },
+    {
+      "row": 3,
+      "col": 3,
       "type": "hole",
       "hp": 1
     },
@@ -70,36 +76,18 @@
     },
     {
       "row": 4,
-      "col": 2,
-      "type": "chain",
-      "hp": 1
-    },
-    {
-      "row": 4,
       "col": 3,
-      "type": "hole",
+      "type": "chain",
       "hp": 1
     },
     {
       "row": 4,
-      "col": 4,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 4,
-      "col": 5,
-      "type": "hole",
-      "hp": 1
-    },
-    {
-      "row": 5,
       "col": 4,
       "type": "chain",
       "hp": 1
     },
     {
-      "row": 5,
+      "row": 4,
       "col": 5,
       "type": "chain",
       "hp": 1
@@ -125,8 +113,8 @@
   ],
   "specialPieces": [
     {
-      "row": 3,
-      "col": 3,
+      "row": 5,
+      "col": 4,
       "type": "blue",
       "special": "col_clear"
     }
