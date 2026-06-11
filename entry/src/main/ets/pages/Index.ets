@@ -1,6 +1,7 @@
 import { common } from '@kit.AbilityKit';
 import { economyService } from '../game/economy/EconomyService';
 import { feedbackService } from '../game/feedback/FeedbackService';
+import { RemoteState } from '../game/remote/RemoteModels';
 import { remoteGameService } from '../game/remote/RemoteGameService';
 import { gameSettingsService } from '../game/settings/GameSettings';
 import { bootstrapProgress } from '../game/storage/ProgressBootstrap';
@@ -57,8 +58,11 @@ struct Index {
 
       Column() {
         Stack() {
-          this.PlayerNavBar()
-          this.GuestNavBar()
+          if (this.isPlayReady()) {
+            this.PlayerNavBar()
+          } else {
+            this.GuestNavBar()
+          }
         }
         .height(38)
         .width('100%')
@@ -98,29 +102,25 @@ struct Index {
             .fontColor('#FFFFFF')
             .fontWeight(FontWeight.Medium)
             .borderRadius(26)
-            .backgroundColor(this.canPlay ? '#F27A91' : '#BFAFB5')
+            .backgroundColor(this.isPlayReady() ? '#F27A91' : '#BFAFB5')
             .shadow({ radius: 18, color: 'rgba(242, 122, 145, 0.32)', offsetX: 0, offsetY: 8 })
             .onClick(() => {
               feedbackService.play('tap');
-              this.openPlayEntry('pages/LevelSelectPage');
+              this.openLevelSelect();
             })
-          Button(this.canPlay ? `继续第 ${this.continueLevel} 关` : '登录后继续')
+          Button(this.isPlayReady() ? `继续第 ${this.continueLevel} 关` : '登录后继续')
             .width(230)
             .height(52)
             .fontSize(18)
             .fontColor('#FFFFFF')
             .fontWeight(FontWeight.Medium)
             .borderRadius(26)
-            .backgroundColor(this.canPlay ? '#69B8EA' : '#BFAFB5')
+            .backgroundColor(this.isPlayReady() ? '#69B8EA' : '#BFAFB5')
             .shadow({ radius: 18, color: 'rgba(105, 184, 234, 0.28)', offsetX: 0, offsetY: 8 })
             .margin({ top: 16 })
             .onClick(() => {
               feedbackService.play('tap');
-              if (this.canPlay) {
-                this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: this.continueLevel } });
-                return;
-              }
-              this.openPlayEntry('pages/AuthPage');
+              this.openContinueLevel();
             })
         }
         .width('100%')
@@ -149,7 +149,6 @@ struct Index {
       this.NavButton('设置', 'pages/SettingsPage')
     }
     .width('100%')
-    .opacity(this.canPlay ? 1 : 0)
   }
 
   @Builder
@@ -162,14 +161,12 @@ struct Index {
         .fontSize(12)
         .fontColor('#5C3A4A')
         .backgroundColor('rgba(255, 255, 255, 0.78)')
-        .enabled(!this.canPlay)
         .onClick(() => {
           feedbackService.play('tap');
           this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
         })
     }
     .width('100%')
-    .opacity(this.canPlay ? 0 : 1)
   }
 
   @Builder
@@ -181,7 +178,6 @@ struct Index {
       .fontColor('#5C3A4A')
       .backgroundColor('rgba(255, 255, 255, 0.70)')
       .margin({ right: 7 })
-      .enabled(this.canPlay)
       .onClick(() => {
         feedbackService.play('tap');
         this.openProtectedEntry(url);
@@ -236,9 +232,7 @@ struct Index {
   private async refreshProgress(): Promise<void> {
     const token = ++this.refreshToken;
     const context = this.appContext();
-    this.canPlay = false;
-    this.cloudText = '玩家未登录';
-    this.nearbyText = '登录后同步好友, 排行榜和附近人数';
+    this.applyLoggedOutState();
     await bootstrapProgress(context);
     await economyService.init(context);
     const unlockedLevel = await progressService.getUnlockedLevel();
@@ -251,27 +245,61 @@ struct Index {
       economyService.syncFromRemote(state.player.coin);
     }
     this.coins = economyService.getWallet().coins;
-    const loggedIn = state.authenticated && state.player !== undefined;
-    if (!loggedIn) {
-      this.canPlay = false;
-      this.cloudText = '玩家未登录';
-      this.nearbyText = '登录后同步好友, 排行榜和附近人数';
+    if (!this.isAuthenticatedState(state)) {
+      this.applyLoggedOutState();
       return;
     }
     await remoteGameService.syncPlayerProgress(unlockedLevel, this.coins);
+    const syncedState = remoteGameService.getState();
+    if (!this.pageActive || token !== this.refreshToken) {
+      return;
+    }
+    if (!this.isAuthenticatedState(syncedState)) {
+      this.applyLoggedOutState();
+      return;
+    }
     const nearby = await remoteGameService.updatePresence(1, unlockedLevel);
     if (!this.pageActive || token !== this.refreshToken) {
       return;
     }
     const latest = remoteGameService.getState();
-    this.canPlay = loggedIn;
-    this.cloudText = loggedIn && latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
-    this.nearbyText = loggedIn && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';
+    const authenticated = this.isAuthenticatedState(latest);
+    this.canPlay = authenticated;
+    this.cloudText = authenticated && latest.player ? `好友码 ${latest.player.friend_code}` : '玩家未登录';
+    this.nearbyText = authenticated && nearby ? `附近 ${nearby.active_players} 人在线` : '登录后同步好友, 排行榜和附近人数';
   }
 
-  private openPlayEntry(url: string): void {
+  private async openLevelSelect(): Promise<void> {
     try {
-      if (!this.canPlay) {
+      const authenticated = await this.ensureAuthenticatedForEntry();
+      if (!authenticated) {
+        this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
+        return;
+      }
+      this.getUIContext().getRouter().pushUrl({ url: 'pages/LevelSelectPage' });
+    } catch (_error) {
+    }
+  }
+
+  private async openContinueLevel(): Promise<void> {
+    try {
+      const authenticated = await this.ensureAuthenticatedForEntry();
+      if (!authenticated) {
+        this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
+        return;
+      }
+      this.getUIContext().getRouter().pushUrl({ url: 'pages/GamePage', params: { levelId: this.continueLevel } });
+    } catch (_error) {
+    }
+  }
+
+  private async openProtectedEntry(url: string): Promise<void> {
+    try {
+      let authenticated = true;
+      if (url !== 'pages/AuthPage') {
+        authenticated = await this.ensureAuthenticatedForEntry();
+      }
+      if (!authenticated) {
         this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
         return;
       }
@@ -280,15 +308,28 @@ struct Index {
     }
   }
 
-  private openProtectedEntry(url: string): void {
-    try {
-      if (!this.canPlay && url !== 'pages/AuthPage') {
-        this.getUIContext().getRouter().pushUrl({ url: 'pages/AuthPage' });
-        return;
-      }
-      this.getUIContext().getRouter().pushUrl({ url });
-    } catch (_error) {
+  private async ensureAuthenticatedForEntry(): Promise<boolean> {
+    const state = await remoteGameService.init(this.appContext());
+    const authenticated = this.isAuthenticatedState(state);
+    this.canPlay = authenticated;
+    if (!authenticated) {
+      this.applyLoggedOutState();
     }
+    return authenticated;
+  }
+
+  private isPlayReady(): boolean {
+    return this.canPlay && remoteGameService.hasAuthenticatedPlayer();
+  }
+
+  private isAuthenticatedState(state: RemoteState): boolean {
+    return state.authenticated && state.player !== undefined;
+  }
+
+  private applyLoggedOutState(): void {
+    this.canPlay = false;
+    this.cloudText = '玩家未登录';
+    this.nearbyText = '登录后同步好友, 排行榜和附近人数';
   }
 
   private appContext(): common.Context {
