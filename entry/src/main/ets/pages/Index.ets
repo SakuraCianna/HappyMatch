@@ -15,9 +15,8 @@ struct Index {
   @State private continueLevel: number = 1;
   @State private coins: number = 0;
   @State private homeMotion: boolean = false;
-  @State private cloudText: string = '玩家未登录';
+  @State private playerFriendCode: string = '';
   @State private nearbyText: string = '登录后同步';
-  @State private authenticatedPlayer: boolean = false;
 
   aboutToAppear(): void {
     this.pageActive = true;
@@ -58,7 +57,7 @@ struct Index {
 
       Column() {
         Stack() {
-          if (this.authenticatedPlayer) {
+          if (this.hasLoggedInPlayer()) {
             this.PlayerNavBar()
           } else {
             this.GuestNavBar()
@@ -83,7 +82,7 @@ struct Index {
 
           Row() {
             this.StatusChip(`金币 ${this.coins}`, '#F2B84B')
-            this.StatusChip(this.cloudText, '#F27A91')
+            this.StatusChip(this.playerStatusText(), '#F27A91')
           }
           .margin({ top: 16 })
 
@@ -102,20 +101,20 @@ struct Index {
             .fontColor('#FFFFFF')
             .fontWeight(FontWeight.Medium)
             .borderRadius(26)
-            .backgroundColor(this.authenticatedPlayer ? '#F27A91' : '#BFAFB5')
+            .backgroundColor(this.hasLoggedInPlayer() ? '#F27A91' : '#BFAFB5')
             .shadow({ radius: 18, color: 'rgba(242, 122, 145, 0.32)', offsetX: 0, offsetY: 8 })
             .onClick(() => {
               feedbackService.play('tap');
               this.openLevelSelect();
             })
-          Button(this.authenticatedPlayer ? `继续第 ${this.continueLevel} 关` : '登录后继续')
+          Button(this.hasLoggedInPlayer() ? `继续第 ${this.continueLevel} 关` : '登录后继续')
             .width(230)
             .height(52)
             .fontSize(18)
             .fontColor('#FFFFFF')
             .fontWeight(FontWeight.Medium)
             .borderRadius(26)
-            .backgroundColor(this.authenticatedPlayer ? '#69B8EA' : '#BFAFB5')
+            .backgroundColor(this.hasLoggedInPlayer() ? '#69B8EA' : '#BFAFB5')
             .shadow({ radius: 18, color: 'rgba(105, 184, 234, 0.28)', offsetX: 0, offsetY: 8 })
             .margin({ top: 16 })
             .onClick(() => {
@@ -268,7 +267,7 @@ struct Index {
       this.applyLoggedOutState();
       return;
     }
-    this.applyLoggedInState(`好友码 ${latest.player.friend_code}`, nearby ? `附近 ${nearby.active_players} 人在线` : '附近 0 人在线');
+    this.applyLoggedInState(latest.player.friend_code, nearby ? `附近 ${nearby.active_players} 人在线` : '附近 0 人在线');
   }
 
   private async openLevelSelect(): Promise<void> {
@@ -314,7 +313,7 @@ struct Index {
     const state = await remoteGameService.init(this.appContext());
     const authenticated = this.isAuthenticatedState(state);
     if (authenticated && state.player) {
-      this.applyLoggedInState(`好友码 ${state.player.friend_code}`, this.nearbyText);
+      this.applyLoggedInState(state.player.friend_code, this.nearbyText);
     } else {
       this.applyLoggedOutState();
     }
@@ -326,15 +325,21 @@ struct Index {
   }
 
   private applyLoggedOutState(): void {
-    this.authenticatedPlayer = false;
-    this.cloudText = '玩家未登录';
+    this.playerFriendCode = '';
     this.nearbyText = '登录后同步好友, 排行榜和附近人数';
   }
 
-  private applyLoggedInState(cloudText: string, nearbyText: string): void {
-    this.authenticatedPlayer = true;
-    this.cloudText = cloudText;
+  private applyLoggedInState(friendCode: string, nearbyText: string): void {
+    this.playerFriendCode = friendCode;
     this.nearbyText = nearbyText;
+  }
+
+  private hasLoggedInPlayer(): boolean {
+    return this.playerFriendCode.length > 0;
+  }
+
+  private playerStatusText(): string {
+    return this.hasLoggedInPlayer() ? `好友码 ${this.playerFriendCode}` : '玩家未登录';
   }
 
   private appContext(): common.Context {
