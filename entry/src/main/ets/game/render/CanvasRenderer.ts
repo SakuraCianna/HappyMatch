@@ -156,15 +156,15 @@ export class CanvasRenderer {
   private bitmapCacheAvailable: boolean = true;
   private layeredStaticKey: string = '';
   private previousDynamicBounds?: RenderBounds;
-  private animatedBoardVisualSource?: Board;
-  private animatedBoardVisualKey: string = '';
+  private boardVisualKeySource?: Board;
+  private boardVisualKeyCache: string = '';
 
   clearCache(): void {
     this.releaseStaticLayerCache();
     this.layeredStaticKey = '';
     this.previousDynamicBounds = undefined;
-    this.animatedBoardVisualSource = undefined;
-    this.animatedBoardVisualKey = '';
+    this.boardVisualKeySource = undefined;
+    this.boardVisualKeyCache = '';
   }
 
   dispose(): void {
@@ -172,8 +172,8 @@ export class CanvasRenderer {
     this.releasePieceBitmapCache();
     this.layeredStaticKey = '';
     this.previousDynamicBounds = undefined;
-    this.animatedBoardVisualSource = undefined;
-    this.animatedBoardVisualKey = '';
+    this.boardVisualKeySource = undefined;
+    this.boardVisualKeyCache = '';
   }
 
   warmPieceCache(pieceTypes: PieceType[], baseSize: number): void {
@@ -260,13 +260,13 @@ export class CanvasRenderer {
     const layout = options.layout ?? BoardLayout.compute(board, options.width, options.height);
     const effects = options.animation?.pieceEffects ?? [];
     const hasAnimation = effects.length > 0;
-    const effectLookup = hasAnimation ? this.buildEffectLookup(effects, board.cols) : undefined;
     const fastMode = options.animation?.fastMode === true;
     const fastStaticMode = options.animation?.fastStaticMode === true;
     const theme = options.theme ?? DEFAULT_BOARD_THEME;
     const staticKey = this.layeredStaticLayerKey(board, options, layout, theme, effects, hasAnimation);
 
     if (this.layeredStaticKey !== staticKey) {
+      const effectLookup = hasAnimation ? this.buildEffectLookup(effects, board.cols) : undefined;
       this.paintCanvasBase(staticCtx, options.width, options.height, theme.canvasFill);
       this.drawBoardBackground(
         staticCtx,
@@ -437,7 +437,7 @@ export class CanvasRenderer {
       `${options.width}x${options.height}`,
       `${layout.offsetX},${layout.offsetY},${layout.boardWidth},${layout.boardHeight},${layout.tileSize}`,
       `${theme.canvasFill}|${theme.fill}|${theme.innerFill}|${theme.stroke}|${theme.motif}|${theme.pattern}`,
-      this.boardVisualKeyFor(board, effects.length > 0),
+      this.boardVisualKeyFor(board),
       this.effectPositionKey(effects)
     ].join('#');
   }
@@ -456,7 +456,7 @@ export class CanvasRenderer {
       `${options.width}x${options.height}`,
       `${layout.offsetX},${layout.offsetY},${layout.boardWidth},${layout.boardHeight},${layout.tileSize}`,
       `${theme.canvasFill}|${theme.fill}|${theme.innerFill}|${theme.stroke}|${theme.motif}|${theme.pattern}`,
-      this.boardVisualKeyFor(board, hasAnimation),
+      this.boardVisualKeyFor(board),
       hasAnimation ? this.effectPositionKey(effects) : ''
     ].join('#');
   }
@@ -467,21 +467,24 @@ export class CanvasRenderer {
     width: number,
     height: number
   ): RenderBounds | undefined {
-    let result: RenderBounds | undefined = undefined;
+    if (effects.length === 0) {
+      return undefined;
+    }
+    let left = width;
+    let top = height;
+    let right = 0;
+    let bottom = 0;
     for (let index = 0; index < effects.length; index++) {
       const effect = effects[index];
       const centerX = layout.offsetX + effect.col * layout.tileSize + layout.tileSize / 2 + effect.offsetX;
       const centerY = layout.offsetY + effect.row * layout.tileSize + layout.tileSize / 2 + effect.offsetY;
       const radius = layout.tileSize * Math.max(0.76, 0.95 * effect.scale);
-      const bounds: RenderBounds = {
-        left: Math.max(0, Math.floor(centerX - radius)),
-        top: Math.max(0, Math.floor(centerY - radius)),
-        right: Math.min(width, Math.ceil(centerX + radius)),
-        bottom: Math.min(height, Math.ceil(centerY + radius))
-      };
-      result = this.mergeBounds(result, bounds);
+      left = Math.min(left, Math.max(0, Math.floor(centerX - radius)));
+      top = Math.min(top, Math.max(0, Math.floor(centerY - radius)));
+      right = Math.max(right, Math.min(width, Math.ceil(centerX + radius)));
+      bottom = Math.max(bottom, Math.min(height, Math.ceil(centerY + radius)));
     }
-    return result;
+    return { left, top, right, bottom };
   }
 
   private mergeBounds(first: RenderBounds | undefined, second: RenderBounds | undefined): RenderBounds | undefined {
@@ -512,7 +515,7 @@ export class CanvasRenderer {
   }
 
   private boardVisualKey(board: Board): string {
-    const parts: string[] = [`${board.rows}x${board.cols}`];
+    let result = `${board.rows}x${board.cols}`;
     for (let row = 0; row < board.rows; row++) {
       for (let col = 0; col < board.cols; col++) {
         const tile = board.tiles[row][col];
@@ -520,31 +523,31 @@ export class CanvasRenderer {
         const blocker = tile.blocker ?
           `${tile.blocker.type}:${tile.blocker.hp}:${tile.blocker.portalId ?? ''}:${tile.blocker.targetPortalId ?? ''}` :
           '-';
-        parts.push(`${piece}/${blocker}`);
+        result += `|${piece}/${blocker}`;
       }
     }
-    return parts.join('|');
+    return result;
   }
 
-  private boardVisualKeyFor(board: Board, allowAnimationCache: boolean): string {
-    if (allowAnimationCache && this.animatedBoardVisualSource === board) {
-      return this.animatedBoardVisualKey;
+  private boardVisualKeyFor(board: Board): string {
+    if (this.boardVisualKeySource === board) {
+      return this.boardVisualKeyCache;
     }
     const key = this.boardVisualKey(board);
-    if (allowAnimationCache) {
-      this.animatedBoardVisualSource = board;
-      this.animatedBoardVisualKey = key;
-    }
+    this.boardVisualKeySource = board;
+    this.boardVisualKeyCache = key;
     return key;
   }
 
   private effectPositionKey(effects: PieceRenderEffect[]): string {
-    const keys: string[] = [];
+    let result = '';
     for (let index = 0; index < effects.length; index++) {
-      keys.push(`${effects[index].row}_${effects[index].col}`);
+      if (index > 0) {
+        result += ',';
+      }
+      result += `${effects[index].row}_${effects[index].col}`;
     }
-    keys.sort();
-    return keys.join(',');
+    return result;
   }
 
   private releaseStaticLayerCache(): void {

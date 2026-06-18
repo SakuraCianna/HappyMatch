@@ -1529,32 +1529,28 @@ struct GamePage {
     const layout = this.layoutForBoard(board);
     const moveX = deltaCol * layout.tileSize;
     const moveY = deltaRow * layout.tileSize;
+    const effects: PieceRenderEffect[] = [
+      { row: first.row, col: first.col, offsetX: 0, offsetY: 0, scale: 1.05, opacity: 1 },
+      { row: second.row, col: second.col, offsetX: 0, offsetY: 0, scale: 1.05, opacity: 1 }
+    ];
     this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeInOut(progress);
       const amount = fromProgress + (toProgress - fromProgress) * eased;
-      this.drawBoardSnapshot(board, {
-        pieceEffects: [
-          { row: first.row, col: first.col, offsetX: moveX * amount, offsetY: moveY * amount, scale: 1.05, opacity: 1 },
-          { row: second.row, col: second.col, offsetX: -moveX * amount, offsetY: -moveY * amount, scale: 1.05, opacity: 1 }
-        ]
-      });
+      effects[0].offsetX = moveX * amount;
+      effects[0].offsetY = moveY * amount;
+      effects[1].offsetX = -moveX * amount;
+      effects[1].offsetY = -moveY * amount;
+      this.drawBoardSnapshot(board, { pieceEffects: effects });
     }, done, 'swap');
   }
 
   private animateClear(board: Board, positions: Position[], done: () => void, durationMs: number = 260): void {
+    const effects = this.createEffectsForPositions(positions);
     this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
-      const effects: PieceRenderEffect[] = [];
-      positions.forEach(position => {
-        effects.push({
-          row: position.row,
-          col: position.col,
-          offsetX: 0,
-          offsetY: 0,
-          scale: 1 + eased * 0.24,
-          opacity: 1 - eased
-        });
-      });
+      const scale = 1 + eased * 0.24;
+      const opacity = 1 - eased;
+      this.updateEffectScaleOpacity(effects, scale, opacity);
       this.drawBoardSnapshot(board, { pieceEffects: effects });
     }, done, 'clear');
   }
@@ -1567,40 +1563,24 @@ struct GamePage {
     durationMs: number = 210,
     switchAt: number = 0.18
   ): void {
+    const effects = this.createEffectsForPositions(positions);
     this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeInOut(progress);
       const pulse = progress < 0.5 ? eased : 1 - eased;
-      const effects: PieceRenderEffect[] = [];
-      positions.forEach(position => {
-        effects.push({
-          row: position.row,
-          col: position.col,
-          offsetX: 0,
-          offsetY: 0,
-          scale: 1 + pulse * 0.20,
-          opacity: 1
-        });
-      });
+      this.updateEffectScaleOpacity(effects, 1 + pulse * 0.20, 1);
       this.drawBoardSnapshot(progress < switchAt ? fromBoard : toBoard, { pieceEffects: effects });
     }, done, 'conversion');
   }
 
   private animateToolPulse(board: Board, position: Position, done: () => void): void {
+    const effects: PieceRenderEffect[] = [
+      { row: position.row, col: position.col, offsetX: 0, offsetY: 0, scale: 1, opacity: 1 }
+    ];
     this.runAnimation(160, (progress: number) => {
       const eased = this.easeInOut(progress);
       const pulse = progress < 0.5 ? eased : 1 - eased;
-      this.drawBoardSnapshot(board, {
-        pieceEffects: [
-          {
-            row: position.row,
-            col: position.col,
-            offsetX: 0,
-            offsetY: 0,
-            scale: 1 + pulse * 0.16,
-            opacity: 1
-          }
-        ]
-      });
+      effects[0].scale = 1 + pulse * 0.16;
+      this.drawBoardSnapshot(board, { pieceEffects: effects });
     }, done, 'tool');
   }
 
@@ -1612,11 +1592,60 @@ struct GamePage {
   }
 
   private animateSettleWithMotions(toBoard: Board, motions: PieceFallMotion[], durationMs: number, done: () => void): void {
+    const effects = this.createEffectsForMotions(motions);
     this.runAnimation(durationMs, (progress: number) => {
       const eased = this.easeOut(progress);
-      const effects = BoardAnimationPlanner.interpolateFallEffects(motions, eased);
+      this.updateFallEffects(effects, motions, eased);
       this.drawBoardSnapshot(toBoard, { pieceEffects: effects });
     }, done, 'settle');
+  }
+
+  private createEffectsForPositions(positions: Position[]): PieceRenderEffect[] {
+    const effects: PieceRenderEffect[] = [];
+    for (let index = 0; index < positions.length; index++) {
+      effects.push({
+        row: positions[index].row,
+        col: positions[index].col,
+        offsetX: 0,
+        offsetY: 0,
+        scale: 1,
+        opacity: 1
+      });
+    }
+    return effects;
+  }
+
+  private updateEffectScaleOpacity(effects: PieceRenderEffect[], scale: number, opacity: number): void {
+    for (let index = 0; index < effects.length; index++) {
+      effects[index].scale = scale;
+      effects[index].opacity = opacity;
+    }
+  }
+
+  private createEffectsForMotions(motions: PieceFallMotion[]): PieceRenderEffect[] {
+    const effects: PieceRenderEffect[] = [];
+    for (let index = 0; index < motions.length; index++) {
+      effects.push({
+        row: motions[index].row,
+        col: motions[index].col,
+        offsetX: motions[index].offsetX,
+        offsetY: motions[index].offsetY,
+        scale: 0.98,
+        opacity: motions[index].opacity
+      });
+    }
+    return effects;
+  }
+
+  private updateFallEffects(effects: PieceRenderEffect[], motions: PieceFallMotion[], progress: number): void {
+    const clampedProgress = Math.max(0, Math.min(1, progress));
+    for (let index = 0; index < effects.length; index++) {
+      const motion = motions[index];
+      effects[index].offsetX = motion.offsetX * (1 - clampedProgress);
+      effects[index].offsetY = motion.offsetY * (1 - clampedProgress);
+      effects[index].scale = 0.98 + clampedProgress * 0.02;
+      effects[index].opacity = motion.opacity + (1 - motion.opacity) * clampedProgress;
+    }
   }
 
   private settleDurationForMotions(motions: PieceFallMotion[], tileSize: number, baseDuration: number): number {
